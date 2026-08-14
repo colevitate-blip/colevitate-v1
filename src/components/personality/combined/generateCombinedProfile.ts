@@ -111,7 +111,7 @@ export function generateCombinedProfile(results: PersonalityResults): CombinedPr
       case "bigfive":
         return `carry ${t.name}'s temperament in day-to-day behavior`;
       case "humandesign":
-        return `run on ${t.name} energy, built to ${HD_CONTENT[results.humandesign!.type].strategy.toLowerCase()}`;
+        return `run on ${t.name} energy, built to ${HD_CONTENT[results.humandesign!.type].strategy.toLowerCase().replace(/\.$/, "")}`;
       case "colors":
         return `lead with ${t.name.split("—")[0].trim()} energy in how you operate with other people`;
       default:
