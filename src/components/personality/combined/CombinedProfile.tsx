@@ -26,7 +26,7 @@ export function CombinedProfile({
     <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:py-12">
       <div className="mb-8">
         <Link
-          href="/personality"
+          href="/"
           className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
           <ChevronLeft className="size-4" />
@@ -159,7 +159,7 @@ export function CombinedProfile({
           return (
             <Link
               key={t.id}
-              href={`/personality/${meta.slug}`}
+              href={`/${meta.slug}`}
               className={cn(
                 "rounded-2xl border p-5 transition-colors hover:bg-muted/50",
                 accent.border

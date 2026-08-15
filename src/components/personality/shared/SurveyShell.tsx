@@ -41,19 +41,19 @@ export function SurveyShell({
     <div className="mx-auto flex min-h-[100dvh] w-full max-w-2xl flex-col px-4 py-8 sm:py-12">
       <div className="mb-8 flex items-center justify-between rounded-2xl border bg-card/60 px-5 py-3 backdrop-blur-md">
         <Link
-          href="/personality"
+          href="/"
           className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
           <ChevronLeft className="size-4" />
           Overview
         </Link>
         <div className="flex items-center gap-3">
-          {process.env.NODE_ENV !== "production" && onAutofill ? (
+          {process.env.NEXT_PUBLIC_VERCEL_ENV !== "production" && onAutofill ? (
             <button
               type="button"
               onClick={onAutofill}
               className="rounded-full border border-dashed border-muted-foreground/40 px-2.5 py-1 text-xs font-medium text-muted-foreground transition-colors hover:border-foreground/40 hover:text-foreground"
-              title="Dev only: fill randomly and jump to results"
+              title="Dev/preview only: fill randomly and jump to results"
             >
               ⚡ Autofill
             </button>

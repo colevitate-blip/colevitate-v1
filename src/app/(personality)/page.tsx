@@ -60,7 +60,7 @@ export default function PersonalityLandingPage() {
           return (
             <AssessmentCard
               key={id}
-              href={`/personality/${meta.slug}`}
+              href={`/${meta.slug}`}
               label={meta.label}
               tagline={meta.tagline}
               description={meta.description}
@@ -104,7 +104,7 @@ export default function PersonalityLandingPage() {
             disabled={!canCombine}
             className="mt-7 rounded-full bg-gradient-to-r from-[#7c8cff] to-[#37e0c4] text-[#05070f] shadow-[0_16px_34px_-8px_rgba(124,140,255,0.5)] hover:opacity-90 disabled:pointer-events-none disabled:opacity-40"
           >
-            <Link href={canCombine ? "/personality/combined" : "#"}>
+            <Link href={canCombine ? "/combined" : "#"}>
               Generate Combined Profile
               <ArrowRight className="size-4" />
             </Link>

@@ -24,7 +24,7 @@ export default function CombinedProfilePage() {
           together. You've finished {completedIds.length} so far.
         </p>
         <Button asChild className="mt-6 rounded-full">
-          <Link href="/personality">
+          <Link href="/">
             <ArrowLeft className="size-4" />
             Back to assessments
           </Link>

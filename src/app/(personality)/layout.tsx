@@ -22,7 +22,7 @@ export default function PersonalityLayout({ children }: { children: ReactNode })
         />
         <header className="sticky top-4 z-20 mx-auto mb-2 w-full max-w-6xl px-4">
           <div className="flex h-14 items-center justify-between rounded-2xl border bg-card/60 px-5 backdrop-blur-md">
-            <Link href="/personality" className="flex items-center gap-2 font-semibold tracking-tight">
+            <Link href="/" className="flex items-center gap-2 font-semibold tracking-tight">
               <span className="flex size-7 items-center justify-center rounded-full bg-gradient-to-br from-[#7c8cff] to-[#37e0c4] text-[#05070f]">
                 <Sparkles className="size-3.5" />
               </span>

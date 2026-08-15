@@ -40,7 +40,7 @@ export function ResultShell({
     <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:py-12">
       <div className="mb-8 flex items-center justify-between">
         <Link
-          href="/personality"
+          href="/"
           className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
           <ChevronLeft className="size-4" />
