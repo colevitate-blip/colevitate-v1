@@ -30,6 +30,14 @@ export function BigFiveSurvey() {
     setStep((s) => s + 1);
   }
 
+  function handleAutofill() {
+    const filled: Record<string, number | string> = {};
+    for (const q of BIG_FIVE_QUESTIONS) {
+      filled[q.id] = Math.ceil(Math.random() * 5);
+    }
+    saveResult("bigfive", scoreBigFive(filled));
+  }
+
   return (
     <SurveyShell
       title="Big Five (OCEAN)"
@@ -40,6 +48,7 @@ export function BigFiveSurvey() {
       onNext={handleNext}
       canAdvance={value !== undefined}
       isLastStep={isLastStep}
+      onAutofill={handleAutofill}
     >
       <ScaleQuestionCard
         prompt={question.statement}

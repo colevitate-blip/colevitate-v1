@@ -27,7 +27,7 @@ export function ChoiceQuestionCard({
   accent,
 }: ChoiceQuestionCardProps) {
   return (
-    <div className="rounded-3xl border bg-card p-6 shadow-sm sm:p-8">
+    <div className="rounded-3xl border bg-card p-6 shadow-[0_24px_50px_-16px_rgba(0,0,0,0.5)] sm:p-8">
       <p className="text-lg font-medium leading-snug sm:text-xl">{prompt}</p>
       {helper ? (
         <p className="mt-2 text-sm text-muted-foreground">{helper}</p>
@@ -45,7 +45,7 @@ export function ChoiceQuestionCard({
                 "flex w-full items-center justify-between gap-3 rounded-2xl border-2 px-5 py-4 text-left text-sm font-medium transition-all sm:text-base",
                 selected
                   ? cn("border-transparent bg-gradient-to-r text-white shadow-md", accent.gradient)
-                  : "border-border bg-background hover:border-foreground/30"
+                  : "border-border bg-background hover:-translate-y-0.5 hover:border-foreground/30 hover:bg-accent/40"
               )}
             >
               <span>{option.label}</span>

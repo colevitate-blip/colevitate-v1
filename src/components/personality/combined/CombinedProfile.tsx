@@ -34,8 +34,8 @@ export function CombinedProfile({
         </Link>
       </div>
 
-      <div className="relative overflow-hidden rounded-[2.5rem] border bg-card p-6 shadow-sm sm:p-10">
-        <div className="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full bg-gradient-to-br from-violet-500 via-fuchsia-500 to-amber-500 opacity-10 blur-3xl" />
+      <div className="relative overflow-hidden rounded-[2.5rem] border bg-card p-6 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.55)] sm:p-10">
+        <div className="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full bg-gradient-to-br from-[#7c8cff] to-[#37e0c4] opacity-15 blur-3xl" />
 
         <div className="relative flex flex-col items-start gap-6 sm:flex-row sm:items-center">
           <div className="grid shrink-0 grid-cols-2 gap-2">
@@ -74,7 +74,7 @@ export function CombinedProfile({
         </div>
       </div>
 
-      <div className="mt-8 rounded-3xl border bg-card p-6">
+      <div className="mt-8 rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_rgba(0,0,0,0.5)]">
         <div className="mb-1 flex items-center gap-2">
           <div className="flex size-8 items-center justify-center rounded-full bg-muted">
             <SlidersHorizontal className="size-4" />
@@ -99,7 +99,7 @@ export function CombinedProfile({
                 <div className="relative h-2 rounded-full bg-muted">
                   <div className="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-border" />
                   <div
-                    className="absolute inset-y-0 rounded-full bg-gradient-to-r from-violet-500 via-fuchsia-500 to-amber-500"
+                    className="absolute inset-y-0 rounded-full bg-gradient-to-r from-[#7c8cff] to-[#37e0c4]"
                     style={{ left: `${fillLeft}%`, width: `${fillWidth}%` }}
                   />
                 </div>
@@ -114,7 +114,7 @@ export function CombinedProfile({
       </div>
 
       <div className="mt-8 grid gap-6 sm:grid-cols-2">
-        <div className="rounded-3xl border bg-card p-6">
+        <div className="rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_rgba(0,0,0,0.5)]">
           <div className="mb-4 flex items-center gap-2">
             <div className="flex size-8 items-center justify-center rounded-full bg-muted">
               <TrendingUp className="size-4" />
@@ -131,7 +131,7 @@ export function CombinedProfile({
           </ul>
         </div>
 
-        <div className="rounded-3xl border bg-card p-6">
+        <div className="rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_rgba(0,0,0,0.5)]">
           <div className="mb-4 flex items-center gap-2">
             <div className="flex size-8 items-center justify-center rounded-full bg-muted">
               <Leaf className="size-4" />

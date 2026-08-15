@@ -30,6 +30,15 @@ export function ColorSurvey() {
     setStep((s) => s + 1);
   }
 
+  function handleAutofill() {
+    const filled: Record<string, number | string> = {};
+    for (const q of COLOR_QUESTIONS) {
+      const opt = q.options[Math.floor(Math.random() * q.options.length)];
+      filled[q.id] = opt.id;
+    }
+    saveResult("colors", scoreColors(filled));
+  }
+
   return (
     <SurveyShell
       title="4 Color Types"
@@ -40,6 +49,7 @@ export function ColorSurvey() {
       onNext={handleNext}
       canAdvance={value !== undefined}
       isLastStep={isLastStep}
+      onAutofill={handleAutofill}
     >
       <ChoiceQuestionCard
         prompt={question.prompt}

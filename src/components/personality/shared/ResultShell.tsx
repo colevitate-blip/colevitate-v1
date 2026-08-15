@@ -54,7 +54,7 @@ export function ResultShell({
 
       <div
         className={cn(
-          "relative overflow-hidden rounded-[2.5rem] border p-6 shadow-sm sm:p-10",
+          "relative overflow-hidden rounded-[2.5rem] border p-6 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.55)] sm:p-10",
           accent.softBg
         )}
       >
@@ -83,7 +83,7 @@ export function ResultShell({
       </div>
 
       <div className="mt-8 grid gap-6 sm:grid-cols-2">
-        <div className="rounded-3xl border bg-card p-6">
+        <div className="rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_rgba(0,0,0,0.5)]">
           <div className="mb-4 flex items-center gap-2">
             <div className={cn("flex size-8 items-center justify-center rounded-full", accent.softBg)}>
               <TrendingUp className={cn("size-4", accent.text)} />
@@ -100,7 +100,7 @@ export function ResultShell({
           </ul>
         </div>
 
-        <div className="rounded-3xl border bg-card p-6">
+        <div className="rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_rgba(0,0,0,0.5)]">
           <div className="mb-4 flex items-center gap-2">
             <div className={cn("flex size-8 items-center justify-center rounded-full", accent.softBg)}>
               <Leaf className={cn("size-4", accent.text)} />

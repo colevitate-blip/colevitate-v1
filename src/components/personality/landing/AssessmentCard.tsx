@@ -31,7 +31,7 @@ export function AssessmentCard({
     <Link
       href={href}
       className={cn(
-        "group relative flex flex-col overflow-hidden rounded-3xl border bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg sm:p-7"
+        "group relative flex flex-col overflow-hidden rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_rgba(0,0,0,0.5)] transition-all duration-300 [transform-style:preserve-3d] hover:-translate-y-1 hover:shadow-[0_28px_56px_-16px_rgba(0,0,0,0.6)] hover:[transform:rotateX(3deg)_rotateY(-3deg)_translateY(-4px)] sm:p-7"
       )}
     >
       <div

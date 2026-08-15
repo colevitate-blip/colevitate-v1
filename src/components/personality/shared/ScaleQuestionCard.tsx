@@ -25,7 +25,7 @@ export function ScaleQuestionCard({
   accent,
 }: ScaleQuestionCardProps) {
   return (
-    <div className="rounded-3xl border bg-card p-6 shadow-sm sm:p-8">
+    <div className="rounded-3xl border bg-card p-6 shadow-[0_24px_50px_-16px_rgba(0,0,0,0.5)] sm:p-8">
       <p className="text-lg font-medium leading-snug sm:text-xl">{prompt}</p>
       {helper ? (
         <p className="mt-2 text-sm text-muted-foreground">{helper}</p>
@@ -45,7 +45,7 @@ export function ScaleQuestionCard({
                   "flex size-11 shrink-0 items-center justify-center rounded-full border-2 text-sm font-semibold transition-all sm:size-12",
                   selected
                     ? cn("border-transparent bg-gradient-to-br text-white shadow-md scale-110", accent.gradient)
-                    : "border-border bg-background text-muted-foreground hover:border-foreground/30 hover:text-foreground"
+                    : "border-border bg-background text-muted-foreground hover:-translate-y-0.5 hover:border-foreground/30 hover:text-foreground"
                 )}
               >
                 {step}

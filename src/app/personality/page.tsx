@@ -37,13 +37,13 @@ export default function PersonalityLandingPage() {
   return (
     <main className="mx-auto w-full max-w-6xl px-4 pb-24 pt-14 sm:pt-20">
       <section className="mx-auto max-w-2xl text-center">
-        <span className="mb-4 inline-flex items-center gap-1.5 rounded-full border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">
+        <span className="mb-4 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium uppercase tracking-wide text-[#9fa8ff]">
           <Sparkles className="size-3.5" />
           Four frameworks, one profile
         </span>
         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
           Know yourself,{" "}
-          <span className="bg-gradient-to-r from-violet-500 via-fuchsia-500 to-amber-500 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-[#7c8cff] to-[#37e0c4] bg-clip-text text-transparent">
             from every angle
           </span>
         </h1>
@@ -74,7 +74,7 @@ export default function PersonalityLandingPage() {
         })}
       </section>
 
-      <section className="mt-14 overflow-hidden rounded-[2.5rem] border bg-card p-8 text-center sm:p-12">
+      <section className="mt-14 overflow-hidden rounded-[2.5rem] border bg-gradient-to-br from-[#7c8cff]/[0.08] to-[#37e0c4]/[0.06] bg-card p-8 text-center shadow-[0_30px_70px_-20px_rgba(0,0,0,0.5)] sm:p-12">
         <div className="mx-auto max-w-xl">
           <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
             Your Combined Profile
@@ -102,7 +102,7 @@ export default function PersonalityLandingPage() {
             asChild
             size="lg"
             disabled={!canCombine}
-            className="mt-7 rounded-full bg-gradient-to-r from-violet-500 via-fuchsia-500 to-amber-500 text-white hover:opacity-90 disabled:pointer-events-none disabled:opacity-40"
+            className="mt-7 rounded-full bg-gradient-to-r from-[#7c8cff] to-[#37e0c4] text-[#05070f] shadow-[0_16px_34px_-8px_rgba(124,140,255,0.5)] hover:opacity-90 disabled:pointer-events-none disabled:opacity-40"
           >
             <Link href={canCombine ? "/personality/combined" : "#"}>
               Generate Combined Profile

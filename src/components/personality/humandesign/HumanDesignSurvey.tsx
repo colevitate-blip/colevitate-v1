@@ -30,6 +30,15 @@ export function HumanDesignSurvey() {
     setStep((s) => s + 1);
   }
 
+  function handleAutofill() {
+    const filled: Record<string, number | string> = {};
+    for (const q of HD_QUESTIONS) {
+      const opt = q.options[Math.floor(Math.random() * q.options.length)];
+      filled[q.id] = opt.id;
+    }
+    saveResult("humandesign", scoreHumanDesign(filled));
+  }
+
   return (
     <SurveyShell
       title="Human Design"
@@ -40,6 +49,7 @@ export function HumanDesignSurvey() {
       onNext={handleNext}
       canAdvance={value !== undefined}
       isLastStep={isLastStep}
+      onAutofill={handleAutofill}
     >
       <ChoiceQuestionCard
         prompt={question.prompt}

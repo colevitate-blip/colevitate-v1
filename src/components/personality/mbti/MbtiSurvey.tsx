@@ -30,6 +30,14 @@ export function MbtiSurvey() {
     setStep((s) => s + 1);
   }
 
+  function handleAutofill() {
+    const filled: Record<string, number | string> = {};
+    for (const q of MBTI_QUESTIONS) {
+      filled[q.id] = Math.ceil(Math.random() * 5);
+    }
+    saveResult("mbti", scoreMbti(filled));
+  }
+
   return (
     <SurveyShell
       title="16 Personalities"
@@ -40,6 +48,7 @@ export function MbtiSurvey() {
       onNext={handleNext}
       canAdvance={value !== undefined}
       isLastStep={isLastStep}
+      onAutofill={handleAutofill}
     >
       <ScaleQuestionCard
         prompt={question.prompt}

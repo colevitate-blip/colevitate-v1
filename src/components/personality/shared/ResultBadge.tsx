@@ -10,7 +10,7 @@ export function ResultBadge({ code, gradient, size = "lg" }: ResultBadgeProps) {
   return (
     <div
       className={cn(
-        "relative flex shrink-0 items-center justify-center rounded-[2rem] bg-gradient-to-br shadow-lg",
+        "relative flex shrink-0 items-center justify-center rounded-[2rem] bg-gradient-to-br shadow-[0_20px_44px_-14px_rgba(0,0,0,0.5)]",
         gradient,
         size === "lg" ? "size-28 sm:size-32" : "size-16"
       )}
