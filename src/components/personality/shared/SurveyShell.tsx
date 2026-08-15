@@ -48,12 +48,12 @@ export function SurveyShell({
           Overview
         </Link>
         <div className="flex items-center gap-3">
-          {process.env.NEXT_PUBLIC_VERCEL_ENV !== "production" && onAutofill ? (
+          {onAutofill ? (
             <button
               type="button"
               onClick={onAutofill}
               className="rounded-full border border-dashed border-muted-foreground/40 px-2.5 py-1 text-xs font-medium text-muted-foreground transition-colors hover:border-foreground/40 hover:text-foreground"
-              title="Dev/preview only: fill randomly and jump to results"
+              title="Testing shortcut: fill randomly and jump to results"
             >
               ⚡ Autofill
             </button>
