@@ -5,6 +5,7 @@ import { HD_CONTENT } from "@/components/personality/humandesign/content";
 import { COLOR_CONTENT } from "@/components/personality/colors/content";
 import { ASSESSMENT_CATALOG } from "@/lib/personality/catalog";
 import { computeScoringMatrix, type AxisScore } from "./scoringMatrix";
+import { getArchetype, type Archetype } from "./archetypeMatrix";
 
 export interface CombinedThread {
   id: AssessmentId;
@@ -24,6 +25,7 @@ export interface CombinedProfile {
   strengths: string[];
   growth: string[];
   axes: AxisScore[];
+  archetype: Archetype | null;
 }
 
 const GROWTH_THEMES: { theme: string; keywords: string[] }[] = [
@@ -143,8 +145,9 @@ export function generateCombinedProfile(results: PersonalityResults): CombinedPr
 
   const strengths = dedupeTop(threads.flatMap((t) => t.strengths.slice(0, 1)), 4);
   const growth = dedupeTop(threads.flatMap((t) => t.growth.slice(0, 1)), 4);
+  const archetype = getArchetype(axes);
 
-  return { headline, subtitle, narrative: paragraphs, threads, strengths, growth, axes };
+  return { headline, subtitle, narrative: paragraphs, threads, strengths, growth, axes, archetype };
 }
 
 function joinClauses(clauses: string[]) {

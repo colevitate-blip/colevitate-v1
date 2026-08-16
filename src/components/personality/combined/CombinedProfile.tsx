@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ChevronLeft, Sparkles, TrendingUp, Leaf, SlidersHorizontal } from "lucide-react";
+import { ChevronLeft, Sparkles, TrendingUp, Leaf, SlidersHorizontal, Fingerprint } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
@@ -73,6 +73,23 @@ export function CombinedProfile({
           ))}
         </div>
       </div>
+
+      {profile.archetype ? (
+        <div className="mt-8 rounded-3xl border bg-card p-6 text-center shadow-[0_18px_40px_-16px_rgba(0,0,0,0.5)] sm:p-8">
+          <div className="mx-auto mb-3 flex size-10 items-center justify-center rounded-full bg-gradient-to-br from-[#7c8cff] to-[#37e0c4] text-white">
+            <Fingerprint className="size-5" />
+          </div>
+          <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+            Your Archetype
+          </p>
+          <h2 className="mt-1 text-2xl font-bold tracking-tight sm:text-3xl">
+            {profile.archetype.name}
+          </h2>
+          <p className="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+            {profile.archetype.description}
+          </p>
+        </div>
+      ) : null}
 
       <div className="mt-8 rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_rgba(0,0,0,0.5)]">
         <div className="mb-1 flex items-center gap-2">
