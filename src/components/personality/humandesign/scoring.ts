@@ -1,4 +1,4 @@
-import type { HumanDesignResult, HumanDesignType } from "@/lib/personality/types";
+import type { AnswerValue, HumanDesignResult, HumanDesignType, QuestionMeta } from "@/lib/personality/types";
 import { HD_QUESTIONS } from "./questions";
 
 const TYPE_ORDER: HumanDesignType[] = [
@@ -9,7 +9,10 @@ const TYPE_ORDER: HumanDesignType[] = [
   "reflector",
 ];
 
-export function scoreHumanDesign(answers: Record<string, number | string>): HumanDesignResult {
+export function scoreHumanDesign(
+  answers: Record<string, AnswerValue>,
+  meta: Record<string, QuestionMeta> = {}
+): HumanDesignResult {
   const scores: Record<HumanDesignType, number> = {
     generator: 0,
     "manifesting-generator": 0,
@@ -17,8 +20,13 @@ export function scoreHumanDesign(answers: Record<string, number | string>): Huma
     projector: 0,
     reflector: 0,
   };
+  const skippedQuestionIds: string[] = [];
 
   for (const question of HD_QUESTIONS) {
+    if (meta[question.id]?.skipped) {
+      skippedQuestionIds.push(question.id);
+      continue;
+    }
     const chosenId = answers[question.id];
     const option = question.options.find((o) => o.id === chosenId);
     if (!option) continue;
@@ -36,9 +44,23 @@ export function scoreHumanDesign(answers: Record<string, number | string>): Huma
     }
   }
 
-  return { type: winner, scores, completedAt: new Date().toISOString() };
+  return {
+    type: winner,
+    scores,
+    completedAt: new Date().toISOString(),
+    skippedQuestionIds: skippedQuestionIds.length ? skippedQuestionIds : undefined,
+  };
 }
 
-export function isHumanDesignComplete(answers: Record<string, number | string>) {
+export function isHumanDesignComplete(answers: Record<string, AnswerValue>) {
   return HD_QUESTIONS.every((q) => typeof answers[q.id] === "string");
+}
+
+export function isHumanDesignCoreComplete(
+  answers: Record<string, AnswerValue>,
+  meta: Record<string, QuestionMeta> = {}
+) {
+  return HD_QUESTIONS.filter((q) => q.tier === "core").every(
+    (q) => typeof answers[q.id] === "string" || meta[q.id]?.skipped
+  );
 }

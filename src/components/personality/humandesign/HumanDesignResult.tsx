@@ -4,6 +4,7 @@ import { Compass } from "lucide-react";
 import { ResultShell } from "@/components/personality/shared/ResultShell";
 import { ResultBadge } from "@/components/personality/shared/ResultBadge";
 import { TraitBar } from "@/components/personality/shared/TraitBar";
+import { MiddleGroundNote } from "@/components/personality/shared/MiddleGroundNote";
 import { usePersonality } from "@/lib/personality/context";
 import { ASSESSMENT_THEME } from "@/lib/personality/theme";
 import { cn } from "@/lib/utils";
@@ -23,6 +24,8 @@ export function HumanDesignResult({ result }: { result: HdResultType }) {
   const accent = ASSESSMENT_THEME.humandesign;
   const content = HD_CONTENT[result.type];
   const maxScore = Math.max(1, ...Object.values(result.scores));
+  const ranked = [...TYPE_ORDER].sort((a, b) => result.scores[b] - result.scores[a]);
+  const isCloseCall = ranked.length > 1 && maxScore - result.scores[ranked[1]] <= maxScore * 0.15;
 
   return (
     <ResultShell
@@ -41,6 +44,12 @@ export function HumanDesignResult({ result }: { result: HdResultType }) {
             <Compass className={cn("mt-0.5 size-5 shrink-0", accent.text)} />
             <p className="text-sm leading-relaxed">{content.strategy}</p>
           </div>
+          {isCloseCall ? (
+            <MiddleGroundNote
+              label={`${content.name.replace("The ", "")} / ${HD_CONTENT[ranked[1]].name.replace("The ", "")}`}
+              accent={accent}
+            />
+          ) : null}
           <div className="space-y-4">
             {TYPE_ORDER.map((type) => (
               <TraitBar
@@ -53,7 +62,11 @@ export function HumanDesignResult({ result }: { result: HdResultType }) {
           </div>
         </div>
       }
-      footnote="Traditional Human Design charts are calculated from an exact birth date, time, and location. This is a simplified self-reflection quiz inspired by its energy types and strategies — not a calculated bodygraph."
+      footnote={
+        result.skippedQuestionIds?.length
+          ? `Traditional Human Design charts are calculated from an exact birth date, time, and location. This is a simplified self-reflection quiz inspired by its energy types and strategies — not a calculated bodygraph. You skipped ${result.skippedQuestionIds.length} question${result.skippedQuestionIds.length === 1 ? "" : "s"}, which weren't counted toward any type.`
+          : "Traditional Human Design charts are calculated from an exact birth date, time, and location. This is a simplified self-reflection quiz inspired by its energy types and strategies — not a calculated bodygraph."
+      }
     />
   );
 }

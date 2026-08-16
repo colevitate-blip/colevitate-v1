@@ -2,13 +2,18 @@
 
 import * as React from "react";
 import {
+  appendFeedbackNote,
+  loadGuidanceSeen,
   loadProgress,
   loadResults,
+  persistGuidanceSeen,
   persistProgress,
   persistResults,
 } from "./storage";
 import type {
   AssessmentId,
+  FeedbackNote,
+  GuidanceSeenMap,
   PersonalityResults,
   ProgressMap,
   SurveyProgress,
@@ -18,11 +23,14 @@ interface PersonalityContextValue {
   mounted: boolean;
   results: PersonalityResults;
   progress: ProgressMap;
+  guidanceSeen: GuidanceSeenMap;
   completedIds: AssessmentId[];
   saveResult: <K extends AssessmentId>(id: K, result: PersonalityResults[K]) => void;
   saveProgress: (id: AssessmentId, progress: SurveyProgress) => void;
   resetAssessment: (id: AssessmentId) => void;
   resetAll: () => void;
+  markGuidanceSeen: (id: AssessmentId) => void;
+  saveFeedbackNote: (note: Omit<FeedbackNote, "createdAt">) => void;
 }
 
 const PersonalityContext = React.createContext<PersonalityContextValue | null>(null);
@@ -31,10 +39,14 @@ export function PersonalityProvider({ children }: { children: React.ReactNode })
   const [mounted, setMounted] = React.useState(false);
   const [results, setResults] = React.useState<PersonalityResults>({});
   const [progress, setProgress] = React.useState<ProgressMap>({});
+  const [guidanceSeen, setGuidanceSeen] = React.useState<GuidanceSeenMap>({});
 
   React.useEffect(() => {
+    // One-time hydration from localStorage on mount (SSR-unsafe, so it can't run during render).
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setResults(loadResults());
     setProgress(loadProgress());
+    setGuidanceSeen(loadGuidanceSeen());
     setMounted(true);
   }, []);
 
@@ -88,6 +100,19 @@ export function PersonalityProvider({ children }: { children: React.ReactNode })
     persistProgress({});
   }, []);
 
+  const markGuidanceSeen = React.useCallback((id: AssessmentId) => {
+    setGuidanceSeen((prev) => {
+      if (prev[id]) return prev;
+      const next = { ...prev, [id]: true };
+      persistGuidanceSeen(next);
+      return next;
+    });
+  }, []);
+
+  const saveFeedbackNote = React.useCallback((note: Omit<FeedbackNote, "createdAt">) => {
+    appendFeedbackNote({ ...note, createdAt: new Date().toISOString() });
+  }, []);
+
   const completedIds = React.useMemo(
     () => (Object.keys(results) as AssessmentId[]).filter((id) => results[id]),
     [results]
@@ -98,13 +123,28 @@ export function PersonalityProvider({ children }: { children: React.ReactNode })
       mounted,
       results,
       progress,
+      guidanceSeen,
       completedIds,
       saveResult,
       saveProgress,
       resetAssessment,
       resetAll,
+      markGuidanceSeen,
+      saveFeedbackNote,
     }),
-    [mounted, results, progress, completedIds, saveResult, saveProgress, resetAssessment, resetAll]
+    [
+      mounted,
+      results,
+      progress,
+      guidanceSeen,
+      completedIds,
+      saveResult,
+      saveProgress,
+      resetAssessment,
+      resetAll,
+      markGuidanceSeen,
+      saveFeedbackNote,
+    ]
   );
 
   return (

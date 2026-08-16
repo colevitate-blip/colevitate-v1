@@ -9,6 +9,10 @@ export interface ColorQuestion {
   id: string;
   prompt: string;
   options: ColorOption[];
+  tier: "core" | "extended";
+  example: string;
+  /** "ranking" has the user order all 4 options instead of picking just one, for a stronger signal. */
+  format?: "choice" | "ranking";
 }
 
 function opts(red: string, blue: string, green: string, yellow: string): ColorOption[] {
@@ -24,6 +28,8 @@ export const COLOR_QUESTIONS: ColorQuestion[] = [
   {
     id: "c-1",
     prompt: "In a team meeting, you're most likely to...",
+    tier: "core",
+    example: "Picture your last team meeting — which of these four things did you actually do?",
     options: opts(
       "push for a decision and move things along.",
       "ask clarifying questions and check the details first.",
@@ -33,7 +39,10 @@ export const COLOR_QUESTIONS: ColorQuestion[] = [
   },
   {
     id: "c-2",
-    prompt: "Your friends would describe you as...",
+    prompt: "Rank these from most to least like you: your friends would describe you as...",
+    tier: "extended",
+    format: "ranking",
+    example: "There's no single right answer — just order all four from the one that fits best to the one that fits least.",
     options: opts(
       "direct and results-focused.",
       "thoughtful and precise.",
@@ -44,6 +53,8 @@ export const COLOR_QUESTIONS: ColorQuestion[] = [
   {
     id: "c-3",
     prompt: "When plans suddenly change, you...",
+    tier: "core",
+    example: "Think of the last time plans fell through last-minute — what was your actual first reaction?",
     options: opts(
       "adjust fast and refocus on the new goal.",
       "want to understand why before reacting.",
@@ -54,6 +65,8 @@ export const COLOR_QUESTIONS: ColorQuestion[] = [
   {
     id: "c-4",
     prompt: "Under pressure, you tend to...",
+    tier: "extended",
+    example: "Recall a genuinely stressful moment at work — how did you actually behave, not how you wish you had?",
     options: opts(
       "get more decisive and take charge.",
       "slow down and double-check everything.",
@@ -64,6 +77,8 @@ export const COLOR_QUESTIONS: ColorQuestion[] = [
   {
     id: "c-5",
     prompt: "Your ideal weekend involves...",
+    tier: "core",
+    example: "If you had a totally free weekend with no obligations, what would you actually gravitate toward?",
     options: opts(
       "achieving something concrete — a project, a goal, a win.",
       "quiet time to think, read, or dig into a topic.",
@@ -74,6 +89,8 @@ export const COLOR_QUESTIONS: ColorQuestion[] = [
   {
     id: "c-6",
     prompt: "In conflict, you're most likely to...",
+    tier: "extended",
+    example: "Think of a recent disagreement with someone close to you — what did you actually do?",
     options: opts(
       "address it head-on, immediately.",
       "step back and think it through before responding.",
@@ -84,6 +101,8 @@ export const COLOR_QUESTIONS: ColorQuestion[] = [
   {
     id: "c-7",
     prompt: "What motivates you most at work?",
+    tier: "core",
+    example: "On your best day at work, what was actually happening that made it feel good?",
     options: opts(
       "hitting ambitious goals and winning.",
       "doing the work correctly and thoroughly.",
@@ -93,17 +112,10 @@ export const COLOR_QUESTIONS: ColorQuestion[] = [
   },
   {
     id: "c-8",
-    prompt: "Your workspace tends to be...",
-    options: opts(
-      "efficient — whatever helps you move fast.",
-      "organized — everything has its place.",
-      "personal and cozy — photos, comfortable touches.",
-      "colorful and a little chaotic, full of ideas in progress."
-    ),
-  },
-  {
-    id: "c-9",
-    prompt: "When making decisions, you rely most on...",
+    prompt: "Rank these from most to least like you: when making decisions, you rely most on...",
+    tier: "extended",
+    format: "ranking",
+    example: "Order all four from the one that best describes how you actually decide, to the one that fits least.",
     options: opts(
       "quick, confident instinct.",
       "careful analysis of the facts.",
@@ -112,8 +124,22 @@ export const COLOR_QUESTIONS: ColorQuestion[] = [
     ),
   },
   {
+    id: "c-9",
+    prompt: "Your workspace tends to be...",
+    tier: "core",
+    example: "Picture your actual desk or workspace right now — which of these genuinely describes it?",
+    options: opts(
+      "efficient — whatever helps you move fast.",
+      "organized — everything has its place.",
+      "personal and cozy — photos, comfortable touches.",
+      "colorful and a little chaotic, full of ideas in progress."
+    ),
+  },
+  {
     id: "c-10",
     prompt: "In a new social setting, you...",
+    tier: "extended",
+    example: "Picture walking into a room of strangers right now — what would you actually do in the first few minutes?",
     options: opts(
       "quickly size up who's who and get to the point.",
       "observe first before deciding to engage.",
@@ -124,6 +150,8 @@ export const COLOR_QUESTIONS: ColorQuestion[] = [
   {
     id: "c-11",
     prompt: "Your biggest pet peeve is...",
+    tier: "core",
+    example: "Of these four, which one would genuinely irritate you the most if it happened today?",
     options: opts(
       "slow decision-making and wasted time.",
       "sloppy, inaccurate work.",
@@ -134,6 +162,8 @@ export const COLOR_QUESTIONS: ColorQuestion[] = [
   {
     id: "c-12",
     prompt: "When giving a presentation, you focus on...",
+    tier: "extended",
+    example: "Think about the last time you presented something — what did you actually spend the most prep time on?",
     options: opts(
       "the bottom line and the key ask.",
       "the data and the details that back it up.",

@@ -3,6 +3,7 @@
 import { ResultShell } from "@/components/personality/shared/ResultShell";
 import { ResultBadge } from "@/components/personality/shared/ResultBadge";
 import { TraitBar } from "@/components/personality/shared/TraitBar";
+import { MiddleGroundNote } from "@/components/personality/shared/MiddleGroundNote";
 import { usePersonality } from "@/lib/personality/context";
 import { COLOR_THEME } from "@/lib/personality/theme";
 import type { ColorId, ColorResult as ColorResultType } from "@/lib/personality/types";
@@ -16,6 +17,7 @@ export function ColorResult({ result }: { result: ColorResultType }) {
   const content = COLOR_CONTENT[result.dominant];
   const secondaryLabel = COLOR_THEME[result.secondary].label;
   const total = Math.max(1, ...Object.values(result.scores));
+  const isCloseCall = result.scores[result.dominant] - result.scores[result.secondary] <= total * 0.15;
 
   return (
     <ResultShell
@@ -30,6 +32,9 @@ export function ColorResult({ result }: { result: ColorResultType }) {
       onRetake={() => resetAssessment("colors")}
       extra={
         <div className="space-y-4">
+          {isCloseCall ? (
+            <MiddleGroundNote label={`${content.name.replace("The ", "")} / ${secondaryLabel}`} accent={accent} />
+          ) : null}
           {COLOR_ORDER.map((color) => (
             <TraitBar
               key={color}
@@ -40,7 +45,11 @@ export function ColorResult({ result }: { result: ColorResultType }) {
           ))}
         </div>
       }
-      footnote="The 4 Color Types model is a simplified behavioral-style framework meant for self-reflection and team conversations, not a clinical assessment."
+      footnote={
+        result.skippedQuestionIds?.length
+          ? `The 4 Color Types model is a simplified behavioral-style framework meant for self-reflection and team conversations, not a clinical assessment. You skipped ${result.skippedQuestionIds.length} question${result.skippedQuestionIds.length === 1 ? "" : "s"}, which weren't counted toward any color.`
+          : "The 4 Color Types model is a simplified behavioral-style framework meant for self-reflection and team conversations, not a clinical assessment."
+      }
     />
   );
 }

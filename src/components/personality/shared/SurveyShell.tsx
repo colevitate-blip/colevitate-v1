@@ -21,7 +21,11 @@ interface SurveyShellProps {
   children: React.ReactNode;
   /** Dev-only shortcut: fills every question with a random valid answer and jumps to the result. Never rendered in production. */
   onAutofill?: () => void;
+  /** Overrides the default "Next" / "See my results" label — used for interstitial steps like the accuracy offer. */
+  nextLabel?: string;
 }
+
+const SECONDS_PER_QUESTION = 12;
 
 export function SurveyShell({
   title,
@@ -34,8 +38,11 @@ export function SurveyShell({
   isLastStep,
   children,
   onAutofill,
+  nextLabel,
 }: SurveyShellProps) {
   const percent = Math.round(((stepIndex + 1) / totalSteps) * 100);
+  const remaining = Math.max(0, totalSteps - stepIndex - 1);
+  const estimatedMinutes = Math.max(1, Math.round((remaining * SECONDS_PER_QUESTION) / 60));
 
   return (
     <div className="mx-auto flex min-h-[100dvh] w-full max-w-2xl flex-col px-4 py-8 sm:py-12">
@@ -58,8 +65,13 @@ export function SurveyShell({
               ⚡ Autofill
             </button>
           ) : null}
-          <span className="text-sm font-medium text-muted-foreground">
-            {stepIndex + 1} / {totalSteps}
+          <span className="flex flex-col items-end text-sm font-medium text-muted-foreground">
+            <span>{stepIndex + 1} / {totalSteps}</span>
+            {remaining > 0 ? (
+              <span className="text-xs font-normal text-muted-foreground/80">
+                {remaining} question{remaining === 1 ? "" : "s"} left · ~{estimatedMinutes} min
+              </span>
+            ) : null}
           </span>
         </div>
       </div>
@@ -110,7 +122,7 @@ export function SurveyShell({
             accent.gradient
           )}
         >
-          {isLastStep ? "See my results" : "Next"}
+          {nextLabel ?? (isLastStep ? "See my results" : "Next")}
           <ArrowRight className="size-4" />
         </Button>
       </div>

@@ -1,0 +1,33 @@
+"use client";
+
+import * as React from "react";
+import { HelpCircle } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+interface ExplainToggleProps {
+  example: string;
+  className?: string;
+}
+
+export function ExplainToggle({ example, className }: ExplainToggleProps) {
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <div className={cn("mt-2", className)}>
+      <button
+        type="button"
+        aria-expanded={open}
+        onClick={() => setOpen((o) => !o)}
+        className="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
+      >
+        <HelpCircle className="size-3.5" />
+        {open ? "Hide example" : "Explain this question / show example"}
+      </button>
+      {open ? (
+        <p className="mt-2 rounded-xl bg-muted/60 px-3 py-2.5 text-sm leading-relaxed text-muted-foreground">
+          {example}
+        </p>
+      ) : null}
+    </div>
+  );
+}

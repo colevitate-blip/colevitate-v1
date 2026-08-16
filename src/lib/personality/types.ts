@@ -7,6 +7,8 @@ export interface MbtiResult {
   type: string;
   scores: Record<Dichotomy, { pole: MbtiLetter; confidence: number }>;
   completedAt: string;
+  /** Question ids the user skipped; those dimensions were scored with a neutral default. */
+  skippedQuestionIds?: string[];
 }
 
 export interface BigFiveResult {
@@ -18,6 +20,7 @@ export interface BigFiveResult {
     neuroticism: number;
   };
   completedAt: string;
+  skippedQuestionIds?: string[];
 }
 
 export type HumanDesignType =
@@ -31,6 +34,7 @@ export interface HumanDesignResult {
   type: HumanDesignType;
   scores: Record<HumanDesignType, number>;
   completedAt: string;
+  skippedQuestionIds?: string[];
 }
 
 export type ColorId = "red" | "blue" | "green" | "yellow";
@@ -40,6 +44,7 @@ export interface ColorResult {
   dominant: ColorId;
   secondary: ColorId;
   completedAt: string;
+  skippedQuestionIds?: string[];
 }
 
 export interface PersonalityResults {
@@ -49,22 +54,31 @@ export interface PersonalityResults {
   colors?: ColorResult;
 }
 
+/** A question's answer: a scale/choice value, or an ordered list of option ids for ranking questions. */
+export type AnswerValue = number | string | string[];
+
+/** Per-question metadata that isn't the answer value itself. */
+export interface QuestionMeta {
+  skipped?: boolean;
+}
+
 export interface SurveyProgress {
   step: number;
-  answers: Record<string, number | string>;
+  answers: Record<string, AnswerValue>;
+  meta?: Record<string, QuestionMeta>;
 }
 
 export type ProgressMap = Partial<Record<AssessmentId, SurveyProgress>>;
 
-export const ASSESSMENT_META: Record<
-  AssessmentId,
-  { label: string; shortLabel: string; slug: string }
-> = {
-  mbti: { label: "16 Personalities", shortLabel: "MBTI", slug: "mbti" },
-  bigfive: { label: "Big Five (OCEAN)", shortLabel: "Big Five", slug: "big-five" },
-  humandesign: { label: "Human Design", shortLabel: "Human Design", slug: "human-design" },
-  colors: { label: "4 Color Types", shortLabel: "Color Type", slug: "colors" },
-};
+/** A private, local-only note captured from the optional "was that hard to answer?" prompt. */
+export interface FeedbackNote {
+  assessmentId: AssessmentId;
+  questionId: string;
+  note: string;
+  createdAt: string;
+}
+
+export type GuidanceSeenMap = Partial<Record<AssessmentId, boolean>>;
 
 /** The four continuous axes the combined profile scores across. */
 export type AxisId = "energy" | "structure" | "people" | "novelty";
@@ -81,3 +95,13 @@ export interface CombinedSnapshot {
   axes: AxisSnapshotValue[];
   archetypeName?: string;
 }
+
+export const ASSESSMENT_META: Record<
+  AssessmentId,
+  { label: string; shortLabel: string; slug: string }
+> = {
+  mbti: { label: "16 Personalities", shortLabel: "MBTI", slug: "mbti" },
+  bigfive: { label: "Big Five (OCEAN)", shortLabel: "Big Five", slug: "big-five" },
+  humandesign: { label: "Human Design", shortLabel: "Human Design", slug: "human-design" },
+  colors: { label: "4 Color Types", shortLabel: "Color Type", slug: "colors" },
+};

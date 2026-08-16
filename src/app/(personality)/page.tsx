@@ -32,7 +32,7 @@ function resultSummaryFor(id: AssessmentId, results: ReturnType<typeof usePerson
 export default function PersonalityLandingPage() {
   const { mounted, results, progress, completedIds } = usePersonality();
 
-  const canCombine = completedIds.length >= 2;
+  const canCombine = completedIds.length >= 1;
 
   return (
     <main className="mx-auto w-full max-w-6xl px-4 pb-24 pt-14 sm:pt-20">
@@ -81,10 +81,12 @@ export default function PersonalityLandingPage() {
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
             {mounted
-              ? canCombine
+              ? completedIds.length >= 2
                 ? `You've completed ${completedIds.length} of 4 assessments. Generate a single, cohesive profile that weaves your results together.`
-                : `Complete at least 2 assessments to unlock a combined profile. You've finished ${completedIds.length} so far.`
-              : "Complete at least 2 assessments to unlock a combined profile."}
+                : canCombine
+                  ? "You've completed 1 of 4 — see what we already know about you, and continue toward the full combined profile."
+                  : "Complete your first assessment to unlock a preview of your combined profile."
+              : "Complete your first assessment to unlock a preview of your combined profile."}
           </p>
 
           <div className="mt-6 flex items-center justify-center gap-1.5">
@@ -105,7 +107,7 @@ export default function PersonalityLandingPage() {
             className="mt-7 rounded-full bg-gradient-to-r from-[#7c8cff] to-[#37e0c4] text-[#05070f] shadow-[0_16px_34px_-8px_rgba(124,140,255,0.5)] hover:opacity-90 disabled:pointer-events-none disabled:opacity-40"
           >
             <Link href={canCombine ? "/combined" : "#"}>
-              Generate Combined Profile
+              {completedIds.length >= 2 ? "Generate Combined Profile" : "See What We Know So Far"}
               <ArrowRight className="size-4" />
             </Link>
           </Button>
