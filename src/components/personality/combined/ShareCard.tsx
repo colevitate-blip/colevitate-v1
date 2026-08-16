@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 import type { AssessmentId, ColorId, PersonalityResults } from "@/lib/personality/types";
 import type { CombinedProfile as CombinedProfileData } from "./generateCombinedProfile";
 
-const CARD_SIZE = 1080;
+const CARD_WIDTH = 1080;
 
 // html2canvas can't parse the color-mix()/oklch() values Tailwind v4 emits
 // for its palette, so the export card avoids Tailwind color classes
@@ -40,12 +40,10 @@ export const ShareCard = forwardRef<
     <div
       ref={ref}
       style={{
-        width: CARD_SIZE,
-        height: CARD_SIZE,
+        width: CARD_WIDTH,
         padding: 72,
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-between",
         background: "linear-gradient(160deg, #0d1224 0%, #05070f 65%)",
         color: "#dfe3ff",
         fontFamily: "var(--font-space-grotesk), sans-serif",
@@ -95,7 +93,7 @@ export const ShareCard = forwardRef<
         ) : null}
       </div>
 
-      <div>
+      <div style={{ marginTop: 64 }}>
         {profile.axes.map((axis) => {
           const clamped = Math.max(-100, Math.min(100, axis.score));
           const fillLeft = clamped < 0 ? 50 + clamped / 2 : 50;
