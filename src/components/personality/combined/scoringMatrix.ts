@@ -1,7 +1,9 @@
 import type {
   AssessmentId,
   ColorId,
+  Dichotomy,
   HumanDesignType,
+  MbtiLetter,
   PersonalityResults,
 } from "@/lib/personality/types";
 
@@ -109,9 +111,95 @@ function colorSignal(axis: AxisId, result: NonNullable<PersonalityResults["color
   return primary * 0.75 + secondary * 0.25;
 }
 
+// "Why this score" copy — one sentence per framework explaining which of
+// its own computed trait/pole/type values produced its signal for this
+// axis. Raw per-question answers aren't available here (progress is
+// discarded once an assessment completes), so these trace back to the
+// same computed units the signal functions above consume.
+
+function signalPhrase(signal: number, axis: AxisDefinition): string {
+  const rounded = Math.round(Math.abs(signal));
+  return `${rounded} toward ${signal >= 0 ? axis.rightPole : axis.leftPole}`;
+}
+
+const DICHOTOMY_NAMES: Record<Dichotomy, string> = {
+  EI: "Extraversion/Introversion",
+  SN: "Sensing/Intuition",
+  TF: "Thinking/Feeling",
+  JP: "Judging/Perceiving",
+};
+
+const POLE_NAMES: Record<MbtiLetter, string> = {
+  E: "Extraversion",
+  I: "Introversion",
+  S: "Sensing",
+  N: "Intuition",
+  T: "Thinking",
+  F: "Feeling",
+  J: "Judging",
+  P: "Perceiving",
+};
+
+const AXIS_DICHOTOMY: Record<AxisId, Dichotomy> = {
+  energy: "EI",
+  structure: "JP",
+  people: "TF",
+  novelty: "SN",
+};
+
+function explainMbti(axis: AxisDefinition, result: NonNullable<PersonalityResults["mbti"]>): string {
+  const dichotomy = AXIS_DICHOTOMY[axis.id];
+  const { pole, confidence } = result.scores[dichotomy];
+  const signal = mbtiSignal(axis.id, result);
+  return `Your ${DICHOTOMY_NAMES[dichotomy]} score leans ${POLE_NAMES[pole]} (${confidence}% confidence) — that's ${signalPhrase(signal, axis)}.`;
+}
+
+const AXIS_BIG_FIVE_TRAIT: Record<AxisId, { key: keyof NonNullable<PersonalityResults["bigfive"]>["scores"]; label: string }> = {
+  energy: { key: "extraversion", label: "Extraversion" },
+  structure: { key: "conscientiousness", label: "Conscientiousness" },
+  people: { key: "agreeableness", label: "Agreeableness" },
+  novelty: { key: "openness", label: "Openness" },
+};
+
+function explainBigFive(axis: AxisDefinition, result: NonNullable<PersonalityResults["bigfive"]>): string {
+  const trait = AXIS_BIG_FIVE_TRAIT[axis.id];
+  const score = result.scores[trait.key];
+  const signal = bigFiveSignal(axis.id, result);
+  return `Your ${trait.label} score is ${Math.round(score)}/100 — that's ${signalPhrase(signal, axis)}.`;
+}
+
+const HD_TYPE_NAMES: Record<HumanDesignType, string> = {
+  generator: "Generator",
+  "manifesting-generator": "Manifesting Generator",
+  manifestor: "Manifestor",
+  projector: "Projector",
+  reflector: "Reflector",
+};
+
+function explainHumanDesign(
+  axis: AxisDefinition,
+  result: NonNullable<PersonalityResults["humandesign"]>
+): string {
+  const signal = humanDesignSignal(axis.id, result);
+  return `As a ${HD_TYPE_NAMES[result.type]}, Human Design's energy-type mapping contributes ${signalPhrase(signal, axis)} — that comes from the type itself, not a specific trait score.`;
+}
+
+const COLOR_NAMES: Record<ColorId, string> = {
+  red: "Red",
+  blue: "Blue",
+  green: "Green",
+  yellow: "Yellow",
+};
+
+function explainColors(axis: AxisDefinition, result: NonNullable<PersonalityResults["colors"]>): string {
+  const signal = colorSignal(axis.id, result);
+  return `Your dominant color is ${COLOR_NAMES[result.dominant]} (75% weight) and secondary is ${COLOR_NAMES[result.secondary]} (25% weight) — blended, that's ${signalPhrase(signal, axis)}.`;
+}
+
 export interface AxisContribution {
   framework: AssessmentId;
   signal: number; // that framework's individual, unweighted read of this axis, -100..100
+  detail: string; // one-sentence "why" trace back to that framework's own computed trait/pole/type
 }
 
 export type AxisAgreement = "agree" | "mixed" | "disagree";
@@ -136,16 +224,32 @@ export interface AxisScore {
 function computeAxisContributions(axis: AxisDefinition, results: PersonalityResults): AxisContribution[] {
   const contributions: AxisContribution[] = [];
   if (results.mbti) {
-    contributions.push({ framework: "mbti", signal: mbtiSignal(axis.id, results.mbti) });
+    contributions.push({
+      framework: "mbti",
+      signal: mbtiSignal(axis.id, results.mbti),
+      detail: explainMbti(axis, results.mbti),
+    });
   }
   if (results.bigfive) {
-    contributions.push({ framework: "bigfive", signal: bigFiveSignal(axis.id, results.bigfive) });
+    contributions.push({
+      framework: "bigfive",
+      signal: bigFiveSignal(axis.id, results.bigfive),
+      detail: explainBigFive(axis, results.bigfive),
+    });
   }
   if (results.humandesign) {
-    contributions.push({ framework: "humandesign", signal: humanDesignSignal(axis.id, results.humandesign) });
+    contributions.push({
+      framework: "humandesign",
+      signal: humanDesignSignal(axis.id, results.humandesign),
+      detail: explainHumanDesign(axis, results.humandesign),
+    });
   }
   if (results.colors) {
-    contributions.push({ framework: "colors", signal: colorSignal(axis.id, results.colors) });
+    contributions.push({
+      framework: "colors",
+      signal: colorSignal(axis.id, results.colors),
+      detail: explainColors(axis, results.colors),
+    });
   }
   return contributions;
 }

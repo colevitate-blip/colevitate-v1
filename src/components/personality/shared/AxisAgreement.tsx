@@ -1,4 +1,6 @@
-import { Check, GitCompareArrows } from "lucide-react";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Check, ChevronDown, GitCompareArrows } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { accentForFramework } from "@/lib/personality/theme";
 import { ASSESSMENT_META } from "@/lib/personality/types";
@@ -20,6 +22,7 @@ export function AxisAgreement({
   const clamped = Math.max(-100, Math.min(100, axis.score));
   const fillLeft = clamped < 0 ? 50 + clamped / 2 : 50;
   const fillWidth = Math.abs(clamped) / 2;
+  const [expanded, setExpanded] = useState(false);
 
   return (
     <div>
@@ -82,6 +85,45 @@ export function AxisAgreement({
         )}
         <span>{axis.agreementLabel}</span>
       </div>
+
+      <button
+        type="button"
+        onClick={() => setExpanded((v) => !v)}
+        className="mt-2 flex items-center gap-1 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
+        aria-expanded={expanded}
+      >
+        <ChevronDown className={cn("size-3.5 transition-transform", expanded && "rotate-180")} />
+        {expanded ? "Hide why" : "Why this score?"}
+      </button>
+
+      <AnimatePresence initial={false}>
+        {expanded ? (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="overflow-hidden"
+          >
+            <div className="mt-3 space-y-2.5 rounded-2xl border bg-muted/30 p-3.5">
+              {axis.contributions.map((c) => {
+                const accent = accentForFramework(c.framework, results);
+                return (
+                  <div key={c.framework} className="flex items-start gap-2 text-xs leading-relaxed">
+                    <span className={cn("mt-1 size-2 shrink-0 rounded-full", accent.solid)} />
+                    <span className="text-muted-foreground">
+                      <span className="font-medium text-foreground">
+                        {ASSESSMENT_META[c.framework].shortLabel}:
+                      </span>{" "}
+                      {c.detail}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </div>
   );
 }
