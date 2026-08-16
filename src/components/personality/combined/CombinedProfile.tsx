@@ -11,6 +11,8 @@ import {
   Fingerprint,
   Share2,
   Loader2,
+  Target,
+  Briefcase,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -20,6 +22,7 @@ import { ASSESSMENT_CATALOG } from "@/lib/personality/catalog";
 import { accentForFramework } from "@/lib/personality/theme";
 import type { PersonalityResults } from "@/lib/personality/types";
 import { AxisAgreement } from "@/components/personality/shared/AxisAgreement";
+import { getAxisGrowthPrompt, getCareerSuggestions } from "./growthContent";
 import { ShareCard } from "./ShareCard";
 import type { CombinedProfile as CombinedProfileData } from "./generateCombinedProfile";
 
@@ -32,6 +35,7 @@ export function CombinedProfile({
 }) {
   const shareCardRef = useRef<HTMLDivElement>(null);
   const [isExporting, setIsExporting] = useState(false);
+  const careerSuggestions = getCareerSuggestions(profile.axes);
 
   async function handleShare() {
     if (!shareCardRef.current || isExporting) return;
@@ -165,6 +169,51 @@ export function CombinedProfile({
           ))}
         </div>
       </div>
+
+      <div className="mt-8 rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_rgba(0,0,0,0.5)]">
+        <div className="mb-4 flex items-center gap-2">
+          <div className="flex size-8 items-center justify-center rounded-full bg-muted">
+            <Target className="size-4" />
+          </div>
+          <h2 className="font-semibold">Growth Prompts</h2>
+        </div>
+        <div className="space-y-4">
+          {profile.axes.map((axis) => {
+            const prompt = getAxisGrowthPrompt(axis);
+            if (!prompt) return null;
+            return (
+              <div key={axis.id}>
+                <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                  {axis.label}
+                </p>
+                <p className="mt-1 text-sm leading-relaxed text-foreground/90">{prompt}</p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {careerSuggestions.length > 0 ? (
+        <div className="mt-8 rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_rgba(0,0,0,0.5)]">
+          <div className="mb-4 flex items-center gap-2">
+            <div className="flex size-8 items-center justify-center rounded-full bg-muted">
+              <Briefcase className="size-4" />
+            </div>
+            <h2 className="font-semibold">Where This Might Fit</h2>
+          </div>
+          <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
+            Roles and work styles that tend to suit {profile.archetype?.name ?? "your combination of traits"}.
+          </p>
+          <ul className="space-y-2.5">
+            {careerSuggestions.map((s) => (
+              <li key={s} className="flex items-start gap-2 text-sm leading-relaxed text-muted-foreground">
+                <Sparkles className="mt-0.5 size-3.5 shrink-0" />
+                <span>{s}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
 
       <div className="mt-8 grid gap-6 sm:grid-cols-2">
         <div className="rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_rgba(0,0,0,0.5)]">

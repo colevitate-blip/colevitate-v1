@@ -104,12 +104,19 @@ const ARCHETYPES: Record<string, Archetype> = {
   },
 };
 
-export function getArchetype(axes: AxisScore[]): Archetype | null {
+// Exported so other combined-profile content (e.g. career suggestions) can
+// key off the same 16 buckets without recomputing the sign logic.
+export function getArchetypeKey(axes: AxisScore[]): string | null {
   if (axes.length === 0) return null;
-  const key =
+  return (
     (bucket(axes, "energy") ? "E" : "I") +
     (bucket(axes, "structure") ? "P" : "M") +
     (bucket(axes, "people") ? "F" : "T") +
-    (bucket(axes, "novelty") ? "X" : "G");
-  return ARCHETYPES[key] ?? null;
+    (bucket(axes, "novelty") ? "X" : "G")
+  );
+}
+
+export function getArchetype(axes: AxisScore[]): Archetype | null {
+  const key = getArchetypeKey(axes);
+  return key ? (ARCHETYPES[key] ?? null) : null;
 }
