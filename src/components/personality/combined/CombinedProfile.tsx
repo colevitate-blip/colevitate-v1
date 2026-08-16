@@ -1,14 +1,26 @@
 "use client";
 
+import { useRef, useState } from "react";
 import Link from "next/link";
-import { ChevronLeft, Sparkles, TrendingUp, Leaf, SlidersHorizontal, Fingerprint } from "lucide-react";
+import {
+  ChevronLeft,
+  Sparkles,
+  TrendingUp,
+  Leaf,
+  SlidersHorizontal,
+  Fingerprint,
+  Share2,
+  Loader2,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { ASSESSMENT_CATALOG } from "@/lib/personality/catalog";
 import { accentForFramework } from "@/lib/personality/theme";
 import type { PersonalityResults } from "@/lib/personality/types";
 import { AxisAgreement } from "@/components/personality/shared/AxisAgreement";
+import { ShareCard } from "./ShareCard";
 import type { CombinedProfile as CombinedProfileData } from "./generateCombinedProfile";
 
 export function CombinedProfile({
@@ -18,9 +30,49 @@ export function CombinedProfile({
   profile: CombinedProfileData;
   results: PersonalityResults;
 }) {
+  const shareCardRef = useRef<HTMLDivElement>(null);
+  const [isExporting, setIsExporting] = useState(false);
+
+  async function handleShare() {
+    if (!shareCardRef.current || isExporting) return;
+    setIsExporting(true);
+    try {
+      const { default: html2canvas } = await import("html2canvas");
+      const canvas = await html2canvas(shareCardRef.current, { scale: 2 });
+      const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/png"));
+      if (!blob) return;
+
+      const fileName = `personality-studio-${(profile.archetype?.name ?? "profile")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "")}.png`;
+      const file = new File([blob], fileName, { type: "image/png" });
+
+      if (typeof navigator !== "undefined" && navigator.canShare?.({ files: [file] })) {
+        try {
+          await navigator.share({ files: [file], title: "My Personality Studio profile" });
+        } catch {
+          // user dismissed the share sheet — nothing to do
+        }
+        return;
+      }
+
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } finally {
+      setIsExporting(false);
+    }
+  }
+
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:py-12">
-      <div className="mb-8">
+      <div className="mb-8 flex items-center justify-between gap-3">
         <Link
           href="/"
           className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
@@ -28,6 +80,14 @@ export function CombinedProfile({
           <ChevronLeft className="size-4" />
           Overview
         </Link>
+        <Button variant="outline" size="sm" onClick={handleShare} disabled={isExporting} className="rounded-full">
+          {isExporting ? (
+            <Loader2 className="size-4 animate-spin" />
+          ) : (
+            <Share2 className="size-4" />
+          )}
+          Save / Share
+        </Button>
       </div>
 
       <div className="relative overflow-hidden rounded-[2.5rem] border bg-card p-6 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.55)] sm:p-10">
@@ -170,6 +230,10 @@ export function CombinedProfile({
         This combined profile is a rule-based synthesis of your individual results, meant to surface
         interesting overlaps and contrasts for self-reflection — not a scientific composite score.
       </p>
+
+      <div style={{ position: "fixed", top: 0, left: -9999, pointerEvents: "none" }} aria-hidden>
+        <ShareCard ref={shareCardRef} profile={profile} results={results} />
+      </div>
     </div>
   );
 }
