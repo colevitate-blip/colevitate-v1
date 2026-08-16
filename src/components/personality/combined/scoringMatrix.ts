@@ -1,5 +1,6 @@
 import type {
   AssessmentId,
+  AxisId,
   ColorId,
   Dichotomy,
   HumanDesignType,
@@ -14,7 +15,10 @@ import type {
 // completed, with weights renormalized so partial completion still
 // produces a valid composite.
 
-export type AxisId = "energy" | "structure" | "people" | "novelty";
+// AxisId lives in lib/personality/types.ts (storage.ts needs it too, and
+// lib/ shouldn't import from components/) — re-exported here so existing
+// imports from this module keep working unchanged.
+export type { AxisId };
 
 export interface AxisDefinition {
   id: AxisId;

@@ -65,3 +65,19 @@ export const ASSESSMENT_META: Record<
   humandesign: { label: "Human Design", shortLabel: "Human Design", slug: "human-design" },
   colors: { label: "4 Color Types", shortLabel: "Color Type", slug: "colors" },
 };
+
+/** The four continuous axes the combined profile scores across. */
+export type AxisId = "energy" | "structure" | "people" | "novelty";
+
+/** One axis's score at the moment a combined profile was completed. */
+export interface AxisSnapshotValue {
+  id: AxisId;
+  score: number;
+}
+
+/** A timestamped combined-profile result, appended (never overwritten) so trends over retakes are visible. */
+export interface CombinedSnapshot {
+  completedAt: string;
+  axes: AxisSnapshotValue[];
+  archetypeName?: string;
+}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
   ChevronLeft,
@@ -13,6 +13,7 @@ import {
   Loader2,
   Target,
   Briefcase,
+  History,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -20,9 +21,11 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { ASSESSMENT_CATALOG } from "@/lib/personality/catalog";
 import { accentForFramework } from "@/lib/personality/theme";
-import type { PersonalityResults } from "@/lib/personality/types";
+import { appendHistorySnapshot, loadHistory } from "@/lib/personality/storage";
+import type { CombinedSnapshot, PersonalityResults } from "@/lib/personality/types";
 import { AxisAgreement } from "@/components/personality/shared/AxisAgreement";
 import { getAxisGrowthPrompt, getCareerSuggestions } from "./growthContent";
+import { AxisTrend } from "./AxisTrend";
 import { ShareCard } from "./ShareCard";
 import type { CombinedProfile as CombinedProfileData } from "./generateCombinedProfile";
 
@@ -36,6 +39,27 @@ export function CombinedProfile({
   const shareCardRef = useRef<HTMLDivElement>(null);
   const [isExporting, setIsExporting] = useState(false);
   const careerSuggestions = getCareerSuggestions(profile.axes);
+  const [history, setHistory] = useState<CombinedSnapshot[]>([]);
+  const axisSignature = profile.axes.map((a) => `${a.id}:${a.score}`).join("|");
+
+  // Every time the combined axes actually change (a fresh completion or
+  // retake — not every render), append a timestamped snapshot rather than
+  // overwriting, so the trend view below has history to show.
+  useEffect(() => {
+    const existing = loadHistory();
+    const latest = existing[existing.length - 1];
+    const latestSignature = latest?.axes.map((a) => `${a.id}:${a.score}`).join("|");
+    const next =
+      latestSignature === axisSignature
+        ? existing
+        : appendHistorySnapshot({
+            completedAt: new Date().toISOString(),
+            axes: profile.axes.map((a) => ({ id: a.id, score: a.score })),
+            archetypeName: profile.archetype?.name,
+          });
+    setHistory(next);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- axisSignature is the derived, stable trigger for profile.axes/profile.archetype
+  }, [axisSignature]);
 
   async function handleShare() {
     if (!shareCardRef.current || isExporting) return;
@@ -169,6 +193,34 @@ export function CombinedProfile({
           ))}
         </div>
       </div>
+
+      {history.length > 0 ? (
+        <div className="mt-8 rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_rgba(0,0,0,0.5)]">
+          <div className="mb-1 flex items-center gap-2">
+            <div className="flex size-8 items-center justify-center rounded-full bg-muted">
+              <History className="size-4" />
+            </div>
+            <h2 className="font-semibold">Trend Over Time</h2>
+          </div>
+          {history.length < 2 ? (
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              This is your baseline snapshot. Retake assessments later and this will show how each
+              axis has shifted.
+            </p>
+          ) : (
+            <>
+              <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
+                How each axis has moved across your {history.length} completions, oldest to newest.
+              </p>
+              <div className="space-y-7">
+                {profile.axes.map((axis) => (
+                  <AxisTrend key={axis.id} axis={axis} history={history} />
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+      ) : null}
 
       <div className="mt-8 rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_rgba(0,0,0,0.5)]">
         <div className="mb-4 flex items-center gap-2">
