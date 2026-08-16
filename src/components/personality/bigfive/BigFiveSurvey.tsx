@@ -14,7 +14,7 @@ import { BIG_FIVE_QUESTIONS, type BigFiveQuestion } from "./questions";
 import { scoreBigFive } from "./scoring";
 
 export function BigFiveSurvey() {
-  const { saveResult, guidanceSeen, markGuidanceSeen } = usePersonality();
+  const { saveResult, finishAssessment, guidanceSeen, markGuidanceSeen } = usePersonality();
   const { step, setStep, answers, setAnswers, meta, setAnswerMeta, hydrated } = useSurveyState(
     "bigfive",
     BIG_FIVE_QUESTIONS.length
@@ -51,7 +51,7 @@ export function BigFiveSurvey() {
   const remainingExtended = flowSteps.length - 1 - coreCount;
 
   function finishWith(finalAnswers: typeof answers) {
-    saveResult("bigfive", scoreBigFive(finalAnswers, meta));
+    finishAssessment("bigfive", scoreBigFive(finalAnswers, meta));
   }
 
   function handleNext() {

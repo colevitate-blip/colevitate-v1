@@ -14,7 +14,7 @@ import { MBTI_QUESTIONS, type MbtiQuestion } from "./questions";
 import { scoreMbti } from "./scoring";
 
 export function MbtiSurvey() {
-  const { saveResult, guidanceSeen, markGuidanceSeen } = usePersonality();
+  const { saveResult, finishAssessment, guidanceSeen, markGuidanceSeen } = usePersonality();
   const { step, setStep, answers, setAnswers, meta, setAnswerMeta, hydrated } = useSurveyState(
     "mbti",
     MBTI_QUESTIONS.length
@@ -51,7 +51,7 @@ export function MbtiSurvey() {
   const remainingExtended = flowSteps.length - 1 - coreCount;
 
   function finishWith(finalAnswers: typeof answers) {
-    saveResult("mbti", scoreMbti(finalAnswers, meta));
+    finishAssessment("mbti", scoreMbti(finalAnswers, meta));
   }
 
   function handleNext() {

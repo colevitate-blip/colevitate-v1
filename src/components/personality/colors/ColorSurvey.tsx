@@ -14,7 +14,7 @@ import { COLOR_QUESTIONS, type ColorQuestion } from "./questions";
 import { scoreColors } from "./scoring";
 
 export function ColorSurvey() {
-  const { saveResult, guidanceSeen, markGuidanceSeen } = usePersonality();
+  const { saveResult, finishAssessment, guidanceSeen, markGuidanceSeen } = usePersonality();
   const { step, setStep, answers, setAnswers, meta, setAnswerMeta, hydrated } = useSurveyState(
     "colors",
     COLOR_QUESTIONS.length
@@ -43,7 +43,7 @@ export function ColorSurvey() {
   const remainingExtended = flowSteps.length - 1 - coreCount;
 
   function finishWith(finalAnswers: typeof answers) {
-    saveResult("colors", scoreColors(finalAnswers, meta));
+    finishAssessment("colors", scoreColors(finalAnswers, meta));
   }
 
   function handleNext() {

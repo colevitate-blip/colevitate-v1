@@ -14,7 +14,7 @@ import { HD_QUESTIONS, type HdQuestion } from "./questions";
 import { scoreHumanDesign } from "./scoring";
 
 export function HumanDesignSurvey() {
-  const { saveResult, guidanceSeen, markGuidanceSeen } = usePersonality();
+  const { saveResult, finishAssessment, guidanceSeen, markGuidanceSeen } = usePersonality();
   const { step, setStep, answers, setAnswers, meta, setAnswerMeta, hydrated } = useSurveyState(
     "humandesign",
     HD_QUESTIONS.length
@@ -43,7 +43,7 @@ export function HumanDesignSurvey() {
   const remainingExtended = flowSteps.length - 1 - coreCount;
 
   function finishWith(finalAnswers: typeof answers) {
-    saveResult("humandesign", scoreHumanDesign(finalAnswers, meta));
+    finishAssessment("humandesign", scoreHumanDesign(finalAnswers, meta));
   }
 
   function handleNext() {

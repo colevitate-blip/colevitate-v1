@@ -25,7 +25,11 @@ interface PersonalityContextValue {
   progress: ProgressMap;
   guidanceSeen: GuidanceSeenMap;
   completedIds: AssessmentId[];
+  /** Non-null while a just-finished assessment is showing its "analyzing" transition. */
+  analyzingId: AssessmentId | null;
   saveResult: <K extends AssessmentId>(id: K, result: PersonalityResults[K]) => void;
+  /** Same as saveResult, but shows a brief "analyzing" screen first for a sense of computation. */
+  finishAssessment: <K extends AssessmentId>(id: K, result: PersonalityResults[K]) => void;
   saveProgress: (id: AssessmentId, progress: SurveyProgress) => void;
   resetAssessment: (id: AssessmentId) => void;
   resetAll: () => void;
@@ -40,6 +44,7 @@ export function PersonalityProvider({ children }: { children: React.ReactNode })
   const [results, setResults] = React.useState<PersonalityResults>({});
   const [progress, setProgress] = React.useState<ProgressMap>({});
   const [guidanceSeen, setGuidanceSeen] = React.useState<GuidanceSeenMap>({});
+  const [analyzingId, setAnalyzingId] = React.useState<AssessmentId | null>(null);
 
   React.useEffect(() => {
     // One-time hydration from localStorage on mount (SSR-unsafe, so it can't run during render).
@@ -66,6 +71,17 @@ export function PersonalityProvider({ children }: { children: React.ReactNode })
       });
     },
     []
+  );
+
+  const finishAssessment = React.useCallback(
+    <K extends AssessmentId>(id: K, result: PersonalityResults[K]) => {
+      setAnalyzingId(id);
+      window.setTimeout(() => {
+        saveResult(id, result);
+        setAnalyzingId((current) => (current === id ? null : current));
+      }, 1900);
+    },
+    [saveResult]
   );
 
   const saveProgress = React.useCallback((id: AssessmentId, p: SurveyProgress) => {
@@ -125,7 +141,9 @@ export function PersonalityProvider({ children }: { children: React.ReactNode })
       progress,
       guidanceSeen,
       completedIds,
+      analyzingId,
       saveResult,
+      finishAssessment,
       saveProgress,
       resetAssessment,
       resetAll,
@@ -138,7 +156,9 @@ export function PersonalityProvider({ children }: { children: React.ReactNode })
       progress,
       guidanceSeen,
       completedIds,
+      analyzingId,
       saveResult,
+      finishAssessment,
       saveProgress,
       resetAssessment,
       resetAll,
