@@ -1,4 +1,5 @@
 import type {
+  AssessmentId,
   ColorId,
   HumanDesignType,
   PersonalityResults,
@@ -108,6 +109,13 @@ function colorSignal(axis: AxisId, result: NonNullable<PersonalityResults["color
   return primary * 0.75 + secondary * 0.25;
 }
 
+export interface AxisContribution {
+  framework: AssessmentId;
+  signal: number; // that framework's individual, unweighted read of this axis, -100..100
+}
+
+export type AxisAgreement = "agree" | "mixed" | "disagree";
+
 export interface AxisScore {
   id: AxisId;
   label: string;
@@ -116,6 +124,30 @@ export interface AxisScore {
   score: number; // -100 (leftPole) .. 100 (rightPole)
   tierLabel: string;
   sentence: string;
+  contributions: AxisContribution[];
+  agreement: AxisAgreement;
+  agreementLabel: string;
+}
+
+// Each framework's raw, unweighted signal for this axis (before the
+// weighted-average blend) — the same inputs computeAxisScore combines,
+// surfaced individually so the UI can show where frameworks agree or
+// disagree with each other.
+function computeAxisContributions(axis: AxisDefinition, results: PersonalityResults): AxisContribution[] {
+  const contributions: AxisContribution[] = [];
+  if (results.mbti) {
+    contributions.push({ framework: "mbti", signal: mbtiSignal(axis.id, results.mbti) });
+  }
+  if (results.bigfive) {
+    contributions.push({ framework: "bigfive", signal: bigFiveSignal(axis.id, results.bigfive) });
+  }
+  if (results.humandesign) {
+    contributions.push({ framework: "humandesign", signal: humanDesignSignal(axis.id, results.humandesign) });
+  }
+  if (results.colors) {
+    contributions.push({ framework: "colors", signal: colorSignal(axis.id, results.colors) });
+  }
+  return contributions;
 }
 
 function computeAxisScore(axis: AxisDefinition, results: PersonalityResults): number | null {
@@ -141,6 +173,23 @@ function computeAxisScore(axis: AxisDefinition, results: PersonalityResults): nu
 
   if (weightTotal === 0) return null;
   return Math.round(weightedSum / weightTotal);
+}
+
+// Spread of raw framework signals (max - min, out of a possible 200)
+// determines whether the frameworks are reading this axis the same way.
+function computeAgreement(contributions: AxisContribution[]): { agreement: AxisAgreement; agreementLabel: string } {
+  if (contributions.length < 2) {
+    return { agreement: "agree", agreementLabel: "Only one framework weighs in here." };
+  }
+  const signals = contributions.map((c) => c.signal);
+  const spread = Math.max(...signals) - Math.min(...signals);
+  if (spread < 40) {
+    return { agreement: "agree", agreementLabel: "Your frameworks agree here." };
+  }
+  if (spread < 90) {
+    return { agreement: "mixed", agreementLabel: "Your frameworks mostly agree, with some nuance." };
+  }
+  return { agreement: "disagree", agreementLabel: "Your frameworks disagree here." };
 }
 
 interface Tier {
@@ -295,6 +344,8 @@ export function computeScoringMatrix(results: PersonalityResults): AxisScore[] {
     const score = computeAxisScore(axis, results);
     if (score === null) continue;
     const tier = tierFor(axis, score);
+    const contributions = computeAxisContributions(axis, results);
+    const { agreement, agreementLabel } = computeAgreement(contributions);
     out.push({
       id: axis.id,
       label: axis.label,
@@ -303,6 +354,9 @@ export function computeScoringMatrix(results: PersonalityResults): AxisScore[] {
       score,
       tierLabel: tier.tierLabel,
       sentence: tier.sentence(axis),
+      contributions,
+      agreement,
+      agreementLabel,
     });
   }
   return out;

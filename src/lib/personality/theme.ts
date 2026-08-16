@@ -1,4 +1,4 @@
-import type { AssessmentId, ColorId } from "./types";
+import type { AssessmentId, ColorId, PersonalityResults } from "./types";
 
 export interface AccentTheme {
   gradient: string;
@@ -85,3 +85,11 @@ export const COLOR_THEME: Record<
     border: "border-amber-400/30",
   },
 };
+
+// The 4 Color Types framework's accent should reflect the user's actual
+// dominant color, not a generic "colors" gradient — every other framework
+// has a single fixed accent regardless of the user's result.
+export function accentForFramework(id: AssessmentId, results: PersonalityResults): AccentTheme {
+  if (id === "colors" && results.colors) return COLOR_THEME[results.colors.dominant];
+  return ASSESSMENT_THEME[id];
+}

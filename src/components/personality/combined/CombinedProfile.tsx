@@ -6,14 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { ASSESSMENT_CATALOG } from "@/lib/personality/catalog";
-import { ASSESSMENT_THEME, COLOR_THEME } from "@/lib/personality/theme";
+import { accentForFramework } from "@/lib/personality/theme";
 import type { PersonalityResults } from "@/lib/personality/types";
+import { AxisAgreement } from "@/components/personality/shared/AxisAgreement";
 import type { CombinedProfile as CombinedProfileData } from "./generateCombinedProfile";
-
-function accentFor(id: CombinedProfileData["threads"][number]["id"], results: PersonalityResults) {
-  if (id === "colors" && results.colors) return COLOR_THEME[results.colors.dominant];
-  return ASSESSMENT_THEME[id];
-}
 
 export function CombinedProfile({
   profile,
@@ -40,7 +36,7 @@ export function CombinedProfile({
         <div className="relative flex flex-col items-start gap-6 sm:flex-row sm:items-center">
           <div className="grid shrink-0 grid-cols-2 gap-2">
             {profile.threads.map((t) => {
-              const accent = accentFor(t.id, results);
+              const accent = accentForFramework(t.id, results);
               return (
                 <div
                   key={t.id}
@@ -100,33 +96,13 @@ export function CombinedProfile({
         </div>
         <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
           Every completed assessment votes on each axis below, weighted by how much that framework
-          actually measures it — the composite is a weighted average, not a guess.
+          actually measures it — the composite is a weighted average, not a guess. The dots show
+          where each framework landed on its own.
         </p>
-        <div className="space-y-5">
-          {profile.axes.map((axis) => {
-            const clamped = Math.max(-100, Math.min(100, axis.score));
-            const fillLeft = clamped < 0 ? 50 + clamped / 2 : 50;
-            const fillWidth = Math.abs(clamped) / 2;
-            return (
-              <div key={axis.id}>
-                <div className="mb-2 flex items-center justify-between gap-3 text-sm">
-                  <span className="font-medium">{axis.label}</span>
-                  <span className="text-xs text-muted-foreground">{axis.tierLabel}</span>
-                </div>
-                <div className="relative h-2 rounded-full bg-muted">
-                  <div className="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-border" />
-                  <div
-                    className="absolute inset-y-0 rounded-full bg-gradient-to-r from-[#7c8cff] to-[#37e0c4]"
-                    style={{ left: `${fillLeft}%`, width: `${fillWidth}%` }}
-                  />
-                </div>
-                <div className="mt-1.5 flex items-center justify-between text-[11px] text-muted-foreground">
-                  <span>{axis.leftPole}</span>
-                  <span>{axis.rightPole}</span>
-                </div>
-              </div>
-            );
-          })}
+        <div className="space-y-7">
+          {profile.axes.map((axis) => (
+            <AxisAgreement key={axis.id} axis={axis} results={results} />
+          ))}
         </div>
       </div>
 
@@ -171,7 +147,7 @@ export function CombinedProfile({
       <h2 className="mb-4 text-lg font-semibold">The threads behind this profile</h2>
       <div className="grid gap-4 sm:grid-cols-2">
         {profile.threads.map((t) => {
-          const accent = accentFor(t.id, results);
+          const accent = accentForFramework(t.id, results);
           const meta = ASSESSMENT_CATALOG[t.id];
           return (
             <Link
