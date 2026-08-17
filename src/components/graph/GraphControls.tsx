@@ -1,6 +1,19 @@
 "use client";
 
 import type { ForceLink, ForceManyBody, Simulation } from "d3-force";
+import { getGroupColor } from "./groupColor";
+
+// Matches the fixed node-creation order in personalityResultsToGraphData
+// (question, trait, thread, axis, archetype) — buildGroupColorMap assigns
+// colors by first-appearance order, so these indices must stay in sync with
+// that order or the legend swatches will lie about what's on the canvas.
+const LEGEND_COLORS = {
+  question: getGroupColor(0),
+  trait: getGroupColor(1),
+  thread: getGroupColor(2),
+  axis: getGroupColor(3),
+  archetype: getGroupColor(4),
+};
 
 export type SpacingMode = "cozy" | "roomy";
 
@@ -111,23 +124,41 @@ export function GraphControls({
         <p className="text-xs font-semibold text-muted-foreground uppercase">Shapes mean:</p>
         <div className="space-y-2 text-xs text-foreground">
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded-full bg-blue-400" />
+            <div className="w-4 h-4 rounded-full" style={{ backgroundColor: LEGEND_COLORS.question }} />
             <span>Questions</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-purple-400" />
+            <div className="w-4 h-4" style={{ backgroundColor: LEGEND_COLORS.trait }} />
             <span>Traits</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-orange-400" style={{ clipPath: "polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)" }} />
+            <div
+              className="w-4 h-4"
+              style={{
+                backgroundColor: LEGEND_COLORS.thread,
+                clipPath: "polygon(50% 0%, 100% 100%, 0% 100%)",
+              }}
+            />
             <span>Threads</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-pink-400" style={{ clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)" }} />
+            <div
+              className="w-4 h-4"
+              style={{
+                backgroundColor: LEGEND_COLORS.axis,
+                clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)",
+              }}
+            />
             <span>Axes</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded-sm bg-yellow-400" style={{ clipPath: "polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)" }} />
+            <div
+              className="w-4 h-4 rounded-sm"
+              style={{
+                backgroundColor: LEGEND_COLORS.archetype,
+                clipPath: "polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)",
+              }}
+            />
             <span>You!</span>
           </div>
         </div>
