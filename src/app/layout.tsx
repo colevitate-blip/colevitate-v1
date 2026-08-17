@@ -16,8 +16,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Personality Studio",
-  description: "Discover your personality across four frameworks.",
+  metadataBase: new URL("https://colevitate.com"),
+  title: "Colevitate — Personality Studio",
+  description:
+    "Colevitate combines 16 Personalities, Big Five, Human Design, and 4 Color Types into one personality profile.",
+  openGraph: {
+    siteName: "Colevitate",
+    title: "Colevitate — Personality Studio",
+    description:
+      "Colevitate combines 16 Personalities, Big Five, Human Design, and 4 Color Types into one personality profile.",
+    url: "https://colevitate.com",
+  },
 };
 
 // Resolves the theme before first paint to prevent flash during hydration.

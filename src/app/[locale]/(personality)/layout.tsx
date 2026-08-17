@@ -11,9 +11,15 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { LanguageSwitcher } from "@/components/language-switcher";
 
 export const metadata: Metadata = {
-  title: "Personality Studio",
+  title: "Colevitate — Personality Studio",
   description:
-    "Explore 16 Personalities, Big Five, Human Design, and Color Type assessments — then combine them into one profile.",
+    "Colevitate combines 16 Personalities, Big Five, Human Design, and 4 Color Type assessments into one personality profile.",
+  openGraph: {
+    siteName: "Colevitate",
+    title: "Colevitate — Personality Studio",
+    description:
+      "Colevitate combines 16 Personalities, Big Five, Human Design, and 4 Color Type assessments into one personality profile.",
+  },
 };
 
 export default async function PersonalityLayout({ children }: { children: ReactNode }) {
