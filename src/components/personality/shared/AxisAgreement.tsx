@@ -6,11 +6,7 @@ import { accentForFramework } from "@/lib/personality/theme";
 import { ASSESSMENT_META } from "@/lib/personality/types";
 import type { PersonalityResults } from "@/lib/personality/types";
 import type { AxisScore } from "@/components/personality/combined/scoringMatrix";
-
-function positionOf(signal: number) {
-  const clamped = Math.max(-100, Math.min(100, signal));
-  return 50 + clamped / 2;
-}
+import { positionOf, fillRect } from "@/lib/personality/axisBar";
 
 export function AxisAgreement({
   axis,
@@ -19,9 +15,7 @@ export function AxisAgreement({
   axis: AxisScore;
   results: PersonalityResults;
 }) {
-  const clamped = Math.max(-100, Math.min(100, axis.score));
-  const fillLeft = clamped < 0 ? 50 + clamped / 2 : 50;
-  const fillWidth = Math.abs(clamped) / 2;
+  const { left: fillLeft, width: fillWidth } = fillRect(axis.score);
   const [expanded, setExpanded] = useState(false);
 
   return (
