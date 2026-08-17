@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { LogOut, Settings, User } from "lucide-react";
+import { LogOut, Settings, User, Users } from "lucide-react";
 import { Link as I18nLink } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/supabase/AuthProvider";
@@ -41,6 +41,12 @@ export function AuthStatus() {
         )}
         <span className="max-w-[120px] truncate">{displayName}</span>
       </div>
+      <Button asChild variant="ghost" size="sm" className="rounded-full gap-1.5">
+        <I18nLink href="/teams">
+          <Users className="size-3.5" />
+          <span className="sr-only">Teams</span>
+        </I18nLink>
+      </Button>
       <Button asChild variant="ghost" size="sm" className="rounded-full gap-1.5">
         <I18nLink href="/settings">
           <Settings className="size-3.5" />
