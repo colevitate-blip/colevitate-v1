@@ -9,7 +9,7 @@ export function ColevitateMark({ className = "size-6" }: { className?: string })
 
   useEffect(() => setMounted(true), []);
 
-  const logoSrc = mounted && resolvedTheme === "dark" ? "/logo.png" : "/logo-light.svg";
+  const logoSrc = mounted && resolvedTheme === "dark" ? "/logo.png" : "/logo-light.png";
 
   return (
     // eslint-disable-next-line @next/next/no-img-element
