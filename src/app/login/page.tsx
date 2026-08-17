@@ -18,6 +18,18 @@ export default function LoginPage() {
         <span className="text-lg font-bold tracking-tight">Colevitate</span>
       </Link>
       <SignInCard />
+
+      <p className="mt-6 max-w-xs text-center text-xs text-muted-foreground">
+        By continuing, you agree to Colevitate&apos;s{" "}
+        <Link href="/terms" className="underline underline-offset-4 hover:text-foreground">
+          Terms of Service
+        </Link>{" "}
+        and{" "}
+        <Link href="/privacy" className="underline underline-offset-4 hover:text-foreground">
+          Privacy Policy
+        </Link>
+        .
+      </p>
     </div>
   );
 }
