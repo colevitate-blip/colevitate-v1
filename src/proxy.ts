@@ -14,8 +14,8 @@ function isPersonalityPath(pathname: string): boolean {
   const maybeLocale = segments[0];
   const rest = (routing.locales as readonly string[]).includes(maybeLocale) ? segments.slice(1) : segments;
   const path = rest.join("/");
-  // Allow dynamic user share paths under /u/*
-  if (rest[0] === "u") return true;
+  // Allow dynamic user share paths under /u/* and team paths under /teams/*
+  if (rest[0] === "u" || rest[0] === "teams") return true;
   return PERSONALITY_SLUGS.has(path);
 }
 
