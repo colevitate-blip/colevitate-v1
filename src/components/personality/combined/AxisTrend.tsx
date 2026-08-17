@@ -57,13 +57,13 @@ export function AxisTrend({ axis, history }: { axis: AxisScore; history: Combine
             cx={xFor(i, points.length)}
             cy={yFor(score)}
             r={i === points.length - 1 ? 3.5 : 2.5}
-            className={i === points.length - 1 ? "fill-[#37e0c4]" : "fill-muted-foreground"}
+            className={i === points.length - 1 ? "fill-[var(--spatial-glow-2)]" : "fill-muted-foreground"}
           />
         ))}
         <defs>
           <linearGradient id="axisTrendGradient" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#7c8cff" />
-            <stop offset="100%" stopColor="#37e0c4" />
+            <stop offset="0%" stopColor="var(--spatial-glow)" />
+            <stop offset="100%" stopColor="var(--spatial-glow-2)" />
           </linearGradient>
         </defs>
       </svg>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 interface SkipControlProps {
@@ -8,7 +9,8 @@ interface SkipControlProps {
   label?: string;
 }
 
-export function SkipControl({ onSkip, className, label = "Not sure / doesn't apply — skip this one" }: SkipControlProps) {
+export function SkipControl({ onSkip, className, label }: SkipControlProps) {
+  const t = useTranslations("skipControl");
   return (
     <button
       type="button"
@@ -18,7 +20,7 @@ export function SkipControl({ onSkip, className, label = "Not sure / doesn't app
         className
       )}
     >
-      {label}
+      {label ?? t("label")}
     </button>
   );
 }

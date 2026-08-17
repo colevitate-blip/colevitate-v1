@@ -1,3 +1,4 @@
+import { createClient } from "@/lib/supabase/client";
 import type {
   CombinedSnapshot,
   FeedbackNote,
@@ -46,6 +47,24 @@ export function persistResults(results: PersonalityResults) {
   writeJson(RESULTS_KEY, results);
 }
 
+/** Loads a signed-in user's results from Supabase. Returns null if the row doesn't exist yet or the fetch fails. */
+export async function loadRemoteResults(userId: string): Promise<PersonalityResults | null> {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("results")
+    .eq("id", userId)
+    .maybeSingle();
+  if (error || !data) return null;
+  return (data.results as PersonalityResults) ?? {};
+}
+
+/** Upserts a signed-in user's results to Supabase. */
+export async function persistRemoteResults(userId: string, results: PersonalityResults) {
+  const supabase = createClient();
+  await supabase.from("profiles").upsert({ id: userId, results });
+}
+
 export function loadProgress(): ProgressMap {
   return readJson<ProgressMap>(PROGRESS_KEY, {});
 }
@@ -85,4 +104,72 @@ export function appendHistorySnapshot(snapshot: CombinedSnapshot) {
   const next = [...existing, snapshot].slice(-MAX_HISTORY_SNAPSHOTS);
   writeJson(HISTORY_KEY, next);
   return next;
+}
+
+/** Loads a signed-in user's history snapshots from Supabase. Returns empty array if the fetch fails. */
+export async function loadRemoteHistory(userId: string): Promise<CombinedSnapshot[]> {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("snapshots")
+    .select("completed_at, axes, archetype_name")
+    .eq("user_id", userId)
+    .order("completed_at", { ascending: true });
+  if (error || !data) return [];
+  return data.map((row) => ({
+    completedAt: row.completed_at,
+    axes: row.axes as CombinedSnapshot["axes"],
+    archetypeName: row.archetype_name ?? undefined,
+  }));
+}
+
+/** Appends a signed-in user's history snapshot to Supabase. Silently ignores unique-violation conflicts (already recorded). */
+export async function appendRemoteHistorySnapshot(
+  userId: string,
+  snapshot: CombinedSnapshot
+): Promise<void> {
+  const supabase = createClient();
+  await supabase.from("snapshots").insert({
+    user_id: userId,
+    completed_at: snapshot.completedAt,
+    axes: snapshot.axes,
+    archetype_name: snapshot.archetypeName,
+  });
+}
+
+export interface ProfileMeta {
+  displayName: string | null;
+  avatarUrl: string | null;
+  isPublic: boolean;
+  shareSlug: string | null;
+}
+
+/** Loads a signed-in user's profile metadata from Supabase. Returns null if the row doesn't exist or the fetch fails. */
+export async function loadRemoteProfileMeta(userId: string): Promise<ProfileMeta | null> {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("display_name, avatar_url, is_public, share_slug")
+    .eq("id", userId)
+    .maybeSingle();
+  if (error || !data) return null;
+  return {
+    displayName: data.display_name,
+    avatarUrl: data.avatar_url,
+    isPublic: data.is_public,
+    shareSlug: data.share_slug,
+  };
+}
+
+/** Upserts a signed-in user's profile metadata fields. Only updates the provided fields. */
+export async function persistRemoteProfileMeta(
+  userId: string,
+  patch: Partial<ProfileMeta>
+): Promise<void> {
+  const supabase = createClient();
+  const update: Record<string, unknown> = { id: userId };
+  if (patch.displayName !== undefined) update.display_name = patch.displayName;
+  if (patch.avatarUrl !== undefined) update.avatar_url = patch.avatarUrl;
+  if (patch.isPublic !== undefined) update.is_public = patch.isPublic;
+  if (patch.shareSlug !== undefined) update.share_slug = patch.shareSlug;
+  await supabase.from("profiles").upsert(update);
 }

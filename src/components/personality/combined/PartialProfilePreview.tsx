@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { ArrowRight, ChevronLeft, Sparkles } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -80,7 +80,7 @@ export function PartialProfilePreview({
       {summary ? (
         <div
           className={cn(
-            "mt-8 overflow-hidden rounded-[2rem] border p-6 shadow-[0_24px_50px_-16px_rgba(0,0,0,0.5)] sm:p-8",
+            "mt-8 overflow-hidden rounded-[2rem] border p-6 shadow-[0_24px_50px_-16px_var(--elevation-shadow-sm)] sm:p-8",
             accent.softBg
           )}
         >
@@ -93,7 +93,7 @@ export function PartialProfilePreview({
         </div>
       ) : null}
 
-      <div className="mt-8 rounded-3xl border bg-card p-6 text-center shadow-[0_18px_40px_-16px_rgba(0,0,0,0.5)] sm:p-8">
+      <div className="mt-8 rounded-3xl border bg-card p-6 text-center shadow-[0_18px_40px_-16px_var(--elevation-shadow-sm)] sm:p-8">
         <Sparkles className="mx-auto size-6 text-muted-foreground" />
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
           Complete {nextMeta.label} next to start seeing how your frameworks agree — and where

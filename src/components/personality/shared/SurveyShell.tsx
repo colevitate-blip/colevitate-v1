@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -40,6 +41,7 @@ export function SurveyShell({
   onAutofill,
   nextLabel,
 }: SurveyShellProps) {
+  const t = useTranslations("survey");
   const percent = Math.round(((stepIndex + 1) / totalSteps) * 100);
   const remaining = Math.max(0, totalSteps - stepIndex - 1);
   const estimatedMinutes = Math.max(1, Math.round((remaining * SECONDS_PER_QUESTION) / 60));
@@ -52,7 +54,7 @@ export function SurveyShell({
           className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
           <ChevronLeft className="size-4" />
-          Overview
+          {t("overview")}
         </Link>
         <div className="flex items-center gap-3">
           {onAutofill ? (
@@ -69,7 +71,7 @@ export function SurveyShell({
             <span>{stepIndex + 1} / {totalSteps}</span>
             {remaining > 0 ? (
               <span className="text-xs font-normal text-muted-foreground/80">
-                {remaining} question{remaining === 1 ? "" : "s"} left · ~{estimatedMinutes} min
+                {t("remaining", { remaining, minutes: estimatedMinutes })}
               </span>
             ) : null}
           </span>
@@ -85,7 +87,7 @@ export function SurveyShell({
         >
           {title}
         </h1>
-        <Progress value={percent} className="h-1.5 shadow-[0_0_14px_rgba(124,140,255,0.5)]" />
+        <Progress value={percent} className="h-1.5 shadow-[0_0_14px_var(--spatial-glow)]" />
       </div>
 
       <div className="relative flex-1">
@@ -111,7 +113,7 @@ export function SurveyShell({
           className="rounded-full"
         >
           <ArrowLeft className="size-4" />
-          Back
+          {t("back")}
         </Button>
         <Button
           size="lg"
@@ -122,7 +124,7 @@ export function SurveyShell({
             accent.gradient
           )}
         >
-          {nextLabel ?? (isLastStep ? "See my results" : "Next")}
+          {nextLabel ?? (isLastStep ? t("seeResults") : t("next"))}
           <ArrowRight className="size-4" />
         </Button>
       </div>

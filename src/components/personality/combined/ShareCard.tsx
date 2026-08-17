@@ -27,6 +27,29 @@ function hexForThread(id: AssessmentId, results: PersonalityResults): string {
   return FRAMEWORK_HEX[id];
 }
 
+// html2canvas can't read CSS custom properties, so the card's own
+// background/text/track palette is duplicated here per theme (kept in sync
+// with the --background/--foreground/--muted-foreground/--secondary/
+// --spatial-glow* values in src/app/globals.css).
+const CARD_PALETTE = {
+  dark: {
+    background: "linear-gradient(160deg, #0d1224 0%, #05070f 65%)",
+    foreground: "#dfe3ff",
+    muted: "#8890b8",
+    mutedStrong: "#b7bcdd",
+    track: "#141a33",
+    gradient: "linear-gradient(90deg, #7c8cff, #37e0c4)",
+  },
+  light: {
+    background: "linear-gradient(160deg, #ffffff 0%, #fafbfc 65%)",
+    foreground: "#10131c",
+    muted: "#5b6178",
+    mutedStrong: "#3d4258",
+    track: "#eef0f6",
+    gradient: "linear-gradient(90deg, #6366f1, #0d9488)",
+  },
+} as const;
+
 // Rendered off-screen and captured with html2canvas for the "Save / Share"
 // export. Every style here is inline and uses plain hex/rgb colors rather
 // than Tailwind utility classes — html2canvas can't parse the oklch-based
@@ -34,8 +57,9 @@ function hexForThread(id: AssessmentId, results: PersonalityResults): string {
 // deliberately isolated from the app's normal styling path.
 export const ShareCard = forwardRef<
   HTMLDivElement,
-  { profile: CombinedProfileData; results: PersonalityResults }
->(function ShareCard({ profile, results }, ref) {
+  { profile: CombinedProfileData; results: PersonalityResults; theme?: "light" | "dark" }
+>(function ShareCard({ profile, results, theme = "dark" }, ref) {
+  const palette = CARD_PALETTE[theme];
   return (
     <div
       ref={ref}
@@ -44,8 +68,8 @@ export const ShareCard = forwardRef<
         padding: 72,
         display: "flex",
         flexDirection: "column",
-        background: "linear-gradient(160deg, #0d1224 0%, #05070f 65%)",
-        color: "#dfe3ff",
+        background: palette.background,
+        color: palette.foreground,
         fontFamily: "var(--font-space-grotesk), sans-serif",
       }}
     >
@@ -80,13 +104,13 @@ export const ShareCard = forwardRef<
 
         {profile.archetype ? (
           <>
-            <div style={{ fontSize: 15, fontWeight: 600, letterSpacing: 2, color: "#8890b8", textTransform: "uppercase" }}>
+            <div style={{ fontSize: 15, fontWeight: 600, letterSpacing: 2, color: palette.muted, textTransform: "uppercase" }}>
               Your Archetype
             </div>
             <div style={{ fontSize: 56, fontWeight: 700, lineHeight: 1.15, marginTop: 12, letterSpacing: -1 }}>
               {profile.archetype.name}
             </div>
-            <div style={{ fontSize: 22, lineHeight: 1.5, color: "#b7bcdd", marginTop: 20, maxWidth: 820 }}>
+            <div style={{ fontSize: 22, lineHeight: 1.5, color: palette.mutedStrong, marginTop: 20, maxWidth: 820 }}>
               {profile.archetype.description}
             </div>
           </>
@@ -102,9 +126,9 @@ export const ShareCard = forwardRef<
             <div key={axis.id} style={{ marginBottom: 26 }}>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: 18, marginBottom: 8 }}>
                 <span style={{ fontWeight: 600 }}>{axis.label}</span>
-                <span style={{ color: "#8890b8" }}>{axis.tierLabel}</span>
+                <span style={{ color: palette.muted }}>{axis.tierLabel}</span>
               </div>
-              <div style={{ position: "relative", height: 10, borderRadius: 999, background: "#141a33" }}>
+              <div style={{ position: "relative", height: 10, borderRadius: 999, background: palette.track }}>
                 <div
                   style={{
                     position: "absolute",
@@ -113,11 +137,11 @@ export const ShareCard = forwardRef<
                     left: `${fillLeft}%`,
                     width: `${fillWidth}%`,
                     borderRadius: 999,
-                    background: "linear-gradient(90deg, #7c8cff, #37e0c4)",
+                    background: palette.gradient,
                   }}
                 />
               </div>
-              <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13, color: "#8890b8", marginTop: 6 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13, color: palette.muted, marginTop: 6 }}>
                 <span>{axis.leftPole}</span>
                 <span>{axis.rightPole}</span>
               </div>
@@ -125,7 +149,7 @@ export const ShareCard = forwardRef<
           );
         })}
 
-        <div style={{ marginTop: 20, fontSize: 15, color: "#8890b8" }}>Personality Studio</div>
+        <div style={{ marginTop: 20, fontSize: 15, color: palette.muted }}>Personality Studio</div>
       </div>
     </div>
   );

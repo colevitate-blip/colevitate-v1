@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { ArrowLeft, Sparkles } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { usePersonality } from "@/lib/personality/context";
 import { CombinedProfile } from "@/components/personality/combined/CombinedProfile";

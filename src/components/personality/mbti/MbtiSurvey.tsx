@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useTranslations } from "next-intl";
 import { SurveyShell } from "@/components/personality/shared/SurveyShell";
 import { ScaleQuestionCard } from "@/components/personality/shared/ScaleQuestionCard";
 import { GuidanceScreen } from "@/components/personality/shared/GuidanceScreen";
@@ -19,6 +20,9 @@ export function MbtiSurvey() {
     "mbti",
     MBTI_QUESTIONS.length
   );
+  const t = useTranslations("mbtiSurvey");
+  const tQuestions = useTranslations("mbti.questions");
+  const tAccuracyOfferNextLabel = useTranslations("accuracyOffer")("nextLabel");
 
   if (!hydrated) return null;
 
@@ -27,9 +31,9 @@ export function MbtiSurvey() {
   if (!guidanceSeen.mbti) {
     return (
       <GuidanceScreen
-        title="16 Personalities"
+        title={t("title")}
         accent={accent}
-        frameworkNote="Some questions read as scenarios — go with your gut reaction, not the 'ideal' answer."
+        frameworkNote={t("frameworkNote")}
         onContinue={() => markGuidanceSeen("mbti")}
       />
     );
@@ -87,7 +91,7 @@ export function MbtiSurvey() {
   if (current.kind === "offer") {
     return (
       <SurveyShell
-        title="16 Personalities"
+        title={t("title")}
         accent={accent}
         stepIndex={clampedStep}
         totalSteps={flowSteps.length}
@@ -95,7 +99,7 @@ export function MbtiSurvey() {
         onNext={handleNext}
         canAdvance
         isLastStep={isLastStep}
-        nextLabel="Continue for higher accuracy"
+        nextLabel={tAccuracyOfferNextLabel}
         onAutofill={handleAutofill}
       >
         <AccuracyOfferScreen
@@ -114,7 +118,7 @@ export function MbtiSurvey() {
 
   return (
     <SurveyShell
-      title="16 Personalities"
+      title={t("title")}
       accent={accent}
       stepIndex={clampedStep}
       totalSteps={flowSteps.length}
@@ -125,10 +129,10 @@ export function MbtiSurvey() {
       onAutofill={handleAutofill}
     >
       <ScaleQuestionCard
-        prompt={question.prompt}
-        example={question.example}
-        leftLabel={question.statementA}
-        rightLabel={question.statementB}
+        prompt={tQuestions(`${question.id}.prompt`)}
+        example={tQuestions(`${question.id}.example`)}
+        leftLabel={tQuestions(`${question.id}.statementA`)}
+        rightLabel={tQuestions(`${question.id}.statementB`)}
         value={value}
         onChange={(v) => setAnswers((prev) => ({ ...prev, [question.id]: v }))}
         onSkip={() => handleSkip(question.id)}

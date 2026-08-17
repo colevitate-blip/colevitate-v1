@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import type { AccentTheme } from "@/lib/personality/theme";
 import { ExplainToggle } from "./ExplainToggle";
@@ -20,7 +21,7 @@ interface ScaleQuestionCardProps {
 const STEPS = [1, 2, 3, 4, 5];
 // The soft-middle layer: a dichotomous question reads as a confidence gradient rather than a
 // forced binary pick, so "close calls" aren't distorted into a false Clearly-A/Clearly-B answer.
-const STEP_CAPTIONS = ["Clearly", "Lean", "Neither", "Lean", "Clearly"];
+const STEP_CAPTION_KEYS = ["captionClearly", "captionLean", "captionNeither", "captionLean", "captionClearly"] as const;
 
 export function ScaleQuestionCard({
   prompt,
@@ -33,8 +34,10 @@ export function ScaleQuestionCard({
   onSkip,
   accent,
 }: ScaleQuestionCardProps) {
+  const t = useTranslations("scaleQuestion");
+  const stepCaptions = STEP_CAPTION_KEYS.map((key) => t(key));
   return (
-    <div className="rounded-3xl border bg-card p-5 shadow-[0_24px_50px_-16px_rgba(0,0,0,0.5)] sm:p-8">
+    <div className="rounded-3xl border bg-card p-5 shadow-[0_24px_50px_-16px_var(--elevation-shadow-sm)] sm:p-8">
       <p className="text-lg font-medium leading-snug sm:text-xl">{prompt}</p>
       {helper ? (
         <p className="mt-2 text-sm text-muted-foreground">{helper}</p>
@@ -49,7 +52,7 @@ export function ScaleQuestionCard({
               <span key={step} className="flex flex-col items-center gap-1.5">
                 <button
                   type="button"
-                  aria-label={`${STEP_CAPTIONS[i]} ${step <= 2 ? leftLabel : step >= 4 ? rightLabel : ""}`.trim()}
+                  aria-label={`${stepCaptions[i]} ${step <= 2 ? leftLabel : step >= 4 ? rightLabel : ""}`.trim()}
                   onClick={() => onChange(step)}
                   className={cn(
                     "flex size-10 shrink-0 items-center justify-center rounded-full border-2 text-sm font-semibold transition-all sm:size-12",
@@ -61,7 +64,7 @@ export function ScaleQuestionCard({
                   {step}
                 </button>
                 <span className="hidden text-[0.65rem] text-muted-foreground sm:block">
-                  {STEP_CAPTIONS[i]}
+                  {stepCaptions[i]}
                 </span>
               </span>
             );

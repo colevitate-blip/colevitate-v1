@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import { useTheme } from "next-themes";
+import { Link } from "@/i18n/navigation";
 import {
   ChevronLeft,
   Sparkles,
@@ -21,8 +22,14 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { ASSESSMENT_CATALOG } from "@/lib/personality/catalog";
 import { accentForFramework } from "@/lib/personality/theme";
-import { appendHistorySnapshot, loadHistory } from "@/lib/personality/storage";
+import {
+  appendHistorySnapshot,
+  appendRemoteHistorySnapshot,
+  loadHistory,
+  loadRemoteHistory,
+} from "@/lib/personality/storage";
 import type { CombinedSnapshot, PersonalityResults } from "@/lib/personality/types";
+import { useAuth } from "@/lib/supabase/AuthProvider";
 import { AxisAgreement } from "@/components/personality/shared/AxisAgreement";
 import { getAxisGrowthPrompt, getCareerSuggestions } from "./growthContent";
 import { AxisTrend } from "./AxisTrend";
@@ -32,12 +39,16 @@ import type { CombinedProfile as CombinedProfileData } from "./generateCombinedP
 export function CombinedProfile({
   profile,
   results,
+  recordHistory = true,
 }: {
   profile: CombinedProfileData;
   results: PersonalityResults;
+  recordHistory?: boolean;
 }) {
   const shareCardRef = useRef<HTMLDivElement>(null);
   const [isExporting, setIsExporting] = useState(false);
+  const { resolvedTheme } = useTheme();
+  const { user } = useAuth();
   const careerSuggestions = getCareerSuggestions(profile.axes);
   const [history, setHistory] = useState<CombinedSnapshot[]>([]);
   const axisSignature = profile.axes.map((a) => `${a.id}:${a.score}`).join("|");
@@ -46,20 +57,51 @@ export function CombinedProfile({
   // retake — not every render), append a timestamped snapshot rather than
   // overwriting, so the trend view below has history to show.
   useEffect(() => {
-    const existing = loadHistory();
-    const latest = existing[existing.length - 1];
-    const latestSignature = latest?.axes.map((a) => `${a.id}:${a.score}`).join("|");
-    const next =
-      latestSignature === axisSignature
-        ? existing
-        : appendHistorySnapshot({
-            completedAt: new Date().toISOString(),
-            axes: profile.axes.map((a) => ({ id: a.id, score: a.score })),
-            archetypeName: profile.archetype?.name,
-          });
-    setHistory(next);
+    async function syncHistory() {
+      if (!recordHistory) {
+        return;
+      }
+
+      let existing = loadHistory();
+
+      // If user is signed in, load remote history and merge
+      if (user) {
+        const remote = await loadRemoteHistory(user.id);
+        const merged = Array.from(
+          new Map(
+            [...existing, ...remote].map((s) => [
+              new Date(s.completedAt).getTime(),
+              s,
+            ])
+          ).values()
+        )
+          .sort((a, b) => new Date(a.completedAt).getTime() - new Date(b.completedAt).getTime())
+          .slice(-50); // cap at MAX_HISTORY_SNAPSHOTS
+        existing = merged;
+      }
+
+      const latest = existing[existing.length - 1];
+      const latestSignature = latest?.axes.map((a) => `${a.id}:${a.score}`).join("|");
+      if (latestSignature !== axisSignature) {
+        const snapshot = {
+          completedAt: new Date().toISOString(),
+          axes: profile.axes.map((a) => ({ id: a.id, score: a.score })),
+          archetypeName: profile.archetype?.name,
+        };
+        const next = appendHistorySnapshot(snapshot);
+        setHistory(next);
+        // also append to remote if signed in
+        if (user) {
+          await appendRemoteHistorySnapshot(user.id, snapshot);
+        }
+      } else {
+        setHistory(existing);
+      }
+    }
+
+    syncHistory();
     // eslint-disable-next-line react-hooks/exhaustive-deps -- axisSignature is the derived, stable trigger for profile.axes/profile.archetype
-  }, [axisSignature]);
+  }, [axisSignature, recordHistory, user]);
 
   async function handleShare() {
     if (!shareCardRef.current || isExporting) return;
@@ -118,8 +160,8 @@ export function CombinedProfile({
         </Button>
       </div>
 
-      <div className="relative overflow-hidden rounded-[2.5rem] border bg-card p-6 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.55)] sm:p-10">
-        <div className="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full bg-gradient-to-br from-[#7c8cff] to-[#37e0c4] opacity-15 blur-3xl" />
+      <div className="relative overflow-hidden rounded-[2.5rem] border bg-card p-6 shadow-[0_30px_70px_-20px_var(--elevation-shadow-lg)] sm:p-10">
+        <div className="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full bg-gradient-to-br from-[var(--spatial-glow)] to-[var(--spatial-glow-2)] opacity-15 blur-3xl" />
 
         <div className="relative flex flex-col items-start gap-6 sm:flex-row sm:items-center">
           <div className="grid shrink-0 grid-cols-2 gap-2">
@@ -159,8 +201,8 @@ export function CombinedProfile({
       </div>
 
       {profile.archetype ? (
-        <div className="mt-8 rounded-3xl border bg-card p-6 text-center shadow-[0_18px_40px_-16px_rgba(0,0,0,0.5)] sm:p-8">
-          <div className="mx-auto mb-3 flex size-10 items-center justify-center rounded-full bg-gradient-to-br from-[#7c8cff] to-[#37e0c4] text-white">
+        <div className="mt-8 rounded-3xl border bg-card p-6 text-center shadow-[0_18px_40px_-16px_var(--elevation-shadow-sm)] sm:p-8">
+          <div className="mx-auto mb-3 flex size-10 items-center justify-center rounded-full bg-gradient-to-br from-[var(--spatial-glow)] to-[var(--spatial-glow-2)] text-white">
             <Fingerprint className="size-5" />
           </div>
           <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
@@ -175,7 +217,7 @@ export function CombinedProfile({
         </div>
       ) : null}
 
-      <div className="mt-8 rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_rgba(0,0,0,0.5)]">
+      <div className="mt-8 rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_var(--elevation-shadow-sm)]">
         <div className="mb-1 flex items-center gap-2">
           <div className="flex size-8 items-center justify-center rounded-full bg-muted">
             <SlidersHorizontal className="size-4" />
@@ -195,7 +237,7 @@ export function CombinedProfile({
       </div>
 
       {history.length > 0 ? (
-        <div className="mt-8 rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_rgba(0,0,0,0.5)]">
+        <div className="mt-8 rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_var(--elevation-shadow-sm)]">
           <div className="mb-1 flex items-center gap-2">
             <div className="flex size-8 items-center justify-center rounded-full bg-muted">
               <History className="size-4" />
@@ -222,7 +264,7 @@ export function CombinedProfile({
         </div>
       ) : null}
 
-      <div className="mt-8 rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_rgba(0,0,0,0.5)]">
+      <div className="mt-8 rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_var(--elevation-shadow-sm)]">
         <div className="mb-4 flex items-center gap-2">
           <div className="flex size-8 items-center justify-center rounded-full bg-muted">
             <Target className="size-4" />
@@ -246,7 +288,7 @@ export function CombinedProfile({
       </div>
 
       {careerSuggestions.length > 0 ? (
-        <div className="mt-8 rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_rgba(0,0,0,0.5)]">
+        <div className="mt-8 rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_var(--elevation-shadow-sm)]">
           <div className="mb-4 flex items-center gap-2">
             <div className="flex size-8 items-center justify-center rounded-full bg-muted">
               <Briefcase className="size-4" />
@@ -268,7 +310,7 @@ export function CombinedProfile({
       ) : null}
 
       <div className="mt-8 grid gap-6 sm:grid-cols-2">
-        <div className="rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_rgba(0,0,0,0.5)]">
+        <div className="rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_var(--elevation-shadow-sm)]">
           <div className="mb-4 flex items-center gap-2">
             <div className="flex size-8 items-center justify-center rounded-full bg-muted">
               <TrendingUp className="size-4" />
@@ -285,7 +327,7 @@ export function CombinedProfile({
           </ul>
         </div>
 
-        <div className="rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_rgba(0,0,0,0.5)]">
+        <div className="rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_var(--elevation-shadow-sm)]">
           <div className="mb-4 flex items-center gap-2">
             <div className="flex size-8 items-center justify-center rounded-full bg-muted">
               <Leaf className="size-4" />
@@ -333,7 +375,12 @@ export function CombinedProfile({
       </p>
 
       <div style={{ position: "fixed", top: 0, left: -9999, pointerEvents: "none" }} aria-hidden>
-        <ShareCard ref={shareCardRef} profile={profile} results={results} />
+        <ShareCard
+          ref={shareCardRef}
+          profile={profile}
+          results={results}
+          theme={resolvedTheme === "light" ? "light" : "dark"}
+        />
       </div>
     </div>
   );

@@ -1,0 +1,116 @@
+{
+  "chrome": {
+    "brand": "Colevitate",
+    "tagline": "Plusieurs regards. Un seul vous.",
+    "signIn": "Se connecter",
+    "signOut": "Se déconnecter",
+    "footerTagline": "Côté client et privé — vos résultats ne quittent jamais votre navigateur."
+  },
+  "landing": {
+    "eyebrow": "Quatre approches, un profil",
+    "titleLead": "Découvrez-vous,",
+    "titleAccent": "sous tous les angles",
+    "subtitle": "Passez n'importe quelle combinaison de quatre approches de personnalité reconnues — chacune ne prenant que quelques minutes — et combinez les résultats en un profil unique et cohérent.",
+    "combined": {
+      "title": "Votre profil combiné",
+      "body": "{count, plural, =0 {Terminez votre première évaluation pour débloquer un aperçu de votre profil combiné.} =1 {Vous avez terminé 1 évaluation sur 4 — découvrez ce que nous savons déjà de vous, et continuez vers le profil combiné complet.} other {Vous avez terminé # évaluations sur 4. Générez un profil unique et cohérent qui rassemble vos résultats.}}",
+      "cta": "{count, plural, =0 {Voir ce que nous savons déjà} =1 {Voir ce que nous savons déjà} other {Générer le profil combiné}}"
+    }
+  },
+  "assessments": {
+    "mbti": {
+      "label": "16 Personnalités",
+      "tagline": "Style cognitif et type",
+      "description": "Une typologie à 4 lettres sur la façon dont vous orientez votre énergie, traitez l'information, prenez des décisions et structurez votre vie."
+    },
+    "bigfive": {
+      "label": "Big Five",
+      "tagline": "Le modèle OCEAN",
+      "description": "Le modèle le mieux étayé scientifiquement en psychologie de la personnalité — cinq grands traits évalués sur un spectre continu."
+    },
+    "humandesign": {
+      "label": "Human Design",
+      "tagline": "Type d'énergie et stratégie",
+      "description": "Un questionnaire d'auto-réflexion simplifié inspiré des types d'énergie, de la stratégie de décision et de l'autorité intérieure du Human Design. Aucune date, heure ou lieu de naissance nécessaire — juste la façon dont vous fonctionnez réellement."
+    },
+    "colors": {
+      "label": "4 Types de Couleur",
+      "tagline": "Rouge · Bleu · Vert · Jaune",
+      "description": "Une lecture rapide et visuelle de votre style de comportement dominant — déterminé, analytique, bienveillant ou expressif."
+    },
+    "meta": "{count, plural, one {# question} other {# questions}} · ~3 min",
+    "status": {
+      "completed": "Terminé",
+      "inProgress": "En cours",
+      "viewResult": "Voir le résultat",
+      "continue": "Continuer",
+      "start": "Commencer"
+    }
+  },
+  "survey": {
+    "overview": "Aperçu",
+    "back": "Retour",
+    "next": "Suivant",
+    "seeResults": "Voir mes résultats",
+    "remaining": "{remaining, plural, =0 {Aucune question restante} one {Encore # question} other {Encore # questions}} · ~{minutes} min"
+  },
+  "guidance": {
+    "beforeYouStart": "Avant de commencer {title}",
+    "body": "Répondez selon ce que vous faites naturellement — pas ce que vous pensez devoir faire, ni ce que vous vous êtes entraîné à faire. Il n'y a pas de bonnes ou de mauvaises réponses ici.",
+    "continue": "Compris, c'est parti"
+  },
+  "accuracyOffer": {
+    "title": "Vous avez déjà un résultat exploitable",
+    "body": "Vous voulez plus de précision ? {remaining, plural, one {encore # question} other {encore # questions}} (~{minutes} min) permettront d'affiner les cas limites. Ou terminez maintenant avec ce que vous avez déjà répondu.",
+    "nextLabel": "Continuer pour plus de précision",
+    "finishNow": "Terminer maintenant"
+  },
+  "analyzing": {
+    "messages": [
+      "Lecture de vos réponses…",
+      "Pondération des signaux…",
+      "Vérification croisée des tendances…",
+      "Assemblage de votre profil…"
+    ]
+  },
+  "reflection": {
+    "prompt": "C'était difficile à répondre ? Vous voulez laisser une petite note ?",
+    "leaveNote": "Laisser une note",
+    "noThanks": "Non merci",
+    "placeholder": "Qu'est-ce qui l'a rendu difficile ? (privé, sert uniquement à améliorer les questions)",
+    "cancel": "Annuler",
+    "send": "Envoyer",
+    "sent": "Merci — noté en privé, cela nous aidera à améliorer cette question."
+  },
+  "skipControl": {
+    "label": "Pas sûr / ne s'applique pas — passer celle-ci"
+  },
+  "explainToggle": {
+    "show": "Expliquer cette question / voir un exemple",
+    "hide": "Masquer l'exemple"
+  },
+  "middleGroundNote": {
+    "body": "Vous êtes proche du milieu sur {poleA} / {poleB} — cela peut varier selon le contexte."
+  },
+  "resultShell": {
+    "retake": "Refaire",
+    "strengths": "Forces",
+    "growth": "Axes de progression"
+  },
+  "mbtiResult": {
+    "footnoteBase": "Ceci est un outil d'auto-réflexion inspiré de la typologie jungienne, destiné à la connaissance de soi et à la conversation — pas un instrument clinique ou scientifique.",
+    "footnoteSkipped": "{count, plural, one { Vous avez passé # question, donc ces dimensions se sont appuyées sur une moyenne typique.} other { Vous avez passé # questions, donc ces dimensions se sont appuyées sur une moyenne typique.}}"
+  },
+  "mbtiSurvey": {
+    "title": "16 Personnalités",
+    "frameworkNote": "Certaines questions se présentent comme des scénarios — suivez votre instinct, pas la réponse « idéale »."
+  },
+  "scaleQuestion": {
+    "captionClearly": "Clairement",
+    "captionLean": "Plutôt",
+    "captionNeither": "Ni l'un ni l'autre"
+  },
+  "auth": {
+    "emailLabel": "Connecté"
+  }
+}

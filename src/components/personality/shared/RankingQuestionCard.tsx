@@ -45,7 +45,7 @@ export function RankingQuestionCard({
   }
 
   return (
-    <div className="rounded-3xl border bg-card p-5 shadow-[0_24px_50px_-16px_rgba(0,0,0,0.5)] sm:p-8">
+    <div className="rounded-3xl border bg-card p-5 shadow-[0_24px_50px_-16px_var(--elevation-shadow-sm)] sm:p-8">
       <p className="text-lg font-medium leading-snug sm:text-xl">{prompt}</p>
       {helper ? <p className="mt-2 text-sm text-muted-foreground">{helper}</p> : null}
       {example ? <ExplainToggle example={example} /> : null}

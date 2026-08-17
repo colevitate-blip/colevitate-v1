@@ -34,7 +34,7 @@ export function AxisAgreement({
       <div className="relative h-2 rounded-full bg-muted">
         <div className="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-border" />
         <div
-          className="absolute inset-y-0 rounded-full bg-gradient-to-r from-[#7c8cff] to-[#37e0c4]"
+          className="absolute inset-y-0 rounded-full bg-gradient-to-r from-[var(--spatial-glow)] to-[var(--spatial-glow-2)]"
           style={{ left: `${fillLeft}%`, width: `${fillWidth}%` }}
         />
         {axis.contributions.map((c) => {

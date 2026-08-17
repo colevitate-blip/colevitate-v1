@@ -1,0 +1,53 @@
+import { notFound } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
+import { CombinedProfile } from "@/components/personality/combined/CombinedProfile";
+import { generateCombinedProfile } from "@/components/personality/combined/generateCombinedProfile";
+import type { PersonalityResults } from "@/lib/personality/types";
+
+export default async function PublicSharePage({ params }: { params: { slug: string } }) {
+  const supabase = await createClient();
+
+  const { data: profile, error } = await supabase
+    .from("profiles")
+    .select("id, display_name, is_public, results")
+    .eq("share_slug", params.slug)
+    .eq("is_public", true)
+    .maybeSingle();
+
+  if (error || !profile || !profile.is_public) {
+    notFound();
+  }
+
+  const results = (profile.results as PersonalityResults) || {};
+  const completedCount = Object.values(results).filter((r) => r !== undefined && r !== null).length;
+
+  // Need at least 2 completed assessments to generate a combined profile
+  if (completedCount < 2) {
+    return (
+      <div className="mx-auto flex w-full max-w-lg flex-col items-center px-4 py-20 text-center">
+        <div className="mb-6">
+          <h1 className="text-2xl font-semibold tracking-tight">Profile Not Ready</h1>
+          <p className="mt-2 text-sm text-muted-foreground">
+            This profile needs at least 2 completed assessments to generate a combined view.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  const combinedProfile = generateCombinedProfile(results);
+  if (!combinedProfile) {
+    notFound();
+  }
+
+  return (
+    <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:py-12">
+      <div className="mb-8 text-center">
+        <p className="text-sm text-muted-foreground">
+          {profile.display_name || "Someone"}'s Personality Profile
+        </p>
+      </div>
+      <CombinedProfile profile={combinedProfile} results={results} recordHistory={false} />
+    </div>
+  );
+}

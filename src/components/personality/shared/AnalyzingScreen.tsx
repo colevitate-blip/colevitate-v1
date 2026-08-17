@@ -1,15 +1,11 @@
 "use client";
 
 import * as React from "react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import type { AccentTheme } from "@/lib/personality/theme";
 
-const MESSAGES = [
-  "Reading your answers…",
-  "Weighing the signals…",
-  "Cross-checking patterns…",
-  "Assembling your profile…",
-];
+const MESSAGE_COUNT = 4;
 
 interface AnalyzingScreenProps {
   label: string;
@@ -18,12 +14,13 @@ interface AnalyzingScreenProps {
 }
 
 export function AnalyzingScreen({ label, accent, durationMs = 1900 }: AnalyzingScreenProps) {
+  const t = useTranslations("analyzing");
   const [messageIndex, setMessageIndex] = React.useState(0);
   const [fill, setFill] = React.useState(0);
 
   React.useEffect(() => {
     const interval = window.setInterval(() => {
-      setMessageIndex((i) => (i + 1) % MESSAGES.length);
+      setMessageIndex((i) => (i + 1) % MESSAGE_COUNT);
     }, 650);
     return () => window.clearInterval(interval);
   }, []);
@@ -49,14 +46,14 @@ export function AnalyzingScreen({ label, accent, durationMs = 1900 }: AnalyzingS
         <span aria-hidden className={cn("absolute inset-6 rounded-full border-2", accent.border)} />
         <span
           aria-hidden
-          className={cn("size-4 rounded-full bg-gradient-to-br shadow-[0_0_20px_rgba(124,140,255,0.7)]", accent.gradient)}
+          className={cn("size-4 rounded-full bg-gradient-to-br shadow-[0_0_20px_var(--spatial-glow)]", accent.gradient)}
           style={{ animation: "colevitate-analyzing-pulse 1.4s ease-in-out infinite" }}
         />
       </div>
 
       <p className="mt-8 text-xs font-medium uppercase tracking-wide text-muted-foreground">{label}</p>
       <h1 className="mt-2 min-h-10 text-2xl font-semibold tracking-tight sm:text-3xl" aria-live="polite">
-        {MESSAGES[messageIndex]}
+        {t(`messages.${messageIndex}`)}
       </h1>
 
       <div className="mt-8 h-1.5 w-full max-w-xs overflow-hidden rounded-full bg-muted">

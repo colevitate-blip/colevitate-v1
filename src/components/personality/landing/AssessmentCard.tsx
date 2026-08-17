@@ -1,5 +1,6 @@
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { ArrowRight, CheckCircle2, CircleDot } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import type { AccentTheme } from "@/lib/personality/theme";
 import type { LucideIcon } from "lucide-react";
@@ -27,11 +28,12 @@ export function AssessmentCard({
   status,
   resultSummary,
 }: AssessmentCardProps) {
+  const t = useTranslations("assessments");
   return (
     <Link
       href={href}
       className={cn(
-        "group relative flex flex-col overflow-hidden rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_rgba(0,0,0,0.5)] transition-all duration-300 [transform-style:preserve-3d] hover:-translate-y-1 hover:shadow-[0_28px_56px_-16px_rgba(0,0,0,0.6)] hover:[transform:rotateX(3deg)_rotateY(-3deg)_translateY(-4px)] sm:p-7"
+        "group relative flex flex-col overflow-hidden rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_var(--elevation-shadow-sm)] transition-all duration-300 [transform-style:preserve-3d] hover:-translate-y-1 hover:shadow-[0_28px_56px_-16px_var(--elevation-shadow-lg)] hover:[transform:rotateX(3deg)_rotateY(-3deg)_translateY(-4px)] sm:p-7"
       )}
     >
       <div
@@ -49,12 +51,12 @@ export function AssessmentCard({
         {status === "completed" ? (
           <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2.5 py-1 text-xs font-medium text-emerald-600 dark:text-emerald-400">
             <CheckCircle2 className="size-3.5" />
-            Complete
+            {t("status.completed")}
           </span>
         ) : status === "in-progress" ? (
           <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/10 px-2.5 py-1 text-xs font-medium text-amber-600 dark:text-amber-400">
             <CircleDot className="size-3.5" />
-            In progress
+            {t("status.inProgress")}
           </span>
         ) : null}
       </div>
@@ -69,10 +71,14 @@ export function AssessmentCard({
         {status === "completed" && resultSummary ? (
           <span className="font-semibold">{resultSummary}</span>
         ) : (
-          <span className="text-muted-foreground">{questionCount} questions · ~3 min</span>
+          <span className="text-muted-foreground">{t("meta", { count: questionCount })}</span>
         )}
         <span className={cn("inline-flex items-center gap-1 font-medium transition-transform group-hover:translate-x-0.5", accent.text)}>
-          {status === "completed" ? "View result" : status === "in-progress" ? "Continue" : "Start"}
+          {status === "completed"
+            ? t("status.viewResult")
+            : status === "in-progress"
+              ? t("status.continue")
+              : t("status.start")}
           <ArrowRight className="size-3.5" />
         </span>
       </div>

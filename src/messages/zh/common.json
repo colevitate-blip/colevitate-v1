@@ -1,0 +1,116 @@
+{
+  "chrome": {
+    "brand": "Colevitate",
+    "tagline": "多重视角，一个真实的你。",
+    "signIn": "登录",
+    "signOut": "退出登录",
+    "footerTagline": "本地运行、完全私密 —— 你的结果永远不会离开你的浏览器。"
+  },
+  "landing": {
+    "eyebrow": "四种模型，一份档案",
+    "titleLead": "认识你自己，",
+    "titleAccent": "从每一个角度",
+    "subtitle": "任意组合四种知名的人格模型 —— 每种只需几分钟 —— 并将结果编织成一份完整的综合档案。",
+    "combined": {
+      "title": "你的综合档案",
+      "body": "{count, plural, =0 {完成你的第一项测评，即可解锁综合档案预览。} =1 {你已完成 4 项中的 1 项 —— 看看我们目前对你的了解，并继续完成完整的综合档案。} other {你已完成 4 项测评中的 # 项。生成一份将所有结果融合在一起的完整档案。}}",
+      "cta": "{count, plural, =0 {查看目前已知的信息} =1 {查看目前已知的信息} other {生成综合档案}}"
+    }
+  },
+  "assessments": {
+    "mbti": {
+      "label": "16型人格",
+      "tagline": "认知风格与类型",
+      "description": "一套四字母类型学，衡量你如何投入精力、获取信息、做决策，以及安排生活的方式。"
+    },
+    "bigfive": {
+      "label": "大五人格",
+      "tagline": "OCEAN 模型",
+      "description": "人格心理学中最具研究支持的模型 —— 在连续光谱上评估五大核心特质。"
+    },
+    "humandesign": {
+      "label": "人类图",
+      "tagline": "能量类型与策略",
+      "description": "一份简化的自我反思测验，灵感来自人类图的能量类型、决策策略与内在权威。无需出生日期、时间或地点 —— 只关注你实际的行为方式。"
+    },
+    "colors": {
+      "label": "4种色彩性格",
+      "tagline": "红 · 蓝 · 绿 · 黄",
+      "description": "快速、直观地了解你的主导行为风格 —— 果断、分析型、支持型或表现型。"
+    },
+    "meta": "{count, plural, other {共 # 题}} · 约3分钟",
+    "status": {
+      "completed": "已完成",
+      "inProgress": "进行中",
+      "viewResult": "查看结果",
+      "continue": "继续",
+      "start": "开始"
+    }
+  },
+  "survey": {
+    "overview": "总览",
+    "back": "上一步",
+    "next": "下一步",
+    "seeResults": "查看我的结果",
+    "remaining": "{remaining, plural, =0 {没有剩余题目} other {还剩 # 题}} · 约{minutes}分钟"
+  },
+  "guidance": {
+    "beforeYouStart": "在开始「{title}」之前",
+    "body": "请根据你自然而然的反应作答 —— 而不是你认为应该怎么做，或刻意训练出来的做法。这里没有对错之分。",
+    "continue": "明白了，开始吧"
+  },
+  "accuracyOffer": {
+    "title": "你已经拥有一个可用的结果",
+    "body": "想要更高的准确度吗？{remaining, plural, other {还有 # 道题}}（约{minutes}分钟）可以帮助厘清那些模糊的答案。或者现在就用已完成的部分结束测试。",
+    "nextLabel": "继续以提高准确度",
+    "finishNow": "现在结束测试"
+  },
+  "analyzing": {
+    "messages": [
+      "正在读取你的答案…",
+      "正在权衡各项信号…",
+      "正在交叉核对规律…",
+      "正在生成你的档案…"
+    ]
+  },
+  "reflection": {
+    "prompt": "这道题不好回答吗？想留个简短的说明吗？",
+    "leaveNote": "留言",
+    "noThanks": "不用了",
+    "placeholder": "是什么让它变得困难？（内容保密，仅用于改进题目）",
+    "cancel": "取消",
+    "send": "发送",
+    "sent": "谢谢 —— 已私密记录，这将帮助我们改进这道题。"
+  },
+  "skipControl": {
+    "label": "不确定 / 不适用 —— 跳过这道题"
+  },
+  "explainToggle": {
+    "show": "解释这道题 / 查看示例",
+    "hide": "隐藏示例"
+  },
+  "middleGroundNote": {
+    "body": "你在「{poleA}」和「{poleB}」之间处于中间地带 —— 这可能会因情境不同而有所变化。"
+  },
+  "resultShell": {
+    "retake": "重新测试",
+    "strengths": "优势",
+    "growth": "成长方向"
+  },
+  "mbtiResult": {
+    "footnoteBase": "这是一款受荣格类型学启发的自评反思工具，旨在帮助自我认知与交流探讨 —— 并非临床或科学诊断工具。",
+    "footnoteSkipped": "{count, plural, other { 你跳过了 # 道题，因此这些维度采用了典型的平均值。}}"
+  },
+  "mbtiSurvey": {
+    "title": "16型人格",
+    "frameworkNote": "有些题目以情景形式呈现 —— 请凭直觉作答，而不是选择「理想」答案。"
+  },
+  "scaleQuestion": {
+    "captionClearly": "明显",
+    "captionLean": "偏向",
+    "captionNeither": "中立"
+  },
+  "auth": {
+    "emailLabel": "已登录"
+  }
+}

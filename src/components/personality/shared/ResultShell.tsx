@@ -1,7 +1,8 @@
 "use client";
 
 import type { ReactNode } from "react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { ChevronLeft, RotateCcw, Sparkles, TrendingUp, Leaf } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -36,6 +37,8 @@ export function ResultShell({
   extra,
   footnote,
 }: ResultShellProps) {
+  const t = useTranslations("survey");
+  const tResult = useTranslations("resultShell");
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:py-12">
       <div className="mb-8 flex items-center justify-between">
@@ -44,17 +47,17 @@ export function ResultShell({
           className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
           <ChevronLeft className="size-4" />
-          Overview
+          {t("overview")}
         </Link>
         <Button variant="ghost" size="sm" onClick={onRetake} className="rounded-full">
           <RotateCcw className="size-3.5" />
-          Retake
+          {tResult("retake")}
         </Button>
       </div>
 
       <div
         className={cn(
-          "relative overflow-hidden rounded-[2.5rem] border p-6 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.55)] sm:p-10",
+          "relative overflow-hidden rounded-[2.5rem] border p-6 shadow-[0_30px_70px_-20px_var(--elevation-shadow-lg)] sm:p-10",
           accent.softBg
         )}
       >
@@ -83,12 +86,12 @@ export function ResultShell({
       </div>
 
       <div className="mt-8 grid gap-6 sm:grid-cols-2">
-        <div className="rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_rgba(0,0,0,0.5)]">
+        <div className="rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_var(--elevation-shadow-sm)]">
           <div className="mb-4 flex items-center gap-2">
             <div className={cn("flex size-8 items-center justify-center rounded-full", accent.softBg)}>
               <TrendingUp className={cn("size-4", accent.text)} />
             </div>
-            <h2 className="font-semibold">Strengths</h2>
+            <h2 className="font-semibold">{tResult("strengths")}</h2>
           </div>
           <ul className="space-y-2.5">
             {strengths.map((s) => (
@@ -100,12 +103,12 @@ export function ResultShell({
           </ul>
         </div>
 
-        <div className="rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_rgba(0,0,0,0.5)]">
+        <div className="rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_var(--elevation-shadow-sm)]">
           <div className="mb-4 flex items-center gap-2">
             <div className={cn("flex size-8 items-center justify-center rounded-full", accent.softBg)}>
               <Leaf className={cn("size-4", accent.text)} />
             </div>
-            <h2 className="font-semibold">Growth areas</h2>
+            <h2 className="font-semibold">{tResult("growth")}</h2>
           </div>
           <ul className="space-y-2.5">
             {growth.map((g) => (
@@ -124,6 +127,16 @@ export function ResultShell({
           <p className="text-xs leading-relaxed text-muted-foreground">{footnote}</p>
         </>
       ) : null}
+
+      <div className="mt-8 flex justify-center">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+        >
+          <ChevronLeft className="size-4" />
+          {t("overview")}
+        </Link>
+      </div>
     </div>
   );
 }

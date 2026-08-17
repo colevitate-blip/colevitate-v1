@@ -1,0 +1,344 @@
+{
+  "letters": {
+    "E": "Extraversion",
+    "I": "Introversion",
+    "S": "Empfindung",
+    "N": "Intuition",
+    "T": "Denken",
+    "F": "Fühlen",
+    "J": "Urteilen",
+    "P": "Wahrnehmen"
+  },
+  "types": {
+    "INTJ": {
+      "name": "Der Stratege",
+      "tagline": "Unabhängig · Visionär · Anspruchsvoll",
+      "description": "INTJs denken in Systemen und langen Zeiträumen. Du bildest eine unabhängige, gut durchdachte Sicht darauf, wohin sich die Dinge entwickeln, und hast die Disziplin, stetig darauf hinzuarbeiten — oft Jahre vor allen anderen.",
+      "strengths": [
+        "Erkennt das strukturelle Muster hinter komplexen Problemen, die andere überfordern",
+        "Setzt ambitionierte langfristige Ziele und verfolgt sie mit stiller Konsequenz",
+        "Trifft unpopuläre Entscheidungen ohne Zögern, wenn die Logik dafürspricht",
+        "Verfeinert Ideen ständig, statt sich mit einer ausreichend guten Antwort zufriedenzugeben"
+      ],
+      "growth": [
+        "Kann distanziert wirken, wenn andere zuerst emotionale Anerkennung brauchen",
+        "Kann Beiträge abtun, die nicht als gut formuliertes Argument daherkommen",
+        "Perfektionismus kann die Fertigstellung von bereits Gutem verzögern"
+      ]
+    },
+    "INTP": {
+      "name": "Der Analytiker",
+      "tagline": "Neugierig · Logisch · Unabhängig",
+      "description": "INTPs werden vom Reiz eines interessanten Problems angetrieben. Du verstehst lieber gründlich, wie etwas funktioniert, statt schnell mit oberflächlichem Wissen voranzukommen, und bist am lebendigsten, wenn du eine Idee auseinandernimmst, um zu sehen, was sie zusammenhält.",
+      "strengths": [
+        "Erkennt logische Widersprüche und Randfälle, die andere übersehen",
+        "Entwickelt originelle Denkmodelle, statt zur naheliegenden Antwort zu greifen",
+        "Sagt bequem „das weiß ich noch nicht“ statt Sicherheit vorzutäuschen",
+        "Bringt Genauigkeit in Entscheidungen, die andere rein aus dem Bauch heraus treffen"
+      ],
+      "growth": [
+        "Analyse kann sich endlos drehen, ohne zu einer Entscheidung zu kommen",
+        "Die Umsetzung von Routineaufgaben kann hinter der Qualität der eigenen Ideen zurückbleiben",
+        "Kann vergessen, eine Argumentation zu erklären, die einem selbst offensichtlich erscheint"
+      ]
+    },
+    "ENTJ": {
+      "name": "Der Kommandant",
+      "tagline": "Entschlossen · Strategisch · Zielstrebig",
+      "description": "ENTJs verwandeln Unklarheit in einen Plan. Du siehst von Natur aus den effizientesten Weg von der aktuellen Lage zum gewünschten Ziel und mobilisierst Menschen und Ressourcen, um dorthin zu gelangen — ohne großes Zögern.",
+      "strengths": [
+        "Trifft schnell klare Entscheidungen, auch bei unvollständigen Informationen",
+        "Organisiert Menschen und Ressourcen um ein gemeinsames, ambitioniertes Ziel herum",
+        "Gibt direktes Feedback, das Projekte voranbringt",
+        "Behandelt Rückschläge als Daten, nicht als Grund zu bremsen"
+      ],
+      "growth": [
+        "Kann leisere Stimmen übergehen, bevor er ihren vollen Beitrag gehört hat",
+        "Ungeduld mit Prozessen kann die Zustimmung des Teams untergraben",
+        "Kann die emotionalen Kosten einer rein effizienten Entscheidung unterschätzen"
+      ]
+    },
+    "ENTP": {
+      "name": "Der Innovator",
+      "tagline": "Erfinderisch · Schlagfertig · Widerspenstig",
+      "description": "ENTPs denken laut, indem sie argumentieren — mit anderen und mit sich selbst. Du wirst von Möglichkeiten angetrieben, erkennst schnell den Schwachpunkt eines Plans und schlägst genauso schnell drei bessere vor.",
+      "strengths": [
+        "Erzeugt eine breite Palette neuartiger Optionen, statt sich an der ersten Idee festzuhalten",
+        "Debattiert Ideen rigoros, ohne Uneinigkeit persönlich zu nehmen",
+        "Passt sich schnell an, wenn sich Umstände mitten im Plan ändern",
+        "Belebt einen Raum und hinterfragt festgefahrene Annahmen"
+      ],
+      "growth": [
+        "Kann mehr Projekte beginnen, als er abschließt",
+        "Zu häufiges Spielen des Advocatus Diaboli kann als Widerspruch um des Widerspruchs willen wirken",
+        "Routineausführung kann sich mühsam anfühlen, sobald der neue Teil gelöst ist"
+      ]
+    },
+    "INFJ": {
+      "name": "Der Fürsprecher",
+      "tagline": "Einfühlsam · Prinzipientreu · Still intensiv",
+      "description": "INFJs verbinden einen starken inneren Kompass mit echter Sensibilität für Menschen. Du erkennst die Bedeutung hinter einer Situation oft vor anderen und legst Wert darauf, es richtig zu machen — für die beteiligten Menschen, nicht nur für das Ergebnis.",
+      "strengths": [
+        "Erfasst zugrunde liegende Dynamiken und unausgesprochene Bedürfnisse im Raum",
+        "Hält feste, gut durchdachte Werte, ohne laut darüber zu sein",
+        "Baut tiefe, vertrauensbasierte Beziehungen statt vieler oberflächlicher",
+        "Verbindet eine konkrete Entscheidung mit ihrer größeren Bedeutung oder ihrem Zweck"
+      ],
+      "growth": [
+        "Kann die emotionale Last anderer aufnehmen, bis sie zur eigenen wird",
+        "Idealismus kann in Enttäuschung umschlagen, wenn die Realität nicht standhält",
+        "Neigt dazu, sich zurückzuziehen, statt einen Konflikt direkt anzusprechen"
+      ]
+    },
+    "INFP": {
+      "name": "Der Idealist",
+      "tagline": "Einfühlsam · Authentisch · Fantasievoll",
+      "description": "INFPs orientieren sich an einem klaren inneren Gefühl für Richtigkeit und Sinnhaftigkeit. Dir ist weniger wichtig, wie Dinge von außen wirken, als ob sie deinen Werten treu sind, was deiner Arbeit eine stille Authentizität verleiht.",
+      "strengths": [
+        "Bringt echte Empathie ein, die Menschen wirklich gehört fühlen lässt",
+        "Bleibt unter sozialem oder kommerziellem Druck bei den eigenen Werten verankert",
+        "Sieht kreative, wertebasierte Blickwinkel, die andere übersehen",
+        "Setzt sich für Menschen ein, die sonst übergangen werden könnten"
+      ],
+      "growth": [
+        "Kann Kritik an einer Idee als Kritik an sich selbst auffassen",
+        "Konfliktvermeidung kann kleine Probleme zu Groll heranwachsen lassen",
+        "Idealisierte Erwartungen können die gewöhnliche Realität enttäuschend wirken lassen"
+      ]
+    },
+    "ENFJ": {
+      "name": "Der Mentor",
+      "tagline": "Warmherzig · Überzeugend · Menschenorientiert",
+      "description": "ENFJs lesen einen Raum und wissen instinktiv, wie sie das Beste aus den Menschen darin herausholen. Du bist vom Wachstum anderer Menschen motiviert und hast eine natürliche Gabe, eine gemeinsame Vision zu formulieren, die Menschen gemeinsam in Bewegung bringt.",
+      "strengths": [
+        "Bemerkt individuelle Stärken und hilft Menschen aktiv, in sie hineinzuwachsen",
+        "Kommuniziert eine Vision auf eine Weise, die Menschen wirklich mobilisiert",
+        "Baut schnell Vertrauen über sehr unterschiedliche Menschen hinweg auf",
+        "Verwandelt Spannungen in einer Gruppe in ein konstruktives Gespräch"
+      ],
+      "growth": [
+        "Kann sich zu sehr für die Bedürfnisse anderer einsetzen, auf Kosten der eigenen",
+        "Der Wunsch nach Harmonie kann ein notwendiges schwieriges Gespräch verzögern",
+        "Kann eine kühle Reaktion persönlich nehmen statt als neutrales Feedback"
+      ]
+    },
+    "ENFP": {
+      "name": "Der Katalysator",
+      "tagline": "Enthusiastisch · Fantasievoll · Warmherzig",
+      "description": "ENFPs bringen echte Neugier und Wärme in fast alles ein. Du verbindest Ideen und Menschen, die sich normalerweise nicht kreuzen würden, und deine Begeisterung schafft es, dass andere sich auch für ihr eigenes Leben mehr begeistern.",
+      "strengths": [
+        "Bringt Energie und Möglichkeiten in ins Stocken geratene Gespräche oder Projekte",
+        "Baut schnell authentische Verbindungen zu einer Vielzahl von Menschen auf",
+        "Sieht nicht offensichtliche Verbindungen zwischen Ideen, Menschen und Gelegenheiten",
+        "Passt Pläne spontan an, ohne die Begeisterung zu verlieren"
+      ],
+      "growth": [
+        "Die Umsetzung kann hinter der Begeisterung für eine neue Idee zurückbleiben",
+        "Kann sich sozial überfordern und mehr Erholungszeit brauchen als geplant",
+        "Struktur und Routine können einschränkend wirken, selbst wenn sie helfen würden"
+      ]
+    },
+    "ISTJ": {
+      "name": "Der Verwalter",
+      "tagline": "Zuverlässig · Methodisch · Bodenständig",
+      "description": "ISTJs sind die Menschen, um die andere ihre Pläne herum aufbauen, weil du tatsächlich tust, was du sagst. Du vertraust bewährten Methoden, behältst Details im Blick, die andere übersehen, und bist wirklich stolz darauf, Dinge vollständig zu Ende zu bringen.",
+      "strengths": [
+        "Liefert konstant, was zugesagt wurde, auch bei wenig glanzvollen Aufgaben",
+        "Erkennt praktische Details und Risiken, bevor sie zu Problemen werden",
+        "Bringt ruhiges, stabiles Urteilsvermögen unter Druck ein",
+        "Respektiert Prozess und Präzedenzfälle, statt jedes Mal das Rad neu zu erfinden"
+      ],
+      "growth": [
+        "Kann einem besseren neuen Ansatz widerstehen, nur weil er ungewohnt ist",
+        "Kann eigene Bedürfnisse zugunsten des Plans oder des Teams herunterspielen",
+        "Starre Standards können auf spontanere Menschen unflexibel wirken"
+      ]
+    },
+    "ISFJ": {
+      "name": "Der Beschützer",
+      "tagline": "Hingebungsvoll · Aufmerksam · Verlässlich",
+      "description": "ISFJs bemerken still, was Menschen um sie herum brauchen, und handeln danach, ohne gefragt zu werden. Du übernimmst echte Verantwortung für die Menschen und Verpflichtungen in deinem Leben und zeigst Fürsorge durch beständige, praktische Unterstützung.",
+      "strengths": [
+        "Erinnert sich an die konkreten Details, die Menschen wirklich umsorgt fühlen lassen",
+        "Hält Zusagen still und zuverlässig ein, ohne Anerkennung zu brauchen",
+        "Schafft eine stabile, ruhige Umgebung, auf die sich andere stützen können",
+        "Balanciert Tradition mit echter Sensibilität für individuelle Bedürfnisse"
+      ],
+      "growth": [
+        "Kann sich so weit selbst verausgaben, bis eigene Bedürfnisse unerfüllt bleiben",
+        "Unbehagen bei Konflikten kann Probleme zu lange ungelöst lassen",
+        "Veränderung kann bedrohlicher wirken, als sie sein müsste"
+      ]
+    },
+    "ESTJ": {
+      "name": "Der Direktor",
+      "tagline": "Organisiert · Durchsetzungsstark · Pragmatisch",
+      "description": "ESTJs verwandeln Pläne in Umsetzung. Du bringst klare Struktur in unklare Situationen, hältst Menschen an das Vereinbarte, und hast wenig Geduld für Prozesse, die die Dinge nicht sichtbar voranbringen.",
+      "strengths": [
+        "Organisiert Menschen und Zeitpläne zu einem umsetzbaren, machbaren Plan",
+        "Hält einen klaren, konsistenten Standard und wendet ihn fair an",
+        "Trifft Entscheidungen effizient und übernimmt die Verantwortung für das Ergebnis",
+        "Durchbricht Unklarheit, um die Dinge in Bewegung zu bringen"
+      ],
+      "growth": [
+        "Kann Beiträge unterschätzen, die nicht mit einer klaren Begründung kommen",
+        "Direktheit kann bei anderen härter ankommen als beabsichtigt",
+        "Festhalten am „richtigen Weg“ kann eine wirklich bessere neue Idee verdrängen"
+      ]
+    },
+    "ESFJ": {
+      "name": "Der Gastgeber",
+      "tagline": "Gesellig · Unterstützend · Organisiert",
+      "description": "ESFJs halten Gruppen sozial und praktisch am Laufen. Du bemerkst, wer sich eingebunden fühlt und wer nicht, und setzt dich wirklich dafür ein, dass sich Menschen um dich herum unterstützt fühlen und Pläne tatsächlich Wirklichkeit werden.",
+      "strengths": [
+        "Baut schnell warme, kooperative Beziehungen innerhalb einer Gruppe auf",
+        "Organisiert Menschen und Logistik, damit alles reibungslos läuft",
+        "Bemerkt, wenn jemand ausgeschlossen wird, und bindet ihn ein",
+        "Hält Zusagen gegenüber Menschen ein, die einem wichtig sind"
+      ],
+      "growth": [
+        "Kann den eigenen Selbstwert zu eng an die Zustimmung anderer binden",
+        "Streben nach Harmonie kann bedeuten, eine notwendige Meinungsverschiedenheit zu vermeiden",
+        "Kann eine neutrale oder direkte Reaktion persönlicher nehmen als beabsichtigt"
+      ]
+    },
+    "ISTP": {
+      "name": "Der Handwerker",
+      "tagline": "Praktisch · Unabhängig · Ruhig",
+      "description": "ISTPs lernen am besten, indem sie Dinge auseinandernehmen — wörtlich oder gedanklich. Du bleibst ruhig, wenn etwas kaputtgeht, gehst mit praktischer Logik an die Fehlersuche, und schätzt echte Kompetenz mehr als das Reden darüber.",
+      "strengths": [
+        "Löst praktische Probleme effizient, ohne unnötiges Aufheben",
+        "Bleibt in einer Krise gefasst und klar im Kopf",
+        "Passt sich schnell an, wenn ein Plan mitten in der Umsetzung nicht mehr funktioniert",
+        "Bevorzugt nachgewiesenes Können gegenüber Qualifikationen oder Worten"
+      ],
+      "growth": [
+        "Kann sich aus Situationen zurückziehen, die zu emotional oder abstrakt wirken",
+        "Kann sich davor scheuen, sich auf langfristige Pläne festzulegen, die die Flexibilität einschränken",
+        "Wortkargheit kann als Desinteresse gelesen werden, selbst wenn er voll dabei ist"
+      ]
+    },
+    "ISFP": {
+      "name": "Der Künstler",
+      "tagline": "Sanft · Ästhetisch · Unabhängig",
+      "description": "ISFPs erleben die Welt über die Sinne und ein stilles, persönliches Wertesystem. Du zeigst lieber, was du meinst, statt es zu erklären, und wehrst dich dagegen, in eine Rolle gedrängt zu werden, die nicht widerspiegelt, wer du wirklich bist.",
+      "strengths": [
+        "Bringt eine echte ästhetische und sinnliche Sensibilität in seine Arbeit ein",
+        "Passt sich mühelos an und bleibt im Moment präsent",
+        "Handelt nach persönlichen Werten, ohne sie öffentlich rechtfertigen zu müssen",
+        "Bietet den Menschen um sich herum stille, wertungsfreie Unterstützung"
+      ],
+      "growth": [
+        "Konfliktvermeidung kann bedeuten, dass echte Meinungsverschiedenheiten unausgesprochen bleiben",
+        "Kann Schwierigkeiten haben, für längerfristige Ziele weit genug im Voraus zu planen",
+        "Empfindlichkeit gegenüber Kritik kann länger anhalten als der Moment, in dem sie geäußert wurde"
+      ]
+    },
+    "ESTP": {
+      "name": "Der Dynamo",
+      "tagline": "Mutig · Energiegeladen · Pragmatisch",
+      "description": "ESTPs sind für den gegenwärtigen Moment gemacht. Du erfasst eine Live-Situation schnell, handelst ohne viel Nachdenken, und lernst lieber durch Tun als durch das Planen jedes Details im Voraus.",
+      "strengths": [
+        "Erfasst einen Raum oder eine Situation schnell und reagiert in Echtzeit",
+        "Trifft entschlossene Maßnahmen, statt in der Analyse stecken zu bleiben",
+        "Meistert Druck und unerwartete Veränderungen mit Gelassenheit",
+        "Bringt Energie und Schwung in eine ins Stocken geratene Gruppe"
+      ],
+      "growth": [
+        "Kann handeln, bevor langfristige Konsequenzen vollständig abgewogen wurden",
+        "Routine und detaillierte Planung können unnötig einengend wirken",
+        "Direktheit unter Druck kann schroff wirken"
+      ]
+    },
+    "ESFP": {
+      "name": "Der Entertainer",
+      "tagline": "Verspielt · Warmherzig · Spontan",
+      "description": "ESFPs bringen echte Wärme und Energie in jeden Raum. Du lebst lebendig im Hier und Jetzt, erfasst die Stimmung anderer sofort, und hast das Talent, gewöhnliche Momente lebendiger und schöner zu machen.",
+      "strengths": [
+        "Hebt die Energie und Stimmung der Menschen um sich herum",
+        "Bemerkt und reagiert in Echtzeit auf die emotionalen Zustände anderer",
+        "Passt sich leicht an neue Menschen und sich ändernde Pläne an",
+        "Bringt praktischen Enthusiasmus statt abstrakter Theorie ein"
+      ],
+      "growth": [
+        "Kann Vorausplanung vermeiden, um im Moment zu bleiben",
+        "Empfindlichkeit gegenüber Kritik kann die Umsetzung schwierigen Feedbacks beeinträchtigen",
+        "Der Fokus kann von längeren, weniger unmittelbar lohnenden Aufgaben abdriften"
+      ]
+    }
+  },
+  "questions": {
+    "ei-1": {
+      "prompt": "Was lädt dich nach einer langen, anstrengenden Woche wirklich wieder auf?",
+      "statementA": "Pläne mit Menschen machen — von anderen umgeben zu sein, stellt meine Energie wieder her.",
+      "statementB": "Ein ruhiger Abend allein oder mit einer nahestehenden Person ist es, was mich auftankt.",
+      "example": "Denk an letzten Freitagabend nach einer harten Woche — wolltest du Freunden schreiben und ausgehen, oder klang die Vorstellung, jemanden zu sehen, anstrengend?"
+    },
+    "ei-2": {
+      "prompt": "In einer Gruppendiskussion neigst du dazu...",
+      "statementA": "laut zu denken und deine Ideen zu entwickeln, während du sprichst.",
+      "statementB": "erst innerlich zu verarbeiten und dann zu teilen, wenn deine Gedanken vollständig sind.",
+      "example": "Steigst du in einem Meeting mitten im Gedanken ein und findest heraus, was du meinst, während du sprichst, oder bleibst du still, bis du es in deinem Kopf durchdacht hast?"
+    },
+    "ei-3": {
+      "prompt": "Bei einer Veranstaltung voller Menschen, die du nicht kennst, ist es wahrscheinlicher, dass du...",
+      "statementA": "den Raum erkundest und Gespräche mit neuen Leuten beginnst.",
+      "statementB": "bei ein oder zwei vertrauten Gesichtern bleibst oder eine ruhigere Ecke suchst.",
+      "example": "Stell dir vor, du gehst zu einer Party, bei der du nur die gastgebende Person kennst — fängst du an, dich vorzustellen, oder suchst du jemanden, den du schon kennst?"
+    },
+    "sn-1": {
+      "prompt": "Wenn du etwas Neues lernst, würdest du lieber...",
+      "statementA": "mit konkreten Fakten, Beispielen und praktischer Übung beginnen.",
+      "statementB": "mit dem großen Gesamtkonzept beginnen und wie die Teile zusammenhängen.",
+      "example": "Beim Erlernen eines neuen Tools bei der Arbeit — möchtest du zuerst eine Schritt-für-Schritt-Anleitung, oder eine Erklärung, wie das ganze System zusammenpasst?"
+    },
+    "sn-2": {
+      "prompt": "Du vertraust eher...",
+      "statementA": "direkter Erfahrung und dem, was sich bereits bewährt hat.",
+      "statementB": "Ahnungen und Mustern, die du spürst, auch ohne handfesten Beweis.",
+      "example": "Eine Freundin schlägt einen Plan vor, der sich „richtig anfühlt“, aber noch nicht getestet ist — bist du skeptisch, bis du ihn funktionieren siehst, oder bereit, dem Instinkt zu vertrauen?"
+    },
+    "sn-3": {
+      "prompt": "Welches Kompliment trifft eher auf dich zu?",
+      "statementA": "„Du bist so realistisch und detailorientiert.“",
+      "statementB": "„Du bist so einfallsreich und denkst immer voraus.“",
+      "example": "Wenn dich ein Kollege in einem Satz jemand anderem beschreiben würde, welches der beiden würde treffender wirken?"
+    },
+    "tf-1": {
+      "prompt": "Ein Freund bittet um Rat zu einem riskanten Jobangebot. Was ist dein erster Impuls?",
+      "statementA": "Mit ihm objektiv die Zahlen und Abwägungen durchgehen.",
+      "statementB": "Fragen, wie es sich für ihn anfühlt und ob es gerade zu seinem Leben passt.",
+      "example": "Gleiches Szenario: Dein Freund schwankt zwischen einem sicheren und einem riskanten, aufregenden Job. Was wäre das Allererste, worüber du mit ihm sprechen möchtest?"
+    },
+    "tf-2": {
+      "prompt": "Du lässt dich leichter überzeugen von...",
+      "statementA": "einem gut begründeten Argument, auch wenn es unverblümt vorgetragen wird.",
+      "statementB": "einem Argument, das mit Einfühlungsvermögen und Taktgefühl vorgetragen wird.",
+      "example": "Zwei Menschen geben dir denselben Rat — einer ist direkt, aber logisch wasserdicht, der andere ist freundlich, aber etwas vage. Wer ändert wirklich deine Meinung?"
+    },
+    "tf-3": {
+      "prompt": "Wenn du jemandem Feedback gibst, neigst du dazu...",
+      "statementA": "Ehrlichkeit und Direktheit zu priorisieren, auch wenn es ein wenig wehtut.",
+      "statementB": "die Übermittlung abzumildern, damit die Gefühle der Person geschont bleiben.",
+      "example": "Die Arbeit eines Teammitglieds hat ein echtes Problem. Benennst du das Problem klar, oder beginnst du mit dem, was gut funktioniert, bevor du sanft darauf zusteuerst?"
+    },
+    "jp-1": {
+      "prompt": "Dein ideales Wochenende sieht aus wie...",
+      "statementA": "im Voraus geplant, damit du weißt, was wann passiert.",
+      "statementB": "offen, damit du je nach Stimmung entscheiden kannst, was du tust.",
+      "example": "Es ist Freitagabend und ein freies Wochenende liegt vor dir — klingt es entspannend, Samstag und Sonntag bereits durchgeplant zu haben, oder klingt es einengend?"
+    },
+    "jp-2": {
+      "prompt": "Wenn sich eine Frist nähert, ist es wahrscheinlicher, dass du...",
+      "statementA": "schon stetig Fortschritte gemacht hast und bequem vorzeitig fertig wirst.",
+      "statementB": "dich in einem konzentrierten Endspurt kurz vor der Frist am produktivsten fühlst.",
+      "example": "Wenn du an vergangene Fristen zurückdenkst — war deine Arbeit meist Tage im Voraus fertig, oder wurde sie in einem späten Endspurt kurz vor Ablauf fertiggestellt?"
+    },
+    "jp-3": {
+      "prompt": "Was beschreibt dich besser?",
+      "statementA": "Ich mag Abschluss — sobald eine Entscheidung getroffen ist, gehe ich weiter.",
+      "statementB": "Ich halte meine Optionen gerne so lange wie möglich offen.",
+      "example": "Beim Buchen einer Reise: Legst du Termine und Pläne so früh wie möglich fest, oder lässt du die Dinge bis zum letzten Moment flexibel?"
+    }
+  }
+}

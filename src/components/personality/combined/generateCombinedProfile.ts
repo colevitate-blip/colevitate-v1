@@ -37,7 +37,7 @@ const GROWTH_THEMES: { theme: string; keywords: string[] }[] = [
   { theme: "energy management", keywords: ["energy", "drain", "recovery"] },
 ];
 
-function findSharedGrowthTheme(threads: CombinedThread[]): { theme: string; ids: AssessmentId[] } | null {
+export function findSharedGrowthTheme(threads: CombinedThread[]): { theme: string; ids: AssessmentId[] } | null {
   for (const { theme, keywords } of GROWTH_THEMES) {
     const matches = threads.filter((t) =>
       t.growth.some((g) => keywords.some((k) => g.toLowerCase().includes(k)))

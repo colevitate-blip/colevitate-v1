@@ -1,0 +1,116 @@
+{
+  "chrome": {
+    "brand": "Colevitate",
+    "tagline": "Many lenses. One you.",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "footerTagline": "Client-side and private — your results never leave your browser."
+  },
+  "landing": {
+    "eyebrow": "Four frameworks, one profile",
+    "titleLead": "Know yourself,",
+    "titleAccent": "from every angle",
+    "subtitle": "Take any combination of four well-known personality frameworks — each just a few minutes — and weave the results into one combined profile of who you are.",
+    "combined": {
+      "title": "Your Combined Profile",
+      "body": "{count, plural, =0 {Complete your first assessment to unlock a preview of your combined profile.} =1 {You've completed 1 of 4 — see what we already know about you, and continue toward the full combined profile.} other {You've completed # of 4 assessments. Generate a single, cohesive profile that weaves your results together.}}",
+      "cta": "{count, plural, =0 {See What We Know So Far} =1 {See What We Know So Far} other {Generate Combined Profile}}"
+    }
+  },
+  "assessments": {
+    "mbti": {
+      "label": "16 Personalities",
+      "tagline": "Cognitive style & type",
+      "description": "A 4-letter typology across how you focus your energy, take in information, make decisions, and structure your life."
+    },
+    "bigfive": {
+      "label": "Big Five",
+      "tagline": "The OCEAN model",
+      "description": "The most research-backed model in personality science — five broad traits scored on a continuous spectrum."
+    },
+    "humandesign": {
+      "label": "Human Design",
+      "tagline": "Energy type & strategy",
+      "description": "A simplified self-reflection quiz inspired by Human Design's energy types, decision strategy, and inner authority. No birth date, time, or location needed — just how you actually operate."
+    },
+    "colors": {
+      "label": "4 Color Types",
+      "tagline": "Red · Blue · Green · Yellow",
+      "description": "A fast, visual read on your dominant behavioral style — driven, analytical, supportive, or expressive."
+    },
+    "meta": "{count, plural, one {# question} other {# questions}} · ~3 min",
+    "status": {
+      "completed": "Complete",
+      "inProgress": "In progress",
+      "viewResult": "View result",
+      "continue": "Continue",
+      "start": "Start"
+    }
+  },
+  "survey": {
+    "overview": "Overview",
+    "back": "Back",
+    "next": "Next",
+    "seeResults": "See my results",
+    "remaining": "{remaining, plural, =0 {No questions} one {# question} other {# questions}} left · ~{minutes} min"
+  },
+  "guidance": {
+    "beforeYouStart": "Before you start {title}",
+    "body": "Answer based on what you naturally do — not what you think you should do, or what you've trained yourself to do. There are no good or bad answers here.",
+    "continue": "Got it, let's start"
+  },
+  "accuracyOffer": {
+    "title": "You've got a usable result already",
+    "body": "Want higher accuracy? {remaining, plural, one {# more question} other {# more questions}} (~{minutes} min) will sharpen the close calls. Or finish now with what you've already answered.",
+    "nextLabel": "Continue for higher accuracy",
+    "finishNow": "Finish now instead"
+  },
+  "analyzing": {
+    "messages": [
+      "Reading your answers…",
+      "Weighing the signals…",
+      "Cross-checking patterns…",
+      "Assembling your profile…"
+    ]
+  },
+  "reflection": {
+    "prompt": "Was that hard to answer? Want to leave a quick note?",
+    "leaveNote": "Leave a note",
+    "noThanks": "No thanks",
+    "placeholder": "What made it hard? (kept private, used only to improve the questions)",
+    "cancel": "Cancel",
+    "send": "Send",
+    "sent": "Thanks — noted privately, it'll help us improve this question."
+  },
+  "skipControl": {
+    "label": "Not sure / doesn't apply — skip this one"
+  },
+  "explainToggle": {
+    "show": "Explain this question / show example",
+    "hide": "Hide example"
+  },
+  "middleGroundNote": {
+    "body": "You're close to the middle on {poleA} / {poleB} — this can feel different depending on context."
+  },
+  "resultShell": {
+    "retake": "Retake",
+    "strengths": "Strengths",
+    "growth": "Growth areas"
+  },
+  "mbtiResult": {
+    "footnoteBase": "This is a self-report reflection tool inspired by Jungian typology, meant for self-insight and conversation — not a clinical or scientific instrument.",
+    "footnoteSkipped": "{count, plural, one { You skipped # question, so those dimensions leaned on a typical average instead.} other { You skipped # questions, so those dimensions leaned on a typical average instead.}}"
+  },
+  "mbtiSurvey": {
+    "title": "16 Personalities",
+    "frameworkNote": "Some questions read as scenarios — go with your gut reaction, not the 'ideal' answer."
+  },
+  "scaleQuestion": {
+    "captionClearly": "Clearly",
+    "captionLean": "Lean",
+    "captionNeither": "Neither"
+  },
+  "auth": {
+    "emailLabel": "Signed in"
+  }
+}
