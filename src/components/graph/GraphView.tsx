@@ -233,7 +233,7 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
         const fill = groupColorsRef.current.get(group) ?? colorsRef.current.muted;
         const kind = (node as Record<string, unknown>).kind ?? "default";
 
-        drawShape(ctx, x, y, radius, String(kind), fill, isHovered);
+        drawShape(x, y, radius, String(kind), fill, isHovered);
       });
 
       // Labels. Three modes: "off" draws none; "key" shows only the top ~15%

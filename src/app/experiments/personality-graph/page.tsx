@@ -7,7 +7,7 @@ import { GraphControls } from "@/components/graph/GraphControls";
 import { personalityResultsToGraphData } from "@/components/personality/combined/personalityResultsToGraphData";
 import { generateCombinedProfile } from "@/components/personality/combined/generateCombinedProfile";
 import type { PersonalityResults, ProgressMap } from "@/lib/personality/types";
-import type { LabelMode } from "@/components/graph/types";
+import type { LabelMode, GraphNode } from "@/components/graph/types";
 
 // Mock data for demo
 const MOCK_PROGRESS: ProgressMap = {

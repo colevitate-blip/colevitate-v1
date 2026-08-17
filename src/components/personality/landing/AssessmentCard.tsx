@@ -67,20 +67,29 @@ export function AssessmentCard({
         {description}
       </p>
 
-      <div className="relative mt-6 flex items-center justify-between border-t pt-4 text-sm">
-        {status === "completed" && resultSummary ? (
-          <span className="font-semibold">{resultSummary}</span>
-        ) : (
-          <span className="text-muted-foreground">{t("meta", { count: questionCount })}</span>
-        )}
-        <span className={cn("inline-flex items-center gap-1 font-medium transition-transform group-hover:translate-x-0.5", accent.text)}>
+      <div className="relative mt-6 flex items-center justify-between border-t pt-4">
+        <span className="text-sm text-muted-foreground">
+          {status === "completed" && resultSummary ? (
+            resultSummary
+          ) : (
+            t("meta", { count: questionCount })
+          )}
+        </span>
+        <button
+          className={cn(
+            "inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all",
+            "text-white shadow-sm hover:shadow-md active:scale-95",
+            `bg-gradient-to-br ${accent.gradient}`,
+            "hover:opacity-90"
+          )}
+        >
           {status === "completed"
             ? t("status.viewResult")
             : status === "in-progress"
               ? t("status.continue")
               : t("status.start")}
           <ArrowRight className="size-3.5" />
-        </span>
+        </button>
       </div>
     </Link>
   );

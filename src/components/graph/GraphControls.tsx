@@ -119,11 +119,11 @@ export function GraphControls({
             <span>Traits</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4" style={{ clipPath: "polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)" }} className="bg-orange-400" />
+            <div className="w-4 h-4 bg-orange-400" style={{ clipPath: "polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)" }} />
             <span>Threads</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4" style={{ clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)" }} className="bg-pink-400" />
+            <div className="w-4 h-4 bg-pink-400" style={{ clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)" }} />
             <span>Axes</span>
           </div>
           <div className="flex items-center gap-2">

@@ -49,7 +49,7 @@ export default function PersonalityLandingPage() {
         </span>
         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
           {t("titleLead")}{" "}
-          <span className="bg-gradient-to-r from-[var(--spatial-glow)] to-[var(--spatial-glow-2)] bg-clip-text text-transparent">
+          <span className="text-primary">
             {t("titleAccent")}
           </span>
         </h1>

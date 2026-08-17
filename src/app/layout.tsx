@@ -21,23 +21,18 @@ export const metadata: Metadata = {
   description: "Discover your personality across four frameworks.",
 };
 
-// Resolves the theme before first paint, so there's no flash while React hydrates.
-// Manual overrides (tracked via the "-manual" flag) always win; otherwise the theme
-// is recomputed from local clock time on every load and written to the same
-// storageKey next-themes reads on mount, so next-themes never fights this choice.
+// Resolves the theme before first paint to prevent flash during hydration.
+// Uses system preference (prefers-color-scheme); manual toggle via next-themes always wins.
 const NO_FLASH_THEME_SCRIPT = `
 (function () {
   try {
-    var manual = localStorage.getItem('colevitate-theme-manual') === 'true';
-    if (manual) {
-      var stored = localStorage.getItem('colevitate-theme');
+    var stored = localStorage.getItem('colevitate-theme');
+    if (stored) {
       if (stored === 'dark') document.documentElement.classList.add('dark');
       return;
     }
-    var hour = new Date().getHours();
-    var theme = (hour >= 7 && hour < 19) ? 'light' : 'dark';
-    localStorage.setItem('colevitate-theme', theme);
-    if (theme === 'dark') document.documentElement.classList.add('dark');
+    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDark) document.documentElement.classList.add('dark');
   } catch (e) {}
 })();
 `;

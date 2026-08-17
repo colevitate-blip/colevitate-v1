@@ -1,0 +1,24 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="spiralGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4db8a8;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#2d9dd4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6b5dd0;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Outer spiral ring -->
+  <path d="M 100 30 A 70 70 0 0 1 165 100" fill="none" stroke="url(#spiralGradient)" stroke-width="12" stroke-linecap="round"/>
+
+  <!-- Second ring -->
+  <path d="M 170 105 A 65 65 0 0 1 100 165" fill="none" stroke="url(#spiralGradient)" stroke-width="12" stroke-linecap="round"/>
+
+  <!-- Third ring -->
+  <path d="M 95 160 A 60 60 0 0 1 40 100" fill="none" stroke="url(#spiralGradient)" stroke-width="12" stroke-linecap="round"/>
+
+  <!-- Fourth ring -->
+  <path d="M 35 95 A 55 55 0 0 1 100 45" fill="none" stroke="url(#spiralGradient)" stroke-width="12" stroke-linecap="round"/>
+
+  <!-- Center dot -->
+  <circle cx="100" cy="100" r="6" fill="url(#spiralGradient)"/>
+</svg>
