@@ -82,6 +82,17 @@ export function PersonalityProvider({ children }: { children: React.ReactNode })
     });
   }, [mounted, user]);
 
+  React.useEffect(() => {
+    // Signed-in results were mirrored into localStorage for offline/guest continuity.
+    // On sign-out, wipe that cache so a previous account's data can't linger on a shared device.
+    if (!mounted || user || syncedUserId.current === null) return;
+    syncedUserId.current = null;
+    setResults({});
+    setProgress({});
+    persistResults({});
+    persistProgress({});
+  }, [mounted, user]);
+
   const saveResult = React.useCallback(
     <K extends AssessmentId>(id: K, result: PersonalityResults[K]) => {
       setResults((prev) => {
