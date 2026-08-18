@@ -19,6 +19,9 @@ interface TraitNode extends Record<string, unknown> {
   id: TraitId;
   kind: "trait";
   label: string;
+  description: string;
+  /** Which framework this trait belongs to — lets the layout cluster same-framework nodes together. */
+  framework: AssessmentId;
 }
 
 interface QuestionNode extends Record<string, unknown> {
@@ -26,25 +29,35 @@ interface QuestionNode extends Record<string, unknown> {
   kind: "question";
   prompt: string;
   answer: AnswerValue;
+  framework: AssessmentId;
 }
 
 interface ThreadNode extends Record<string, unknown> {
   id: string;
   kind: "thread";
   label: string;
+  name: string;
   tagline: string;
 }
 
 interface AxisNode extends Record<string, unknown> {
   id: AxisId;
   kind: "axis";
+  label: string;
   score: number;
+  leftPole: string;
+  rightPole: string;
+  tierLabel: string;
+  sentence: string;
 }
 
 interface ArchetypeNode extends Record<string, unknown> {
   id: "archetype";
   kind: "archetype";
   label: string;
+  description: string;
+  /** Every framework that fed this archetype — lets the click-gradient blend all of them, not just one. */
+  frameworks: AssessmentId[];
 }
 
 type NodeType = TraitNode | QuestionNode | ThreadNode | AxisNode | ArchetypeNode;
@@ -96,6 +109,27 @@ const TRAIT_LABELS: Record<TraitId, string> = {
   yellow: "Yellow",
 };
 
+const TRAIT_DESCRIPTIONS: Record<TraitId, string> = {
+  EI: "Whether you draw energy from engaging with the outer world (Extraversion) or from time alone with your own thoughts (Introversion).",
+  SN: "Whether you trust concrete, present detail (Sensing) or patterns and possibilities (Intuition).",
+  TF: "Whether decisions lean on logical consistency (Thinking) or on impact and values (Feeling).",
+  JP: "Whether you prefer things settled and planned (Judging) or open and flexible (Perceiving).",
+  openness: "How drawn you are to new ideas and unconventional thinking versus the practical and familiar.",
+  conscientiousness: "How organized, disciplined, and goal-directed you tend to be.",
+  extraversion: "How much social engagement and stimulation energize you, versus drain you.",
+  agreeableness: "How much you prioritize cooperation and others' feelings versus your own agenda.",
+  neuroticism: "How easily you experience stress, worry, or emotional volatility.",
+  generator: "A Human Design type built to respond to what shows up, generating energy by engaging with what lights you up.",
+  "manifesting-generator": "A Human Design type combining a Generator's response-driven energy with a Manifestor's instinct to initiate.",
+  manifestor: "A Human Design type built to initiate — you act first and inform others, rather than waiting to respond.",
+  projector: "A Human Design type built to guide and see systems clearly, working best when invited rather than pushing.",
+  reflector: "A rare Human Design type that reflects the health of the people and environment around them.",
+  red: "A color-type energy centered on drive, urgency, and getting things done now.",
+  blue: "A color-type energy centered on precision, structure, and doing things correctly.",
+  green: "A color-type energy centered on harmony, support, and steady relationships.",
+  yellow: "A color-type energy centered on optimism, spontaneity, and connecting with people.",
+};
+
 const KIND_ORDER: Record<NodeType["kind"], number> = {
   question: 0,
   trait: 1,
@@ -122,32 +156,32 @@ export function personalityResultsToGraphData(
   // submission.
   const threadTraits = new Map<AssessmentId, TraitId[]>();
 
-  const addTraitNode = (id: TraitId) => {
+  const addTraitNode = (id: TraitId, framework: AssessmentId) => {
     if (traitIds.has(id)) return;
-    nodes.push({ id, kind: "trait", label: TRAIT_LABELS[id] });
+    nodes.push({ id, kind: "trait", label: TRAIT_LABELS[id], description: TRAIT_DESCRIPTIONS[id], framework });
     traitIds.add(id);
   };
 
   if (results.mbti) {
-    MBTI_TRAITS.forEach(addTraitNode);
+    MBTI_TRAITS.forEach((id) => addTraitNode(id, "mbti"));
     threadTraits.set("mbti", MBTI_TRAITS);
   }
   if (results.bigfive) {
-    BIG_FIVE_TRAITS.forEach(addTraitNode);
+    BIG_FIVE_TRAITS.forEach((id) => addTraitNode(id, "bigfive"));
     threadTraits.set("bigfive", BIG_FIVE_TRAITS);
   }
   if (results.humandesign) {
     const type = results.humandesign.type as TraitId;
-    addTraitNode(type);
+    addTraitNode(type, "humandesign");
     threadTraits.set("humandesign", [type]);
   }
   if (results.colors) {
     const dominant = results.colors.dominant as TraitId;
     const secondary = results.colors.secondary as TraitId;
-    addTraitNode(dominant);
+    addTraitNode(dominant, "colors");
     const colorTraits: TraitId[] = [dominant];
     if (secondary !== dominant) {
-      addTraitNode(secondary);
+      addTraitNode(secondary, "colors");
       colorTraits.push(secondary);
     }
     threadTraits.set("colors", colorTraits);
@@ -161,9 +195,13 @@ export function personalityResultsToGraphData(
     if (!progressData) continue;
 
     const answers = progressData.answers ?? {};
+    const skippedIds = new Set(results[assessmentId]?.skippedQuestionIds ?? []);
 
     for (const [questionId, answer] of Object.entries(answers)) {
-      if (answer === undefined || answer === null) continue;
+      // Skipped questions got a neutral default score, not a real answer —
+      // showing them as if they fed a trait would misrepresent what
+      // actually informed the result.
+      if (answer === undefined || answer === null || skippedIds.has(questionId)) continue;
 
       let questionPrompt = "";
       let questionTrait: TraitId | null = null;
@@ -201,6 +239,7 @@ export function personalityResultsToGraphData(
         kind: "question",
         prompt: questionPrompt,
         answer,
+        framework: assessmentId,
       };
       nodes.push(questionNode);
       links.push({ source: questionNode.id, target: questionTrait });
@@ -214,6 +253,7 @@ export function personalityResultsToGraphData(
       id: thread.id,
       kind: "thread",
       label: thread.label,
+      name: thread.name,
       tagline: thread.tagline,
     };
     nodes.push(threadNode);
@@ -246,16 +286,28 @@ export function personalityResultsToGraphData(
     const axisNode: AxisNode = {
       id: axis.id,
       kind: "axis",
+      label: axis.label,
       score: axis.score,
+      leftPole: axis.leftPole,
+      rightPole: axis.rightPole,
+      tierLabel: axis.tierLabel,
+      sentence: axis.sentence,
     };
     nodes.push(axisNode);
 
-    // Link threads that contribute to this axis
+    // Link the specific trait(s) that feed this axis — not the whole thread.
+    // A framework only touches an axis *through* one of its traits (e.g.
+    // Big Five reaches "People Orientation" via both Agreeableness and
+    // Neuroticism), so this is what actually makes that connection visible:
+    // two traits from different frameworks that both feed the same axis
+    // now share that axis as a common neighbor, even though there's no
+    // direct edge between the traits themselves.
     for (const [threadId, traits] of threadTraits) {
       if (!threadMap.has(threadId)) continue;
-      const contributes = traits.some((trait) => TRAIT_TO_AXIS[trait] === axis.id);
-      if (contributes) {
-        links.push({ source: threadId, target: axis.id });
+      for (const trait of traits) {
+        if (TRAIT_TO_AXIS[trait] === axis.id) {
+          links.push({ source: trait, target: axis.id });
+        }
       }
     }
   }
@@ -266,6 +318,8 @@ export function personalityResultsToGraphData(
       id: "archetype",
       kind: "archetype",
       label: combinedProfile.archetype.name,
+      description: combinedProfile.archetype.description,
+      frameworks: combinedProfile.threads.map((t) => t.id),
     };
     nodes.push(archetypeNode);
 

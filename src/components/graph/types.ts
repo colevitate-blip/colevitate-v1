@@ -43,12 +43,34 @@ export interface GraphViewProps {
    * even if a handful of leaves happen to have more connections.
    */
   getNodeImportance?: (node: GraphNode, degree: number) => boolean;
+  /**
+   * Groups nodes into visual clusters — nodes sharing the same key get an
+   * extra pull toward their group's live centroid, on top of whatever the
+   * link/charge forces already do. Without this, two nodes with no direct
+   * edge only end up near each other by physics coincidence, which reads as
+   * "these are related" even when they aren't. Return undefined for nodes
+   * that shouldn't be pulled into any single cluster (e.g. a hub that
+   * legitimately sits between several groups).
+   */
+  getNodeCluster?: (node: GraphNode) => string | undefined;
   /** Overrides the shape used to draw a node (falls back to its "kind"). Return anything unrecognized to get a plain circle. */
   getNodeShape?: (node: GraphNode) => string;
   /** Draws every node the same neutral color instead of coloring by group — an Obsidian-style monochrome look. */
   monochrome?: boolean;
   /** "pill" (default) draws labels on a solid background chip; "plain" draws bare text, Obsidian-style. */
   labelStyle?: "pill" | "plain";
+  /** Fired on a real click (not a drag) — the clicked node, or null when clicking empty canvas. */
+  onNodeClick?: (node: GraphNode | null) => void;
+  /** Node id to draw with a persistent highlight ring, independent of hover. */
+  selectedNodeId?: string | number | null;
+  /**
+   * Color stops for the selected node's stroke gradient (2+ stops, each
+   * 0-1). Return null/undefined to fall back to the plain highlight ring.
+   * This is meant to carry real information about the node — e.g. its
+   * source framework's accent color, or a two-color mix whose stop
+   * positions shift with an actual score — not just a decorative accent.
+   */
+  getNodeGradient?: (node: GraphNode) => Array<{ color: string; stop: number }> | null;
   /** Fired with the live simulation instance once created, and with null on teardown. */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSimulationReady?: (simulation: import("d3-force").Simulation<any, any> | null) => void;

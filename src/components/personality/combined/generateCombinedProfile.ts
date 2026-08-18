@@ -20,6 +20,9 @@ export interface CombinedThread {
 export interface CombinedProfile {
   headline: string;
   subtitle: string;
+  /** e.g. "Built from 3 of 4 lenses — 16 Personalities, Big Five, Human Design" — the per-framework
+   *  identity, demoted to a caption now that the header leads with the archetype instead. */
+  sourcesLine: string;
   narrative: string[];
   threads: CombinedThread[];
   strengths: string[];
@@ -105,6 +108,7 @@ export function generateCombinedProfile(results: PersonalityResults): CombinedPr
 
   const headline = threads.map((t) => t.name.replace(/^The /, "")).join(" · ");
   const subtitle = `Woven from ${threads.length} of 4 assessments`;
+  const sourcesLine = `Built from ${threads.length} of 4 lenses — ${threads.map((t) => t.label).join(", ")}`;
 
   const openingClauses = threads.map((t) => {
     switch (t.id) {
@@ -121,7 +125,7 @@ export function generateCombinedProfile(results: PersonalityResults): CombinedPr
     }
   });
 
-  const opening = `Put together, you ${joinClauses(openingClauses)}.`;
+  const opening = `Here's the shape of you: you ${joinClauses(openingClauses)}.`;
 
   const paragraphs = [opening];
 
@@ -147,7 +151,7 @@ export function generateCombinedProfile(results: PersonalityResults): CombinedPr
   const growth = dedupeTop(threads.flatMap((t) => t.growth.slice(0, 1)), 4);
   const archetype = getArchetype(axes);
 
-  return { headline, subtitle, narrative: paragraphs, threads, strengths, growth, axes, archetype };
+  return { headline, subtitle, sourcesLine, narrative: paragraphs, threads, strengths, growth, axes, archetype };
 }
 
 function joinClauses(clauses: string[]) {

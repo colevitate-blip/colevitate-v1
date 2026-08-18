@@ -19,6 +19,7 @@ import {
   Link2,
   Check,
   FileDown,
+  GitCompareArrows,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -35,10 +36,14 @@ import {
 import type { CombinedSnapshot, PersonalityResults, ProgressMap } from "@/lib/personality/types";
 import { useAuth } from "@/lib/supabase/AuthProvider";
 import { enableSharing } from "@/app/[locale]/(personality)/settings/actions";
+import { createPairingInvite } from "@/app/[locale]/(personality)/pair/actions";
+import { RELATIONSHIP_TYPE_ORDER, relationshipFramingFor, type RelationshipType } from "@/components/personality/compatibility/relationshipFraming";
 import { AxisAgreement } from "@/components/personality/shared/AxisAgreement";
 import { getAxisGrowthPrompt, getCareerSuggestions } from "./growthContent";
 import { AxisTrend } from "./AxisTrend";
 import { ShareCard } from "./ShareCard";
+import { PdfDocument } from "./PdfDocument";
+import { exportProfileAsPdf } from "./exportPdf";
 import { PersonalityGraphCard } from "./PersonalityGraphCard";
 import type { CombinedProfile as CombinedProfileData } from "./generateCombinedProfile";
 
@@ -54,7 +59,9 @@ export function CombinedProfile({
   recordHistory?: boolean;
 }) {
   const shareCardRef = useRef<HTMLDivElement>(null);
+  const pdfDocRef = useRef<HTMLDivElement>(null);
   const [isExporting, setIsExporting] = useState(false);
+  const [isExportingPdf, setIsExportingPdf] = useState(false);
   const { resolvedTheme } = useTheme();
   const { user, profileMeta } = useAuth();
   const router = useRouter();
@@ -65,6 +72,9 @@ export function CombinedProfile({
   const [freshShareSlug, setFreshShareSlug] = useState<string | null>(null);
   const [isEnablingShare, setIsEnablingShare] = useState(false);
   const [linkCopied, setLinkCopied] = useState(false);
+  const [isEnablingCompare, setIsEnablingCompare] = useState(false);
+  const [compareLinkCopied, setCompareLinkCopied] = useState(false);
+  const [pickingRelationship, setPickingRelationship] = useState(false);
   const axisSignature = profile.axes.map((a) => `${a.id}:${a.score}`).join("|");
 
   // Every time the combined axes actually change (a fresh completion or
@@ -154,6 +164,16 @@ export function CombinedProfile({
     }
   }
 
+  async function ensureShareSlug() {
+    let slug = freshShareSlug ?? profileMeta?.shareSlug ?? null;
+    const isPublic = freshShareSlug ? true : (profileMeta?.isPublic ?? false);
+    if (!slug || !isPublic) {
+      slug = await enableSharing();
+      setFreshShareSlug(slug);
+    }
+    return slug;
+  }
+
   async function handleCopyLink() {
     if (!user) {
       router.push("/login?next=/combined");
@@ -162,12 +182,7 @@ export function CombinedProfile({
     if (isEnablingShare) return;
     setIsEnablingShare(true);
     try {
-      let slug = freshShareSlug ?? profileMeta?.shareSlug ?? null;
-      const isPublic = freshShareSlug ? true : (profileMeta?.isPublic ?? false);
-      if (!slug || !isPublic) {
-        slug = await enableSharing();
-        setFreshShareSlug(slug);
-      }
+      const slug = await ensureShareSlug();
       await navigator.clipboard.writeText(`${window.location.origin}/u/${slug}`);
       setLinkCopied(true);
       setTimeout(() => setLinkCopied(false), 2000);
@@ -178,8 +193,42 @@ export function CombinedProfile({
     }
   }
 
-  function handleExportPdf() {
-    window.print();
+  function handleCompareClick() {
+    if (!user) {
+      router.push("/login?next=/combined");
+      return;
+    }
+    setPickingRelationship((v) => !v);
+  }
+
+  async function handlePickRelationship(relationshipType: RelationshipType) {
+    if (isEnablingCompare) return;
+    setIsEnablingCompare(true);
+    try {
+      const { code } = await createPairingInvite(relationshipType);
+      await navigator.clipboard.writeText(`${window.location.origin}/pair/${code}`);
+      setPickingRelationship(false);
+      setCompareLinkCopied(true);
+      setTimeout(() => setCompareLinkCopied(false), 2000);
+    } catch {
+      // clipboard/network hiccup, or fewer than 2 completed assessments — user can retry
+    } finally {
+      setIsEnablingCompare(false);
+    }
+  }
+
+  async function handleExportPdf() {
+    if (!pdfDocRef.current || isExportingPdf) return;
+    setIsExportingPdf(true);
+    try {
+      const fileName = `colevitate-${(profile.archetype?.name ?? "profile")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "")}.pdf`;
+      await exportProfileAsPdf(pdfDocRef.current, fileName);
+    } finally {
+      setIsExportingPdf(false);
+    }
   }
 
   return (
@@ -211,8 +260,52 @@ export function CombinedProfile({
                 )}
                 {linkCopied ? "Link copied" : "Export as link"}
               </Button>
-              <Button variant="outline" size="sm" onClick={handleExportPdf} className="rounded-full">
-                <FileDown className="size-4" />
+              <div className="relative">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleCompareClick}
+                  disabled={isEnablingCompare}
+                  className="rounded-full"
+                >
+                  {isEnablingCompare ? (
+                    <Loader2 className="size-4 animate-spin" />
+                  ) : compareLinkCopied ? (
+                    <Check className="size-4" />
+                  ) : (
+                    <GitCompareArrows className="size-4" />
+                  )}
+                  {compareLinkCopied ? "Link copied" : "Compare with someone"}
+                </Button>
+                {pickingRelationship ? (
+                  <div className="absolute right-0 top-full z-10 mt-2 flex w-56 flex-col gap-1 rounded-xl border bg-card p-2 shadow-lg">
+                    <p className="px-1.5 pb-1 text-xs text-muted-foreground">Who are you comparing with?</p>
+                    {RELATIONSHIP_TYPE_ORDER.map((type) => (
+                      <button
+                        key={type}
+                        type="button"
+                        disabled={isEnablingCompare}
+                        onClick={() => handlePickRelationship(type)}
+                        className="rounded-lg px-2.5 py-1.5 text-left text-sm hover:bg-muted disabled:opacity-50"
+                      >
+                        {relationshipFramingFor(type).label}
+                      </button>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleExportPdf}
+                disabled={isExportingPdf}
+                className="rounded-full"
+              >
+                {isExportingPdf ? (
+                  <Loader2 className="size-4 animate-spin" />
+                ) : (
+                  <FileDown className="size-4" />
+                )}
                 Export as PDF
               </Button>
             </>
@@ -252,10 +345,25 @@ export function CombinedProfile({
             <Badge variant="outline" className="mb-2 rounded-full">
               Combined Profile
             </Badge>
-            <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{profile.headline}</h1>
-            <p className="mt-1 text-sm font-medium text-muted-foreground sm:text-base">
-              {profile.subtitle}
-            </p>
+            {profile.archetype ? (
+              <>
+                <h1 className="flex items-center gap-2 text-2xl font-bold tracking-tight sm:text-3xl">
+                  <Fingerprint className="size-6 shrink-0 text-muted-foreground" />
+                  {profile.archetype.name}
+                </h1>
+                <p className="mt-1 text-sm font-medium text-muted-foreground sm:text-base">
+                  {profile.archetype.description}
+                </p>
+                <p className="mt-2 text-xs text-muted-foreground/70">{profile.sourcesLine}</p>
+              </>
+            ) : (
+              <>
+                <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{profile.headline}</h1>
+                <p className="mt-1 text-sm font-medium text-muted-foreground sm:text-base">
+                  {profile.subtitle}
+                </p>
+              </>
+            )}
           </div>
         </div>
 
@@ -268,34 +376,18 @@ export function CombinedProfile({
         </div>
       </div>
 
-      {profile.archetype ? (
-        <div className="mt-8 rounded-3xl border bg-card p-6 text-center shadow-[0_18px_40px_-16px_var(--elevation-shadow-sm)] sm:p-8">
-          <div className="mx-auto mb-3 flex size-10 items-center justify-center rounded-full bg-gradient-to-br from-[var(--spatial-glow)] to-[var(--spatial-glow-2)] text-white">
-            <Fingerprint className="size-5" />
-          </div>
-          <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-            Your Archetype
-          </p>
-          <h2 className="mt-1 text-2xl font-bold tracking-tight sm:text-3xl">
-            {profile.archetype.name}
-          </h2>
-          <p className="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-            {profile.archetype.description}
-          </p>
-        </div>
-      ) : null}
-
       <div className="mt-8 rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_var(--elevation-shadow-sm)]">
         <div className="mb-1 flex items-center gap-2">
           <div className="flex size-8 items-center justify-center rounded-full bg-muted">
             <SlidersHorizontal className="size-4" />
           </div>
-          <h2 className="font-semibold">Signal Matrix</h2>
+          <h2 className="font-semibold">Where Your Lenses Agree</h2>
         </div>
         <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
-          Every completed assessment votes on each axis below, weighted by how much that framework
-          actually measures it — the composite is a weighted average, not a guess. The dots show
-          where each framework landed on its own.
+          On some things, all your lenses land in nearly the same place — that&apos;s signal. On
+          others they pull in different directions, and that&apos;s usually not a contradiction,
+          it&apos;s just you being a full person depending on context. Here&apos;s what&apos;s
+          actually behind the headline above.
         </p>
         <div className="space-y-7">
           {profile.axes.map((axis) => (
@@ -312,12 +404,12 @@ export function CombinedProfile({
             <div className="flex size-8 items-center justify-center rounded-full bg-muted">
               <History className="size-4" />
             </div>
-            <h2 className="font-semibold">Trend Over Time</h2>
+            <h2 className="font-semibold">How You&apos;ve Moved</h2>
           </div>
           {history.length < 2 ? (
             <p className="text-sm leading-relaxed text-muted-foreground">
-              This is your baseline snapshot. Retake assessments later and this will show how each
-              axis has shifted.
+              This is you, today. Retake any lens in a few months and we&apos;ll show you exactly
+              what moved — and what didn&apos;t.
             </p>
           ) : (
             <>
@@ -339,7 +431,7 @@ export function CombinedProfile({
           <div className="flex size-8 items-center justify-center rounded-full bg-muted">
             <Target className="size-4" />
           </div>
-          <h2 className="font-semibold">Growth Prompts</h2>
+          <h2 className="font-semibold">Where to Lean In</h2>
         </div>
         <div className="space-y-4">
           {profile.axes.map((axis) => {
@@ -417,7 +509,7 @@ export function CombinedProfile({
 
       <Separator className="my-8" />
 
-      <h2 className="mb-4 text-lg font-semibold">The threads behind this profile</h2>
+      <h2 className="mb-4 text-lg font-semibold">Your Four Lenses</h2>
       <div className="grid gap-4 sm:grid-cols-2">
         {profile.threads.map((t) => {
           const accent = accentForFramework(t.id, results);
@@ -440,8 +532,8 @@ export function CombinedProfile({
       </div>
 
       <p className="mt-8 text-xs leading-relaxed text-muted-foreground">
-        This combined profile is a rule-based synthesis of your individual results, meant to surface
-        interesting overlaps and contrasts for self-reflection — not a scientific composite score.
+        This is our synthesis of your four results, not a lab measurement — built to help you see
+        the pattern, not to grade you on it.
       </p>
 
       <div style={{ position: "fixed", top: 0, left: -9999, pointerEvents: "none" }} aria-hidden>
@@ -451,6 +543,7 @@ export function CombinedProfile({
           results={results}
           theme={resolvedTheme === "light" ? "light" : "dark"}
         />
+        <PdfDocument ref={pdfDocRef} profile={profile} results={results} careerSuggestions={careerSuggestions} />
       </div>
     </div>
   );

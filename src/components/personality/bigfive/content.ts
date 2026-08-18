@@ -23,7 +23,7 @@ interface Level {
   growth: string;
 }
 
-const TRAIT_LEVELS: Record<BigFiveTrait, { high: Level; low: Level }> = {
+export const TRAIT_LEVELS: Record<BigFiveTrait, { high: Level; low: Level }> = {
   openness: {
     high: {
       blurb: "You're drawn to novel ideas, art, and abstract thinking over routine and convention.",
@@ -128,7 +128,7 @@ export function summarizeBigFive(result: BigFiveResult): BigFiveSummary {
   return { code, name, tagline, description, strengths, growth };
 }
 
-const ARCHETYPE_NOUN: Record<BigFiveTrait, { high: string; low: string }> = {
+export const ARCHETYPE_NOUN: Record<BigFiveTrait, { high: string; low: string }> = {
   openness: { high: "Explorer", low: "Realist" },
   conscientiousness: { high: "Organizer", low: "Improviser" },
   extraversion: { high: "Connector", low: "Observer" },

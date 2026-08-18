@@ -34,7 +34,7 @@ export const ASSESSMENT_CATALOG: Record<
     label: "Human Design",
     tagline: "Energy type & strategy",
     description:
-      "A simplified self-reflection quiz inspired by Human Design's energy types, decision strategy, and inner authority. No birth date, time, or location needed — just how you actually operate.",
+      "In real Human Design, a birth-time chart maps your energy type, decision strategy, and inner authority. This is a simplified self-report take — 10 questions about how you actually operate, no birth data needed.",
     icon: Orbit,
     slug: "human-design",
     questionCount: 10,

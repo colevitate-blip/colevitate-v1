@@ -52,6 +52,39 @@ function radialRingRadius(ring: number, maxRing: number, width: number, height: 
   return (ring / maxRing) * Math.max(available, 40);
 }
 
+// A custom d3-force: each tick, nodes sharing a cluster key get nudged
+// toward that group's current centroid (recomputed live, so the cluster
+// drifts naturally with the rest of the simulation instead of being pinned).
+// Nodes with no cluster key (getCluster returns undefined) are left alone —
+// they stay positioned purely by the link/charge/collide forces, which is
+// correct for a hub that legitimately sits between multiple clusters.
+function createClusterForce(nodes: SimNode[], getCluster: (node: GraphNode) => string | undefined, strength: number) {
+  return (alpha: number) => {
+    const centroids = new Map<string, { x: number; y: number; count: number }>();
+    for (const n of nodes) {
+      const key = getCluster(n as GraphNode);
+      if (!key) continue;
+      const c = centroids.get(key) ?? { x: 0, y: 0, count: 0 };
+      c.x += n.x ?? 0;
+      c.y += n.y ?? 0;
+      c.count += 1;
+      centroids.set(key, c);
+    }
+    centroids.forEach((c) => {
+      c.x /= c.count;
+      c.y /= c.count;
+    });
+    for (const n of nodes) {
+      const key = getCluster(n as GraphNode);
+      if (!key) continue;
+      const c = centroids.get(key);
+      if (!c || c.count <= 1) continue;
+      n.vx = (n.vx ?? 0) + (c.x - (n.x ?? 0)) * strength * alpha;
+      n.vy = (n.vy ?? 0) + (c.y - (n.y ?? 0)) * strength * alpha;
+    }
+  };
+}
+
 export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function GraphView(
   {
     data,
@@ -64,9 +97,13 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
     getNodeRing,
     getRingLabel,
     getNodeImportance,
+    getNodeCluster,
     getNodeShape,
+    getNodeGradient,
     monochrome,
     labelStyle = "pill",
+    onNodeClick,
+    selectedNodeId,
     onSimulationReady,
   },
   ref
@@ -90,6 +127,7 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
   const linkAlphaRef = useRef<Map<number, number>>(new Map());
   const rafRef = useRef(0);
   const draggingRef = useRef<{ nodeId: string | number; offsetX: number; offsetY: number } | null>(null);
+  const clickStartRef = useRef<{ x: number; y: number; nodeId: string | number | null } | null>(null);
   const labelModeRef = useRef(labelMode);
   const hiddenGroupsRef = useRef(hiddenGroups);
   const colorsRef = useRef({
@@ -162,7 +200,8 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
         radius: number,
         kind: string,
         fill: string,
-        isHovered: boolean
+        isHovered: boolean,
+        gradientStops: Array<{ color: string; stop: number }> | null
       ) => {
         switch (kind) {
           case "question":
@@ -224,7 +263,18 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
         ctx.lineWidth = 1;
         ctx.stroke();
 
-        if (isHovered) {
+        if (gradientStops && gradientStops.length >= 2) {
+          // Selected: the stroke becomes a gradient built from the node's
+          // own data (e.g. which framework it's from, or how far toward
+          // one pole vs. the other a spectrum's real score sits) — a second,
+          // glanceable data point riding along on the click highlight,
+          // instead of a flat "you clicked this" color.
+          const gradient = ctx.createLinearGradient(x - radius, y, x + radius, y);
+          gradientStops.forEach(({ color, stop }) => gradient.addColorStop(Math.min(1, Math.max(0, stop)), color));
+          ctx.strokeStyle = gradient;
+          ctx.lineWidth = 3;
+          ctx.stroke();
+        } else if (isHovered) {
           ctx.strokeStyle = colorsRef.current.primary;
           ctx.lineWidth = 2;
           ctx.stroke();
@@ -319,6 +369,7 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
       const visibleNodes = nodes.filter((n) => !isNodeHidden(n));
       visibleNodes.forEach((node) => {
         const isHovered = node.id === hoveredNodeIdRef.current;
+        const isSelected = node.id === selectedNodeId;
         ctx.globalAlpha = nodeAlphaRef.current.get(node.id) ?? 1;
 
         const x = (node.x || 0) + panRef.current.x;
@@ -329,8 +380,9 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
           ? colorsRef.current.foreground
           : groupColorsRef.current.get(group) ?? colorsRef.current.muted;
         const kind = getNodeShape ? getNodeShape(node as GraphNode) : String((node as Record<string, unknown>).kind ?? "default");
+        const gradientStops = isSelected && getNodeGradient ? getNodeGradient(node as GraphNode) : null;
 
-        drawShape(x, y, radius, kind, fill, isHovered);
+        drawShape(x, y, radius, kind, fill, isHovered || isSelected, gradientStops);
       });
 
       // Labels. Three modes: "off" draws none; "key" shows only the top ~15%
@@ -417,16 +469,31 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
       getNodeImportance,
       getRingLabel,
       getNodeShape,
+      getNodeGradient,
       monochrome,
       labelStyle,
+      selectedNodeId,
     ]
   );
 
+  // draw() gets a fresh identity whenever any rendering-related prop changes
+  // (label mode, selection, colors, ...). That's fine for reading it, but
+  // it must never sit in another effect's dependency array — an effect that
+  // rebuilds the physics simulation (see below) would otherwise tear down
+  // and restart the whole layout on every such change, which is exactly
+  // the "clicking anything jiggles/resets the graph" bug. Route all calls
+  // through this ref so callers always get the latest draw without needing
+  // draw itself as a dependency.
+  const drawRef = useRef(draw);
+  useEffect(() => {
+    drawRef.current = draw;
+  }, [draw]);
+
   const redraw = useCallback(() => {
     if (canvasRef.current) {
-      draw(canvasRef.current, nodesRef.current, linksRef.current, dprRef.current);
+      drawRef.current(canvasRef.current, nodesRef.current, linksRef.current, dprRef.current);
     }
-  }, [draw]);
+  }, []);
 
   // Redraw immediately when label mode or group visibility changes — these
   // don't touch the simulation, so no tick would otherwise trigger a repaint.
@@ -465,13 +532,13 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
           linkAlphaRef.current.set(i, current + (targetAlpha - current) * ALPHA_EASE);
         });
 
-        draw(canvas, nodesRef.current, linksRef.current, dprRef.current);
+        drawRef.current(canvas, nodesRef.current, linksRef.current, dprRef.current);
       }
       rafRef.current = requestAnimationFrame(step);
     };
     rafRef.current = requestAnimationFrame(step);
     return () => cancelAnimationFrame(rafRef.current);
-  }, [draw, getConnectedNodeIds]);
+  }, [getConnectedNodeIds]);
 
   const layoutNodes = useCallback(
     (width: number, height: number) => {
@@ -629,12 +696,19 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
         // smoothly (Obsidian-style) rather than snapping into place.
         .alphaDecay(0.018)
         .velocityDecay(0.5);
+
+      if (getNodeCluster) {
+        // Beyond direct links, pull same-cluster nodes toward each other so
+        // proximity actually means something for the whole group, not just
+        // directly-linked pairs — see createClusterForce for why.
+        simulation.force("cluster", createClusterForce(nodes, getNodeCluster, 0.5));
+      }
     }
 
-    simulation.on("tick", () => {
-      draw(canvas, nodes, links, dpr);
-    });
-
+    // No "tick" → draw wiring here: the render loop effect above already
+    // repaints every animation frame straight from nodesRef.current, so
+    // physics and rendering stay decoupled instead of this effect needing
+    // draw (and everything draw depends on) in its own dependency array.
     simulationRef.current = simulation;
     onSimulationReady?.(simulation);
 
@@ -643,7 +717,7 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
       onSimulationReady?.(null);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, draw, getNodeRadius, getNodeRing]);
+  }, [data, getNodeRadius, getNodeRing, getNodeCluster]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;
@@ -689,6 +763,8 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
   };
 
   const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    clickStartRef.current = { x: e.clientX, y: e.clientY, nodeId: hoveredNodeId };
+
     if (hoveredNodeId === null) {
       // Start panning
       const rect = canvasRef.current?.getBoundingClientRect();
@@ -717,7 +793,7 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
     }
   };
 
-  const handleMouseUp = () => {
+  const handleMouseUp = (e: React.MouseEvent<HTMLCanvasElement>) => {
     if (draggingRef.current?.nodeId !== "_pan") {
       const node = nodesRef.current.find((n) => n.id === draggingRef.current?.nodeId);
       if (node) {
@@ -726,6 +802,17 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
       }
     }
     draggingRef.current = null;
+
+    const start = clickStartRef.current;
+    clickStartRef.current = null;
+    if (start && onNodeClick) {
+      const moved = Math.hypot(e.clientX - start.x, e.clientY - start.y);
+      // Barely moved between down and up — treat as a click, not a drag.
+      if (moved < 5) {
+        const node = start.nodeId != null ? nodesRef.current.find((n) => n.id === start.nodeId) : null;
+        onNodeClick((node as GraphNode | undefined) ?? null);
+      }
+    }
   };
 
   const handleWheel = (e: React.WheelEvent<HTMLCanvasElement>) => {
