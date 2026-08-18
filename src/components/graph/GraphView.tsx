@@ -7,6 +7,7 @@ import {
   forceLink,
   forceCenter,
   forceCollide,
+  forceRadial,
   type Simulation,
   type SimulationNodeDatum,
   type SimulationLinkDatum,
@@ -30,14 +31,44 @@ interface SimLink extends SimulationLinkDatum<SimNode> {
 export interface GraphViewHandle {
   /** Unpins every node, restarts the simulation from fresh (jittered) positions. */
   resetLayout: () => void;
+  /** Resets pan and zoom to the default 1x centered view, without touching node positions. */
+  resetView: () => void;
 }
 
 const LABEL_PADDING_X = 4;
 const LABEL_PADDING_Y = 2;
 const LABEL_LINE_HEIGHT = 14;
+const RADIAL_EDGE_PADDING = 30;
+const NODE_DIM_ALPHA = 0.15;
+const LINK_REST_ALPHA = 0.28;
+const LINK_ACTIVE_ALPHA = 0.9;
+const LINK_DIM_ALPHA = 0.08;
+const ALPHA_EASE = 0.2;
+
+/** Target distance from center for a given ring index, 0 = dead center. */
+function radialRingRadius(ring: number, maxRing: number, width: number, height: number) {
+  if (ring <= 0 || maxRing <= 0) return 0;
+  const available = Math.min(width, height) / 2 - RADIAL_EDGE_PADDING;
+  return (ring / maxRing) * Math.max(available, 40);
+}
 
 export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function GraphView(
-  { data, getNodeLabel, getNodeGroup, getNodeSize, getLinkLabel: _getLinkLabel, labelMode = "key", hiddenGroups, onSimulationReady },
+  {
+    data,
+    getNodeLabel,
+    getNodeGroup,
+    getNodeSize,
+    getLinkLabel: _getLinkLabel,
+    labelMode = "key",
+    hiddenGroups,
+    getNodeRing,
+    getRingLabel,
+    getNodeImportance,
+    getNodeShape,
+    monochrome,
+    labelStyle = "pill",
+    onSimulationReady,
+  },
   ref
 ) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -51,6 +82,13 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
   const panRef = useRef({ x: 0, y: 0 });
   const zoomRef = useRef(1);
   const dprRef = useRef(1);
+  const maxRingRef = useRef(0);
+  // Eased opacity per node/link (keyed by node id / link index), animated
+  // toward a target every frame by the render loop below — this is what
+  // makes the hover highlight fade smoothly instead of snapping instantly.
+  const nodeAlphaRef = useRef<Map<string | number, number>>(new Map());
+  const linkAlphaRef = useRef<Map<number, number>>(new Map());
+  const rafRef = useRef(0);
   const draggingRef = useRef<{ nodeId: string | number; offsetX: number; offsetY: number } | null>(null);
   const labelModeRef = useRef(labelMode);
   const hiddenGroupsRef = useRef(hiddenGroups);
@@ -199,20 +237,78 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
 
       const activeId = hoveredNodeIdRef.current;
       const connectedToActive = activeId ? getConnectedNodeIds(activeId) : new Set<string | number>();
-      const dimAlpha = 0.16;
 
-      // Links
-      links.forEach((link) => {
+      // Ring guides — faint concentric circles (plus a label at the top of
+      // each) that make the radial layout legible as a hierarchy at a
+      // glance, instead of relying on the viewer to infer "distance from
+      // center = depth" on their own.
+      if (maxRingRef.current > 0) {
+        const cw = canvas.clientWidth;
+        const ch = canvas.clientHeight;
+        const cx = cw / 2 + panRef.current.x;
+        const cy = ch / 2 + panRef.current.y;
+
+        ctx.globalAlpha = 1;
+        for (let ring = 1; ring <= maxRingRef.current; ring++) {
+          const radius = radialRingRadius(ring, maxRingRef.current, cw, ch);
+          ctx.beginPath();
+          ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+          ctx.strokeStyle = colorsRef.current.border;
+          ctx.lineWidth = 1;
+          ctx.setLineDash([2, 4]);
+          ctx.globalAlpha = 0.5;
+          ctx.stroke();
+          ctx.setLineDash([]);
+
+          const label = getRingLabel?.(ring);
+          if (label) {
+            const lx = cx;
+            const ly = cy - radius;
+            ctx.font = "10px sans-serif";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            const textWidth = ctx.measureText(label).width;
+            ctx.globalAlpha = 0.9;
+            ctx.fillStyle = colorsRef.current.card;
+            const padX = 5;
+            const padY = 3;
+            ctx.beginPath();
+            const rx0 = lx - textWidth / 2 - padX;
+            const ry0 = ly - LABEL_LINE_HEIGHT / 2 - padY + 1;
+            const rx1 = lx + textWidth / 2 + padX;
+            const ry1 = ly + LABEL_LINE_HEIGHT / 2 - padY + 5;
+            const r = 6;
+            ctx.moveTo(rx0 + r, ry0);
+            ctx.arcTo(rx1, ry0, rx1, ry1, r);
+            ctx.arcTo(rx1, ry1, rx0, ry1, r);
+            ctx.arcTo(rx0, ry1, rx0, ry0, r);
+            ctx.arcTo(rx0, ry0, rx1, ry0, r);
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.globalAlpha = 0.75;
+            ctx.fillStyle = colorsRef.current.muted;
+            ctx.fillText(label, lx, ly + 2);
+          }
+        }
+        ctx.globalAlpha = 1;
+      }
+
+      // Links — opacity/color read from the eased alpha map (updated by the
+      // render loop, not computed here) so a hover highlight fades smoothly
+      // instead of snapping in.
+      links.forEach((link, i) => {
         const source = typeof link.source === "object" ? link.source : nodes.find((n) => n.id === link.source)!;
         const target = typeof link.target === "object" ? link.target : nodes.find((n) => n.id === link.target)!;
 
         if (!source || !target) return;
         if (isNodeHidden(source) || isNodeHidden(target)) return;
 
-        const isActive = activeId && (connectedToActive.has(source.id) || connectedToActive.has(target.id));
-        ctx.globalAlpha = isActive ? 0.85 : activeId ? dimAlpha * 0.5 : 0.22;
+        const alpha = linkAlphaRef.current.get(i) ?? LINK_REST_ALPHA;
+        const isActive = alpha > (LINK_REST_ALPHA + LINK_ACTIVE_ALPHA) / 2;
+        ctx.globalAlpha = alpha;
         ctx.strokeStyle = isActive ? colorsRef.current.primary : colorsRef.current.border;
-        ctx.lineWidth = isActive ? 1 : 0.75;
+        ctx.lineWidth = isActive ? 1.1 : 0.6;
         ctx.beginPath();
         ctx.moveTo((source.x || 0) + panRef.current.x, (source.y || 0) + panRef.current.y);
         ctx.lineTo((target.x || 0) + panRef.current.x, (target.y || 0) + panRef.current.y);
@@ -222,18 +318,19 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
       // Nodes with geometric shapes
       const visibleNodes = nodes.filter((n) => !isNodeHidden(n));
       visibleNodes.forEach((node) => {
-        const isActive = activeId ? connectedToActive.has(node.id) : true;
         const isHovered = node.id === hoveredNodeIdRef.current;
-        ctx.globalAlpha = isActive ? 1 : dimAlpha;
+        ctx.globalAlpha = nodeAlphaRef.current.get(node.id) ?? 1;
 
         const x = (node.x || 0) + panRef.current.x;
         const y = (node.y || 0) + panRef.current.y;
         const radius = getNodeRadius(node);
         const group = resolvedGetNodeGroup(node as GraphNode) ?? "default";
-        const fill = groupColorsRef.current.get(group) ?? colorsRef.current.muted;
-        const kind = (node as Record<string, unknown>).kind ?? "default";
+        const fill = monochrome
+          ? colorsRef.current.foreground
+          : groupColorsRef.current.get(group) ?? colorsRef.current.muted;
+        const kind = getNodeShape ? getNodeShape(node as GraphNode) : String((node as Record<string, unknown>).kind ?? "default");
 
-        drawShape(x, y, radius, String(kind), fill, isHovered);
+        drawShape(x, y, radius, kind, fill, isHovered);
       });
 
       // Labels. Three modes: "off" draws none; "key" shows only the top ~15%
@@ -243,7 +340,6 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
       // never piles up regardless of mode.
       const mode = labelModeRef.current;
       if (mode !== "off") {
-        ctx.globalAlpha = 1;
         ctx.font = "11px sans-serif";
         ctx.textAlign = "center";
         ctx.textBaseline = "top";
@@ -257,7 +353,9 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
 
         visibleNodes.forEach((node) => {
           const degree = degreeRef.current.get(node.id) ?? 0;
-          const isImportant = degree >= importantThreshold && degree > 0;
+          const isImportant = getNodeImportance
+            ? getNodeImportance(node as GraphNode, degree)
+            : degree >= importantThreshold && degree > 0;
           const shouldLabel =
             mode === "all" ? true : activeId ? connectedToActive.has(node.id) : isImportant;
           if (!shouldLabel) return;
@@ -281,28 +379,47 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
           if (collides && node.id !== activeId) return;
           placedLabelRects.push(rect);
 
-          // Pill background for contrast against overlapping links/nodes.
-          ctx.globalAlpha = 0.85;
-          ctx.fillStyle = colorsRef.current.card;
-          const radiusPx = 4;
-          ctx.beginPath();
-          ctx.moveTo(rect.x0 + radiusPx, rect.y0);
-          ctx.arcTo(rect.x1, rect.y0, rect.x1, rect.y1, radiusPx);
-          ctx.arcTo(rect.x1, rect.y1, rect.x0, rect.y1, radiusPx);
-          ctx.arcTo(rect.x0, rect.y1, rect.x0, rect.y0, radiusPx);
-          ctx.arcTo(rect.x0, rect.y0, rect.x1, rect.y0, radiusPx);
-          ctx.closePath();
-          ctx.fill();
+          const labelAlpha = nodeAlphaRef.current.get(node.id) ?? 1;
 
-          ctx.globalAlpha = 1;
-          ctx.fillStyle = colorsRef.current.foreground;
+          if (labelStyle === "pill") {
+            // Pill background for contrast against overlapping links/nodes.
+            ctx.globalAlpha = labelAlpha * 0.85;
+            ctx.fillStyle = colorsRef.current.card;
+            const radiusPx = 4;
+            ctx.beginPath();
+            ctx.moveTo(rect.x0 + radiusPx, rect.y0);
+            ctx.arcTo(rect.x1, rect.y0, rect.x1, rect.y1, radiusPx);
+            ctx.arcTo(rect.x1, rect.y1, rect.x0, rect.y1, radiusPx);
+            ctx.arcTo(rect.x0, rect.y1, rect.x0, rect.y0, radiusPx);
+            ctx.arcTo(rect.x0, rect.y0, rect.x1, rect.y0, radiusPx);
+            ctx.closePath();
+            ctx.fill();
+            ctx.globalAlpha = labelAlpha;
+            ctx.fillStyle = colorsRef.current.foreground;
+          } else {
+            // Plain Obsidian-style label: no chip, just muted text that
+            // fades with the node instead of fighting for contrast.
+            ctx.globalAlpha = labelAlpha * 0.9;
+            ctx.fillStyle = colorsRef.current.muted;
+          }
           ctx.fillText(label, x, y);
         });
       }
 
       ctx.globalAlpha = 1;
     },
-    [resolvedGetNodeLabel, resolvedGetNodeGroup, getNodeRadius, getConnectedNodeIds, isNodeHidden]
+    [
+      resolvedGetNodeLabel,
+      resolvedGetNodeGroup,
+      getNodeRadius,
+      getConnectedNodeIds,
+      isNodeHidden,
+      getNodeImportance,
+      getRingLabel,
+      getNodeShape,
+      monochrome,
+      labelStyle,
+    ]
   );
 
   const redraw = useCallback(() => {
@@ -317,19 +434,76 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
     redraw();
   }, [labelMode, hiddenGroups, redraw]);
 
-  const layoutNodes = useCallback((width: number, height: number) => {
-    nodesRef.current.forEach((node) => {
-      node.fx = null;
-      node.fy = null;
-      node.vx = 0;
-      node.vy = 0;
-      // Small random jitter around the center — starting every node on the
-      // exact same point makes early ticks fight over direction and settle
-      // messier than a gentle spread does.
-      node.x = width / 2 + (Math.random() - 0.5) * 60;
-      node.y = height / 2 + (Math.random() - 0.5) * 60;
-    });
-  }, []);
+  // Continuous render loop, independent of the simulation's own ticking.
+  // Its job is easing nodeAlphaRef/linkAlphaRef toward their hover-driven
+  // targets every frame, which is what makes the highlight fade in/out
+  // smoothly instead of snapping the instant the mouse crosses a node.
+  useEffect(() => {
+    const step = () => {
+      const canvas = canvasRef.current;
+      if (canvas) {
+        const activeId = hoveredNodeIdRef.current;
+        const connected = activeId ? getConnectedNodeIds(activeId) : null;
+
+        nodesRef.current.forEach((n) => {
+          const target = !activeId ? 1 : connected!.has(n.id) ? 1 : NODE_DIM_ALPHA;
+          const current = nodeAlphaRef.current.get(n.id) ?? target;
+          nodeAlphaRef.current.set(n.id, current + (target - current) * ALPHA_EASE);
+        });
+
+        linksRef.current.forEach((link, i) => {
+          const source =
+            typeof link.source === "object" ? link.source : nodesRef.current.find((n) => n.id === link.source);
+          const target =
+            typeof link.target === "object" ? link.target : nodesRef.current.find((n) => n.id === link.target);
+          let targetAlpha = LINK_REST_ALPHA;
+          if (activeId && source && target) {
+            const isActive = connected!.has(source.id) || connected!.has(target.id);
+            targetAlpha = isActive ? LINK_ACTIVE_ALPHA : LINK_DIM_ALPHA;
+          }
+          const current = linkAlphaRef.current.get(i) ?? targetAlpha;
+          linkAlphaRef.current.set(i, current + (targetAlpha - current) * ALPHA_EASE);
+        });
+
+        draw(canvas, nodesRef.current, linksRef.current, dprRef.current);
+      }
+      rafRef.current = requestAnimationFrame(step);
+    };
+    rafRef.current = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [draw, getConnectedNodeIds]);
+
+  const layoutNodes = useCallback(
+    (width: number, height: number) => {
+      const maxRing = getNodeRing
+        ? nodesRef.current.reduce((max, n) => Math.max(max, getNodeRing(n as GraphNode)), 0)
+        : 0;
+      maxRingRef.current = maxRing;
+      nodesRef.current.forEach((node) => {
+        node.fx = null;
+        node.fy = null;
+        node.vx = 0;
+        node.vy = 0;
+        if (getNodeRing) {
+          // Start each node out on its ring at a random angle — settles into
+          // a clean radial layout much faster than springing out from a
+          // single point, and avoids the tangled first few frames that
+          // produces.
+          const radius = radialRingRadius(getNodeRing(node as GraphNode), maxRing, width, height);
+          const angle = Math.random() * Math.PI * 2;
+          node.x = width / 2 + Math.cos(angle) * radius;
+          node.y = height / 2 + Math.sin(angle) * radius;
+        } else {
+          // Small random jitter around the center — starting every node on
+          // the exact same point makes early ticks fight over direction and
+          // settle messier than a gentle spread does.
+          node.x = width / 2 + (Math.random() - 0.5) * 60;
+          node.y = height / 2 + (Math.random() - 0.5) * 60;
+        }
+      });
+    },
+    [getNodeRing]
+  );
 
   useImperativeHandle(
     ref,
@@ -340,8 +514,13 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
         layoutNodes(canvas.clientWidth, canvas.clientHeight);
         simulationRef.current?.alpha(1).restart();
       },
+      resetView: () => {
+        zoomRef.current = 1;
+        panRef.current = { x: 0, y: 0 };
+        redraw();
+      },
     }),
-    [layoutNodes]
+    [layoutNodes, redraw]
   );
 
   // Initialize simulation and nodes/links
@@ -365,11 +544,24 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
       muted: computed.getPropertyValue("--muted-foreground").trim() || colorsRef.current.muted,
     };
 
-    const nodes: SimNode[] = data.nodes.map((n) => ({
-      ...n,
-      x: width / 2 + (Math.random() - 0.5) * 60,
-      y: height / 2 + (Math.random() - 0.5) * 60,
-    } as SimNode));
+    const maxRing = getNodeRing ? data.nodes.reduce((max, n) => Math.max(max, getNodeRing(n)), 0) : 0;
+    maxRingRef.current = maxRing;
+    const nodes: SimNode[] = data.nodes.map((n) => {
+      if (getNodeRing) {
+        const radius = radialRingRadius(getNodeRing(n), maxRing, width, height);
+        const angle = Math.random() * Math.PI * 2;
+        return {
+          ...n,
+          x: width / 2 + Math.cos(angle) * radius,
+          y: height / 2 + Math.sin(angle) * radius,
+        } as SimNode;
+      }
+      return {
+        ...n,
+        x: width / 2 + (Math.random() - 0.5) * 60,
+        y: height / 2 + (Math.random() - 0.5) * 60,
+      } as SimNode;
+    });
     const links: SimLink[] = data.links.map((l) => ({
       ...l,
       source: nodes.find((n) => n.id === l.source)!,
@@ -390,33 +582,58 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
     degreeRef.current = degree;
     groupColorsRef.current = buildGroupColorMap(data.nodes, resolvedGetNodeGroup);
 
-    const simulation = forceSimulation(nodes)
-      // Repulsion between all node pairs — the main thing that keeps the
-      // graph from collapsing into a dense hairball. distanceMax caps how
-      // far apart two nodes still push each other, which keeps the layout
-      // local (and cheap) once it's roughly 100-300 nodes.
-      .force("charge", forceManyBody().strength(-220).distanceMax(600))
-      // Springs along actual edges. Distance is the *rest length* of the
-      // spring (bigger = airier graph); strength is deliberately soft so
-      // clusters can breathe instead of snapping into rigid triangles.
-      .force("link", forceLink<SimNode, SimLink>(links).distance(100).strength(0.25))
-      // Gentle pull toward the canvas center so the whole graph doesn't
-      // drift or fly apart — strength < 1 keeps it a suggestion, not a leash.
-      .force("center", forceCenter(width / 2, height / 2).strength(0.3))
-      // Hard collision radius (node radius + padding) — this is what
-      // actually guarantees nodes never overlap, regardless of what charge/
-      // link end up doing.
-      .force(
-        "collide",
-        forceCollide<SimNode>((n) => getNodeRadius(n) + 6).strength(0.85)
-      )
-      // Faster cooling than d3's default (0.0228) so the layout settles into
-      // a clean, still picture instead of jittering forever.
-      .alphaDecay(0.035)
-      .velocityDecay(0.45)
-      .on("tick", () => {
-        draw(canvas, nodes, links, dpr);
-      });
+    const simulation = forceSimulation(nodes);
+
+    if (getNodeRing) {
+      // Radial mode: rings communicate hierarchy (center = root, outward =
+      // further from it), so that force does the heavy lifting on *radius*.
+      // Charge/link/collide are only there to spread nodes around their
+      // ring and nudge connected nodes toward a shared angle — not to
+      // decide how far from center anything sits.
+      simulation
+        .force(
+          "radial",
+          forceRadial<SimNode>((n) => radialRingRadius(getNodeRing(n as GraphNode), maxRing, width, height), width / 2, height / 2).strength(0.9)
+        )
+        .force("charge", forceManyBody().strength(-90).distanceMax(260))
+        .force("link", forceLink<SimNode, SimLink>(links).distance(60).strength(0.4))
+        .force(
+          "collide",
+          forceCollide<SimNode>((n) => getNodeRadius(n) + 6).strength(0.9)
+        )
+        .alphaDecay(0.025)
+        .velocityDecay(0.5);
+    } else {
+      simulation
+        // Repulsion between all node pairs — the main thing that keeps the
+        // graph from collapsing into a dense hairball. distanceMax caps how
+        // far apart two nodes still push each other, which keeps the layout
+        // local (and cheap) once it's roughly 100-300 nodes.
+        .force("charge", forceManyBody().strength(-220).distanceMax(600))
+        // Springs along actual edges. Distance is the *rest length* of the
+        // spring (bigger = airier graph); strength is deliberately soft so
+        // clusters can breathe instead of snapping into rigid triangles.
+        .force("link", forceLink<SimNode, SimLink>(links).distance(100).strength(0.25))
+        // Gentle pull toward the canvas center so the whole graph doesn't
+        // drift or fly apart — strength < 1 keeps it a suggestion, not a leash.
+        .force("center", forceCenter(width / 2, height / 2).strength(0.3))
+        // Hard collision radius (node radius + padding) — this is what
+        // actually guarantees nodes never overlap, regardless of what charge/
+        // link end up doing.
+        .force(
+          "collide",
+          forceCollide<SimNode>((n) => getNodeRadius(n) + 6).strength(0.85)
+        )
+        // Slower cooling and heavier velocity damping than d3's defaults —
+        // the graph drifts into its final arrangement gradually and
+        // smoothly (Obsidian-style) rather than snapping into place.
+        .alphaDecay(0.018)
+        .velocityDecay(0.5);
+    }
+
+    simulation.on("tick", () => {
+      draw(canvas, nodes, links, dpr);
+    });
 
     simulationRef.current = simulation;
     onSimulationReady?.(simulation);
@@ -426,7 +643,7 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
       onSimulationReady?.(null);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, draw, getNodeRadius]);
+  }, [data, draw, getNodeRadius, getNodeRing]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;
@@ -540,7 +757,7 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
         redraw();
       }}
       onWheel={handleWheel}
-      className="w-full h-full border border-border rounded-lg bg-card cursor-grab active:cursor-grabbing"
+      className="w-full h-full border border-border rounded-2xl bg-card cursor-grab active:cursor-grabbing"
       style={{ display: "block" }}
     />
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { Link } from "@/i18n/navigation";
 import {
@@ -15,6 +16,9 @@ import {
   Target,
   Briefcase,
   History,
+  Link2,
+  Check,
+  FileDown,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -28,29 +32,39 @@ import {
   loadHistory,
   loadRemoteHistory,
 } from "@/lib/personality/storage";
-import type { CombinedSnapshot, PersonalityResults } from "@/lib/personality/types";
+import type { CombinedSnapshot, PersonalityResults, ProgressMap } from "@/lib/personality/types";
 import { useAuth } from "@/lib/supabase/AuthProvider";
+import { enableSharing } from "@/app/[locale]/(personality)/settings/actions";
 import { AxisAgreement } from "@/components/personality/shared/AxisAgreement";
 import { getAxisGrowthPrompt, getCareerSuggestions } from "./growthContent";
 import { AxisTrend } from "./AxisTrend";
 import { ShareCard } from "./ShareCard";
+import { PersonalityGraphCard } from "./PersonalityGraphCard";
 import type { CombinedProfile as CombinedProfileData } from "./generateCombinedProfile";
 
 export function CombinedProfile({
   profile,
   results,
+  progress = {},
   recordHistory = true,
 }: {
   profile: CombinedProfileData;
   results: PersonalityResults;
+  progress?: ProgressMap;
   recordHistory?: boolean;
 }) {
   const shareCardRef = useRef<HTMLDivElement>(null);
   const [isExporting, setIsExporting] = useState(false);
   const { resolvedTheme } = useTheme();
-  const { user } = useAuth();
+  const { user, profileMeta } = useAuth();
+  const router = useRouter();
   const careerSuggestions = getCareerSuggestions(profile.axes);
   const [history, setHistory] = useState<CombinedSnapshot[]>([]);
+  // Only set once sharing is newly enabled from this page — otherwise the
+  // slug/public state is read straight from profileMeta (context), not mirrored into state.
+  const [freshShareSlug, setFreshShareSlug] = useState<string | null>(null);
+  const [isEnablingShare, setIsEnablingShare] = useState(false);
+  const [linkCopied, setLinkCopied] = useState(false);
   const axisSignature = profile.axes.map((a) => `${a.id}:${a.score}`).join("|");
 
   // Every time the combined axes actually change (a fresh completion or
@@ -140,9 +154,37 @@ export function CombinedProfile({
     }
   }
 
+  async function handleCopyLink() {
+    if (!user) {
+      router.push("/login?next=/combined");
+      return;
+    }
+    if (isEnablingShare) return;
+    setIsEnablingShare(true);
+    try {
+      let slug = freshShareSlug ?? profileMeta?.shareSlug ?? null;
+      const isPublic = freshShareSlug ? true : (profileMeta?.isPublic ?? false);
+      if (!slug || !isPublic) {
+        slug = await enableSharing();
+        setFreshShareSlug(slug);
+      }
+      await navigator.clipboard.writeText(`${window.location.origin}/u/${slug}`);
+      setLinkCopied(true);
+      setTimeout(() => setLinkCopied(false), 2000);
+    } catch {
+      // clipboard/network hiccup — user can retry
+    } finally {
+      setIsEnablingShare(false);
+    }
+  }
+
+  function handleExportPdf() {
+    window.print();
+  }
+
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:py-12">
-      <div className="mb-8 flex items-center justify-between gap-3">
+      <div className="mb-8 flex flex-wrap items-center justify-between gap-3 print:hidden">
         <Link
           href="/"
           className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
@@ -150,14 +192,40 @@ export function CombinedProfile({
           <ChevronLeft className="size-4" />
           Overview
         </Link>
-        <Button variant="outline" size="sm" onClick={handleShare} disabled={isExporting} className="rounded-full">
-          {isExporting ? (
-            <Loader2 className="size-4 animate-spin" />
-          ) : (
-            <Share2 className="size-4" />
-          )}
-          Save / Share
-        </Button>
+        <div className="flex flex-wrap items-center gap-2">
+          {recordHistory ? (
+            <>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleCopyLink}
+                disabled={isEnablingShare}
+                className="rounded-full"
+              >
+                {isEnablingShare ? (
+                  <Loader2 className="size-4 animate-spin" />
+                ) : linkCopied ? (
+                  <Check className="size-4" />
+                ) : (
+                  <Link2 className="size-4" />
+                )}
+                {linkCopied ? "Link copied" : "Export as link"}
+              </Button>
+              <Button variant="outline" size="sm" onClick={handleExportPdf} className="rounded-full">
+                <FileDown className="size-4" />
+                Export as PDF
+              </Button>
+            </>
+          ) : null}
+          <Button variant="outline" size="sm" onClick={handleShare} disabled={isExporting} className="rounded-full">
+            {isExporting ? (
+              <Loader2 className="size-4 animate-spin" />
+            ) : (
+              <Share2 className="size-4" />
+            )}
+            Save / Share
+          </Button>
+        </div>
       </div>
 
       <div className="relative overflow-hidden rounded-[2.5rem] border bg-card p-6 shadow-[0_30px_70px_-20px_var(--elevation-shadow-lg)] sm:p-10">
@@ -235,6 +303,8 @@ export function CombinedProfile({
           ))}
         </div>
       </div>
+
+      <PersonalityGraphCard profile={profile} results={results} progress={progress} />
 
       {history.length > 0 ? (
         <div className="mt-8 rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_var(--elevation-shadow-sm)]">

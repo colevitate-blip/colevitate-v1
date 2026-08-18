@@ -6,8 +6,14 @@ import { GraphView, type GraphViewHandle } from "@/components/graph/GraphView";
 import { GraphControls } from "@/components/graph/GraphControls";
 import { personalityResultsToGraphData } from "@/components/personality/combined/personalityResultsToGraphData";
 import { generateCombinedProfile } from "@/components/personality/combined/generateCombinedProfile";
+import {
+  getGraphNodeLabel,
+  getGraphNodeSize,
+  getGraphNodeRing,
+  getGraphNodeImportance,
+} from "@/components/personality/combined/graphAppearance";
 import type { PersonalityResults, ProgressMap } from "@/lib/personality/types";
-import type { LabelMode, GraphNode } from "@/components/graph/types";
+import type { LabelMode } from "@/components/graph/types";
 
 // Mock data for demo
 const MOCK_PROGRESS: ProgressMap = {
@@ -89,47 +95,6 @@ const MOCK_RESULTS: PersonalityResults = {
   },
 };
 
-// Module-level so identity stays stable across re-renders — GraphView keys
-// its simulation-setup effect off these, and a fresh function reference on
-// every render would tear down and rebuild the simulation constantly.
-function getNodeLabel(node: GraphNode) {
-  const nodeObj = node as Record<string, unknown>;
-  if (nodeObj.kind === "question") {
-    return `Q: ${String(nodeObj.prompt).substring(0, 20)}...`;
-  }
-  if (nodeObj.kind === "trait") {
-    return String(nodeObj.label);
-  }
-  if (nodeObj.kind === "thread") {
-    return String(nodeObj.label);
-  }
-  if (nodeObj.kind === "axis") {
-    return String(nodeObj.id);
-  }
-  if (nodeObj.kind === "archetype") {
-    return String(nodeObj.label);
-  }
-  return String(nodeObj.id);
-}
-
-function getNodeSize(node: GraphNode) {
-  const kind = (node as Record<string, unknown>).kind;
-  switch (kind) {
-    case "archetype":
-      return 10;
-    case "axis":
-      return 8;
-    case "thread":
-      return 7;
-    case "trait":
-      return 5;
-    case "question":
-      return 3;
-    default:
-      return 4;
-  }
-}
-
 export default function PersonalityGraphDemo() {
   const [showNames, setShowNames] = useState(false);
   const [spacingMode, setSpacingMode] = useState<"cozy" | "roomy">("roomy");
@@ -143,8 +108,10 @@ export default function PersonalityGraphDemo() {
     [combinedProfile]
   );
 
-  // Show words → key mode (important labels), hide → off (no labels)
-  const labelMode: LabelMode = showNames ? "key" : "off";
+  // Show words → all labels, hide → key landmarks only (still not "off",
+  // since the radial layout only reads as a hierarchy once you can tell
+  // which ring is which).
+  const labelMode: LabelMode = showNames ? "all" : "key";
 
   if (!combinedProfile || !graphData) {
     return <div className="p-8 text-center">Need at least 2 assessments to generate graph</div>;
@@ -169,8 +136,10 @@ export default function PersonalityGraphDemo() {
           <GraphView
             ref={graphRef}
             data={graphData}
-            getNodeLabel={getNodeLabel}
-            getNodeSize={getNodeSize}
+            getNodeLabel={getGraphNodeLabel}
+            getNodeSize={getGraphNodeSize}
+            getNodeRing={getGraphNodeRing}
+            getNodeImportance={getGraphNodeImportance}
             labelMode={labelMode}
             onSimulationReady={setSimulation}
           />

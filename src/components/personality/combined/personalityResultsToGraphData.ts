@@ -96,6 +96,17 @@ const TRAIT_LABELS: Record<TraitId, string> = {
   yellow: "Yellow",
 };
 
+const KIND_ORDER: Record<NodeType["kind"], number> = {
+  question: 0,
+  trait: 1,
+  thread: 2,
+  axis: 3,
+  archetype: 4,
+};
+
+const MBTI_TRAITS: TraitId[] = ["EI", "SN", "TF", "JP"];
+const BIG_FIVE_TRAITS: TraitId[] = ["openness", "conscientiousness", "extraversion", "agreeableness", "neuroticism"];
+
 export function personalityResultsToGraphData(
   progress: ProgressMap,
   results: PersonalityResults,
@@ -104,8 +115,47 @@ export function personalityResultsToGraphData(
   const nodes: NodeType[] = [];
   const links: Array<{ source: string | number; target: string | number }> = [];
   const traitIds = new Set<TraitId>();
+  // Which traits each completed thread actually contributes — derived from
+  // the *scored results*, not from locally-cached in-progress answers, so a
+  // trait/thread/axis is never orphaned just because a user completed an
+  // assessment on another device or the draft answers got cleared after
+  // submission.
+  const threadTraits = new Map<AssessmentId, TraitId[]>();
 
-  // Create question nodes and collect traits they feed
+  const addTraitNode = (id: TraitId) => {
+    if (traitIds.has(id)) return;
+    nodes.push({ id, kind: "trait", label: TRAIT_LABELS[id] });
+    traitIds.add(id);
+  };
+
+  if (results.mbti) {
+    MBTI_TRAITS.forEach(addTraitNode);
+    threadTraits.set("mbti", MBTI_TRAITS);
+  }
+  if (results.bigfive) {
+    BIG_FIVE_TRAITS.forEach(addTraitNode);
+    threadTraits.set("bigfive", BIG_FIVE_TRAITS);
+  }
+  if (results.humandesign) {
+    const type = results.humandesign.type as TraitId;
+    addTraitNode(type);
+    threadTraits.set("humandesign", [type]);
+  }
+  if (results.colors) {
+    const dominant = results.colors.dominant as TraitId;
+    const secondary = results.colors.secondary as TraitId;
+    addTraitNode(dominant);
+    const colorTraits: TraitId[] = [dominant];
+    if (secondary !== dominant) {
+      addTraitNode(secondary);
+      colorTraits.push(secondary);
+    }
+    threadTraits.set("colors", colorTraits);
+  }
+
+  // Question nodes are an optional, denser outer layer — only present when
+  // the raw in-progress answers are still cached locally. They hang off the
+  // trait node the question feeds, which already exists above regardless.
   for (const assessmentId of ["mbti", "bigfive", "humandesign", "colors"] as AssessmentId[]) {
     const progressData = progress[assessmentId];
     if (!progressData) continue;
@@ -134,17 +184,18 @@ export function personalityResultsToGraphData(
         const q = HD_QUESTIONS.find((question) => question.id === questionId);
         if (q) {
           questionPrompt = q.prompt;
+          questionTrait = results.humandesign ? (results.humandesign.type as TraitId) : null;
         }
       } else if (assessmentId === "colors") {
         const q = COLOR_QUESTIONS.find((question) => question.id === questionId);
         if (q) {
           questionPrompt = q.prompt;
+          questionTrait = results.colors ? (results.colors.dominant as TraitId) : null;
         }
       }
 
-      if (!questionPrompt) continue;
+      if (!questionPrompt || !questionTrait || !traitIds.has(questionTrait)) continue;
 
-      // Create question node
       const questionNode: QuestionNode = {
         id: `q-${assessmentId}-${questionId}`,
         kind: "question",
@@ -152,87 +203,7 @@ export function personalityResultsToGraphData(
         answer,
       };
       nodes.push(questionNode);
-
-      // Create trait node and link question to trait
-      if (assessmentId === "mbti" && questionTrait) {
-        if (!traitIds.has(questionTrait)) {
-          const traitNode: TraitNode = {
-            id: questionTrait,
-            kind: "trait",
-            label: TRAIT_LABELS[questionTrait],
-          };
-          nodes.push(traitNode);
-          traitIds.add(questionTrait);
-        }
-        links.push({
-          source: questionNode.id,
-          target: questionTrait,
-        });
-      } else if (assessmentId === "bigfive" && questionTrait) {
-        if (!traitIds.has(questionTrait)) {
-          const traitNode: TraitNode = {
-            id: questionTrait,
-            kind: "trait",
-            label: TRAIT_LABELS[questionTrait],
-          };
-          nodes.push(traitNode);
-          traitIds.add(questionTrait);
-        }
-        links.push({
-          source: questionNode.id,
-          target: questionTrait,
-        });
-      } else if (assessmentId === "humandesign" && results.humandesign) {
-        // For HD, the answer is the selected type
-        const hdType = results.humandesign.type as TraitId;
-        if (!traitIds.has(hdType)) {
-          const traitNode: TraitNode = {
-            id: hdType,
-            kind: "trait",
-            label: TRAIT_LABELS[hdType],
-          };
-          nodes.push(traitNode);
-          traitIds.add(hdType);
-        }
-        links.push({
-          source: questionNode.id,
-          target: hdType,
-        });
-      } else if (assessmentId === "colors" && results.colors) {
-        // For colors, link to the dominant and secondary colors
-        const dominant = results.colors.dominant as TraitId;
-        const secondary = results.colors.secondary as TraitId;
-
-        if (!traitIds.has(dominant)) {
-          const dominantNode: TraitNode = {
-            id: dominant,
-            kind: "trait",
-            label: TRAIT_LABELS[dominant],
-          };
-          nodes.push(dominantNode);
-          traitIds.add(dominant);
-        }
-        if (!traitIds.has(secondary)) {
-          const secondaryNode: TraitNode = {
-            id: secondary,
-            kind: "trait",
-            label: TRAIT_LABELS[secondary],
-          };
-          nodes.push(secondaryNode);
-          traitIds.add(secondary);
-        }
-
-        links.push({
-          source: questionNode.id,
-          target: dominant,
-        });
-        if (secondary !== dominant) {
-          links.push({
-            source: questionNode.id,
-            target: secondary,
-          });
-        }
-      }
+      links.push({ source: questionNode.id, target: questionTrait });
     }
   }
 
@@ -249,26 +220,11 @@ export function personalityResultsToGraphData(
     threadMap.set(thread.id, threadNode);
   }
 
-  // Create links from traits to threads
-  for (const trait of traitIds) {
-    // Find which thread this trait belongs to based on the assessment type
-    let threadId: AssessmentId | null = null;
-
-    if (["EI", "SN", "TF", "JP"].includes(trait)) {
-      threadId = "mbti";
-    } else if (["openness", "conscientiousness", "extraversion", "agreeableness", "neuroticism"].includes(trait)) {
-      threadId = "bigfive";
-    } else if (["generator", "manifesting-generator", "manifestor", "projector", "reflector"].includes(trait)) {
-      threadId = "humandesign";
-    } else if (["red", "blue", "green", "yellow"].includes(trait)) {
-      threadId = "colors";
-    }
-
-    if (threadId && threadMap.has(threadId)) {
-      links.push({
-        source: trait,
-        target: threadId,
-      });
+  // Link every trait to the thread it belongs to
+  for (const [threadId, traits] of threadTraits) {
+    if (!threadMap.has(threadId)) continue;
+    for (const trait of traits) {
+      links.push({ source: trait, target: threadId });
     }
   }
 
@@ -295,45 +251,11 @@ export function personalityResultsToGraphData(
     nodes.push(axisNode);
 
     // Link threads that contribute to this axis
-    for (const thread of combinedProfile.threads) {
-      // Determine which traits feed into this axis and if this thread has any
-      const axisTraitsFromThread: TraitId[] = [];
-
-      if (thread.id === "mbti") {
-        const dichotomyTraits: TraitId[] = ["EI", "SN", "TF", "JP"];
-        for (const trait of dichotomyTraits) {
-          if (traitIds.has(trait) && TRAIT_TO_AXIS[trait] === axis.id) {
-            axisTraitsFromThread.push(trait);
-          }
-        }
-      } else if (thread.id === "bigfive") {
-        const bfTraits: TraitId[] = ["openness", "conscientiousness", "extraversion", "agreeableness", "neuroticism"];
-        for (const trait of bfTraits) {
-          if (traitIds.has(trait) && TRAIT_TO_AXIS[trait] === axis.id) {
-            axisTraitsFromThread.push(trait);
-          }
-        }
-      } else if (thread.id === "humandesign" && results.humandesign) {
-        const hdType = results.humandesign.type as TraitId;
-        if (TRAIT_TO_AXIS[hdType] === axis.id) {
-          axisTraitsFromThread.push(hdType);
-        }
-      } else if (thread.id === "colors" && results.colors) {
-        const dominant = results.colors.dominant as TraitId;
-        const secondary = results.colors.secondary as TraitId;
-        if (TRAIT_TO_AXIS[dominant] === axis.id) {
-          axisTraitsFromThread.push(dominant);
-        }
-        if (TRAIT_TO_AXIS[secondary] === axis.id && secondary !== dominant) {
-          axisTraitsFromThread.push(secondary);
-        }
-      }
-
-      if (axisTraitsFromThread.length > 0) {
-        links.push({
-          source: thread.id,
-          target: axis.id,
-        });
+    for (const [threadId, traits] of threadTraits) {
+      if (!threadMap.has(threadId)) continue;
+      const contributes = traits.some((trait) => TRAIT_TO_AXIS[trait] === axis.id);
+      if (contributes) {
+        links.push({ source: threadId, target: axis.id });
       }
     }
   }
@@ -355,8 +277,13 @@ export function personalityResultsToGraphData(
     }
   }
 
+  // Sort by kind into a fixed order so color assignment (which colors groups
+  // by first-appearance order — see buildGroupColorMap) stays stable no
+  // matter which branches above ran or in what order they pushed nodes.
+  const sortedNodes = [...nodes].sort((a, b) => KIND_ORDER[a.kind] - KIND_ORDER[b.kind]);
+
   return {
-    nodes: nodes as GraphData["nodes"],
+    nodes: sortedNodes as GraphData["nodes"],
     links: links as GraphData["links"],
   };
 }

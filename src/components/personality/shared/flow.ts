@@ -27,7 +27,9 @@ export function buildFlowSteps<Q extends Tiered>(
   const extended = questions.filter((q) => q.tier === "extended" && includeExtended(q));
 
   const steps: FlowStep<Q>[] = core.map((question) => ({ kind: "question" as const, question }));
-  steps.push({ kind: "offer" });
+  if (extended.length > 0) {
+    steps.push({ kind: "offer" });
+  }
   steps.push(...extended.map((question) => ({ kind: "question" as const, question })));
   return steps;
 }

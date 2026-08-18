@@ -9,7 +9,7 @@ import { PartialProfilePreview } from "@/components/personality/combined/Partial
 import { generateCombinedProfile } from "@/components/personality/combined/generateCombinedProfile";
 
 export default function CombinedProfilePage() {
-  const { mounted, results, completedIds } = usePersonality();
+  const { mounted, results, completedIds, progress } = usePersonality();
 
   if (!mounted) return null;
 
@@ -40,5 +40,5 @@ export default function CombinedProfilePage() {
   const profile = generateCombinedProfile(results);
   if (!profile) return null;
 
-  return <CombinedProfile profile={profile} results={results} />;
+  return <CombinedProfile profile={profile} results={results} progress={progress} />;
 }
