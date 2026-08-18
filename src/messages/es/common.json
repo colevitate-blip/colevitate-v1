@@ -7,36 +7,36 @@
     "footerTagline": "Del lado del cliente y privado — tus resultados nunca salen de tu navegador."
   },
   "landing": {
-    "eyebrow": "Cuatro marcos, un perfil",
-    "titleLead": "Conócete a ti mismo,",
-    "titleAccent": "desde todos los ángulos",
-    "subtitle": "Realiza cualquier combinación de cuatro marcos de personalidad reconocidos — cada uno de solo unos minutos — y combina los resultados en un perfil unificado de quién eres.",
+    "eyebrow": "Cuatro miradas. Unos tres minutos cada una.",
+    "titleLead": "Lo que sigue apareciendo de ti,",
+    "titleAccent": "no importa qué prueba hagas",
+    "subtitle": "Una evaluación pregunta cómo piensas. Otra, cómo reaccionas bajo presión. Una tercera, qué notan de ti en los primeros cinco minutos. Combínalas como quieras — te mostraremos en qué coinciden, y suele ser más de lo que imaginas.",
     "combined": {
-      "title": "Tu perfil combinado",
-      "body": "{count, plural, =0 {Completa tu primera evaluación para desbloquear una vista previa de tu perfil combinado.} =1 {Has completado 1 de 4 — mira lo que ya sabemos de ti, y continúa hacia el perfil combinado completo.} other {Has completado # de 4 evaluaciones. Genera un perfil único y coherente que combine tus resultados.}}",
-      "cta": "{count, plural, =0 {Ver lo que ya sabemos} =1 {Ver lo que ya sabemos} other {Generar perfil combinado}}"
+      "title": "Donde coinciden tus cuatro miradas",
+      "body": "{count, plural, =0 {Haz tu primera evaluación abajo, y empezaremos a esbozar quién eres.} =1 {Una mirada lista, faltan tres — y ya nos dice algo. Aquí tienes un adelanto.} other {# de 4 miradas completadas. Empiezan a coincidir en algunas cosas — mira dónde.}}",
+      "cta": "{count, plural, =0 {Ver lo que ya sabemos} =1 {Ver lo que ya sabemos} other {Unir todas las piezas}}"
     }
   },
   "assessments": {
     "mbti": {
       "label": "16 Personalidades",
-      "tagline": "Estilo cognitivo y tipo",
-      "description": "Una tipología de 4 letras sobre cómo enfocas tu energía, procesas la información, tomas decisiones y estructuras tu vida."
+      "tagline": "Cómo se mueve tu mente",
+      "description": "Dieciséis tipos, una lectura de cuatro letras sobre cómo enfocas tu energía, procesas el mundo y tomas decisiones. La mayoría termina esta asintiendo."
     },
     "bigfive": {
       "label": "Los Cinco Grandes",
-      "tagline": "El modelo OCEAN",
-      "description": "El modelo con más respaldo científico en psicología de la personalidad — cinco rasgos amplios medidos en un espectro continuo."
+      "tagline": "El modelo en el que de verdad confían los psicólogos",
+      "description": "Sin tipos en los que encajar — cinco rasgos, medidos en un espectro real, con tus propias palabras. Lo más parecido a una segunda opinión sobre ti mismo."
     },
     "humandesign": {
       "label": "Diseño Humano",
-      "tagline": "Tipo de energía y estrategia",
-      "description": "Un cuestionario simplificado de autorreflexión inspirado en los tipos de energía, la estrategia de decisión y la autoridad interna del Diseño Humano. No necesitas fecha, hora ni lugar de nacimiento — solo cómo actúas en realidad."
+      "tagline": "Cómo estás diseñado para funcionar",
+      "description": "Dejamos fuera la carta natal. Lo que queda: diez preguntas sobre cómo tomas decisiones y usas tu energía en realidad — si esperas a que te llamen o das el primer paso — a través de la mirada del Diseño Humano sobre los estilos de funcionamiento."
     },
     "colors": {
       "label": "4 Tipos de Color",
-      "tagline": "Rojo · Azul · Verde · Amarillo",
-      "description": "Una lectura rápida y visual de tu estilo de comportamiento dominante — decidido, analítico, servicial o expresivo."
+      "tagline": "Lo que la gente nota de ti en cinco minutos",
+      "description": "Antes de conocer tu tipo, la gente ya lee esto: ¿lideras la sala, la observas, la mantienes unida o la iluminas? Cuatro estilos, una instantánea rápida y honesta."
     },
     "meta": "{count, plural, one {# pregunta} other {# preguntas}} · ~3 min",
     "status": {

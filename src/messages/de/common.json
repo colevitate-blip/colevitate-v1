@@ -7,36 +7,36 @@
     "footerTagline": "Clientseitig und privat — deine Ergebnisse verlassen nie deinen Browser."
   },
   "landing": {
-    "eyebrow": "Vier Modelle, ein Profil",
-    "titleLead": "Lerne dich kennen,",
-    "titleAccent": "aus jedem Blickwinkel",
-    "subtitle": "Absolviere eine beliebige Kombination aus vier bekannten Persönlichkeitsmodellen — jedes nur ein paar Minuten — und verwebe die Ergebnisse zu einem einzigen, stimmigen Profil.",
+    "eyebrow": "Vier Perspektiven. Je etwa drei Minuten.",
+    "titleLead": "Die Seiten an dir, die immer wiederkehren,",
+    "titleAccent": "ganz gleich, welchen Test du machst",
+    "subtitle": "Der eine Test fragt, wie dein Kopf arbeitet. Der nächste, wie du unter Druck reagierst. Ein dritter, was andere in den ersten fünf Minuten an dir bemerken. Kombiniere sie, wie du willst — wir zeigen dir, wo sie sich einig sind. Meistens mehr, als du denkst.",
     "combined": {
-      "title": "Dein kombiniertes Profil",
-      "body": "{count, plural, =0 {Schließe deinen ersten Test ab, um eine Vorschau deines kombinierten Profils freizuschalten.} =1 {Du hast 1 von 4 abgeschlossen — sieh, was wir bereits über dich wissen, und mach weiter zum vollständigen kombinierten Profil.} other {Du hast # von 4 Tests abgeschlossen. Erstelle ein einziges, stimmiges Profil, das deine Ergebnisse zusammenführt.}}",
-      "cta": "{count, plural, =0 {Zeig mir, was wir bisher wissen} =1 {Zeig mir, was wir bisher wissen} other {Kombiniertes Profil erstellen}}"
+      "title": "Wo sich deine vier Perspektiven einig sind",
+      "body": "{count, plural, =0 {Mach unten deinen ersten Test, und wir beginnen, ein Bild von dir zu zeichnen.} =1 {Eine Perspektive geschafft, drei fehlen noch — und schon jetzt sagt sie uns etwas. Hier ist eine Vorschau.} other {# von 4 Perspektiven sind da. Sie beginnen, sich in einigen Dingen einig zu sein — sieh, wo.}}",
+      "cta": "{count, plural, =0 {Zeig mir, was wir bisher wissen} =1 {Zeig mir, was wir bisher wissen} other {Alles zusammenführen}}"
     }
   },
   "assessments": {
     "mbti": {
       "label": "16 Persönlichkeiten",
-      "tagline": "Kognitiver Stil & Typ",
-      "description": "Eine 4-Buchstaben-Typologie dazu, wie du deine Energie ausrichtest, Informationen aufnimmst, Entscheidungen triffst und dein Leben strukturierst."
+      "tagline": "Wie dein Kopf tickt",
+      "description": "Sechzehn Typen, ein Vier-Buchstaben-Code dafür, wie du deine Energie einsetzt, die Welt aufnimmst und dich entscheidest. Die meisten nicken am Ende zustimmend."
     },
     "bigfive": {
       "label": "Big Five",
-      "tagline": "Das OCEAN-Modell",
-      "description": "Das wissenschaftlich am besten belegte Modell der Persönlichkeitspsychologie — fünf breite Merkmale auf einem kontinuierlichen Spektrum bewertet."
+      "tagline": "Das Modell, dem Psycholog:innen wirklich vertrauen",
+      "description": "Keine Schublade, in die du passen musst — fünf Merkmale, auf einem echten Spektrum, in deinen eigenen Worten. Das kommt einer zweiten Meinung über dich selbst am nächsten."
     },
     "humandesign": {
       "label": "Human Design",
-      "tagline": "Energietyp & Strategie",
-      "description": "Ein vereinfachter Selbstreflexionstest, inspiriert von den Energietypen, der Entscheidungsstrategie und der inneren Autorität des Human Design. Kein Geburtsdatum, keine Uhrzeit oder Ort nötig — nur, wie du wirklich funktionierst."
+      "tagline": "Wie du gebaut bist, um zu funktionieren",
+      "description": "Wir haben das Geburtshoroskop weggelassen. Was bleibt: zehn Fragen dazu, wie du wirklich Entscheidungen triffst und Energie einsetzt — ob du abwartest, bis du gefragt wirst, oder vorangehst — durch die Linse der Human-Design-Betriebsarten."
     },
     "colors": {
       "label": "4 Farbtypen",
-      "tagline": "Rot · Blau · Grün · Gelb",
-      "description": "Eine schnelle, visuelle Einschätzung deines dominanten Verhaltensstils — zielstrebig, analytisch, unterstützend oder ausdrucksstark."
+      "tagline": "Was andere in fünf Minuten an dir bemerken",
+      "description": "Bevor jemand deinen Typ kennt, liest er das hier: Übernimmst du den Raum, beobachtest du ihn, hältst du ihn zusammen, oder bringst du ihn zum Leuchten? Vier Stile, eine schnelle, ehrliche Momentaufnahme."
     },
     "meta": "{count, plural, one {# Frage} other {# Fragen}} · ~3 Min.",
     "status": {

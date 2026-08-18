@@ -7,36 +7,36 @@
     "footerTagline": "Client-side and private — your results never leave your browser."
   },
   "landing": {
-    "eyebrow": "Four frameworks, one profile",
-    "titleLead": "Know yourself,",
-    "titleAccent": "from every angle",
-    "subtitle": "Take any combination of four well-known personality frameworks — each just a few minutes — and weave the results into one combined profile of who you are.",
+    "eyebrow": "Four lenses. About three minutes each.",
+    "titleLead": "The parts of you that keep showing up,",
+    "titleAccent": "no matter which test you take",
+    "subtitle": "One quiz asks how your mind works. Another asks how you're wired under pressure. A third asks what people clock about you in the first five minutes. Take any combination — we'll show you where they agree, and it's usually more than you'd expect.",
     "combined": {
-      "title": "Your Combined Profile",
-      "body": "{count, plural, =0 {Complete your first assessment to unlock a preview of your combined profile.} =1 {You've completed 1 of 4 — see what we already know about you, and continue toward the full combined profile.} other {You've completed # of 4 assessments. Generate a single, cohesive profile that weaves your results together.}}",
-      "cta": "{count, plural, =0 {See What We Know So Far} =1 {See What We Know So Far} other {Generate Combined Profile}}"
+      "title": "Where Your Four Lenses Agree",
+      "body": "{count, plural, =0 {Take your first quiz below, and we'll start sketching who you are.} =1 {One lens down, three to go — and it's already telling us something. Here's a preview.} other {# of 4 lenses in. They're starting to agree on some things — see where.}}",
+      "cta": "{count, plural, =0 {See What We Know So Far} =1 {See What We Know So Far} other {Bring It All Together}}"
     }
   },
   "assessments": {
     "mbti": {
       "label": "16 Personalities",
-      "tagline": "Cognitive style & type",
-      "description": "A 4-letter typology across how you focus your energy, take in information, make decisions, and structure your life."
+      "tagline": "How your mind moves",
+      "description": "Sixteen types, one four-letter read on how you focus your energy, take in the world, and make up your mind. Most people finish this one nodding."
     },
     "bigfive": {
       "label": "Big Five",
-      "tagline": "The OCEAN model",
-      "description": "The most research-backed model in personality science — five broad traits scored on a continuous spectrum."
+      "tagline": "The one psychologists actually trust",
+      "description": "No types to squeeze into — five traits, scored on a real spectrum, in your own words. The closest thing here to a second opinion on yourself."
     },
     "humandesign": {
       "label": "Human Design",
-      "tagline": "Energy type & strategy",
-      "description": "A simplified self-reflection quiz inspired by Human Design's energy types, decision strategy, and inner authority. No birth date, time, or location needed — just how you actually operate."
+      "tagline": "How you're built to operate",
+      "description": "We left out the birth chart. What's left: ten questions about how you actually make decisions and spend energy — whether you wait to be asked or go first — through Human Design's lens on operating styles."
     },
     "colors": {
       "label": "4 Color Types",
-      "tagline": "Red · Blue · Green · Yellow",
-      "description": "A fast, visual read on your dominant behavioral style — driven, analytical, supportive, or expressive."
+      "tagline": "What people clock in five minutes",
+      "description": "Before anyone learns your type, they read this: are you driving the room, studying it, holding it together, or lighting it up? Four styles, one fast, honest snapshot."
     },
     "meta": "{count, plural, one {# question} other {# questions}} · ~3 min",
     "status": {

@@ -7,36 +7,36 @@
     "footerTagline": "Côté client et privé — vos résultats ne quittent jamais votre navigateur."
   },
   "landing": {
-    "eyebrow": "Quatre approches, un profil",
-    "titleLead": "Découvrez-vous,",
-    "titleAccent": "sous tous les angles",
-    "subtitle": "Passez n'importe quelle combinaison de quatre approches de personnalité reconnues — chacune ne prenant que quelques minutes — et combinez les résultats en un profil unique et cohérent.",
+    "eyebrow": "Quatre regards. Environ trois minutes chacun.",
+    "titleLead": "Ce qui, chez vous, revient",
+    "titleAccent": "quel que soit le test",
+    "subtitle": "Une évaluation s'intéresse à la façon dont votre esprit fonctionne. Une autre, à votre réaction sous pression. Une troisième, à ce que les gens remarquent chez vous en cinq minutes. Combinez-les comme vous voulez — nous vous montrerons où elles se rejoignent, et c'est souvent plus que vous ne le pensez.",
     "combined": {
-      "title": "Votre profil combiné",
-      "body": "{count, plural, =0 {Terminez votre première évaluation pour débloquer un aperçu de votre profil combiné.} =1 {Vous avez terminé 1 évaluation sur 4 — découvrez ce que nous savons déjà de vous, et continuez vers le profil combiné complet.} other {Vous avez terminé # évaluations sur 4. Générez un profil unique et cohérent qui rassemble vos résultats.}}",
-      "cta": "{count, plural, =0 {Voir ce que nous savons déjà} =1 {Voir ce que nous savons déjà} other {Générer le profil combiné}}"
+      "title": "Là où vos quatre regards se rejoignent",
+      "body": "{count, plural, =0 {Faites votre première évaluation ci-dessous, et nous commencerons à esquisser qui vous êtes.} =1 {Un regard fait, trois à venir — et il nous dit déjà quelque chose. Voici un aperçu.} other {# évaluations sur 4 terminées. Elles commencent à se rejoindre sur certains points — découvrez lesquels.}}",
+      "cta": "{count, plural, =0 {Voir ce que nous savons déjà} =1 {Voir ce que nous savons déjà} other {Tout rassembler}}"
     }
   },
   "assessments": {
     "mbti": {
       "label": "16 Personnalités",
-      "tagline": "Style cognitif et type",
-      "description": "Une typologie à 4 lettres sur la façon dont vous orientez votre énergie, traitez l'information, prenez des décisions et structurez votre vie."
+      "tagline": "Comment votre esprit fonctionne",
+      "description": "Seize types, une lecture à quatre lettres de la façon dont vous orientez votre énergie, percevez le monde et prenez vos décisions. La plupart terminent en hochant la tête."
     },
     "bigfive": {
       "label": "Big Five",
-      "tagline": "Le modèle OCEAN",
-      "description": "Le modèle le mieux étayé scientifiquement en psychologie de la personnalité — cinq grands traits évalués sur un spectre continu."
+      "tagline": "Le modèle auquel les psychologues font vraiment confiance",
+      "description": "Pas de type dans lequel se glisser — cinq traits, mesurés sur un vrai spectre, avec vos propres mots. Ce qui se rapproche le plus ici d'un second avis sur vous-même."
     },
     "humandesign": {
       "label": "Human Design",
-      "tagline": "Type d'énergie et stratégie",
-      "description": "Un questionnaire d'auto-réflexion simplifié inspiré des types d'énergie, de la stratégie de décision et de l'autorité intérieure du Human Design. Aucune date, heure ou lieu de naissance nécessaire — juste la façon dont vous fonctionnez réellement."
+      "tagline": "Comment vous êtes conçu pour fonctionner",
+      "description": "Nous avons laissé de côté le thème de naissance. Ce qu'il reste : dix questions sur la façon dont vous prenez vraiment vos décisions et dépensez votre énergie — attendez-vous qu'on vous sollicite, ou allez-vous de l'avant — à travers le regard du Human Design sur les styles de fonctionnement."
     },
     "colors": {
       "label": "4 Types de Couleur",
-      "tagline": "Rouge · Bleu · Vert · Jaune",
-      "description": "Une lecture rapide et visuelle de votre style de comportement dominant — déterminé, analytique, bienveillant ou expressif."
+      "tagline": "Ce que l'on remarque chez vous en cinq minutes",
+      "description": "Avant même de connaître votre type, on remarque déjà ceci : menez-vous la pièce, l'observez-vous, la maintenez-vous soudée, ou l'illuminez-vous ? Quatre styles, un instantané rapide et honnête."
     },
     "meta": "{count, plural, one {# question} other {# questions}} · ~3 min",
     "status": {
