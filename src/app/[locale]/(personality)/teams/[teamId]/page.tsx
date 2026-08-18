@@ -5,19 +5,20 @@ import { TeamCompositionView } from "@/components/teams/TeamCompositionView";
 import type { SharedMemberAxes } from "@/components/teams/teamInsights";
 import type { AxisId } from "@/components/personality/combined/scoringMatrix";
 
-export default async function TeamPage({ params }: { params: { teamId: string } }) {
+export default async function TeamPage({ params }: { params: Promise<{ teamId: string }> }) {
+  const { teamId } = await params;
   const supabase = await createClient();
   const { data } = await supabase.auth.getUser();
   const user = data.user;
 
   if (!user) {
-    redirect(`/login?next=/teams/${params.teamId}`);
+    redirect(`/login?next=/teams/${teamId}`);
   }
 
   const { data: team } = await supabase
     .from("teams")
     .select("id, name, owner_id, invite_code")
-    .eq("id", params.teamId)
+    .eq("id", teamId)
     .maybeSingle();
 
   if (!team) notFound();

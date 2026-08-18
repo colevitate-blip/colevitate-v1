@@ -6,13 +6,14 @@ import { CombinedProfile } from "@/components/personality/combined/CombinedProfi
 import { generateCombinedProfile } from "@/components/personality/combined/generateCombinedProfile";
 import type { PersonalityResults } from "@/lib/personality/types";
 
-export default async function PublicSharePage({ params }: { params: { slug: string } }) {
+export default async function PublicSharePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   const supabase = await createClient();
 
   const { data: profile, error } = await supabase
     .from("profiles")
     .select("id, display_name, is_public, results")
-    .eq("share_slug", params.slug)
+    .eq("share_slug", slug)
     .eq("is_public", true)
     .maybeSingle();
 
@@ -49,7 +50,7 @@ export default async function PublicSharePage({ params }: { params: { slug: stri
           {profile.display_name || "Someone"}'s Personality Profile
         </p>
         <Link
-          href={`/u/${params.slug}/compare`}
+          href={`/u/${slug}/compare`}
           className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
         >
           <GitCompareArrows className="size-4" />
