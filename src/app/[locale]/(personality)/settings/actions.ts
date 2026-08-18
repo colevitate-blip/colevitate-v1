@@ -66,7 +66,7 @@ export async function enableSharing() {
           share_slug: candidate,
           is_public: true,
         },
-        { onConflict: "share_slug" }
+        { onConflict: "id" }
       );
 
       if (!error) {

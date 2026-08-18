@@ -1,18 +1,7 @@
 import { cn } from "@/lib/utils";
 import { positionOf, fillRect } from "@/lib/personality/axisBar";
 import type { AxisCompatibility } from "@/components/personality/combined/computeCompatibility";
-
-const BUCKET_STYLES: Record<AxisCompatibility["bucket"], string> = {
-  aligned: "text-emerald-600 dark:text-emerald-400",
-  different: "text-amber-600 dark:text-amber-400",
-  opposite: "text-rose-600 dark:text-rose-400",
-};
-
-const BUCKET_LABELS: Record<AxisCompatibility["bucket"], string> = {
-  aligned: "Aligned",
-  different: "Different",
-  opposite: "Opposite ends",
-};
+import { BUCKET_STYLES, BUCKET_LABELS } from "./bucketStyles";
 
 export function CompatibilityAxisBar({
   axis,

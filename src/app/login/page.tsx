@@ -3,7 +3,12 @@ import { ColevitateMark } from "@/components/brand/Logo";
 import { SignInCard } from "@/components/auth/SignInCard";
 import { ThemeToggle } from "@/components/theme-toggle";
 
-export default function LoginPage() {
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ next?: string }>;
+}) {
+  const { next } = await searchParams;
   return (
     <div className="relative flex min-h-[100dvh] flex-col items-center justify-center bg-background px-4 py-12">
       <div
@@ -17,7 +22,7 @@ export default function LoginPage() {
         <ColevitateMark className="size-12" />
         <span className="text-lg font-bold tracking-tight">Colevitate</span>
       </Link>
-      <SignInCard />
+      <SignInCard next={next} />
 
       <p className="mt-6 max-w-xs text-center text-xs text-muted-foreground">
         By continuing, you agree to Colevitate&apos;s{" "}

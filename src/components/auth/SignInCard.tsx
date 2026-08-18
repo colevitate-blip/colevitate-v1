@@ -30,13 +30,17 @@ function GoogleIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export function SignInCard() {
+export function SignInCard({ next }: { next?: string }) {
   const [showEmail, setShowEmail] = React.useState(false);
   const [email, setEmail] = React.useState("");
   const [emailSent, setEmailSent] = React.useState(false);
   const [googleLoading, setGoogleLoading] = React.useState(false);
   const [emailLoading, setEmailLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
+
+  const callbackUrl = `${typeof window !== "undefined" ? window.location.origin : ""}/auth/callback${
+    next ? `?next=${encodeURIComponent(next)}` : ""
+  }`;
 
   async function handleGoogleSignIn() {
     setError(null);
@@ -45,7 +49,7 @@ export function SignInCard() {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        redirectTo: callbackUrl,
       },
     });
     if (error) {
@@ -62,7 +66,7 @@ export function SignInCard() {
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback`,
+        emailRedirectTo: callbackUrl,
       },
     });
     setEmailLoading(false);

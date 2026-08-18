@@ -1,6 +1,4 @@
 import { notFound } from "next/navigation";
-import { GitCompareArrows } from "lucide-react";
-import { Link } from "@/i18n/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { CombinedProfile } from "@/components/personality/combined/CombinedProfile";
 import { generateCombinedProfile } from "@/components/personality/combined/generateCombinedProfile";
@@ -49,13 +47,6 @@ export default async function PublicSharePage({ params }: { params: Promise<{ sl
         <p className="text-sm text-muted-foreground">
           {profile.display_name || "Someone"}'s Personality Profile
         </p>
-        <Link
-          href={`/u/${slug}/compare`}
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
-        >
-          <GitCompareArrows className="size-4" />
-          Compare with your profile
-        </Link>
       </div>
       <CombinedProfile profile={combinedProfile} results={results} recordHistory={false} />
     </div>

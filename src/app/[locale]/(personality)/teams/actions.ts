@@ -1,21 +1,9 @@
 "use server";
 
-import { randomInt } from "node:crypto";
 import { createClient } from "@/lib/supabase/server";
 import { generateCombinedProfile } from "@/components/personality/combined/generateCombinedProfile";
+import { generateInviteCode } from "@/lib/inviteCode";
 import type { PersonalityResults } from "@/lib/personality/types";
-
-// Excludes ambiguous characters (0/O, 1/I/L) since this code may be read
-// aloud or typed by hand, unlike the URL-only profile share slug.
-const INVITE_CODE_ALPHABET = "23456789ABCDEFGHJKMNPQRSTUVWXYZ";
-
-function generateInviteCode(): string {
-  let code = "";
-  for (let i = 0; i < 8; i++) {
-    code += INVITE_CODE_ALPHABET[randomInt(INVITE_CODE_ALPHABET.length)];
-  }
-  return code;
-}
 
 export async function createTeam(name: string) {
   if (!name || name.trim().length === 0) {

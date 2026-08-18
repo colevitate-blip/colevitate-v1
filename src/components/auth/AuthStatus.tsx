@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { LogOut, Settings, User, Users } from "lucide-react";
+import { GitCompareArrows, LogOut, Settings, User, Users } from "lucide-react";
 import { Link as I18nLink } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/supabase/AuthProvider";
@@ -45,6 +45,12 @@ export function AuthStatus() {
         <I18nLink href="/teams">
           <Users className="size-3.5" />
           <span className="sr-only">Teams</span>
+        </I18nLink>
+      </Button>
+      <Button asChild variant="ghost" size="sm" className="rounded-full gap-1.5">
+        <I18nLink href="/pair">
+          <GitCompareArrows className="size-3.5" />
+          <span className="sr-only">Comparisons</span>
         </I18nLink>
       </Button>
       <Button asChild variant="ghost" size="sm" className="rounded-full gap-1.5">

@@ -1,5 +1,11 @@
 import type { AxisScore } from "./scoringMatrix";
 
+// Only these fields are ever read below — narrower than the full AxisScore
+// (which also carries per-person narrative like `sentence`/`contributions`
+// that a stored pairing snapshot doesn't need to keep) so callers can pass
+// either a live computeScoringMatrix() result or a slim stored snapshot.
+type ComparableAxis = Pick<AxisScore, "id" | "label" | "leftPole" | "rightPole" | "score">;
+
 export type CompatibilityBucket = "aligned" | "different" | "opposite";
 
 export interface AxisCompatibility {
@@ -40,7 +46,7 @@ function does(name: string): string {
 // Deliberately descriptive, not evaluative — a wide gap on an axis isn't
 // framed as good or bad, just named, matching the app's existing "not a
 // scientific composite score" stance on the rest of the combined profile.
-function sentenceFor(nameA: string, nameB: string, axis: AxisScore, scoreA: number, scoreB: number, bucket: CompatibilityBucket): string {
+function sentenceFor(nameA: string, nameB: string, axis: ComparableAxis, scoreA: number, scoreB: number, bucket: CompatibilityBucket): string {
   if (bucket === "aligned") {
     return `${nameA} and ${nameB} land in a similar place on ${axis.label.toLowerCase()}.`;
   }
@@ -66,7 +72,7 @@ function headlineFor(overallScore: number): string {
  * (>=2 assessments) always has all 4 AXES entries regardless of which
  * frameworks contributed, so this zips by id with no partial-axis handling.
  */
-export function computeCompatibility(axesA: AxisScore[], axesB: AxisScore[], nameA: string, nameB: string): Compatibility {
+export function computeCompatibility(axesA: ComparableAxis[], axesB: ComparableAxis[], nameA: string, nameB: string): Compatibility {
   const axes: AxisCompatibility[] = axesA.map((a) => {
     const b = axesB.find((x) => x.id === a.id)!;
     const gap = Math.abs(a.score - b.score);
