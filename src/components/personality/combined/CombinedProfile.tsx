@@ -18,6 +18,8 @@ import {
   History,
   Link2,
   Check,
+  Copy,
+  X,
   FileDown,
   GitCompareArrows,
 } from "lucide-react";
@@ -73,8 +75,12 @@ export function CombinedProfile({
   const [isEnablingShare, setIsEnablingShare] = useState(false);
   const [linkCopied, setLinkCopied] = useState(false);
   const [isEnablingCompare, setIsEnablingCompare] = useState(false);
-  const [compareLinkCopied, setCompareLinkCopied] = useState(false);
   const [pickingRelationship, setPickingRelationship] = useState(false);
+  // Set once an invite is created — stays visible (not a timed toast) until the
+  // person dismisses it, since "a link was copied" needs explaining, not blinking by.
+  const [createdInvite, setCreatedInvite] = useState<{ url: string; relationshipLabel: string } | null>(null);
+  const [inviteLinkRecopied, setInviteLinkRecopied] = useState(false);
+  const [inviteError, setInviteError] = useState<string | null>(null);
   const axisSignature = profile.axes.map((a) => `${a.id}:${a.score}`).join("|");
 
   // Every time the combined axes actually change (a fresh completion or
@@ -198,23 +204,34 @@ export function CombinedProfile({
       router.push("/login?next=/combined");
       return;
     }
+    setCreatedInvite(null);
+    setInviteError(null);
     setPickingRelationship((v) => !v);
   }
 
   async function handlePickRelationship(relationshipType: RelationshipType) {
     if (isEnablingCompare) return;
     setIsEnablingCompare(true);
+    setInviteError(null);
     try {
       const { code } = await createPairingInvite(relationshipType);
-      await navigator.clipboard.writeText(`${window.location.origin}/pair/${code}`);
+      const url = `${window.location.origin}/pair/${code}`;
+      await navigator.clipboard.writeText(url);
       setPickingRelationship(false);
-      setCompareLinkCopied(true);
-      setTimeout(() => setCompareLinkCopied(false), 2000);
-    } catch {
-      // clipboard/network hiccup, or fewer than 2 completed assessments — user can retry
+      setCreatedInvite({ url, relationshipLabel: relationshipFramingFor(relationshipType).label.toLowerCase() });
+    } catch (err) {
+      setPickingRelationship(false);
+      setInviteError(err instanceof Error ? err.message : "Something went wrong creating the invite. Try again.");
     } finally {
       setIsEnablingCompare(false);
     }
+  }
+
+  function handleRecopyInviteLink() {
+    if (!createdInvite) return;
+    navigator.clipboard.writeText(createdInvite.url);
+    setInviteLinkRecopied(true);
+    setTimeout(() => setInviteLinkRecopied(false), 2000);
   }
 
   async function handleExportPdf() {
@@ -270,16 +287,20 @@ export function CombinedProfile({
                 >
                   {isEnablingCompare ? (
                     <Loader2 className="size-4 animate-spin" />
-                  ) : compareLinkCopied ? (
+                  ) : createdInvite ? (
                     <Check className="size-4" />
                   ) : (
                     <GitCompareArrows className="size-4" />
                   )}
-                  {compareLinkCopied ? "Link copied" : "Compare with someone"}
+                  {createdInvite ? "Invite created" : "Compare with someone"}
                 </Button>
                 {pickingRelationship ? (
-                  <div className="absolute right-0 top-full z-10 mt-2 flex w-56 flex-col gap-1 rounded-xl border bg-card p-2 shadow-lg">
-                    <p className="px-1.5 pb-1 text-xs text-muted-foreground">Who are you comparing with?</p>
+                  <div className="absolute right-0 top-full z-10 mt-2 flex w-64 flex-col gap-1 rounded-xl border bg-card p-2 shadow-lg">
+                    <p className="px-1.5 pb-2 text-xs text-muted-foreground">
+                      We&apos;ll create a private link to send them. Once they finish their own assessments and
+                      accept, you can both unlock a compatibility report.
+                    </p>
+                    <p className="px-1.5 pb-1 text-xs font-medium text-foreground">Who are you comparing with?</p>
                     {RELATIONSHIP_TYPE_ORDER.map((type) => (
                       <button
                         key={type}
@@ -320,6 +341,49 @@ export function CombinedProfile({
           </Button>
         </div>
       </div>
+
+      {inviteError ? (
+        <div className="mb-8 flex items-center justify-between gap-3 rounded-2xl border border-destructive/20 bg-destructive/5 p-4 text-sm text-destructive print:hidden">
+          <p>Couldn&apos;t create the invite: {inviteError}</p>
+          <Button variant="ghost" size="sm" onClick={() => setInviteError(null)} className="rounded-full shrink-0" aria-label="Dismiss">
+            <X className="size-4" />
+          </Button>
+        </div>
+      ) : null}
+
+      {createdInvite ? (
+        <div className="mb-8 flex flex-col gap-3 rounded-2xl border bg-muted/40 p-4 print:hidden sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex-1">
+            <p className="text-sm font-medium">
+              Invite link copied — send it to the {createdInvite.relationshipLabel} you want to compare with.
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Once they finish their own assessments and accept, you&apos;ll both be able to unlock a compatibility
+              report. Track it anytime under{" "}
+              <Link href="/pair" className="underline underline-offset-2 hover:text-foreground">
+                Comparisons
+              </Link>
+              .
+            </p>
+            <code className="mt-2 block break-all text-xs text-muted-foreground">{createdInvite.url}</code>
+          </div>
+          <div className="flex shrink-0 items-center gap-2 self-end sm:self-center">
+            <Button variant="outline" size="sm" onClick={handleRecopyInviteLink} className="rounded-full">
+              {inviteLinkRecopied ? <Check className="size-4" /> : <Copy className="size-4" />}
+              {inviteLinkRecopied ? "Copied" : "Copy again"}
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setCreatedInvite(null)}
+              className="rounded-full"
+              aria-label="Dismiss"
+            >
+              <X className="size-4" />
+            </Button>
+          </div>
+        </div>
+      ) : null}
 
       <div className="relative overflow-hidden rounded-[2.5rem] border bg-card p-6 shadow-[0_30px_70px_-20px_var(--elevation-shadow-lg)] sm:p-10">
         <div className="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full bg-gradient-to-br from-[var(--spatial-glow)] to-[var(--spatial-glow-2)] opacity-15 blur-3xl" />
