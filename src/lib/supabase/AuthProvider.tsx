@@ -28,14 +28,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       if (data.user) {
         loadRemoteProfileMeta(data.user.id).then((meta) => {
-          setProfileMeta(
-            meta || {
-              displayName: data.user?.user_metadata?.full_name || null,
-              avatarUrl: data.user?.user_metadata?.avatar_url || null,
-              isPublic: false,
-              shareSlug: null,
-            }
-          );
+          setProfileMeta({
+            displayName: meta?.displayName || data.user?.user_metadata?.full_name || null,
+            avatarUrl: meta?.avatarUrl || data.user?.user_metadata?.avatar_url || null,
+            isPublic: meta?.isPublic || false,
+            shareSlug: meta?.shareSlug || null,
+          });
         });
       }
     });
@@ -46,14 +44,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setUser(session?.user ?? null);
       if (session?.user) {
         loadRemoteProfileMeta(session.user.id).then((meta) => {
-          setProfileMeta(
-            meta || {
-              displayName: session.user?.user_metadata?.full_name || null,
-              avatarUrl: session.user?.user_metadata?.avatar_url || null,
-              isPublic: false,
-              shareSlug: null,
-            }
-          );
+          setProfileMeta({
+            displayName: meta?.displayName || session.user?.user_metadata?.full_name || null,
+            avatarUrl: meta?.avatarUrl || session.user?.user_metadata?.avatar_url || null,
+            isPublic: meta?.isPublic || false,
+            shareSlug: meta?.shareSlug || null,
+          });
         });
       } else {
         setProfileMeta(null);

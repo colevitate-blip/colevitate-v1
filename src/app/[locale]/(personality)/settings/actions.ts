@@ -1,20 +1,24 @@
 "use server";
 
-import { randomBytes } from "node:crypto";
+import { randomBytes, randomInt } from "node:crypto";
 import { createClient } from "@/lib/supabase/server";
 
-function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
-}
+// Petname-style slugs (adjective-animal-suffix, e.g. "clever-otter-4f2a") keep public
+// share URLs from leaking the account's real name or email handle.
+const ADJECTIVES = [
+  "clever", "calm", "bold", "quiet", "swift", "bright", "gentle", "brave",
+  "curious", "witty", "sunny", "cosmic", "vivid", "mellow", "nimble", "keen",
+];
+const ANIMALS = [
+  "otter", "falcon", "panda", "fox", "heron", "lynx", "chameleon", "sparrow",
+  "badger", "dolphin", "raven", "koala", "wren", "gecko", "orca", "hare",
+];
 
-function generateSlug(baseName: string): string {
-  const base = slugify(baseName) || "profile";
-  const suffix = randomBytes(3).toString("hex");
-  return `${base}-${suffix}`;
+function generateSlug(): string {
+  const adjective = ADJECTIVES[randomInt(ADJECTIVES.length)];
+  const animal = ANIMALS[randomInt(ANIMALS.length)];
+  const suffix = randomBytes(2).toString("hex");
+  return `${adjective}-${animal}-${suffix}`;
 }
 
 export async function updateDisplayName(name: string) {
@@ -48,18 +52,10 @@ export async function enableSharing() {
   let slug = profile?.share_slug;
 
   if (!slug) {
-    const { data: displayNameData } = await supabase
-      .from("profiles")
-      .select("display_name")
-      .eq("id", data.user.id)
-      .maybeSingle();
-
-    const baseName = displayNameData?.display_name || data.user.email?.split("@")[0] || "profile";
-
     // Generate slug and retry on unique violation
     let attempts = 0;
     while (!slug && attempts < 10) {
-      const candidate = generateSlug(baseName);
+      const candidate = generateSlug();
       const { error } = await supabase.from("profiles").upsert(
         {
           id: data.user.id,

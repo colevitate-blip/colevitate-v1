@@ -6,11 +6,12 @@ import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { usePersonality } from "@/lib/personality/context";
-import { loadHistory } from "@/lib/personality/storage";
+import { loadHistory, loadRemoteHistory } from "@/lib/personality/storage";
 import { updateDisplayName, enableSharing, disableSharing } from "@/app/[locale]/(personality)/settings/actions";
 import type { ProfileMeta } from "@/lib/personality/storage";
 
 export function AccountSettingsForm({
+  userId,
   initialMeta,
   userEmail,
   userAvatar,
@@ -84,10 +85,18 @@ export function AccountSettingsForm({
     }
   }, [shareUrl]);
 
-  const handleDownloadJSON = useCallback(() => {
+  const handleDownloadJSON = useCallback(async () => {
+    const local = loadHistory();
+    const remote = await loadRemoteHistory(userId);
+    const history = Array.from(
+      new Map(
+        [...local, ...remote].map((s) => [new Date(s.completedAt).getTime(), s])
+      ).values()
+    ).sort((a, b) => new Date(a.completedAt).getTime() - new Date(b.completedAt).getTime());
+
     const data = {
       personality: results,
-      history: loadHistory(),
+      history,
       exportedAt: new Date().toISOString(),
     };
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
@@ -99,7 +108,7 @@ export function AccountSettingsForm({
     a.click();
     a.remove();
     URL.revokeObjectURL(url);
-  }, [results]);
+  }, [results, userId]);
 
   const hasCompletedAssessments = Object.values(results).some(
     (r) => r !== undefined && r !== null
