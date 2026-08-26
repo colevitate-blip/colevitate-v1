@@ -1,10 +1,13 @@
 // Adapts the app's existing per-type content (already written for the
 // interactive quiz results) into static pages addressable by URL, for SEO.
 // No new copy is invented here for description/strengths/challenges — it's
-// the same text the results screens already show. `careers`, `relationships`,
-// and `famousExamples` are placeholders: nothing in the codebase has this
-// content yet, and it shouldn't be fabricated, so pages render an honest
-// "coming soon" for those sections until real copy is written.
+// the same text the results screens already show. `careers` and
+// `relationships` are placeholders: nothing in the codebase has this content
+// yet, and it shouldn't be fabricated, so pages render an honest "coming
+// soon" for those sections until real copy is written. `famousExamples` is
+// populated from src/lib/seo/famousPeopleContent.ts (Tier 0 of
+// IMPROVEMENT_PROMPTS.md) — every entry there is itself sourced, editorial
+// typing, not fabricated.
 
 import type { AssessmentId, ColorId, HumanDesignType } from "@/lib/personality/types";
 import { ASSESSMENT_CATALOG } from "@/lib/personality/catalog";
@@ -13,6 +16,7 @@ import { HD_CONTENT } from "@/components/personality/humandesign/content";
 import { COLOR_CONTENT } from "@/components/personality/colors/content";
 import { TRAIT_LABEL, TRAIT_LEVELS, ARCHETYPE_NOUN } from "@/components/personality/bigfive/content";
 import type { BigFiveTrait } from "@/components/personality/bigfive/questions";
+import { getFamousPeopleByTyping } from "./famousPeopleContent";
 
 export interface TypePageContent {
   framework: AssessmentId;
@@ -31,8 +35,17 @@ export interface TypePageContent {
   careers: string[];
   /** Placeholder — see file header. Empty until real content exists. */
   relationships: string;
-  /** Placeholder — see file header. Empty until real content exists. */
-  famousExamples: string[];
+  /** A person's display name plus the slug of their /people/[slug] profile page. */
+  famousExamples: FamousExampleRef[];
+}
+
+export interface FamousExampleRef {
+  name: string;
+  slug: string;
+}
+
+function famousExamplesFor(framework: AssessmentId, code: string): FamousExampleRef[] {
+  return getFamousPeopleByTyping(framework, code).map((p) => ({ name: p.name, slug: p.slug }));
 }
 
 // URL uses the same slugs as the existing quiz routes (/mbti, /big-five, ...)
@@ -68,7 +81,7 @@ function mbtiContent(code: string): TypePageContent | null {
     challenges: c.growth,
     careers: [],
     relationships: "",
-    famousExamples: [],
+    famousExamples: famousExamplesFor("mbti", c.code),
   };
 }
 
@@ -88,7 +101,7 @@ function humanDesignContent(code: string): TypePageContent | null {
     challenges: c.growth,
     careers: [],
     relationships: "",
-    famousExamples: [],
+    famousExamples: famousExamplesFor("humandesign", code),
   };
 }
 
@@ -108,7 +121,7 @@ function colorsContent(code: string): TypePageContent | null {
     challenges: c.growth,
     careers: [],
     relationships: "",
-    famousExamples: [],
+    famousExamples: famousExamplesFor("colors", code),
   };
 }
 
@@ -135,7 +148,7 @@ function bigFiveContent(code: string): TypePageContent | null {
     challenges: [data.growth],
     careers: [],
     relationships: "",
-    famousExamples: [],
+    famousExamples: famousExamplesFor("bigfive", code),
   };
 }
 

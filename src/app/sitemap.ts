@@ -2,9 +2,9 @@ import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
 import { getPathname } from "@/i18n/navigation";
 import { SITE_URL } from "@/lib/seo/siteConfig";
-import { getAllTypePageParams } from "@/lib/seo/typeContent";
+import { getAllTypePageParams, getTypeContent } from "@/lib/seo/typeContent";
 import { getAllCombinationSlugs } from "@/lib/seo/combinationContent";
-import { getAllFamousPeopleSlugs } from "@/lib/seo/famousPeopleContent";
+import { getAllFamousPeopleSlugs, getFamousPeopleByTyping } from "@/lib/seo/famousPeopleContent";
 
 // Builds one sitemap entry per locale for a given internal href, with
 // `alternates.languages` pointing at every other locale's URL for the same
@@ -32,5 +32,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const peoplePaths = getAllFamousPeopleSlugs().map((slug) => `/people/${slug}`);
 
-  return [...staticPaths, ...typePaths, ...combinationPaths, ...peoplePaths].flatMap(localizedEntries);
+  const famousTypePaths = getAllTypePageParams()
+    .filter(({ frameworkUrlSlug, slug }) => {
+      const content = getTypeContent(frameworkUrlSlug, slug);
+      return !!content && getFamousPeopleByTyping(content.framework, content.code).length > 0;
+    })
+    .map(({ frameworkUrlSlug, slug }) => `/types/${frameworkUrlSlug}/${slug}/famous`);
+
+  return [...staticPaths, ...typePaths, ...combinationPaths, ...peoplePaths, ...famousTypePaths].flatMap(
+    localizedEntries
+  );
 }

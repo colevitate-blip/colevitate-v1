@@ -16,6 +16,20 @@ export function articleJsonLd({ headline, description, url }: { headline: string
   };
 }
 
+/** ItemList JSON-LD for an aggregation page (e.g. "Famous INTJs") listing links to other pages on the site. */
+export function itemListJsonLd(items: Array<{ name: string; url: string }>) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      url: `${SITE_URL}${item.url}`,
+    })),
+  };
+}
+
 /** FAQPage JSON-LD. Only pass Q&A pairs that are also rendered visibly on the page — schema for content the visitor can't actually see violates Google's FAQ guidelines. */
 export function faqJsonLd(qa: Array<{ question: string; answer: string }>) {
   return {

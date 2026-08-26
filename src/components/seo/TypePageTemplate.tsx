@@ -49,7 +49,24 @@ export function TypePageTemplate({
 
       <Section title="Famous examples">
         {content.famousExamples.length > 0 ? (
-          <BulletList items={content.famousExamples} />
+          <>
+            <ul className="space-y-2">
+              {content.famousExamples.map((person) => (
+                <li key={person.slug} className="flex items-start gap-2 text-sm leading-relaxed text-muted-foreground">
+                  <span aria-hidden className="mt-2 size-1 shrink-0 rounded-full bg-muted-foreground/60" />
+                  <Link href={`/people/${person.slug}`} className="font-medium text-primary underline underline-offset-2">
+                    {person.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <Link
+              href={`/types/${content.frameworkUrlSlug}/${content.slug}/famous`}
+              className="mt-3 inline-block text-sm font-medium text-primary underline underline-offset-2"
+            >
+              See all famous {content.name}
+            </Link>
+          </>
         ) : (
           <PlaceholderNote>Well-known examples of this type are coming soon.</PlaceholderNote>
         )}
