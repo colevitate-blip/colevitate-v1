@@ -11,7 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/types" },
 };
 
-export default function TypesIndexPage() {
+export default async function TypesIndexPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
   return (
     <main className="mx-auto w-full max-w-4xl px-4 py-12 sm:py-16">
       <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Personality Types & Combinations</h1>
@@ -33,7 +34,7 @@ export default function TypesIndexPage() {
             <h2 className="text-lg font-semibold tracking-tight">{catalog.label}</h2>
             <div className="mt-3 flex flex-wrap gap-2">
               {codes.map((code) => {
-                const content = getTypeContent(urlSlug, code.toLowerCase());
+                const content = getTypeContent(urlSlug, code.toLowerCase(), locale);
                 if (!content) return null;
                 return (
                   <Link

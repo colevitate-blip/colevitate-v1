@@ -25,6 +25,7 @@ import {
   BIGFIVE_CAREERS,
   BIGFIVE_RELATIONSHIPS,
 } from "./careersAndRelationships";
+import { getMbtiTranslation } from "./translations";
 
 export interface TypePageContent {
   framework: AssessmentId;
@@ -73,22 +74,26 @@ const URL_SLUG_TO_FRAMEWORK: Record<string, AssessmentId> = Object.fromEntries(
 const BIG_FIVE_TRAITS: BigFiveTrait[] = ["openness", "conscientiousness", "extraversion", "agreeableness", "neuroticism"];
 const BIG_FIVE_LEVELS = ["high", "low"] as const;
 
-function mbtiContent(code: string): TypePageContent | null {
+// locale defaults to "en" (the only content mbtiContent has for every code);
+// for de/es/fr/zh a real (non-machine-translated) override is applied where
+// one exists — see src/lib/seo/translations/ (Tier 4.3, phase 1: MBTI only).
+function mbtiContent(code: string, locale: string = "en"): TypePageContent | null {
   const c = MBTI_CONTENT[code];
   if (!c) return null;
+  const t = getMbtiTranslation(c.code, locale);
   return {
     framework: "mbti",
     frameworkLabel: ASSESSMENT_CATALOG.mbti.label,
     frameworkUrlSlug: FRAMEWORK_URL_SLUGS.mbti,
     code: c.code,
     slug: c.code.toLowerCase(),
-    name: c.name,
-    tagline: c.tagline,
-    description: c.description,
-    strengths: c.strengths,
-    challenges: c.growth,
-    careers: MBTI_CAREERS[c.code] ?? [],
-    relationships: MBTI_RELATIONSHIPS[c.code] ?? "",
+    name: t?.name ?? c.name,
+    tagline: t?.tagline ?? c.tagline,
+    description: t?.description ?? c.description,
+    strengths: t?.strengths ?? c.strengths,
+    challenges: t?.challenges ?? c.growth,
+    careers: t?.careers ?? MBTI_CAREERS[c.code] ?? [],
+    relationships: t?.relationships ?? MBTI_RELATIONSHIPS[c.code] ?? "",
     famousExamples: famousExamplesFor("mbti", c.code),
   };
 }
@@ -160,7 +165,7 @@ function bigFiveContent(code: string): TypePageContent | null {
   };
 }
 
-const CONTENT_BY_FRAMEWORK: Record<AssessmentId, (code: string) => TypePageContent | null> = {
+const CONTENT_BY_FRAMEWORK: Record<AssessmentId, (code: string, locale?: string) => TypePageContent | null> = {
   mbti: mbtiContent,
   humandesign: humanDesignContent,
   colors: colorsContent,
@@ -191,13 +196,18 @@ export function getAllTypePageParams(): Array<{ frameworkUrlSlug: string; slug: 
   );
 }
 
-/** Looks up a type page by its URL segments. Returns null on an unknown framework slug or type slug (→ the route calls notFound()). */
-export function getTypeContent(frameworkUrlSlug: string, slug: string): TypePageContent | null {
+/**
+ * Looks up a type page by its URL segments. Returns null on an unknown
+ * framework slug or type slug (→ the route calls notFound()). `locale`
+ * (default "en") selects a real translation where one exists — currently
+ * MBTI only; every other framework/code ignores it and returns English.
+ */
+export function getTypeContent(frameworkUrlSlug: string, slug: string, locale: string = "en"): TypePageContent | null {
   const framework = URL_SLUG_TO_FRAMEWORK[frameworkUrlSlug];
   if (!framework) return null;
 
   // mbti/humandesign/colors codes are stored uppercase-or-as-is; slugs are
   // always lowercase, so try the slug as-is first, then its uppercase form.
   const resolve = CONTENT_BY_FRAMEWORK[framework];
-  return resolve(slug) ?? resolve(slug.toUpperCase()) ?? null;
+  return resolve(slug, locale) ?? resolve(slug.toUpperCase(), locale) ?? null;
 }

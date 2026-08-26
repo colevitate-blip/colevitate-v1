@@ -17,8 +17,8 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
-  const { framework, slug } = await params;
-  const content = getTypeContent(framework, slug);
+  const { locale, framework, slug } = await params;
+  const content = getTypeContent(framework, slug, locale);
   if (!content) return {};
 
   const title = `${content.name} (${content.code}) — What It Means | Colevitate`;
@@ -34,8 +34,8 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
 }
 
 export default async function TypePage({ params }: { params: Promise<Params> }) {
-  const { framework, slug } = await params;
-  const content = getTypeContent(framework, slug);
+  const { locale, framework, slug } = await params;
+  const content = getTypeContent(framework, slug, locale);
   if (!content) notFound();
 
   const relatedCombinations = getCombinationsForType(content.framework, content.code);
