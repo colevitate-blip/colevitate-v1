@@ -8,6 +8,8 @@ import {
   forceCenter,
   forceCollide,
   forceRadial,
+  forceX,
+  forceY,
   type Simulation,
   type SimulationNodeDatum,
   type SimulationLinkDatum,
@@ -50,6 +52,18 @@ function radialRingRadius(ring: number, maxRing: number, width: number, height: 
   if (ring <= 0 || maxRing <= 0) return 0;
   const available = Math.min(width, height) / 2 - RADIAL_EDGE_PADDING;
   return (ring / maxRing) * Math.max(available, 40);
+}
+
+const QUADRANT_PULL = 0.22; // fraction of width/height a quadrant's target sits from center
+
+/** Target (x, y) for a quadrant index — 0 top-left, 1 top-right, 2 bottom-left, 3 bottom-right. */
+function quadrantTarget(quadrant: number, width: number, height: number) {
+  const left = quadrant === 0 || quadrant === 2;
+  const top = quadrant === 0 || quadrant === 1;
+  return {
+    x: width / 2 + (left ? -1 : 1) * width * QUADRANT_PULL,
+    y: height / 2 + (top ? -1 : 1) * height * QUADRANT_PULL,
+  };
 }
 
 // A custom d3-force: each tick, nodes sharing a cluster key get nudged
@@ -103,8 +117,13 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
     monochrome,
     labelStyle = "pill",
     onNodeClick,
+    onNodeHover,
     selectedNodeId,
     onSimulationReady,
+    background = "card",
+    quadrantGuide = false,
+    getNodeQuadrant,
+    getQuadrantLabel,
   },
   ref
 ) {
@@ -200,7 +219,7 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
         radius: number,
         kind: string,
         fill: string,
-        isHovered: boolean,
+        strokeMode: "selected" | "hover" | "none",
         gradientStops: Array<{ color: string; stop: number }> | null
       ) => {
         switch (kind) {
@@ -263,22 +282,40 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
         ctx.lineWidth = 1;
         ctx.stroke();
 
+        if (strokeMode === "none") return;
+
+        // The highlight is always a plain circular halo around the node,
+        // not a re-stroke of its own (possibly diamond/star/square) shape —
+        // one consistent ring regardless of kind, and one that can sit
+        // *outside* the shape's own radius. That matters for the smallest
+        // nodes (question dots, radius ~3): a ring hugging the exact shape
+        // would be a sliver too thin to read as two colors, so it gets a
+        // floor big enough that the gradient is actually visible instead of
+        // reading as one flat hue.
+        const ringRadius = Math.max(radius + (strokeMode === "hover" ? 4 : 2), 7);
+
         if (gradientStops && gradientStops.length >= 2) {
-          // Selected: the stroke becomes a gradient built from the node's
-          // own data (e.g. which framework it's from, or how far toward
-          // one pole vs. the other a spectrum's real score sits) — a second,
-          // glanceable data point riding along on the click highlight,
-          // instead of a flat "you clicked this" color.
-          const gradient = ctx.createLinearGradient(x - radius, y, x + radius, y);
+          // The ring becomes a gradient built from the node's own data (e.g.
+          // which framework it's from, or how far toward one pole vs. the
+          // other a spectrum's real score sits) — a second, glanceable data
+          // point riding along on the highlight, instead of a flat "you're
+          // touching this" color. Selected gets the bold, settled version;
+          // hover gets a thinner, fainter preview of that same identity —
+          // enough to say "here's this dot's peer color" without competing
+          // with an actual selection.
+          const gradient = ctx.createLinearGradient(x - ringRadius, y, x + ringRadius, y);
           gradientStops.forEach(({ color, stop }) => gradient.addColorStop(Math.min(1, Math.max(0, stop)), color));
           ctx.strokeStyle = gradient;
-          ctx.lineWidth = 3;
-          ctx.stroke();
-        } else if (isHovered) {
+          ctx.lineWidth = strokeMode === "selected" ? 3 : 2;
+          if (strokeMode === "hover") ctx.globalAlpha = ctx.globalAlpha * 0.75;
+        } else {
           ctx.strokeStyle = colorsRef.current.primary;
-          ctx.lineWidth = 2;
-          ctx.stroke();
+          ctx.lineWidth = strokeMode === "selected" ? 2 : 1.5;
+          if (strokeMode === "hover") ctx.globalAlpha = ctx.globalAlpha * 0.75;
         }
+        ctx.beginPath();
+        ctx.arc(x, y, ringRadius, 0, Math.PI * 2);
+        ctx.stroke();
       };
 
       ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -288,16 +325,60 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
       const activeId = hoveredNodeIdRef.current;
       const connectedToActive = activeId ? getConnectedNodeIds(activeId) : new Set<string | number>();
 
+      const cw = canvas.clientWidth;
+      const ch = canvas.clientHeight;
+      const cx = cw / 2 + panRef.current.x;
+      const cy = ch / 2 + panRef.current.y;
+
+      // Quadrant guide — just the two crosshair lines through center, no
+      // box/frame around them. Meant to sit under a floating (background:
+      // "none") graph so the four quadrants read as regions without any
+      // container implying a hard edge.
+      if (quadrantGuide) {
+        ctx.globalAlpha = 0.55;
+        ctx.strokeStyle = colorsRef.current.border;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(cx, 0);
+        ctx.lineTo(cx, ch);
+        ctx.moveTo(0, cy);
+        ctx.lineTo(cw, cy);
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+
+        // Each spectrum's name hugs the vertical line itself — a tiny
+        // perpendicular gap, not a diagonal float — out near the top/bottom
+        // edge where node clusters (which gather closer to center, off to
+        // the sides) don't reach. Hugging the line instead of floating in
+        // open quadrant space is what keeps dots from drifting over it.
+        if (getQuadrantLabel) {
+          ctx.font = "600 11px sans-serif";
+          const ctx2d = ctx as CanvasRenderingContext2D & { letterSpacing?: string };
+          if ("letterSpacing" in ctx2d) ctx2d.letterSpacing = "0.07em";
+          ctx.globalAlpha = 0.85;
+          ctx.fillStyle = colorsRef.current.muted;
+          const LINE_HUG_PX = 8;
+          for (let quadrant = 0; quadrant < 4; quadrant++) {
+            const label = getQuadrantLabel(quadrant);
+            if (!label) continue;
+            const left = quadrant === 0 || quadrant === 2;
+            const top = quadrant === 0 || quadrant === 1;
+            const x = cx + (left ? -1 : 1) * LINE_HUG_PX;
+            const y = cy + (top ? -1 : 1) * ch * 0.42;
+            ctx.textAlign = left ? "right" : "left";
+            ctx.textBaseline = top ? "bottom" : "top";
+            ctx.fillText(label.toUpperCase(), x, y);
+          }
+          if ("letterSpacing" in ctx2d) ctx2d.letterSpacing = "0px";
+          ctx.globalAlpha = 1;
+        }
+      }
+
       // Ring guides — faint concentric circles (plus a label at the top of
       // each) that make the radial layout legible as a hierarchy at a
       // glance, instead of relying on the viewer to infer "distance from
       // center = depth" on their own.
       if (maxRingRef.current > 0) {
-        const cw = canvas.clientWidth;
-        const ch = canvas.clientHeight;
-        const cx = cw / 2 + panRef.current.x;
-        const cy = ch / 2 + panRef.current.y;
-
         ctx.globalAlpha = 1;
         for (let ring = 1; ring <= maxRingRef.current; ring++) {
           const radius = radialRingRadius(ring, maxRingRef.current, cw, ch);
@@ -380,9 +461,10 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
           ? colorsRef.current.foreground
           : groupColorsRef.current.get(group) ?? colorsRef.current.muted;
         const kind = getNodeShape ? getNodeShape(node as GraphNode) : String((node as Record<string, unknown>).kind ?? "default");
-        const gradientStops = isSelected && getNodeGradient ? getNodeGradient(node as GraphNode) : null;
+        const gradientStops = (isSelected || isHovered) && getNodeGradient ? getNodeGradient(node as GraphNode) : null;
+        const strokeMode: "selected" | "hover" | "none" = isSelected ? "selected" : isHovered ? "hover" : "none";
 
-        drawShape(x, y, radius, kind, fill, isHovered || isSelected, gradientStops);
+        drawShape(x, y, radius, kind, fill, strokeMode, gradientStops);
       });
 
       // Labels. Three modes: "off" draws none; "key" shows only the top ~15%
@@ -473,6 +555,8 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
       monochrome,
       labelStyle,
       selectedNodeId,
+      quadrantGuide,
+      getQuadrantLabel,
     ]
   );
 
@@ -560,6 +644,13 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
           const angle = Math.random() * Math.PI * 2;
           node.x = width / 2 + Math.cos(angle) * radius;
           node.y = height / 2 + Math.sin(angle) * radius;
+        } else if (getNodeQuadrant) {
+          // Start each node near its quadrant's target already, with a
+          // little jitter — same reasoning as the ring case above.
+          const quadrant = getNodeQuadrant(node as GraphNode);
+          const target = quadrant !== undefined ? quadrantTarget(quadrant, width, height) : { x: width / 2, y: height / 2 };
+          node.x = target.x + (Math.random() - 0.5) * 40;
+          node.y = target.y + (Math.random() - 0.5) * 40;
         } else {
           // Small random jitter around the center — starting every node on
           // the exact same point makes early ticks fight over direction and
@@ -569,7 +660,7 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
         }
       });
     },
-    [getNodeRing]
+    [getNodeRing, getNodeQuadrant]
   );
 
   useImperativeHandle(
@@ -623,6 +714,15 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
           y: height / 2 + Math.sin(angle) * radius,
         } as SimNode;
       }
+      if (getNodeQuadrant) {
+        const quadrant = getNodeQuadrant(n);
+        const target = quadrant !== undefined ? quadrantTarget(quadrant, width, height) : { x: width / 2, y: height / 2 };
+        return {
+          ...n,
+          x: target.x + (Math.random() - 0.5) * 40,
+          y: target.y + (Math.random() - 0.5) * 40,
+        } as SimNode;
+      }
       return {
         ...n,
         x: width / 2 + (Math.random() - 0.5) * 60,
@@ -669,6 +769,37 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
           forceCollide<SimNode>((n) => getNodeRadius(n) + 6).strength(0.9)
         )
         .alphaDecay(0.025)
+        .velocityDecay(0.5);
+    } else if (getNodeQuadrant) {
+      // Quadrant mode: charge/link/collide still handle local spacing, but
+      // instead of a single shared center, forceX/forceY pull each node
+      // toward its own quadrant's target point — strongly for nodes with an
+      // assignment, faintly (just enough to avoid drifting off-canvas) for
+      // ones without one, so unassigned nodes (e.g. a hub that spans every
+      // quadrant's grouping) settle near the shared center instead of being
+      // dragged into any single quadrant they don't belong to.
+      simulation
+        .force("charge", forceManyBody().strength(-180).distanceMax(500))
+        .force("link", forceLink<SimNode, SimLink>(links).distance(70).strength(0.3))
+        .force(
+          "x",
+          forceX<SimNode>((n) => {
+            const quadrant = getNodeQuadrant(n as GraphNode);
+            return quadrant !== undefined ? quadrantTarget(quadrant, width, height).x : width / 2;
+          }).strength((n) => (getNodeQuadrant(n as GraphNode) !== undefined ? 0.35 : 0.12))
+        )
+        .force(
+          "y",
+          forceY<SimNode>((n) => {
+            const quadrant = getNodeQuadrant(n as GraphNode);
+            return quadrant !== undefined ? quadrantTarget(quadrant, width, height).y : height / 2;
+          }).strength((n) => (getNodeQuadrant(n as GraphNode) !== undefined ? 0.35 : 0.12))
+        )
+        .force(
+          "collide",
+          forceCollide<SimNode>((n) => getNodeRadius(n) + 6).strength(0.85)
+        )
+        .alphaDecay(0.02)
         .velocityDecay(0.5);
     } else {
       simulation
@@ -717,7 +848,7 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
       onSimulationReady?.(null);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, getNodeRadius, getNodeRing, getNodeCluster]);
+  }, [data, getNodeRadius, getNodeRing, getNodeCluster, getNodeQuadrant]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;
@@ -759,6 +890,10 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
       hoveredNodeIdRef.current = hovered;
       setHoveredNodeId(hovered);
       redraw();
+      if (onNodeHover) {
+        const node = hovered != null ? nodesRef.current.find((n) => n.id === hovered) : null;
+        onNodeHover((node as GraphNode | undefined) ?? null, hovered != null ? { x: e.clientX, y: e.clientY } : null);
+      }
     }
   };
 
@@ -842,9 +977,14 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
         hoveredNodeIdRef.current = null;
         setHoveredNodeId(null);
         redraw();
+        onNodeHover?.(null, null);
       }}
       onWheel={handleWheel}
-      className="w-full h-full border border-border rounded-2xl bg-card cursor-grab active:cursor-grabbing"
+      className={
+        background === "none"
+          ? "w-full h-full cursor-grab active:cursor-grabbing"
+          : "w-full h-full border border-border rounded-2xl bg-card cursor-grab active:cursor-grabbing"
+      }
       style={{ display: "block" }}
     />
   );

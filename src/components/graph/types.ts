@@ -61,6 +61,14 @@ export interface GraphViewProps {
   labelStyle?: "pill" | "plain";
   /** Fired on a real click (not a drag) — the clicked node, or null when clicking empty canvas. */
   onNodeClick?: (node: GraphNode | null) => void;
+  /**
+   * Fired whenever the hovered node changes — the newly-hovered node (or
+   * null when the cursor leaves every node, including on mouse-leave) plus
+   * the cursor's viewport position at that moment. Lets a caller show a
+   * tooltip without needing its own hit-testing or a second mousemove
+   * listener racing this one.
+   */
+  onNodeHover?: (node: GraphNode | null, clientPos: { x: number; y: number } | null) => void;
   /** Node id to draw with a persistent highlight ring, independent of hover. */
   selectedNodeId?: string | number | null;
   /**
@@ -74,4 +82,21 @@ export interface GraphViewProps {
   /** Fired with the live simulation instance once created, and with null on teardown. */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSimulationReady?: (simulation: import("d3-force").Simulation<any, any> | null) => void;
+  /** "card" (default) draws the usual bordered/filled canvas; "none" leaves it fully transparent with no border or radius, for floating over arbitrary backgrounds. */
+  background?: "card" | "none";
+  /** Draws a faint crosshair (one vertical + one horizontal line) through the canvas center, splitting it into four quadrants. No labels, no box — just the two lines. */
+  quadrantGuide?: boolean;
+  /**
+   * Quadrant index (0 = top-left, 1 = top-right, 2 = bottom-left, 3 =
+   * bottom-right) a node belongs to. When provided, the simulation pulls
+   * every assigned node toward its quadrant instead of free-floating or
+   * ringing outward — so the four regions the quadrantGuide crosshair draws
+   * actually mean something, instead of being purely decorative. Nodes with
+   * no quadrant (return undefined) stay near the shared center, which is
+   * correct for anything that spans more than one quadrant's grouping
+   * rather than belonging to just one.
+   */
+  getNodeQuadrant?: (node: GraphNode) => number | undefined;
+  /** Label drawn on the crosshair itself for a given quadrant (0-3, same indexing as getNodeQuadrant) — lets a spectrum's name live on the line instead of floating next to its node. Ignored unless quadrantGuide is on. */
+  getQuadrantLabel?: (quadrant: number) => string;
 }

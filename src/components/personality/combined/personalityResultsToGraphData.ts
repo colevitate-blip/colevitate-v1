@@ -7,7 +7,6 @@ import type {
 } from "@/lib/personality/types";
 import type { GraphData } from "@/components/graph/types";
 import type { CombinedProfile } from "./generateCombinedProfile";
-import { findSharedGrowthTheme } from "./generateCombinedProfile";
 import { MBTI_QUESTIONS } from "@/components/personality/mbti/questions";
 import { BIG_FIVE_QUESTIONS } from "@/components/personality/bigfive/questions";
 import { HD_QUESTIONS } from "@/components/personality/humandesign/questions";
@@ -22,6 +21,13 @@ interface TraitNode extends Record<string, unknown> {
   description: string;
   /** Which framework this trait belongs to — lets the layout cluster same-framework nodes together. */
   framework: AssessmentId;
+  /** Which of the 4 spectrums this trait feeds — lets the layout place it in that spectrum's quadrant. */
+  axisId: AxisId;
+  /** Big Five only: the user's actual 0-100 score on this trait — lets the explanation panel add a personalized "you" line on top of the generic description. */
+  score?: number;
+  /** MBTI only: which pole the user landed on and how strongly — same purpose as score above, for a dichotomy instead of a single-direction trait. */
+  pole?: string;
+  confidence?: number;
 }
 
 interface QuestionNode extends Record<string, unknown> {
@@ -30,14 +36,8 @@ interface QuestionNode extends Record<string, unknown> {
   prompt: string;
   answer: AnswerValue;
   framework: AssessmentId;
-}
-
-interface ThreadNode extends Record<string, unknown> {
-  id: string;
-  kind: "thread";
-  label: string;
-  name: string;
-  tagline: string;
+  /** Which of the 4 spectrums the trait this question feeds belongs to — same purpose as TraitNode.axisId. */
+  axisId: AxisId;
 }
 
 interface AxisNode extends Record<string, unknown> {
@@ -60,7 +60,7 @@ interface ArchetypeNode extends Record<string, unknown> {
   frameworks: AssessmentId[];
 }
 
-type NodeType = TraitNode | QuestionNode | ThreadNode | AxisNode | ArchetypeNode;
+type NodeType = TraitNode | QuestionNode | AxisNode | ArchetypeNode;
 
 // Mapping of dichotomy/trait to axis
 const TRAIT_TO_AXIS: Record<TraitId, AxisId> = {
@@ -133,9 +133,8 @@ const TRAIT_DESCRIPTIONS: Record<TraitId, string> = {
 const KIND_ORDER: Record<NodeType["kind"], number> = {
   question: 0,
   trait: 1,
-  thread: 2,
-  axis: 3,
-  archetype: 4,
+  axis: 2,
+  archetype: 3,
 };
 
 const MBTI_TRAITS: TraitId[] = ["EI", "SN", "TF", "JP"];
@@ -156,18 +155,34 @@ export function personalityResultsToGraphData(
   // submission.
   const threadTraits = new Map<AssessmentId, TraitId[]>();
 
-  const addTraitNode = (id: TraitId, framework: AssessmentId) => {
+  const addTraitNode = (
+    id: TraitId,
+    framework: AssessmentId,
+    personalization?: { score?: number; pole?: string; confidence?: number }
+  ) => {
     if (traitIds.has(id)) return;
-    nodes.push({ id, kind: "trait", label: TRAIT_LABELS[id], description: TRAIT_DESCRIPTIONS[id], framework });
+    nodes.push({
+      id,
+      kind: "trait",
+      label: TRAIT_LABELS[id],
+      description: TRAIT_DESCRIPTIONS[id],
+      framework,
+      axisId: TRAIT_TO_AXIS[id],
+      ...personalization,
+    });
     traitIds.add(id);
   };
 
   if (results.mbti) {
-    MBTI_TRAITS.forEach((id) => addTraitNode(id, "mbti"));
+    const mbtiScores = results.mbti.scores as Record<TraitId, { pole: string; confidence: number }>;
+    MBTI_TRAITS.forEach((id) =>
+      addTraitNode(id, "mbti", { pole: mbtiScores[id].pole, confidence: mbtiScores[id].confidence })
+    );
     threadTraits.set("mbti", MBTI_TRAITS);
   }
   if (results.bigfive) {
-    BIG_FIVE_TRAITS.forEach((id) => addTraitNode(id, "bigfive"));
+    const bigFiveScores = results.bigfive.scores as Record<TraitId, number>;
+    BIG_FIVE_TRAITS.forEach((id) => addTraitNode(id, "bigfive", { score: bigFiveScores[id] }));
     threadTraits.set("bigfive", BIG_FIVE_TRAITS);
   }
   if (results.humandesign) {
@@ -240,48 +255,14 @@ export function personalityResultsToGraphData(
         prompt: questionPrompt,
         answer,
         framework: assessmentId,
+        axisId: TRAIT_TO_AXIS[questionTrait],
       };
       nodes.push(questionNode);
       links.push({ source: questionNode.id, target: questionTrait });
     }
   }
 
-  // Create thread nodes
-  const threadMap = new Map<AssessmentId, ThreadNode>();
-  for (const thread of combinedProfile.threads) {
-    const threadNode: ThreadNode = {
-      id: thread.id,
-      kind: "thread",
-      label: thread.label,
-      name: thread.name,
-      tagline: thread.tagline,
-    };
-    nodes.push(threadNode);
-    threadMap.set(thread.id, threadNode);
-  }
-
-  // Link every trait to the thread it belongs to
-  for (const [threadId, traits] of threadTraits) {
-    if (!threadMap.has(threadId)) continue;
-    for (const trait of traits) {
-      links.push({ source: trait, target: threadId });
-    }
-  }
-
-  // Create shared growth theme links (thread to thread)
-  const sharedGrowth = findSharedGrowthTheme(combinedProfile.threads);
-  if (sharedGrowth) {
-    for (let i = 0; i < sharedGrowth.ids.length; i++) {
-      for (let j = i + 1; j < sharedGrowth.ids.length; j++) {
-        links.push({
-          source: sharedGrowth.ids[i],
-          target: sharedGrowth.ids[j],
-        });
-      }
-    }
-  }
-
-  // Create axis nodes and link threads to axes
+  // Create axis nodes and link the traits that feed each one
   for (const axis of combinedProfile.axes) {
     const axisNode: AxisNode = {
       id: axis.id,
@@ -295,15 +276,14 @@ export function personalityResultsToGraphData(
     };
     nodes.push(axisNode);
 
-    // Link the specific trait(s) that feed this axis — not the whole thread.
-    // A framework only touches an axis *through* one of its traits (e.g.
-    // Big Five reaches "People Orientation" via both Agreeableness and
-    // Neuroticism), so this is what actually makes that connection visible:
-    // two traits from different frameworks that both feed the same axis
-    // now share that axis as a common neighbor, even though there's no
-    // direct edge between the traits themselves.
-    for (const [threadId, traits] of threadTraits) {
-      if (!threadMap.has(threadId)) continue;
+    // Link the specific trait(s) that feed this axis — a framework only
+    // touches an axis *through* one of its traits (e.g. Big Five reaches
+    // "People Orientation" via both Agreeableness and Neuroticism), so this
+    // is what actually makes that connection visible: two traits from
+    // different frameworks that both feed the same axis now share that axis
+    // as a common neighbor, even though there's no direct edge between the
+    // traits themselves.
+    for (const traits of threadTraits.values()) {
       for (const trait of traits) {
         if (TRAIT_TO_AXIS[trait] === axis.id) {
           links.push({ source: trait, target: axis.id });
@@ -312,7 +292,9 @@ export function personalityResultsToGraphData(
     }
   }
 
-  // Create archetype node and link threads to it
+  // Create archetype node and link every spectrum to it — the archetype is
+  // built from the 4 spectrums, not from which frameworks happen to be
+  // completed, so that's what it connects to.
   if (combinedProfile.archetype) {
     const archetypeNode: ArchetypeNode = {
       id: "archetype",
@@ -323,9 +305,9 @@ export function personalityResultsToGraphData(
     };
     nodes.push(archetypeNode);
 
-    for (const thread of combinedProfile.threads) {
+    for (const axis of combinedProfile.axes) {
       links.push({
-        source: thread.id,
+        source: axis.id,
         target: "archetype",
       });
     }
