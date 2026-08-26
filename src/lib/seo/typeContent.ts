@@ -25,7 +25,7 @@ import {
   BIGFIVE_CAREERS,
   BIGFIVE_RELATIONSHIPS,
 } from "./careersAndRelationships";
-import { getMbtiTranslation } from "./translations";
+import { getMbtiTranslation, getColorsTranslation, getHdTranslation, getBigFiveTranslation } from "./translations";
 
 export interface TypePageContent {
   framework: AssessmentId;
@@ -98,42 +98,44 @@ function mbtiContent(code: string, locale: string = "en"): TypePageContent | nul
   };
 }
 
-function humanDesignContent(code: string): TypePageContent | null {
+function humanDesignContent(code: string, locale: string = "en"): TypePageContent | null {
   const c = HD_CONTENT[code as HumanDesignType];
   if (!c) return null;
+  const t = getHdTranslation(code, locale);
   return {
     framework: "humandesign",
     frameworkLabel: ASSESSMENT_CATALOG.humandesign.label,
     frameworkUrlSlug: FRAMEWORK_URL_SLUGS.humandesign,
     code,
     slug: code,
-    name: c.name,
-    tagline: c.tagline,
-    description: c.description,
-    strengths: c.strengths,
-    challenges: c.growth,
-    careers: HD_CAREERS[code as HumanDesignType] ?? [],
-    relationships: HD_RELATIONSHIPS[code as HumanDesignType] ?? "",
+    name: t?.name ?? c.name,
+    tagline: t?.tagline ?? c.tagline,
+    description: t?.description ?? c.description,
+    strengths: t?.strengths ?? c.strengths,
+    challenges: t?.challenges ?? c.growth,
+    careers: t?.careers ?? HD_CAREERS[code as HumanDesignType] ?? [],
+    relationships: t?.relationships ?? HD_RELATIONSHIPS[code as HumanDesignType] ?? "",
     famousExamples: famousExamplesFor("humandesign", code),
   };
 }
 
-function colorsContent(code: string): TypePageContent | null {
+function colorsContent(code: string, locale: string = "en"): TypePageContent | null {
   const c = COLOR_CONTENT[code as ColorId];
   if (!c) return null;
+  const t = getColorsTranslation(code, locale);
   return {
     framework: "colors",
     frameworkLabel: ASSESSMENT_CATALOG.colors.label,
     frameworkUrlSlug: FRAMEWORK_URL_SLUGS.colors,
     code,
     slug: code,
-    name: c.name,
-    tagline: c.tagline,
-    description: c.description,
-    strengths: c.strengths,
-    challenges: c.growth,
-    careers: COLOR_CAREERS[code as ColorId] ?? [],
-    relationships: COLOR_RELATIONSHIPS[code as ColorId] ?? "",
+    name: t?.name ?? c.name,
+    tagline: t?.tagline ?? c.tagline,
+    description: t?.description ?? c.description,
+    strengths: t?.strengths ?? c.strengths,
+    challenges: t?.challenges ?? c.growth,
+    careers: t?.careers ?? COLOR_CAREERS[code as ColorId] ?? [],
+    relationships: t?.relationships ?? COLOR_RELATIONSHIPS[code as ColorId] ?? "",
     famousExamples: famousExamplesFor("colors", code),
   };
 }
@@ -142,25 +144,26 @@ function colorsContent(code: string): TypePageContent | null {
 // static, crawlable pages we cover each trait at its high and low pole
 // (5 traits × 2 = 10 pages), reusing the same level copy the dynamic
 // results summary (summarizeBigFive) draws from.
-function bigFiveContent(code: string): TypePageContent | null {
+function bigFiveContent(code: string, locale: string = "en"): TypePageContent | null {
   const [trait, level] = code.split("-") as [BigFiveTrait, "high" | "low"];
   if (!BIG_FIVE_TRAITS.includes(trait) || !BIG_FIVE_LEVELS.includes(level)) return null;
   const data = TRAIT_LEVELS[trait][level];
   const traitLabel = TRAIT_LABEL[trait];
   const poleLabel = level === "high" ? "High" : "Low";
+  const t = getBigFiveTranslation(code, locale);
   return {
     framework: "bigfive",
     frameworkLabel: ASSESSMENT_CATALOG.bigfive.label,
     frameworkUrlSlug: FRAMEWORK_URL_SLUGS.bigfive,
     code,
     slug: code,
-    name: `${poleLabel} ${traitLabel} — The ${ARCHETYPE_NOUN[trait][level]}`,
-    tagline: `${traitLabel} · ${poleLabel} scorer`,
-    description: data.blurb,
-    strengths: [data.strength],
-    challenges: [data.growth],
-    careers: BIGFIVE_CAREERS[code] ?? [],
-    relationships: BIGFIVE_RELATIONSHIPS[code] ?? "",
+    name: t?.name ?? `${poleLabel} ${traitLabel} — The ${ARCHETYPE_NOUN[trait][level]}`,
+    tagline: t?.tagline ?? `${traitLabel} · ${poleLabel} scorer`,
+    description: t?.description ?? data.blurb,
+    strengths: t?.strengths ?? [data.strength],
+    challenges: t?.challenges ?? [data.growth],
+    careers: t?.careers ?? BIGFIVE_CAREERS[code] ?? [],
+    relationships: t?.relationships ?? BIGFIVE_RELATIONSHIPS[code] ?? "",
     famousExamples: famousExamplesFor("bigfive", code),
   };
 }
