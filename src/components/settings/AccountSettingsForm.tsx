@@ -1,7 +1,7 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
-import { Download, Check, Copy, Loader2 } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Download, Check, Copy, Loader2, TrendingUp } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,6 +9,16 @@ import { usePersonality } from "@/lib/personality/context";
 import { loadHistory, loadRemoteHistory } from "@/lib/personality/storage";
 import { updateDisplayName, enableSharing, disableSharing } from "@/app/[locale]/(personality)/settings/actions";
 import type { ProfileMeta } from "@/lib/personality/storage";
+import type { CombinedSnapshot } from "@/lib/personality/types";
+
+/** Merges local and remote history snapshots, deduped by completion timestamp and sorted oldest-first — the same merge handleDownloadJSON and CombinedProfile.tsx's sync effect both do. */
+async function mergedHistory(userId: string): Promise<CombinedSnapshot[]> {
+  const local = loadHistory();
+  const remote = await loadRemoteHistory(userId);
+  return Array.from(
+    new Map([...local, ...remote].map((s) => [new Date(s.completedAt).getTime(), s])).values()
+  ).sort((a, b) => new Date(a.completedAt).getTime() - new Date(b.completedAt).getTime());
+}
 
 export function AccountSettingsForm({
   userId,
@@ -85,15 +95,14 @@ export function AccountSettingsForm({
     }
   }, [shareUrl]);
 
-  const handleDownloadJSON = useCallback(async () => {
-    const local = loadHistory();
-    const remote = await loadRemoteHistory(userId);
-    const history = Array.from(
-      new Map(
-        [...local, ...remote].map((s) => [new Date(s.completedAt).getTime(), s])
-      ).values()
-    ).sort((a, b) => new Date(a.completedAt).getTime() - new Date(b.completedAt).getTime());
+  const [history, setHistory] = useState<CombinedSnapshot[] | null>(null);
 
+  useEffect(() => {
+    mergedHistory(userId).then(setHistory);
+  }, [userId]);
+
+  const handleDownloadJSON = useCallback(async () => {
+    const history = await mergedHistory(userId);
     const data = {
       personality: results,
       history,
@@ -221,6 +230,24 @@ export function AccountSettingsForm({
               </div>
             )}
           </div>
+        </div>
+      )}
+
+      {/* History & Trends Section */}
+      {history && history.length > 0 && (
+        <div className="space-y-3 rounded-2xl border bg-card p-6">
+          <h2 className="font-semibold">History & Trends</h2>
+          <p className="text-sm text-muted-foreground">
+            {history.length === 1
+              ? "You have 1 snapshot recorded so far — retake any assessment to start seeing a trend."
+              : `${history.length} snapshots recorded, from ${new Date(history[0].completedAt).toLocaleDateString()} to ${new Date(history[history.length - 1].completedAt).toLocaleDateString()}.`}
+          </p>
+          <Button asChild variant="outline" className="w-full gap-2">
+            <Link href="/combined">
+              <TrendingUp className="size-4" />
+              View how your results have moved
+            </Link>
+          </Button>
         </div>
       )}
 
