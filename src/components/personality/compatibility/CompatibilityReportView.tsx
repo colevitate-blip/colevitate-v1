@@ -1,8 +1,13 @@
-import { GitCompareArrows } from "lucide-react";
+"use client";
+
+import { useRef, useState } from "react";
+import { GitCompareArrows, Loader2, Share2 } from "lucide-react";
 import type { Compatibility } from "@/components/personality/combined/computeCompatibility";
 import { frameCompatibility, relationshipFramingFor, type RelationshipType } from "./relationshipFraming";
 import { CompatibilityAxisBar } from "./CompatibilityAxisBar";
 import { CompatibilityAxisSummary } from "./CompatibilityAxisSummary";
+import { PairingShareCard } from "./PairingShareCard";
+import { Button } from "@/components/ui/button";
 
 /**
  * The paid Compatibility Report: relationship-framed axis labels/copy on
@@ -27,6 +32,46 @@ export function CompatibilityReportView({
 }) {
   const framed = frameCompatibility(compatibility, relationshipType);
   const framing = relationshipFramingFor(relationshipType);
+  const shareCardRef = useRef<HTMLDivElement>(null);
+  const [isSharing, setIsSharing] = useState(false);
+
+  async function handleShare() {
+    if (!shareCardRef.current || isSharing) return;
+    setIsSharing(true);
+    try {
+      const { default: html2canvas } = await import("html2canvas");
+      const canvas = await html2canvas(shareCardRef.current, { scale: 2 });
+      const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/png"));
+      if (!blob) return;
+
+      const fileName = `colevitate-${nameA}-${nameB}-compatibility`
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "")
+        .concat(".png");
+      const file = new File([blob], fileName, { type: "image/png" });
+
+      if (typeof navigator !== "undefined" && navigator.canShare?.({ files: [file] })) {
+        try {
+          await navigator.share({ files: [file], title: framing.reportTitle });
+        } catch {
+          // user dismissed the share sheet — nothing to do
+        }
+        return;
+      }
+
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } finally {
+      setIsSharing(false);
+    }
+  }
 
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:py-12">
@@ -40,6 +85,26 @@ export function CompatibilityReportView({
         </p>
         <h1 className="relative mt-1 text-2xl font-bold tracking-tight sm:text-3xl">{framed.headline}</h1>
         <p className="relative mt-2 text-sm text-muted-foreground">{framing.aboutClause(nameA, nameB)}</p>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleShare}
+          disabled={isSharing}
+          className="relative mt-5 rounded-full"
+        >
+          {isSharing ? <Loader2 className="size-4 animate-spin" /> : <Share2 className="size-4" />}
+          Share as image
+        </Button>
+      </div>
+
+      <div style={{ position: "absolute", left: -99999, top: 0 }} aria-hidden>
+        <PairingShareCard
+          ref={shareCardRef}
+          compatibility={framed}
+          nameA={nameA}
+          nameB={nameB}
+          reportTitle={framing.reportTitle}
+        />
       </div>
 
       <div className="mt-8 rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_var(--elevation-shadow-sm)]">
