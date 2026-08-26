@@ -4,6 +4,7 @@ import { getPathname } from "@/i18n/navigation";
 import { SITE_URL } from "@/lib/seo/siteConfig";
 import { getAllTypePageParams } from "@/lib/seo/typeContent";
 import { getAllCombinationSlugs } from "@/lib/seo/combinationContent";
+import { getAllFamousPeopleSlugs } from "@/lib/seo/famousPeopleContent";
 
 // Builds one sitemap entry per locale for a given internal href, with
 // `alternates.languages` pointing at every other locale's URL for the same
@@ -21,7 +22,7 @@ function localizedEntries(href: string): MetadataRoute.Sitemap {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticPaths = ["/", "/types"];
+  const staticPaths = ["/", "/types", "/people"];
 
   const typePaths = getAllTypePageParams().map(
     ({ frameworkUrlSlug, slug }) => `/types/${frameworkUrlSlug}/${slug}`
@@ -29,5 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const combinationPaths = getAllCombinationSlugs().map((slug) => `/types/combinations/${slug}`);
 
-  return [...staticPaths, ...typePaths, ...combinationPaths].flatMap(localizedEntries);
+  const peoplePaths = getAllFamousPeopleSlugs().map((slug) => `/people/${slug}`);
+
+  return [...staticPaths, ...typePaths, ...combinationPaths, ...peoplePaths].flatMap(localizedEntries);
 }
