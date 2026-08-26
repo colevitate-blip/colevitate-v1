@@ -4,6 +4,9 @@
     "tagline": "Many lenses. One you.",
     "signIn": "Sign in",
     "signOut": "Sign out",
+    "guestNotice": "Sign in to save your results",
+    "guestSaveBanner": "You're browsing as a guest — this profile is only saved in this browser and will be lost if you clear your data or switch devices.",
+    "guestSaveBannerCta": "Sign in to save it",
     "footerTagline": "Client-side and private — your results never leave your browser."
   },
   "landing": {

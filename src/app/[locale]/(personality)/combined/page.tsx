@@ -4,12 +4,15 @@ import { ArrowLeft, Sparkles } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { usePersonality } from "@/lib/personality/context";
+import { useAuth } from "@/lib/supabase/AuthProvider";
 import { CombinedProfile } from "@/components/personality/combined/CombinedProfile";
 import { PartialProfilePreview } from "@/components/personality/combined/PartialProfilePreview";
+import { GuestSaveNotice } from "@/components/auth/GuestSaveNotice";
 import { generateCombinedProfile } from "@/components/personality/combined/generateCombinedProfile";
 
 export default function CombinedProfilePage() {
   const { mounted, results, completedIds, progress } = usePersonality();
+  const { user, authLoading } = useAuth();
 
   if (!mounted) return null;
 
@@ -33,12 +36,24 @@ export default function CombinedProfilePage() {
     );
   }
 
+  const showGuestNotice = !authLoading && !user;
+
   if (completedIds.length === 1) {
-    return <PartialProfilePreview completedId={completedIds[0]} results={results} />;
+    return (
+      <>
+        {showGuestNotice ? <GuestSaveNotice /> : null}
+        <PartialProfilePreview completedId={completedIds[0]} results={results} />
+      </>
+    );
   }
 
   const profile = generateCombinedProfile(results);
   if (!profile) return null;
 
-  return <CombinedProfile profile={profile} results={results} progress={progress} />;
+  return (
+    <>
+      {showGuestNotice ? <GuestSaveNotice /> : null}
+      <CombinedProfile profile={profile} results={results} progress={progress} />
+    </>
+  );
 }

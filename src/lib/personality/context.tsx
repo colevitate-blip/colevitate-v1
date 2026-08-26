@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useRouter } from "@/i18n/navigation";
 import { useAuth } from "@/lib/supabase/AuthProvider";
 import {
   appendFeedbackNote,
@@ -44,6 +45,7 @@ const PersonalityContext = React.createContext<PersonalityContextValue | null>(n
 
 export function PersonalityProvider({ children }: { children: React.ReactNode }) {
   const { user } = useAuth();
+  const router = useRouter();
   const [mounted, setMounted] = React.useState(false);
   const [results, setResults] = React.useState<PersonalityResults>({});
   const [progress, setProgress] = React.useState<ProgressMap>({});
@@ -118,9 +120,14 @@ export function PersonalityProvider({ children }: { children: React.ReactNode })
       window.setTimeout(() => {
         saveResult(id, result);
         setAnalyzingId((current) => (current === id ? null : current));
+        // Every framework's own result screen is still reachable later by
+        // revisiting its route, but the moment you finish one, the more
+        // useful next stop is the combined view (it only needs one
+        // completed assessment to render something).
+        router.push("/combined");
       }, 1900);
     },
-    [saveResult]
+    [saveResult, router]
   );
 
   const saveProgress = React.useCallback((id: AssessmentId, p: SurveyProgress) => {

@@ -4,6 +4,9 @@
     "tagline": "Muchas miradas. Una sola tú.",
     "signIn": "Iniciar sesión",
     "signOut": "Cerrar sesión",
+    "guestNotice": "Inicia sesión para guardar tus resultados",
+    "guestSaveBanner": "Estás navegando como invitado — este perfil solo se guarda en este navegador y se perderá si borras tus datos o cambias de dispositivo.",
+    "guestSaveBannerCta": "Inicia sesión para guardarlo",
     "footerTagline": "Del lado del cliente y privado — tus resultados nunca salen de tu navegador."
   },
   "landing": {

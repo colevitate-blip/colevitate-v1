@@ -4,6 +4,9 @@
     "tagline": "Plusieurs regards. Un seul vous.",
     "signIn": "Se connecter",
     "signOut": "Se déconnecter",
+    "guestNotice": "Connectez-vous pour enregistrer vos résultats",
+    "guestSaveBanner": "Vous naviguez en tant qu'invité — ce profil n'est enregistré que dans ce navigateur et sera perdu si vous effacez vos données ou changez d'appareil.",
+    "guestSaveBannerCta": "Connectez-vous pour l'enregistrer",
     "footerTagline": "Côté client et privé — vos résultats ne quittent jamais votre navigateur."
   },
   "landing": {

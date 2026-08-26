@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { GitCompareArrows, LogOut, Settings, User, Users } from "lucide-react";
-import { Link as I18nLink } from "@/i18n/navigation";
+import { GitCompareArrows, LogIn, LogOut, Settings, User, Users } from "lucide-react";
+import { Link as I18nLink, usePathname } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/supabase/AuthProvider";
 import { signOut } from "@/app/auth/actions";
@@ -11,14 +11,25 @@ import { signOut } from "@/app/auth/actions";
 export function AuthStatus() {
   const { user, authLoading, profileMeta } = useAuth();
   const t = useTranslations("chrome");
+  const pathname = usePathname();
 
   if (authLoading) return null;
 
   if (!user) {
     return (
-      <Button asChild variant="ghost" size="sm" className="rounded-full">
-        <Link href="/login">{t("signIn")}</Link>
-      </Button>
+      <div className="flex items-center gap-2">
+        <span className="hidden text-xs text-muted-foreground sm:inline">{t("guestNotice")}</span>
+        <Button
+          asChild
+          size="sm"
+          className="rounded-full gap-1.5 bg-gradient-to-r from-[var(--spatial-glow)] to-[var(--spatial-glow-2)] text-[#05070f] shadow-[0_10px_24px_-8px_var(--hero-glow-1)] hover:opacity-90"
+        >
+          <Link href={`/login?next=${encodeURIComponent(pathname)}`}>
+            <LogIn className="size-3.5" />
+            {t("signIn")}
+          </Link>
+        </Button>
+      </div>
     );
   }
 
