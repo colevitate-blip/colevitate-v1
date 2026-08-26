@@ -19,6 +19,10 @@ fresh sessions or you'll have to re-paste the approved output):
 - Tier 3: run 3.1a → review the combination list → tell it to proceed to
   3.1b.
 - Tier 4.1: run it → review the plan it hands back → tell it to build.
+- Tier 5: run 5.1 → review the discovery/approachability plan it hands
+  back → tell it to build → it does 5.2, 5.3, 5.4, 5.5 in that order in
+  the same conversation. Don't parallelize this tier — each stage builds
+  directly on the previous stage's schema/UI.
 - Ordering constraint across tiers: run 1.1 before 4.2 (4.2's nav link
   assumes 1.1's homepage link already exists).
 
@@ -46,19 +50,21 @@ Read AGENTS.md, CLAUDE.md, PROJECT_STATUS.md, and IMPROVEMENT_PROMPTS.md in
 full before doing anything else.
 
 Work through IMPROVEMENT_PROMPTS.md end to end, in order: Tier 0, then
-Tier 1, Tier 2, Tier 3, Tier 4. Treat each numbered prompt (0.1, 0.2, 0.3,
+Tier 1, Tier 2, Tier 3, Tier 4, Tier 5. Treat each numbered prompt (0.1, 0.2, 0.3,
 1.1, 1.2, ...) as its own task with its own "Done when" criteria — commit
 your work separately per task, not one combined commit per tier, so each
 change stays independently reviewable and revertable.
 
-Two tasks have an explicit review checkpoint written into them — 0.1 (the
-famous-person roster) and 3.1a (the combination keyword list). When you
-reach one, stop, show me exactly what you're proposing, and wait for my
-explicit go-ahead before continuing to the next task in that chain
-(0.2/0.3, or 3.1b). Don't treat silence or me changing topic as approval.
+Three tasks have an explicit review checkpoint written into them — 0.1
+(the famous-person roster), 3.1a (the combination keyword list), and 5.1
+(the discovery/approachability architecture plan). When you reach one,
+stop, show me exactly what you're proposing, and wait for my explicit
+go-ahead before continuing to the next task in that chain (0.2/0.3, or
+3.1b, or 5.2 onward). Don't treat silence or me changing topic as
+approval.
 
 4.1 (multi-person compatibility) also asks for an implementation plan
-before writing code — same rule: stop and wait for my go-ahead there too.
+before writing code — same rule applies there too, and to 5.1 above.
 
 If a later task's "Done when" criteria conflicts with something an
 earlier task already built, stop and tell me rather than silently
@@ -512,4 +518,173 @@ just falls back to English or goes untranslated on non-English routes.
 Done when: at minimum, the top-traffic type pages render real (not
 English-fallback, not machine-translated-and-unreviewed) content in all 5
 locales, with a clear list of what's still outstanding.
+```
+---
+
+## Tier 5 — Opt-in discovery & approachability
+
+### 5.1 Plan: discovery/approach architecture (review checkpoint)
+
+```
+Colevitate has two existing ways personality data connects people: the
+`profiles` table's `is_public`/`share_slug` (a read-only, share-link-based
+view of one person's result) and `pairings` (src/components/pairing/,
+supabase/migrations/0004_pairings.sql) — a consent-based, invite-code
+comparison between two people who already know each other's link.
+
+Neither lets a stranger discover a person's profile and reach out cold.
+That's the new feature: users who opt in become visible in a browsable
+pool, and other users can send them a lightweight, context-carrying
+"approach" — accepted or declined, entirely separate from pairing (an
+accepted approach should NOT create a pairings row or touch the paid
+Compatibility Report/Stripe flow; keep this a distinct, unpaid path).
+
+Before writing any code:
+1. Read profiles' migrations (0001, 0002), pairings' migration (0004,
+   0005), src/components/pairing/pairingTypes.ts, and
+   src/components/personality/compatibility/ (the existing axis-comparison
+   logic used for pairing reports) — this feature should reuse the
+   existing combined-axes/archetype data already on `profiles.results`
+   and the existing compatibility-scoring logic for "what you have in
+   common" surfacing, not invent a second personality data model.
+2. Note the RLS pattern pairings.sql uses throughout: RLS row policies
+   plus explicit column-level grants (`revoke ... grant (col1, col2, ...)`)
+   so a client can never write columns like `status`/`unlocked_at`
+   directly, and security-definer RPCs (`accept_pairing_invite`,
+   `decline_pairing_invite`) as the only path that can. The new
+   approach-request flow needs the same shape: accept/decline/block must
+   go through security-definer functions, not raw client updates.
+3. Note the privacy principle already stated in pairings.sql's own
+   comments: store only slim derived axis/archetype snapshots, never the
+   raw `PersonalityResults` jsonb. Apply that same minimization to
+   whatever gets shown to an approaching stranger.
+4. Write a short implementation plan covering: the new tables/columns,
+   how "approachable" differs from `is_public` in the UI copy (so users
+   don't confuse "share my result via link" with "let strangers approach
+   me"), the approach lifecycle, and where the browse/discovery view lives
+   in the route structure. Share the plan and stop.
+
+Done when: you've shared a concrete plan reusing as much of the existing
+profiles/compatibility code as fits, and gotten explicit go-ahead before
+writing any schema or UI.
+```
+
+### 5.2 Data model: approachability state, approach requests, blocks, reports
+
+```
+Implement the schema from the approved 5.1 plan, following the RLS +
+security-definer pattern from supabase/migrations/0004_pairings.sql
+exactly (column-level grants after a blanket revoke, security-definer
+functions for every state transition a client shouldn't be trusted to do
+directly, an atomic `where status = ...` guard for concurrent claims).
+
+Build, as a new migration:
+1. Add an `approachable` state to `profiles`, separate from the existing
+   `is_public`/`share_slug` columns — don't repurpose those. Include a
+   scope (e.g. everyone / filtered / paused) and make "off"/"paused" the
+   default for every existing and new row.
+2. An `approach_requests` table: sender, recipient, status
+   (pending/accepted/declined/expired/withdrawn), a required message, and
+   — mirroring pairings' slim-snapshot principle — a small derived
+   axis/archetype snapshot of each party captured at send time, never the
+   raw `results` jsonb.
+3. `blocks` and `reports` tables now, even before Tier 5.4/5.5 build their
+   UI — don't leave safety data structures for later.
+4. A minimal `approach_events` log (mirroring `pairing_events`) for
+   invite_sent/accepted/declined/blocked/reported — this repo has no
+   analytics vendor, this is how the other features answer funnel
+   questions.
+5. Server-side rate-limit accounting (e.g. a count/window on the sender)
+   enforced in the security-definer send function, not just in the UI.
+
+Done when: migrations apply cleanly, RLS prevents a client from directly
+setting status/timestamps on any of these tables (only the security-definer
+functions can), and there's test coverage for the accept/decline/block
+transitions and the rate limit.
+```
+
+### 5.3 Profile visibility & approach-readiness controls (UI)
+
+```
+Add the user-facing controls for the state built in 5.2, most likely
+alongside src/components/settings/ (check what's already there for the
+is_public/share_slug toggle, if anything exists, and match its pattern).
+
+1. An "approachable" toggle with scope selection and a pause option,
+   written in plain language distinct from the existing "share my result"
+   controls — these are two different privacy decisions and the copy must
+   not conflate them.
+2. A preview of exactly what an approaching stranger would see before the
+   user turns this on — reuse whatever slim summary/archetype card
+   component already exists rather than building a new one.
+3. Keep every state reversible from this same screen at any time.
+4. Cover all 5 locales (en/de/es/fr/zh per src/i18n/ and messages/) —
+   check for any new translation keys and add them for every locale, not
+   English only.
+
+Done when: a signed-in user can turn approachability on/off/scoped, see
+an accurate preview of their exposure before opting in, and change it back
+at any time, in all 5 locales.
+```
+
+### 5.4 Discovery browse view & the approach flow
+
+```
+Build the actual discovery and approach experience on top of 5.2/5.3.
+
+1. A browse view scoped strictly to `approachable = true` and each
+   viewer's own scope rules from 5.3 — no profile outside a user's current
+   visibility scope should ever be fetchable, not just hidden client-side.
+2. Surface shared-trait/compatibility context on each browsable profile
+   using the existing compatibility logic in
+   src/components/personality/compatibility/ (the same axis-comparison
+   this app already does for pairing reports) — this is what should make
+   an approach feel informed rather than cold, and it's already built,
+   don't reimplement it.
+3. The approach action itself: enforce the required, profile-referencing
+   message from 5.2's schema (reject empty/generic messages at write
+   time, not just via a UI hint) and the server-side rate limit.
+4. Accept/decline: declining costs the recipient nothing and needs no
+   justification; accepting should NOT create a pairings row or touch
+   Stripe — this stays a separate, unpaid path per the 5.1 plan. What
+   "connected" unlocks next (messaging, etc.) can be scoped down to "mark
+   accepted" for now if there's no existing messaging surface to hook
+   into — flag that gap rather than building a new inbox system
+   speculatively.
+5. Notifications for received/accepted/declined approaches can reuse
+   whatever notification mechanism (if any) exists elsewhere in the app;
+   if none exists, treat this as explicitly out of scope for this tier
+   rather than building one from scratch.
+
+Done when: an approachable user can be discovered only within their own
+scope, receive a context-carrying approach with visible compatibility
+signal, and accept/decline it, without touching the pairing/Stripe code
+paths at all.
+```
+
+### 5.5 Safety hardening & privacy pass
+
+```
+Close the loop on the blocks/reports tables from 5.2.
+
+1. Block: instantly and silently removes the blocked user's ability to
+   view the profile or send further approaches; no notification to the
+   blocked party; check this is enforced at the query/RLS level, not only
+   hidden in the UI.
+2. Report: a simple flow from a profile or an approach message; land it
+   wherever an admin/moderation surface already exists in this app, or
+   note there isn't one yet rather than building a full admin panel
+   speculatively.
+3. Full deletion: a user can delete their approachability data and
+   profile outright (not just toggle it off), cascading to any pending
+   approach_requests involving them.
+4. Audit Tiers 5.2-5.4's code for anything that could leak a full
+   `results` jsonb, a raw message, or approach history into logs,
+   analytics events, or error reports — this repo's stated principle
+   (see pairings.sql's comments) is derived-axis-snapshots-only, never
+   raw personality data, and that needs to hold here too.
+
+Done when: block and report are enforced server-side and tested, full
+deletion cascades correctly, and a specific pass has confirmed no
+sensitive field from this feature can leak into logs/analytics.
 ```

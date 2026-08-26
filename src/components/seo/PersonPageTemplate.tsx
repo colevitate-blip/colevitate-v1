@@ -7,9 +7,13 @@ import { QuizCta } from "./QuizCta";
 import { CATEGORY_LABEL, type FamousPersonContent } from "@/lib/seo/famousPeopleContent";
 import { getTypeContent, FRAMEWORK_URL_SLUGS } from "@/lib/seo/typeContent";
 import { ASSESSMENT_CATALOG } from "@/lib/personality/catalog";
+import { deriveFamousPersonResults, deriveFamousPersonProfile } from "./famousPersonResults";
+import { FamousPersonInsights } from "./FamousPersonInsights";
 
 export function PersonPageTemplate({ content }: { content: FamousPersonContent }) {
   const primaryFramework = content.typings[0]?.framework ?? "mbti";
+  const profile = deriveFamousPersonProfile(content);
+  const results = deriveFamousPersonResults(content);
 
   return (
     <article className="mx-auto w-full max-w-2xl px-4 py-12 sm:py-16">
@@ -80,6 +84,8 @@ export function PersonPageTemplate({ content }: { content: FamousPersonContent }
           })}
         </div>
       </Section>
+
+      {profile ? <FamousPersonInsights name={content.name} profile={profile} results={results} /> : null}
 
       <Separator className="my-8" />
 
