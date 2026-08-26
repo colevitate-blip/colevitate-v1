@@ -600,6 +600,15 @@ export function CombinedProfile({
         the pattern, not to grade you on it.
       </p>
 
+      <div className="mt-8 flex justify-center print:hidden">
+        <Button asChild variant="secondary" size="default" className="rounded-full gap-1.5 px-5">
+          <Link href="/">
+            <ChevronLeft className="size-4" />
+            Overview
+          </Link>
+        </Button>
+      </div>
+
       <div style={{ position: "fixed", top: 0, left: -9999, pointerEvents: "none" }} aria-hidden>
         <ShareCard
           ref={shareCardRef}

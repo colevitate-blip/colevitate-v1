@@ -129,9 +129,9 @@ export function ResultShell({
       ) : null}
 
       <div className="mt-8 flex justify-center">
-        <Button asChild variant="outline" size="sm" className="rounded-full gap-1.5">
+        <Button asChild variant="secondary" size="default" className="rounded-full gap-1.5 px-5">
           <Link href="/">
-            <ChevronLeft className="size-3.5" />
+            <ChevronLeft className="size-4" />
             {t("overview")}
           </Link>
         </Button>
