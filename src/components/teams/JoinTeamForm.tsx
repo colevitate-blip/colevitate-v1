@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { joinTeamByCode } from "@/app/[locale]/(personality)/teams/actions";
 
-export function JoinTeamForm() {
+export function JoinTeamForm({ noun = "team", basePath = "/teams" }: { noun?: string; basePath?: string }) {
   const router = useRouter();
   const [code, setCode] = useState("");
   const [saving, setSaving] = useState(false);
@@ -22,17 +22,17 @@ export function JoinTeamForm() {
     setError(null);
     try {
       const teamId = await joinTeamByCode(code);
-      router.push(`/teams/${teamId}`);
+      router.push(`${basePath}/${teamId}`);
     } catch (err) {
       setSaving(false);
       setError(err instanceof Error ? err.message : "Invalid invite code");
     }
-  }, [code, router]);
+  }, [code, router, basePath]);
 
   return (
     <div className="space-y-3 rounded-2xl border bg-card p-6">
       <h2 className="font-semibold">Have an Invite Code?</h2>
-      <p className="text-sm text-muted-foreground">Join a team someone invited you to.</p>
+      <p className="text-sm text-muted-foreground">Join a {noun} someone invited you to.</p>
       <div className="flex gap-2">
         <Input
           value={code}

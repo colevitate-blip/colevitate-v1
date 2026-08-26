@@ -6,7 +6,16 @@ import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { shareProfileWithTeam, unshareProfileWithTeam } from "@/app/[locale]/(personality)/teams/actions";
 
-export function ShareWithTeamToggle({ teamId, initiallyShared }: { teamId: string; initiallyShared: boolean }) {
+export function ShareWithTeamToggle({
+  teamId,
+  initiallyShared,
+  noun = "team",
+}: {
+  teamId: string;
+  initiallyShared: boolean;
+  /** "team" or "circle" — swaps the copy below without duplicating the component. */
+  noun?: string;
+}) {
   const router = useRouter();
   const [shared, setShared] = useState(initiallyShared);
   const [saving, setSaving] = useState(false);
@@ -34,7 +43,7 @@ export function ShareWithTeamToggle({ teamId, initiallyShared }: { teamId: strin
   return (
     <div className="flex flex-col items-end gap-1">
       <Button onClick={handleToggle} disabled={saving} size="sm" variant={shared ? "default" : "outline"}>
-        {saving ? <Loader2 className="size-3.5 animate-spin" /> : shared ? "Shared with team" : "Share with team"}
+        {saving ? <Loader2 className="size-3.5 animate-spin" /> : shared ? `Shared with ${noun}` : `Share with ${noun}`}
       </Button>
       {error && <p className="text-xs text-destructive">{error}</p>}
     </div>

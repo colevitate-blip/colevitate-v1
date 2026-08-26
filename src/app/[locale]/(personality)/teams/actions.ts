@@ -5,7 +5,7 @@ import { generateCombinedProfile } from "@/components/personality/combined/gener
 import { generateInviteCode } from "@/lib/inviteCode";
 import type { PersonalityResults } from "@/lib/personality/types";
 
-export async function createTeam(name: string) {
+export async function createTeam(name: string, kind: "workplace" | "personal" = "workplace") {
   if (!name || name.trim().length === 0) {
     throw new Error("Team name cannot be empty");
   }
@@ -22,7 +22,7 @@ export async function createTeam(name: string) {
   while (!team && attempts < 10) {
     const { data: inserted, error } = await supabase
       .from("teams")
-      .insert({ name: name.trim(), owner_id: data.user.id, invite_code: generateInviteCode() })
+      .insert({ name: name.trim(), owner_id: data.user.id, invite_code: generateInviteCode(), kind })
       .select("id")
       .single();
     if (!error) team = inserted;

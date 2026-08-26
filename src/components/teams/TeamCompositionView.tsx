@@ -4,12 +4,18 @@ import { AXES } from "@/components/personality/combined/scoringMatrix";
 import { getGroupColor } from "@/components/graph/groupColor";
 import { computeTeamInsights, type SharedMemberAxes } from "./teamInsights";
 
-export function TeamCompositionView({ members }: { members: SharedMemberAxes[] }) {
+export function TeamCompositionView({
+  members,
+  title = "Team Composition",
+}: {
+  members: SharedMemberAxes[];
+  title?: string;
+}) {
   const insights = computeTeamInsights(members);
 
   return (
     <div className="rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_var(--elevation-shadow-sm)]">
-      <h2 className="mb-1 font-semibold">Team Composition</h2>
+      <h2 className="mb-1 font-semibold">{title}</h2>
       <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
         Where each member who opted in lands on the four axes.
       </p>

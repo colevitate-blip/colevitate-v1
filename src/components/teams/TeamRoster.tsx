@@ -22,12 +22,17 @@ export function TeamRoster({
   currentUserId,
   isOwner,
   members,
+  noun = "team",
+  basePath = "/teams",
 }: {
   teamId: string;
   inviteCode: string;
   currentUserId: string;
   isOwner: boolean;
   members: RosterMember[];
+  /** "team" or "circle" — swaps the copy below without duplicating the component. */
+  noun?: string;
+  basePath?: string;
 }) {
   const router = useRouter();
   const [copied, setCopied] = useState(false);
@@ -63,12 +68,12 @@ export function TeamRoster({
     setError(null);
     try {
       await leaveTeam(teamId);
-      router.push("/teams");
+      router.push(basePath);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to leave team");
+      setError(err instanceof Error ? err.message : `Failed to leave ${noun}`);
       setBusyUserId(null);
     }
-  }, [teamId, currentUserId, router]);
+  }, [teamId, currentUserId, router, basePath, noun]);
 
   return (
     <div className="space-y-4 rounded-2xl border bg-card p-6">
@@ -105,13 +110,13 @@ export function TeamRoster({
                   )}
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  {member.hasShared ? "Shared with team" : "Hasn't shared yet"}
+                  {member.hasShared ? `Shared with ${noun}` : "Hasn't shared yet"}
                 </p>
               </div>
             </div>
 
             {member.userId === currentUserId ? (
-              <ShareWithTeamToggle teamId={teamId} initiallyShared={member.hasShared} />
+              <ShareWithTeamToggle teamId={teamId} initiallyShared={member.hasShared} noun={noun} />
             ) : isOwner ? (
               <Button
                 onClick={() => handleRemove(member.userId)}
@@ -130,7 +135,7 @@ export function TeamRoster({
       {!isOwner && (
         <div className="border-t pt-4">
           <Button onClick={handleLeave} disabled={busyUserId === currentUserId} size="sm" variant="ghost">
-            {busyUserId === currentUserId ? <Loader2 className="size-3.5 animate-spin" /> : "Leave team"}
+            {busyUserId === currentUserId ? <Loader2 className="size-3.5 animate-spin" /> : `Leave ${noun}`}
           </Button>
         </div>
       )}

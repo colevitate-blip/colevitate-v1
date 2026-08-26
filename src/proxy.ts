@@ -15,9 +15,18 @@ function isPersonalityPath(pathname: string): boolean {
   const rest = (routing.locales as readonly string[]).includes(maybeLocale) ? segments.slice(1) : segments;
   const path = rest.join("/");
   // Allow dynamic user share paths under /u/*, team paths under /teams/*,
-  // pairing invite/report paths under /pair/*, and the SEO type/combination
-  // pages under /types/*
-  if (rest[0] === "u" || rest[0] === "teams" || rest[0] === "pair" || rest[0] === "types") return true;
+  // personal-circle paths under /circle/*, pairing invite/report paths
+  // under /pair/*, and the SEO type/combination/people pages under
+  // /types/* and /people/*
+  if (
+    rest[0] === "u" ||
+    rest[0] === "teams" ||
+    rest[0] === "circle" ||
+    rest[0] === "pair" ||
+    rest[0] === "types" ||
+    rest[0] === "people"
+  )
+    return true;
   return PERSONALITY_SLUGS.has(path);
 }
 

@@ -5,28 +5,28 @@ import { TeamCompositionView } from "@/components/teams/TeamCompositionView";
 import type { SharedMemberAxes } from "@/components/teams/teamInsights";
 import type { AxisId } from "@/components/personality/combined/scoringMatrix";
 
-export default async function TeamPage({ params }: { params: Promise<{ teamId: string }> }) {
-  const { teamId } = await params;
+export default async function CirclePage({ params }: { params: Promise<{ circleId: string }> }) {
+  const { circleId } = await params;
   const supabase = await createClient();
   const { data } = await supabase.auth.getUser();
   const user = data.user;
 
   if (!user) {
-    redirect(`/login?next=/teams/${teamId}`);
+    redirect(`/login?next=/circle/${circleId}`);
   }
 
-  const { data: team } = await supabase
+  const { data: circle } = await supabase
     .from("teams")
     .select("id, name, owner_id, invite_code, kind")
-    .eq("id", teamId)
+    .eq("id", circleId)
     .maybeSingle();
 
-  if (!team || team.kind !== "workplace") notFound();
+  if (!circle || circle.kind !== "personal") notFound();
 
   const { data: memberRows } = await supabase
     .from("team_members")
     .select("user_id, role, display_name, avatar_url, axes, archetype_name, shared_at")
-    .eq("team_id", team.id)
+    .eq("team_id", circle.id)
     .order("joined_at", { ascending: true });
 
   const members = memberRows || [];
@@ -51,7 +51,7 @@ export default async function TeamPage({ params }: { params: Promise<{ teamId: s
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:py-12">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight">{team.name}</h1>
+        <h1 className="text-3xl font-bold tracking-tight">{circle.name}</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           {members.length} member{members.length === 1 ? "" : "s"}
         </p>
@@ -59,18 +59,20 @@ export default async function TeamPage({ params }: { params: Promise<{ teamId: s
 
       <div className="space-y-6">
         <TeamRoster
-          teamId={team.id}
-          inviteCode={team.invite_code}
+          teamId={circle.id}
+          inviteCode={circle.invite_code}
           currentUserId={user.id}
-          isOwner={team.owner_id === user.id}
+          isOwner={circle.owner_id === user.id}
           members={rosterMembers}
+          noun="circle"
+          basePath="/circle"
         />
 
         {sharedMembers.length >= 2 ? (
-          <TeamCompositionView members={sharedMembers} />
+          <TeamCompositionView members={sharedMembers} title="Circle Composition" />
         ) : (
           <div className="rounded-3xl border bg-card p-6 text-sm text-muted-foreground shadow-[0_18px_40px_-16px_var(--elevation-shadow-sm)]">
-            Once at least 2 members share their profile with this team, a composition view will
+            Once at least 2 members share their profile with this circle, a composition view will
             show here.
           </div>
         )}
