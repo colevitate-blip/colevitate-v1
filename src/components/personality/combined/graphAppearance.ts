@@ -318,6 +318,38 @@ export function getGraphQuadrantLabel(quadrant: number): string {
   return axisId ? AXIS_LABEL[axisId] : "";
 }
 
+/**
+ * How strongly a node's own data leans away from neutral, 0 (dead-even) to
+ * 1 (fully leaning toward one pole) — see GraphViewProps.getNodeQuadrantPull.
+ * Without this every trait in a quadrant sits at the same fixed distance
+ * from center, so all four quadrants fan out into identical-looking
+ * mirrored shapes regardless of what your actual scores are. Feeding real
+ * score magnitude in here is what makes a strongly-leaning trait visibly
+ * push out toward the edge while a near-toss-up trait stays close to the
+ * middle, so the shape of each quadrant is a real (if rough) picture of how
+ * decisively you land on the traits inside it.
+ */
+export function getGraphNodeQuadrantPull(node: GraphNode): number {
+  const n = node as Record<string, unknown>;
+  if (n.kind === "axis" && typeof n.score === "number") {
+    // -100..100, neutral at 0.
+    return Math.min(1, Math.abs(n.score) / 100);
+  }
+  if (n.kind === "trait") {
+    if (typeof n.score === "number") {
+      // Big Five: 0-100, neutral at 50.
+      return Math.min(1, Math.abs(n.score - 50) / 50);
+    }
+    if (typeof n.confidence === "number") {
+      // MBTI: 50-100 (a dead-even split between the pole's questions lands at 50).
+      return Math.min(1, Math.max(0, (n.confidence - 50) / 50));
+    }
+    // Human Design type / color type — categorical, no numeric lean to scale by.
+    return 1;
+  }
+  return 1;
+}
+
 export function getGraphNodeSize(node: GraphNode) {
   const kind = (node as Record<string, unknown>).kind;
   switch (kind) {

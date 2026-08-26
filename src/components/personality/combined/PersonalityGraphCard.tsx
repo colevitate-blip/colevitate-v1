@@ -14,6 +14,7 @@ import {
   getGraphNodeKindTag,
   getGraphNodeExplanation,
   getGraphNodeQuadrant,
+  getGraphNodeQuadrantPull,
   getGraphQuadrantLabel,
 } from "./graphAppearance";
 import { GraphLegend } from "./GraphLegend";
@@ -119,6 +120,7 @@ export function PersonalityGraphCard({
           // quadrant mode is off.
           getNodeCluster={quadrantMode ? undefined : getGraphNodeCluster}
           getNodeQuadrant={quadrantMode ? getGraphNodeQuadrant : undefined}
+          getNodeQuadrantPull={quadrantMode ? getGraphNodeQuadrantPull : undefined}
           getQuadrantLabel={quadrantMode ? getGraphQuadrantLabel : undefined}
           getNodeGradient={getGraphNodeGradient}
           getNodeShape={uniformCircleShape}

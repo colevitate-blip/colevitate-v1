@@ -55,14 +55,26 @@ function radialRingRadius(ring: number, maxRing: number, width: number, height: 
 }
 
 const QUADRANT_PULL = 0.22; // fraction of width/height a quadrant's target sits from center
+// Even a dead-neutral node still lands at least this fraction of the way out — otherwise a
+// pull of 0 would collapse it onto the shared center, indistinguishable from nodes with no
+// quadrant assignment at all and illegible as belonging to this quadrant.
+const QUADRANT_PULL_FLOOR = 0.4;
 
-/** Target (x, y) for a quadrant index — 0 top-left, 1 top-right, 2 bottom-left, 3 bottom-right. */
-function quadrantTarget(quadrant: number, width: number, height: number) {
+/**
+ * Target (x, y) for a quadrant index — 0 top-left, 1 top-right, 2 bottom-left, 3 bottom-right.
+ * `pull` (0..1, default 1) scales how far toward that corner the target sits: a node whose real
+ * score sits near neutral gets a low pull and stays close to center, while one with an extreme
+ * score gets pulled out near the quadrant's edge. Without this, every quadrant fans out to
+ * exactly the same shape regardless of the data — this is what lets the layout actually differ
+ * quadrant to quadrant instead of just mirroring.
+ */
+function quadrantTarget(quadrant: number, width: number, height: number, pull = 1) {
   const left = quadrant === 0 || quadrant === 2;
   const top = quadrant === 0 || quadrant === 1;
+  const effectivePull = QUADRANT_PULL_FLOOR + (1 - QUADRANT_PULL_FLOOR) * Math.min(1, Math.max(0, pull));
   return {
-    x: width / 2 + (left ? -1 : 1) * width * QUADRANT_PULL,
-    y: height / 2 + (top ? -1 : 1) * height * QUADRANT_PULL,
+    x: width / 2 + (left ? -1 : 1) * width * QUADRANT_PULL * effectivePull,
+    y: height / 2 + (top ? -1 : 1) * height * QUADRANT_PULL * effectivePull,
   };
 }
 
@@ -123,6 +135,7 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
     background = "card",
     quadrantGuide = false,
     getNodeQuadrant,
+    getNodeQuadrantPull,
     getQuadrantLabel,
   },
   ref
@@ -648,7 +661,10 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
           // Start each node near its quadrant's target already, with a
           // little jitter — same reasoning as the ring case above.
           const quadrant = getNodeQuadrant(node as GraphNode);
-          const target = quadrant !== undefined ? quadrantTarget(quadrant, width, height) : { x: width / 2, y: height / 2 };
+          const target =
+            quadrant !== undefined
+              ? quadrantTarget(quadrant, width, height, getNodeQuadrantPull?.(node as GraphNode))
+              : { x: width / 2, y: height / 2 };
           node.x = target.x + (Math.random() - 0.5) * 40;
           node.y = target.y + (Math.random() - 0.5) * 40;
         } else {
@@ -660,7 +676,7 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
         }
       });
     },
-    [getNodeRing, getNodeQuadrant]
+    [getNodeRing, getNodeQuadrant, getNodeQuadrantPull]
   );
 
   useImperativeHandle(
@@ -716,7 +732,10 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
       }
       if (getNodeQuadrant) {
         const quadrant = getNodeQuadrant(n);
-        const target = quadrant !== undefined ? quadrantTarget(quadrant, width, height) : { x: width / 2, y: height / 2 };
+        const target =
+          quadrant !== undefined
+            ? quadrantTarget(quadrant, width, height, getNodeQuadrantPull?.(n))
+            : { x: width / 2, y: height / 2 };
         return {
           ...n,
           x: target.x + (Math.random() - 0.5) * 40,
@@ -785,14 +804,18 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
           "x",
           forceX<SimNode>((n) => {
             const quadrant = getNodeQuadrant(n as GraphNode);
-            return quadrant !== undefined ? quadrantTarget(quadrant, width, height).x : width / 2;
+            return quadrant !== undefined
+              ? quadrantTarget(quadrant, width, height, getNodeQuadrantPull?.(n as GraphNode)).x
+              : width / 2;
           }).strength((n) => (getNodeQuadrant(n as GraphNode) !== undefined ? 0.35 : 0.12))
         )
         .force(
           "y",
           forceY<SimNode>((n) => {
             const quadrant = getNodeQuadrant(n as GraphNode);
-            return quadrant !== undefined ? quadrantTarget(quadrant, width, height).y : height / 2;
+            return quadrant !== undefined
+              ? quadrantTarget(quadrant, width, height, getNodeQuadrantPull?.(n as GraphNode)).y
+              : height / 2;
           }).strength((n) => (getNodeQuadrant(n as GraphNode) !== undefined ? 0.35 : 0.12))
         )
         .force(
@@ -848,7 +871,7 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
       onSimulationReady?.(null);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, getNodeRadius, getNodeRing, getNodeCluster, getNodeQuadrant]);
+  }, [data, getNodeRadius, getNodeRing, getNodeCluster, getNodeQuadrant, getNodeQuadrantPull]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;

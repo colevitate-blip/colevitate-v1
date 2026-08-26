@@ -97,6 +97,15 @@ export interface GraphViewProps {
    * rather than belonging to just one.
    */
   getNodeQuadrant?: (node: GraphNode) => number | undefined;
+  /**
+   * How far toward its quadrant's outer edge an assigned node should sit,
+   * from 0 (a dead-neutral score — stays close to center) to 1 (a maximally
+   * leaning score — sits near the edge). Omit to pull every assigned node
+   * out to the same fixed distance regardless of its data. This is what
+   * lets each quadrant's shape reflect the actual scores behind it instead
+   * of every quadrant fanning out identically.
+   */
+  getNodeQuadrantPull?: (node: GraphNode) => number;
   /** Label drawn on the crosshair itself for a given quadrant (0-3, same indexing as getNodeQuadrant) — lets a spectrum's name live on the line instead of floating next to its node. Ignored unless quadrantGuide is on. */
   getQuadrantLabel?: (quadrant: number) => string;
 }

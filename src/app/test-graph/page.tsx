@@ -12,6 +12,7 @@ import {
   getGraphNodeCluster,
   getGraphNodeGradient,
   getGraphNodeQuadrant,
+  getGraphNodeQuadrantPull,
   getGraphQuadrantLabel,
 } from "@/components/personality/combined/graphAppearance";
 import type { GraphNode } from "@/components/graph/types";
@@ -114,6 +115,7 @@ function QuadrantPreview({ dark, label, quadrantMode }: { dark: boolean; label: 
             // quadrant mode is off.
             getNodeCluster={quadrantMode ? undefined : getGraphNodeCluster}
             getNodeQuadrant={quadrantMode ? getGraphNodeQuadrant : undefined}
+            getNodeQuadrantPull={quadrantMode ? getGraphNodeQuadrantPull : undefined}
             getQuadrantLabel={quadrantMode ? getGraphQuadrantLabel : undefined}
             getNodeGradient={getGraphNodeGradient}
             getNodeShape={uniformCircleShape}
