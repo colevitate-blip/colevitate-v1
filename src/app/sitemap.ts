@@ -22,7 +22,7 @@ function localizedEntries(href: string): MetadataRoute.Sitemap {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticPaths = ["/", "/types", "/people"];
+  const staticPaths = ["/", "/types", "/people", "/for-teams"];
 
   const typePaths = getAllTypePageParams().map(
     ({ frameworkUrlSlug, slug }) => `/types/${frameworkUrlSlug}/${slug}`

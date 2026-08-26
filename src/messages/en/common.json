@@ -26,6 +26,27 @@
       "cta": "Compare With Someone"
     }
   },
+  "forTeams": {
+    "eyebrow": "For teams & workplaces",
+    "title": "See how your team actually works together",
+    "subtitle": "Colevitate combines four personality frameworks into one composite view of a team — where everyone clusters, where the team is spread thin, and where someone might need to deliberately cover the gap. Private by default: each person opts in before their results are shared.",
+    "features": {
+      "frameworks": {
+        "title": "One view, four frameworks",
+        "body": "16 Personalities, Big Five, Human Design, and Color Type, combined into a single composite read on how your team actually operates — not just four separate quiz results."
+      },
+      "optIn": {
+        "title": "Opt-in, never mandatory",
+        "body": "Nobody's results are visible to the team until they explicitly choose to share. Team leads see the composition, not anyone's raw answers."
+      },
+      "anySize": {
+        "title": "Built for any team size",
+        "body": "Works the same for a 3-person pod or a 30-person department — invite people with a code, and the composition view fills in as they join."
+      }
+    },
+    "cta": "Create Your Team",
+    "secondary": "Have an invite code? Join a team instead."
+  },
   "assessments": {
     "mbti": {
       "label": "16 Personalities",

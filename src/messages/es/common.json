@@ -26,6 +26,27 @@
       "cta": "Comparar con alguien"
     }
   },
+  "forTeams": {
+    "eyebrow": "Para equipos y empresas",
+    "title": "Descubre cómo trabaja realmente tu equipo",
+    "subtitle": "Colevitate combina cuatro modelos de personalidad en una sola vista de conjunto de tu equipo — dónde coincide todo el mundo, dónde el equipo está más flojo y dónde alguien podría cubrir deliberadamente ese hueco. Privado por defecto: cada persona decide si comparte sus resultados.",
+    "features": {
+      "frameworks": {
+        "title": "Una sola vista, cuatro modelos",
+        "body": "16 Personalidades, Big Five, Human Design y Tipo de Color, combinados en una sola vista de cómo funciona realmente tu equipo — no solo cuatro resultados de pruebas por separado."
+      },
+      "optIn": {
+        "title": "Voluntario, nunca obligatorio",
+        "body": "Los resultados de nadie son visibles para el equipo hasta que esa persona decide compartirlos. Los líderes del equipo ven la composición, no las respuestas de cada uno."
+      },
+      "anySize": {
+        "title": "Pensado para equipos de cualquier tamaño",
+        "body": "Funciona igual para un equipo de 3 personas que para un departamento de 30 — invita con un código, y la vista de conjunto se completa a medida que se van uniendo."
+      }
+    },
+    "cta": "Crear Tu Equipo",
+    "secondary": "¿Tienes un código de invitación? Únete a un equipo."
+  },
   "assessments": {
     "mbti": {
       "label": "16 Personalidades",

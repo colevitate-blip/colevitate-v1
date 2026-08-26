@@ -24,7 +24,8 @@ function isPersonalityPath(pathname: string): boolean {
     rest[0] === "circle" ||
     rest[0] === "pair" ||
     rest[0] === "types" ||
-    rest[0] === "people"
+    rest[0] === "people" ||
+    rest[0] === "for-teams"
   )
     return true;
   return PERSONALITY_SLUGS.has(path);
