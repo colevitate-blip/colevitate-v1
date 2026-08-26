@@ -129,13 +129,12 @@ export function ResultShell({
       ) : null}
 
       <div className="mt-8 flex justify-center">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
-        >
-          <ChevronLeft className="size-4" />
-          {t("overview")}
-        </Link>
+        <Button asChild variant="outline" size="sm" className="rounded-full gap-1.5">
+          <Link href="/">
+            <ChevronLeft className="size-3.5" />
+            {t("overview")}
+          </Link>
+        </Button>
       </div>
     </div>
   );
