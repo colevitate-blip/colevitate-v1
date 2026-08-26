@@ -7,7 +7,8 @@
     "guestNotice": "Melde dich an, um deine Ergebnisse zu speichern",
     "guestSaveBanner": "Du surfst als Gast — dieses Profil wird nur in diesem Browser gespeichert und geht verloren, wenn du deine Daten löschst oder das Gerät wechselst.",
     "guestSaveBannerCta": "Anmelden, um es zu speichern",
-    "footerTagline": "Clientseitig und privat — deine Ergebnisse verlassen nie deinen Browser."
+    "footerTagline": "Clientseitig und privat — deine Ergebnisse verlassen nie deinen Browser.",
+    "teamsLink": "Für Teams"
   },
   "landing": {
     "eyebrow": "Vier Perspektiven. Je etwa drei Minuten.",
@@ -18,6 +19,11 @@
       "title": "Wo sich deine vier Perspektiven einig sind",
       "body": "{count, plural, =0 {Mach unten deinen ersten Test, und wir beginnen, ein Bild von dir zu zeichnen.} =1 {Eine Perspektive geschafft, drei fehlen noch — und schon jetzt sagt sie uns etwas. Hier ist eine Vorschau.} other {# von 4 Perspektiven sind da. Sie beginnen, sich in einigen Dingen einig zu sein — sieh, wo.}}",
       "cta": "{count, plural, =0 {Zeig mir, was wir bisher wissen} =1 {Zeig mir, was wir bisher wissen} other {Alles zusammenführen}}"
+    },
+    "pairing": {
+      "title": "Noch besser mit dem Blick von jemand anderem",
+      "body": "Erstelle dein kombiniertes Profil und lade dann eine Partnerin, einen Freund oder ein Familienmitglied ein, ihr Ergebnis mit deinem zu vergleichen — und sieh genau, wo ihr euch einig seid und wo nicht.",
+      "cta": "Mit jemandem vergleichen"
     }
   },
   "assessments": {

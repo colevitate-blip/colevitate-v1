@@ -7,7 +7,8 @@
     "guestNotice": "Sign in to save your results",
     "guestSaveBanner": "You're browsing as a guest — this profile is only saved in this browser and will be lost if you clear your data or switch devices.",
     "guestSaveBannerCta": "Sign in to save it",
-    "footerTagline": "Client-side and private — your results never leave your browser."
+    "footerTagline": "Client-side and private — your results never leave your browser.",
+    "teamsLink": "For Teams"
   },
   "landing": {
     "eyebrow": "Four lenses. About three minutes each.",
@@ -18,6 +19,11 @@
       "title": "Where Your Four Lenses Agree",
       "body": "{count, plural, =0 {Take your first quiz below, and we'll start sketching who you are.} =1 {One lens down, three to go — and it's already telling us something. Here's a preview.} other {# of 4 lenses in. They're starting to agree on some things — see where.}}",
       "cta": "{count, plural, =0 {See What We Know So Far} =1 {See What We Know So Far} other {Bring It All Together}}"
+    },
+    "pairing": {
+      "title": "Better With Someone Else's View",
+      "body": "Build your combined profile, then invite a partner, friend, or family member to compare theirs against yours — see exactly where you click and where you clash.",
+      "cta": "Compare With Someone"
     }
   },
   "assessments": {

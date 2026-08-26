@@ -7,7 +7,8 @@
     "guestNotice": "Connectez-vous pour enregistrer vos résultats",
     "guestSaveBanner": "Vous naviguez en tant qu'invité — ce profil n'est enregistré que dans ce navigateur et sera perdu si vous effacez vos données ou changez d'appareil.",
     "guestSaveBannerCta": "Connectez-vous pour l'enregistrer",
-    "footerTagline": "Côté client et privé — vos résultats ne quittent jamais votre navigateur."
+    "footerTagline": "Côté client et privé — vos résultats ne quittent jamais votre navigateur.",
+    "teamsLink": "Pour les équipes"
   },
   "landing": {
     "eyebrow": "Quatre regards. Environ trois minutes chacun.",
@@ -18,6 +19,11 @@
       "title": "Là où vos quatre regards se rejoignent",
       "body": "{count, plural, =0 {Faites votre première évaluation ci-dessous, et nous commencerons à esquisser qui vous êtes.} =1 {Un regard fait, trois à venir — et il nous dit déjà quelque chose. Voici un aperçu.} other {# évaluations sur 4 terminées. Elles commencent à se rejoindre sur certains points — découvrez lesquels.}}",
       "cta": "{count, plural, =0 {Voir ce que nous savons déjà} =1 {Voir ce que nous savons déjà} other {Tout rassembler}}"
+    },
+    "pairing": {
+      "title": "Encore mieux avec le regard de quelqu'un d'autre",
+      "body": "Complétez votre profil combiné, puis invitez un partenaire, un ami ou un membre de votre famille à comparer le sien au vôtre — et découvrez précisément où vous vous rejoignez et où vous divergez.",
+      "cta": "Comparer avec quelqu'un"
     }
   },
   "assessments": {

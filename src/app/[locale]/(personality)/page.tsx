@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { AssessmentCard } from "@/components/personality/landing/AssessmentCard";
@@ -107,6 +107,23 @@ export default function PersonalityLandingPage() {
           >
             <Link href={canCombine ? "/combined" : "#"}>
               {t("combined.cta", { count: completedIds.length })}
+              <ArrowRight className="size-4" />
+            </Link>
+          </Button>
+        </div>
+      </section>
+
+      <section className="mt-8 overflow-hidden rounded-[2.5rem] border bg-card p-8 text-center sm:p-12">
+        <div className="mx-auto max-w-xl">
+          <span className="inline-flex size-12 items-center justify-center rounded-2xl bg-muted">
+            <Users className="size-5 text-primary" />
+          </span>
+          <h2 className="mt-4 text-2xl font-semibold tracking-tight sm:text-3xl">{t("pairing.title")}</h2>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">{t("pairing.body")}</p>
+
+          <Button asChild size="lg" variant="outline" className="mt-7 rounded-full">
+            <Link href="/combined">
+              {t("pairing.cta")}
               <ArrowRight className="size-4" />
             </Link>
           </Button>

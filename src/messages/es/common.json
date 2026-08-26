@@ -7,7 +7,8 @@
     "guestNotice": "Inicia sesión para guardar tus resultados",
     "guestSaveBanner": "Estás navegando como invitado — este perfil solo se guarda en este navegador y se perderá si borras tus datos o cambias de dispositivo.",
     "guestSaveBannerCta": "Inicia sesión para guardarlo",
-    "footerTagline": "Del lado del cliente y privado — tus resultados nunca salen de tu navegador."
+    "footerTagline": "Del lado del cliente y privado — tus resultados nunca salen de tu navegador.",
+    "teamsLink": "Para equipos"
   },
   "landing": {
     "eyebrow": "Cuatro miradas. Unos tres minutos cada una.",
@@ -18,6 +19,11 @@
       "title": "Donde coinciden tus cuatro miradas",
       "body": "{count, plural, =0 {Haz tu primera evaluación abajo, y empezaremos a esbozar quién eres.} =1 {Una mirada lista, faltan tres — y ya nos dice algo. Aquí tienes un adelanto.} other {# de 4 miradas completadas. Empiezan a coincidir en algunas cosas — mira dónde.}}",
       "cta": "{count, plural, =0 {Ver lo que ya sabemos} =1 {Ver lo que ya sabemos} other {Unir todas las piezas}}"
+    },
+    "pairing": {
+      "title": "Mejor con la mirada de otra persona",
+      "body": "Completa tu perfil combinado y luego invita a tu pareja, a un amigo o a un familiar a comparar el suyo con el tuyo — y descubre exactamente en qué coinciden y en qué no.",
+      "cta": "Comparar con alguien"
     }
   },
   "assessments": {
