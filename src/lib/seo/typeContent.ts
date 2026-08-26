@@ -2,12 +2,10 @@
 // interactive quiz results) into static pages addressable by URL, for SEO.
 // No new copy is invented here for description/strengths/challenges — it's
 // the same text the results screens already show. `careers` and
-// `relationships` are placeholders: nothing in the codebase has this content
-// yet, and it shouldn't be fabricated, so pages render an honest "coming
-// soon" for those sections until real copy is written. `famousExamples` is
-// populated from src/lib/seo/famousPeopleContent.ts (Tier 0 of
-// IMPROVEMENT_PROMPTS.md) — every entry there is itself sourced, editorial
-// typing, not fabricated.
+// `relationships` come from src/lib/seo/careersAndRelationships.ts (Tier 1.3
+// of IMPROVEMENT_PROMPTS.md). `famousExamples` is populated from
+// src/lib/seo/famousPeopleContent.ts (Tier 0) — every entry there is itself
+// sourced, editorial typing, not fabricated.
 
 import type { AssessmentId, ColorId, HumanDesignType } from "@/lib/personality/types";
 import { ASSESSMENT_CATALOG } from "@/lib/personality/catalog";
@@ -17,6 +15,16 @@ import { COLOR_CONTENT } from "@/components/personality/colors/content";
 import { TRAIT_LABEL, TRAIT_LEVELS, ARCHETYPE_NOUN } from "@/components/personality/bigfive/content";
 import type { BigFiveTrait } from "@/components/personality/bigfive/questions";
 import { getFamousPeopleByTyping } from "./famousPeopleContent";
+import {
+  MBTI_CAREERS,
+  MBTI_RELATIONSHIPS,
+  HD_CAREERS,
+  HD_RELATIONSHIPS,
+  COLOR_CAREERS,
+  COLOR_RELATIONSHIPS,
+  BIGFIVE_CAREERS,
+  BIGFIVE_RELATIONSHIPS,
+} from "./careersAndRelationships";
 
 export interface TypePageContent {
   framework: AssessmentId;
@@ -79,8 +87,8 @@ function mbtiContent(code: string): TypePageContent | null {
     description: c.description,
     strengths: c.strengths,
     challenges: c.growth,
-    careers: [],
-    relationships: "",
+    careers: MBTI_CAREERS[c.code] ?? [],
+    relationships: MBTI_RELATIONSHIPS[c.code] ?? "",
     famousExamples: famousExamplesFor("mbti", c.code),
   };
 }
@@ -99,8 +107,8 @@ function humanDesignContent(code: string): TypePageContent | null {
     description: c.description,
     strengths: c.strengths,
     challenges: c.growth,
-    careers: [],
-    relationships: "",
+    careers: HD_CAREERS[code as HumanDesignType] ?? [],
+    relationships: HD_RELATIONSHIPS[code as HumanDesignType] ?? "",
     famousExamples: famousExamplesFor("humandesign", code),
   };
 }
@@ -119,8 +127,8 @@ function colorsContent(code: string): TypePageContent | null {
     description: c.description,
     strengths: c.strengths,
     challenges: c.growth,
-    careers: [],
-    relationships: "",
+    careers: COLOR_CAREERS[code as ColorId] ?? [],
+    relationships: COLOR_RELATIONSHIPS[code as ColorId] ?? "",
     famousExamples: famousExamplesFor("colors", code),
   };
 }
@@ -146,8 +154,8 @@ function bigFiveContent(code: string): TypePageContent | null {
     description: data.blurb,
     strengths: [data.strength],
     challenges: [data.growth],
-    careers: [],
-    relationships: "",
+    careers: BIGFIVE_CAREERS[code] ?? [],
+    relationships: BIGFIVE_RELATIONSHIPS[code] ?? "",
     famousExamples: famousExamplesFor("bigfive", code),
   };
 }
