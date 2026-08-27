@@ -16,6 +16,7 @@
 // directly, so adding a person here is enough to get them a live page.
 
 import type { AssessmentId } from "@/lib/personality/types";
+import { getPersonTranslation } from "./translations";
 
 export type FamousPersonCategory = "scientist" | "nobel-laureate" | "entertainment" | "politician";
 
@@ -1128,8 +1129,23 @@ export function getAllFamousPeopleSlugs(): string[] {
   return FAMOUS_PEOPLE.map((p) => p.slug);
 }
 
-export function getFamousPerson(slug: string): FamousPersonContent | null {
-  return FAMOUS_PEOPLE.find((p) => p.slug === slug) ?? null;
+// locale defaults to "en"; for de/es/fr/zh a real (non-machine-translated)
+// override is applied where one exists — see src/lib/seo/translations/
+// (Tier 4.3, phase 3). A translation may cover only some of a person's
+// typings' rationales; any uncovered ones fall back to English individually.
+export function getFamousPerson(slug: string, locale: string = "en"): FamousPersonContent | null {
+  const p = FAMOUS_PEOPLE.find((p) => p.slug === slug);
+  if (!p) return null;
+  const t = getPersonTranslation(p.slug, locale);
+  if (!t) return p;
+  return {
+    ...p,
+    bio: t.bio,
+    typings: p.typings.map((typing) => {
+      const rationale = t.rationales[`${typing.framework}-${typing.code}`];
+      return rationale ? { ...typing, rationale } : typing;
+    }),
+  };
 }
 
 /** Every person carrying a given framework+code typing — what Tier 0.3 uses to populate `famousExamples` and build "Famous [Type]" pages. */

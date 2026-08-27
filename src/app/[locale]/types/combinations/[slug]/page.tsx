@@ -14,8 +14,8 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
-  const { slug } = await params;
-  const content = getCombinationContent(slug);
+  const { locale, slug } = await params;
+  const content = getCombinationContent(slug, locale);
   if (!content) return {};
 
   const description = content.summary.length > 155 ? `${content.summary.slice(0, 152)}...` : content.summary;
@@ -30,12 +30,12 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
 }
 
 export default async function CombinationPage({ params }: { params: Promise<Params> }) {
-  const { slug } = await params;
-  const content = getCombinationContent(slug);
+  const { locale, slug } = await params;
+  const content = getCombinationContent(slug, locale);
   if (!content) notFound();
 
-  const typeA = resolveTypeRef(content.a);
-  const typeB = resolveTypeRef(content.b);
+  const typeA = resolveTypeRef(content.a, locale);
+  const typeB = resolveTypeRef(content.b, locale);
   if (!typeA || !typeB) notFound();
 
   return (

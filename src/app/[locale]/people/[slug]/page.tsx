@@ -14,8 +14,8 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
-  const { slug } = await params;
-  const content = getFamousPerson(slug);
+  const { locale, slug } = await params;
+  const content = getFamousPerson(slug, locale);
   if (!content) return {};
 
   const title = `What Personality Type Is ${content.name}? | Colevitate`;
@@ -31,8 +31,8 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
 }
 
 export default async function PersonPage({ params }: { params: Promise<Params> }) {
-  const { slug } = await params;
-  const content = getFamousPerson(slug);
+  const { locale, slug } = await params;
+  const content = getFamousPerson(slug, locale);
   if (!content) notFound();
 
   const path = `/people/${content.slug}`;

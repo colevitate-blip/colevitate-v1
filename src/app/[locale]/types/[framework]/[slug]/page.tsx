@@ -38,7 +38,7 @@ export default async function TypePage({ params }: { params: Promise<Params> }) 
   const content = getTypeContent(framework, slug, locale);
   if (!content) notFound();
 
-  const relatedCombinations = getCombinationsForType(content.framework, content.code);
+  const relatedCombinations = getCombinationsForType(content.framework, content.code, locale);
   const path = `/types/${content.frameworkUrlSlug}/${content.slug}`;
 
   return (

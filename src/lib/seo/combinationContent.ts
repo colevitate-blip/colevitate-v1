@@ -9,6 +9,7 @@
 
 import type { AssessmentId } from "@/lib/personality/types";
 import { getTypeContent, FRAMEWORK_URL_SLUGS } from "./typeContent";
+import { getCombinationTranslation } from "./translations";
 
 export interface TypeRef {
   framework: AssessmentId;
@@ -1340,21 +1341,28 @@ export function getAllCombinationSlugs(): string[] {
   return COMBINATIONS.map((c) => c.slug);
 }
 
-export function getCombinationContent(slug: string): CombinationPageContent | null {
-  return COMBINATIONS.find((c) => c.slug === slug) ?? null;
+// locale defaults to "en"; for de/es/fr/zh a real (non-machine-translated)
+// override is applied where one exists — see src/lib/seo/translations/
+// (Tier 4.3, phase 3).
+export function getCombinationContent(slug: string, locale: string = "en"): CombinationPageContent | null {
+  const c = COMBINATIONS.find((c) => c.slug === slug);
+  if (!c) return null;
+  const t = getCombinationTranslation(c.slug, locale);
+  if (!t) return c;
+  return { ...c, headline: t.headline, summary: t.summary, reinforcements: t.reinforcements, contrasts: t.contrasts };
 }
 
 /** Combinations that feature a given type — used for "related pages" internal linking from a single-type page. */
-export function getCombinationsForType(framework: AssessmentId, code: string): CombinationPageContent[] {
+export function getCombinationsForType(framework: AssessmentId, code: string, locale: string = "en"): CombinationPageContent[] {
   return COMBINATIONS.filter(
     (c) =>
       (c.a.framework === framework && c.a.code.toLowerCase() === code.toLowerCase()) ||
       (c.b.framework === framework && c.b.code.toLowerCase() === code.toLowerCase())
-  );
+  ).map((c) => getCombinationContent(c.slug, locale)!);
 }
 
 /** Resolves a TypeRef's own content + URL, for rendering a link/card to it from a combination page. */
-export function resolveTypeRef(ref: TypeRef) {
-  const content = getTypeContent(FRAMEWORK_URL_SLUGS[ref.framework], ref.code.toLowerCase());
+export function resolveTypeRef(ref: TypeRef, locale: string = "en") {
+  const content = getTypeContent(FRAMEWORK_URL_SLUGS[ref.framework], ref.code.toLowerCase(), locale);
   return content;
 }
