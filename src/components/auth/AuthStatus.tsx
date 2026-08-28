@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { GitCompareArrows, LogIn, LogOut, Settings, User, Users } from "lucide-react";
-import { Link as I18nLink, usePathname } from "@/i18n/navigation";
+import { Link as I18nLink } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/supabase/AuthProvider";
 import { signOut } from "@/app/auth/actions";
@@ -11,6 +12,9 @@ import { signOut } from "@/app/auth/actions";
 export function AuthStatus() {
   const { user, authLoading, profileMeta } = useAuth();
   const t = useTranslations("chrome");
+  // next/navigation's usePathname (not @/i18n/navigation's, which strips the
+  // locale segment) — this feeds `next=` below, and /login isn't part of
+  // locale routing, so the redirect target must keep its locale prefix.
   const pathname = usePathname();
 
   if (authLoading) return null;

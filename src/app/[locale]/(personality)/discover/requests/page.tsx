@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { RequestsTabs } from "@/components/discovery/RequestsTabs";
 import type { ApproachRequestSummary } from "@/components/discovery/discoveryTypes";
+import { loginRedirectTarget } from "@/lib/i18n/serverRedirect";
 
 interface RequestRow {
   id: string;
@@ -26,7 +27,7 @@ export default async function ApproachRequestsPage() {
   const user = authData.user;
 
   if (!user) {
-    redirect(`/login?next=/discover/requests`);
+    redirect(await loginRedirectTarget("/discover/requests"));
   }
 
   // Lazy expiry: flips this user's own past-expiry pending received requests

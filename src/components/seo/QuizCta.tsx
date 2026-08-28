@@ -9,10 +9,10 @@ export function QuizCta({ href, label }: { href: string; label: string }) {
       <h2 className="mt-1 text-xl font-semibold tracking-tight">
         Take the quiz and see how your results connect
       </h2>
-      <Button asChild className="mt-4 rounded-full">
+      <Button asChild className="mt-4 h-auto whitespace-normal rounded-full py-2 text-center">
         <Link href={href}>
           {label}
-          <ArrowRight className="size-4" />
+          <ArrowRight className="size-4 shrink-0" />
         </Link>
       </Button>
     </div>

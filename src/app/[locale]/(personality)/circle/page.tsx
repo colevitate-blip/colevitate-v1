@@ -4,6 +4,7 @@ import { CreateCircleForm } from "@/components/circle/CreateCircleForm";
 import { JoinTeamForm } from "@/components/teams/JoinTeamForm";
 import { Link } from "@/i18n/navigation";
 import { Users } from "lucide-react";
+import { loginRedirectTarget } from "@/lib/i18n/serverRedirect";
 
 interface TeamRow {
   role: string;
@@ -16,7 +17,7 @@ export default async function CirclesPage() {
   const user = data.user;
 
   if (!user) {
-    redirect(`/login?next=/circle`);
+    redirect(await loginRedirectTarget("/circle"));
   }
 
   const { data: rows } = await supabase

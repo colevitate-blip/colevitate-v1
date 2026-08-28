@@ -4,6 +4,7 @@ import { AccountSettingsForm } from "@/components/settings/AccountSettingsForm";
 import { ApproachabilitySettingsForm, type ApproachabilityMeta } from "@/components/settings/ApproachabilitySettingsForm";
 import type { ProfileMeta } from "@/lib/personality/storage";
 import type { ApproachableScope, ApproachIntent } from "@/components/discovery/discoveryTypes";
+import { loginRedirectTarget } from "@/lib/i18n/serverRedirect";
 
 export default async function SettingsPage() {
   const supabase = await createClient();
@@ -11,7 +12,7 @@ export default async function SettingsPage() {
   const user = data.user;
 
   if (!user) {
-    redirect(`/login?next=/settings`);
+    redirect(await loginRedirectTarget("/settings"));
   }
 
   const { data: profileData } = await supabase

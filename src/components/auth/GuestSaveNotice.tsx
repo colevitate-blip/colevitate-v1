@@ -1,13 +1,18 @@
 "use client";
 
 import { LogIn } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { Link, usePathname } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 
 /** Shown at the top of the results view for a signed-out visitor — their profile only
  * lives in this browser's storage, so it's one cleared cache or new device away from gone. */
 export function GuestSaveNotice() {
+  // next/navigation's usePathname (locale prefix included), with plain
+  // next/link below — /login isn't part of locale routing, so @/i18n/navigation's
+  // versions would both strip the prefix from `next=` and wrongly add one to
+  // /login itself (see src/lib/i18n/serverRedirect.ts).
   const pathname = usePathname();
   const t = useTranslations("chrome");
 

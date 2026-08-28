@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import NextLink from "next/link";
 import { GitCompareArrows } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { createClient } from "@/lib/supabase/server";
@@ -7,6 +8,7 @@ import { relationshipFramingFor } from "@/components/personality/compatibility/r
 import { generateCombinedProfile } from "@/components/personality/combined/generateCombinedProfile";
 import type { PersonalityResults } from "@/lib/personality/types";
 import { PairInviteResponse } from "./PairInviteResponse";
+import { loginRedirectTarget, localizedPath } from "@/lib/i18n/serverRedirect";
 
 export default async function PairInvitePage({ params }: { params: Promise<{ id: string }> }) {
   const { id: code } = await params;
@@ -24,7 +26,7 @@ export default async function PairInvitePage({ params }: { params: Promise<{ id:
   }
 
   if (preview.status === "accepted") {
-    redirect(`/pair/${preview.id}/report`);
+    redirect(await localizedPath(`/pair/${preview.id}/report`));
   }
 
   if (preview.status !== "pending") {
@@ -52,6 +54,11 @@ export default async function PairInvitePage({ params }: { params: Promise<{ id:
     readyToRespond = generateCombinedProfile(results) !== null;
   }
 
+  // /login lives outside locale routing, so this must use next/link (not
+  // @/i18n/navigation's Link, which would wrongly locale-prefix it into a
+  // dead /de/login-style 404) — see src/lib/i18n/serverRedirect.ts.
+  const loginHref = !user ? await loginRedirectTarget(`/pair/${code}`) : null;
+
   return (
     <div className="mx-auto flex w-full max-w-lg flex-col items-center px-4 py-16 text-center">
       <div className="mb-3 flex size-10 items-center justify-center rounded-full bg-gradient-to-br from-[var(--spatial-glow)] to-[var(--spatial-glow-2)] text-white">
@@ -70,12 +77,12 @@ export default async function PairInvitePage({ params }: { params: Promise<{ id:
 
       <div className="mt-8 w-full">
         {!user ? (
-          <Link
-            href={`/login?next=/pair/${code}`}
+          <NextLink
+            href={loginHref!}
             className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-90"
           >
             Sign in to respond
-          </Link>
+          </NextLink>
         ) : !readyToRespond ? (
           <Link
             href="/"

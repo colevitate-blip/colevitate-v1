@@ -4,6 +4,7 @@ import { relationshipFramingFor, type RelationshipType } from "@/components/pers
 import { PairingInviteRow } from "@/components/pairing/PairingInviteRow";
 import type { PairingStatus } from "@/components/pairing/pairingTypes";
 import { Link } from "@/i18n/navigation";
+import { loginRedirectTarget } from "@/lib/i18n/serverRedirect";
 
 interface PairingRow {
   id: string;
@@ -23,7 +24,7 @@ export default async function PairingsPage() {
   const user = data.user;
 
   if (!user) {
-    redirect(`/login?next=/pair`);
+    redirect(await loginRedirectTarget("/pair"));
   }
 
   const { data: rows } = await supabase

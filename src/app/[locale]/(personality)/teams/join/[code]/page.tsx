@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { joinTeamByCode } from "@/app/[locale]/(personality)/teams/actions";
+import { loginRedirectTarget, localizedPath } from "@/lib/i18n/serverRedirect";
 
 export default async function JoinTeamPage({ params }: { params: Promise<{ code: string }> }) {
   const { code } = await params;
@@ -8,7 +9,7 @@ export default async function JoinTeamPage({ params }: { params: Promise<{ code:
   const { data } = await supabase.auth.getUser();
 
   if (!data.user) {
-    redirect(`/login?next=/teams/join/${code}`);
+    redirect(await loginRedirectTarget(`/teams/join/${code}`));
   }
 
   let teamId: string;
@@ -25,5 +26,5 @@ export default async function JoinTeamPage({ params }: { params: Promise<{ code:
     );
   }
 
-  redirect(`/teams/${teamId}`);
+  redirect(await localizedPath(`/teams/${teamId}`));
 }

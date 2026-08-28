@@ -11,6 +11,7 @@ import {
   type ApproachIntent,
   type StoredAxisSnapshot,
 } from "@/components/discovery/discoveryTypes";
+import { loginRedirectTarget } from "@/lib/i18n/serverRedirect";
 import { DiscoverCard, type DiscoverCardData } from "@/components/discovery/DiscoverCard";
 import type { PersonalityResults } from "@/lib/personality/types";
 import { cn } from "@/lib/utils";
@@ -41,7 +42,7 @@ export default async function DiscoverPage({
   const user = authData.user;
 
   if (!user) {
-    redirect(`/login?next=/discover`);
+    redirect(await loginRedirectTarget("/discover"));
   }
 
   const { data: profile } = await supabase

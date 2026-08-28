@@ -4,6 +4,7 @@ import { TeamRoster, type RosterMember } from "@/components/teams/TeamRoster";
 import { TeamCompositionView } from "@/components/teams/TeamCompositionView";
 import type { SharedMemberAxes } from "@/components/teams/teamInsights";
 import type { AxisId } from "@/components/personality/combined/scoringMatrix";
+import { loginRedirectTarget } from "@/lib/i18n/serverRedirect";
 
 export default async function TeamPage({ params }: { params: Promise<{ teamId: string }> }) {
   const { teamId } = await params;
@@ -12,7 +13,7 @@ export default async function TeamPage({ params }: { params: Promise<{ teamId: s
   const user = data.user;
 
   if (!user) {
-    redirect(`/login?next=/teams/${teamId}`);
+    redirect(await loginRedirectTarget(`/teams/${teamId}`));
   }
 
   const { data: team } = await supabase

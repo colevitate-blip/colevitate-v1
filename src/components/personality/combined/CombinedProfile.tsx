@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { Link } from "@/i18n/navigation";
 import {
@@ -67,6 +67,7 @@ export function CombinedProfile({
   const { resolvedTheme } = useTheme();
   const { user, profileMeta } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
   const careerSuggestions = getCareerSuggestions(profile.axes);
   const [history, setHistory] = useState<CombinedSnapshot[]>([]);
   // Only set once sharing is newly enabled from this page — otherwise the
@@ -182,7 +183,7 @@ export function CombinedProfile({
 
   async function handleCopyLink() {
     if (!user) {
-      router.push("/login?next=/combined");
+      router.push(`/login?next=${encodeURIComponent(pathname)}`);
       return;
     }
     if (isEnablingShare) return;
@@ -201,7 +202,7 @@ export function CombinedProfile({
 
   function handleCompareClick() {
     if (!user) {
-      router.push("/login?next=/combined");
+      router.push(`/login?next=${encodeURIComponent(pathname)}`);
       return;
     }
     setCreatedInvite(null);

@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { joinTeamByCode } from "@/app/[locale]/(personality)/teams/actions";
+import { loginRedirectTarget, localizedPath } from "@/lib/i18n/serverRedirect";
 
 export default async function JoinCirclePage({ params }: { params: Promise<{ code: string }> }) {
   const { code } = await params;
@@ -8,7 +9,7 @@ export default async function JoinCirclePage({ params }: { params: Promise<{ cod
   const { data } = await supabase.auth.getUser();
 
   if (!data.user) {
-    redirect(`/login?next=/circle/join/${code}`);
+    redirect(await loginRedirectTarget(`/circle/join/${code}`));
   }
 
   let circleId: string;
@@ -25,5 +26,5 @@ export default async function JoinCirclePage({ params }: { params: Promise<{ cod
     );
   }
 
-  redirect(`/circle/${circleId}`);
+  redirect(await localizedPath(`/circle/${circleId}`));
 }

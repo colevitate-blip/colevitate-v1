@@ -5,6 +5,7 @@ import { CompatibilityReportView } from "@/components/personality/compatibility/
 import type { RelationshipType } from "@/components/personality/compatibility/relationshipFraming";
 import type { PairingAxisSnapshot, ShareLevel } from "../../actions";
 import { UnlockReportButton } from "./UnlockReportButton";
+import { loginRedirectTarget } from "@/lib/i18n/serverRedirect";
 
 interface PairingRow {
   id: string;
@@ -27,7 +28,7 @@ export default async function PairingReportPage({ params }: { params: Promise<{ 
   const user = authData.user;
 
   if (!user) {
-    redirect(`/login?next=/pair/${pairingId}/report`);
+    redirect(await loginRedirectTarget(`/pair/${pairingId}/report`));
   }
 
   const { data: pairing } = await supabase
