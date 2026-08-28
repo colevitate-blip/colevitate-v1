@@ -49,6 +49,8 @@ export interface FamousPersonContent {
   slug: string;
   name: string;
   category: FamousPersonCategory;
+  /** Drives which silhouette PersonAvatar falls back to when photo is null or fails to load — not shown anywhere else. */
+  gender: "man" | "woman";
   years: string;
   bio: string;
   typings: FamousPersonTyping[];
@@ -62,6 +64,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "isaac-newton",
     name: "Isaac Newton",
     category: "scientist",
+    gender: "man",
     years: "1642–1727",
     bio: "English physicist and mathematician whose Principia Mathematica laid the foundations of classical mechanics and universal gravitation.",
     typings: [
@@ -93,6 +96,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "charles-darwin",
     name: "Charles Darwin",
     category: "scientist",
+    gender: "man",
     years: "1809–1882",
     bio: "English naturalist whose theory of evolution by natural selection, laid out in On the Origin of Species, reshaped biology.",
     typings: [
@@ -129,6 +133,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "nikola-tesla",
     name: "Nikola Tesla",
     category: "scientist",
+    gender: "man",
     years: "1856–1943",
     bio: "Serbian-American inventor and electrical engineer best known for his contributions to alternating-current (AC) electrical systems.",
     typings: [
@@ -160,6 +165,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "ada-lovelace",
     name: "Ada Lovelace",
     category: "scientist",
+    gender: "woman",
     years: "1815–1852",
     bio: "English mathematician whose notes on Charles Babbage's Analytical Engine included what's widely considered the first published computer algorithm.",
     typings: [
@@ -191,6 +197,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "alan-turing",
     name: "Alan Turing",
     category: "scientist",
+    gender: "man",
     years: "1912–1954",
     bio: "English mathematician and computer scientist whose work on computability and codebreaking at Bletchley Park helped shorten World War II.",
     typings: [
@@ -222,6 +229,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "carl-sagan",
     name: "Carl Sagan",
     category: "scientist",
+    gender: "man",
     years: "1934–1996",
     bio: "American astronomer and science communicator who brought planetary science and cosmology to a mass audience through Cosmos.",
     typings: [
@@ -253,6 +261,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "jane-goodall",
     name: "Jane Goodall",
     category: "scientist",
+    gender: "woman",
     years: "1934–",
     bio: "English primatologist whose decades of field research on chimpanzees at Gombe Stream reshaped understanding of animal behavior and cognition.",
     typings: [
@@ -284,6 +293,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "stephen-hawking",
     name: "Stephen Hawking",
     category: "scientist",
+    gender: "man",
     years: "1942–2018",
     bio: "English theoretical physicist known for his work on black holes and cosmology, and for A Brief History of Time.",
     typings: [
@@ -317,6 +327,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "albert-einstein",
     name: "Albert Einstein",
     category: "nobel-laureate",
+    gender: "man",
     years: "1879–1955 · Nobel Prize in Physics, 1921",
     bio: "German-born theoretical physicist who developed the theory of relativity, fundamentally changing the understanding of space, time, and gravity.",
     typings: [
@@ -348,6 +359,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "marie-curie",
     name: "Marie Curie",
     category: "nobel-laureate",
+    gender: "woman",
     years: "1867–1934 · Nobel Prize in Physics, 1903; Nobel Prize in Chemistry, 1911",
     bio: "Polish-French physicist and chemist, the first person to win Nobel Prizes in two different sciences, for her research on radioactivity.",
     typings: [
@@ -379,6 +391,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "richard-feynman",
     name: "Richard Feynman",
     category: "nobel-laureate",
+    gender: "man",
     years: "1918–1988 · Nobel Prize in Physics, 1965",
     bio: "American theoretical physicist known for his work on quantum electrodynamics and for his popular lectures and memoirs.",
     typings: [
@@ -410,6 +423,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "toni-morrison",
     name: "Toni Morrison",
     category: "nobel-laureate",
+    gender: "woman",
     years: "1931–2019 · Nobel Prize in Literature, 1993",
     bio: "American novelist and editor whose work, including Beloved and Song of Solomon, explores Black American life and history.",
     typings: [
@@ -441,6 +455,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "ernest-hemingway",
     name: "Ernest Hemingway",
     category: "nobel-laureate",
+    gender: "man",
     years: "1899–1961 · Nobel Prize in Literature, 1954",
     bio: "American novelist and journalist known for a spare, understated prose style and a life spent in war reporting, hunting, and fishing.",
     typings: [
@@ -472,6 +487,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "gabriel-garcia-marquez",
     name: "Gabriel García Márquez",
     category: "nobel-laureate",
+    gender: "man",
     years: "1927–2014 · Nobel Prize in Literature, 1982",
     bio: "Colombian novelist and journalist, a central figure of magical realism, best known for One Hundred Years of Solitude.",
     typings: [
@@ -503,6 +519,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "nelson-mandela",
     name: "Nelson Mandela",
     category: "nobel-laureate",
+    gender: "man",
     years: "1918–2013 · Nobel Peace Prize, 1993",
     bio: "South African anti-apartheid leader and the country's first democratically elected president, imprisoned for 27 years before leading its transition to democracy.",
     typings: [
@@ -534,6 +551,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "malala-yousafzai",
     name: "Malala Yousafzai",
     category: "nobel-laureate",
+    gender: "woman",
     years: "1997– · Nobel Peace Prize, 2014",
     bio: "Pakistani education activist who survived an assassination attempt for advocating girls' education and became the youngest-ever Nobel laureate.",
     typings: [
@@ -565,6 +583,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "desmond-tutu",
     name: "Desmond Tutu",
     category: "nobel-laureate",
+    gender: "man",
     years: "1931–2021 · Nobel Peace Prize, 1984",
     bio: "South African Anglican archbishop and anti-apartheid activist who chaired the Truth and Reconciliation Commission.",
     typings: [
@@ -598,6 +617,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "meryl-streep",
     name: "Meryl Streep",
     category: "entertainment",
+    gender: "woman",
     years: "1949–",
     bio: "American actress widely regarded as one of the most acclaimed of her generation, with a record number of Academy Award nominations.",
     typings: [
@@ -629,6 +649,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "tom-hanks",
     name: "Tom Hanks",
     category: "entertainment",
+    gender: "man",
     years: "1956–",
     bio: "American actor and filmmaker known for roles in Forrest Gump, Cast Away, and Saving Private Ryan, and a long-standing public reputation for approachability.",
     typings: [
@@ -660,6 +681,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "audrey-hepburn",
     name: "Audrey Hepburn",
     category: "entertainment",
+    gender: "woman",
     years: "1929–1993",
     bio: "British actress and humanitarian, a leading Hollywood star of the 1950s–60s who later devoted much of her life to UNICEF field work.",
     typings: [
@@ -691,6 +713,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "robin-williams",
     name: "Robin Williams",
     category: "entertainment",
+    gender: "man",
     years: "1951–2014",
     bio: "American actor and comedian known for rapid-fire improvisational comedy and roles spanning Mrs. Doubtfire to Good Will Hunting.",
     typings: [
@@ -722,6 +745,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "denzel-washington",
     name: "Denzel Washington",
     category: "entertainment",
+    gender: "man",
     years: "1954–",
     bio: "American actor and director with a career spanning Malcolm X, Training Day, and Fences, and two Academy Awards.",
     typings: [
@@ -753,6 +777,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "oprah-winfrey",
     name: "Oprah Winfrey",
     category: "entertainment",
+    gender: "woman",
     years: "1954–",
     bio: "American media executive and talk-show host who built a decades-long career and media company around long-form interviews.",
     typings: [
@@ -784,6 +809,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "keanu-reeves",
     name: "Keanu Reeves",
     category: "entertainment",
+    gender: "man",
     years: "1964–",
     bio: "Canadian actor known for roles in The Matrix and John Wick, and a widely reported public reputation for quiet generosity.",
     typings: [
@@ -815,6 +841,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "emma-watson",
     name: "Emma Watson",
     category: "entertainment",
+    gender: "woman",
     years: "1990–",
     bio: "British actress known for the Harry Potter film series, and a UN Women Goodwill Ambassador for gender equality.",
     typings: [
@@ -848,6 +875,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "abraham-lincoln",
     name: "Abraham Lincoln",
     category: "politician",
+    gender: "man",
     years: "1809–1865 · 16th U.S. President",
     bio: "16th President of the United States, who led the country through the Civil War and issued the Emancipation Proclamation.",
     typings: [
@@ -879,6 +907,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "winston-churchill",
     name: "Winston Churchill",
     category: "politician",
+    gender: "man",
     years: "1874–1965 · UK Prime Minister",
     bio: "British statesman who served as Prime Minister during World War II, known for his wartime speeches and leadership.",
     typings: [
@@ -910,6 +939,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "franklin-d-roosevelt",
     name: "Franklin D. Roosevelt",
     category: "politician",
+    gender: "man",
     years: "1882–1945 · 32nd U.S. President",
     bio: "32nd President of the United States, who led the country through the Great Depression and most of World War II.",
     typings: [
@@ -941,6 +971,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "eleanor-roosevelt",
     name: "Eleanor Roosevelt",
     category: "politician",
+    gender: "woman",
     years: "1884–1962 · First Lady & UN diplomat",
     bio: "American diplomat and activist, First Lady of the United States, and a lead drafter of the Universal Declaration of Human Rights.",
     typings: [
@@ -972,6 +1003,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "margaret-thatcher",
     name: "Margaret Thatcher",
     category: "politician",
+    gender: "woman",
     years: "1925–2013 · UK Prime Minister",
     bio: "British stateswoman who served as Prime Minister from 1979–1990, the first woman to hold the office.",
     typings: [
@@ -1003,6 +1035,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "ronald-reagan",
     name: "Ronald Reagan",
     category: "politician",
+    gender: "man",
     years: "1911–2004 · 40th U.S. President",
     bio: "40th President of the United States and former actor, known for his communication style and economic policies.",
     typings: [
@@ -1034,6 +1067,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "mahatma-gandhi",
     name: "Mahatma Gandhi",
     category: "politician",
+    gender: "man",
     years: "1869–1948 · Independence movement leader",
     bio: "Indian lawyer and independence leader who pioneered nonviolent civil disobedience against British colonial rule.",
     typings: [
@@ -1065,6 +1099,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "barack-obama",
     name: "Barack Obama",
     category: "politician",
+    gender: "man",
     years: "1961– · 44th U.S. President",
     bio: "44th President of the United States, previously a U.S. Senator and constitutional law lecturer.",
     typings: [
@@ -1096,6 +1131,7 @@ export const FAMOUS_PEOPLE: FamousPersonContent[] = [
     slug: "angela-merkel",
     name: "Angela Merkel",
     category: "politician",
+    gender: "woman",
     years: "1954– · German Chancellor",
     bio: "German Chancellor from 2005–2021, previously a research scientist with a doctorate in quantum chemistry.",
     typings: [

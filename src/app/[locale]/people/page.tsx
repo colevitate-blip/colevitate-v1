@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Link } from "@/i18n/navigation";
 import { FAMOUS_PEOPLE, CATEGORY_LABEL, type FamousPersonCategory } from "@/lib/seo/famousPeopleContent";
+import { MbtiColorPill } from "@/components/seo/MbtiColorPill";
+import { PersonAvatar } from "@/components/seo/PersonAvatar";
 
 export const metadata: Metadata = {
   title: "Famous People & Their Personality Types | Colevitate",
@@ -11,6 +13,9 @@ export const metadata: Metadata = {
 
 const CATEGORY_ORDER: FamousPersonCategory[] = ["scientist", "nobel-laureate", "entertainment", "politician"];
 
+// Compact-rows layout, chosen from the /experiments/people-layouts comparison:
+// thumbnail + name + an MBTI pill stroked in the person's dominant Colors-
+// framework gradient, instead of the plain name-pill list this replaced.
 export default function PeopleIndexPage() {
   return (
     <main className="mx-auto w-full max-w-4xl px-4 py-12 sm:py-16">
@@ -24,16 +29,18 @@ export default function PeopleIndexPage() {
         const people = FAMOUS_PEOPLE.filter((p) => p.category === category);
         if (people.length === 0) return null;
         return (
-          <section key={category} className="mt-10">
+          <section key={category} className="mt-10 first:mt-0">
             <h2 className="text-lg font-semibold tracking-tight">{CATEGORY_LABEL[category]}</h2>
-            <div className="mt-3 flex flex-wrap gap-2">
+            <div className="mt-3 divide-y rounded-2xl border">
               {people.map((person) => (
                 <Link
                   key={person.slug}
                   href={`/people/${person.slug}`}
-                  className="rounded-full border px-3 py-1.5 text-sm font-medium transition-colors hover:bg-muted/50"
+                  className="flex items-center gap-3 px-4 py-2.5 transition-colors hover:bg-muted/50"
                 >
-                  {person.name}
+                  <PersonAvatar person={person} size={36} />
+                  <span className="text-sm font-medium">{person.name}</span>
+                  <MbtiColorPill person={person} />
                 </Link>
               ))}
             </div>
