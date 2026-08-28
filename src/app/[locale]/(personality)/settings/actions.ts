@@ -4,6 +4,7 @@ import { randomBytes, randomInt } from "node:crypto";
 import { createClient } from "@/lib/supabase/server";
 import { generateCombinedProfile } from "@/components/personality/combined/generateCombinedProfile";
 import { computeScoringMatrix } from "@/components/personality/combined/scoringMatrix";
+import { generateAnonLabel } from "@/lib/discovery/anonLabel";
 import type { PersonalityResults } from "@/lib/personality/types";
 import type { ApproachableScope, ApproachIntent } from "@/components/discovery/discoveryTypes";
 
@@ -102,11 +103,14 @@ export async function disableSharing() {
 
 // Separate opt-in from is_public/share_slug above: sharing gives one link
 // full profile access, this lets strangers with no link find the user in
-// a browsable list and message them (see supabase/migrations/0007_approachability.sql).
-// The only writer of profiles.approachable* / approachable_snapshots is the
-// set_approachable() security-definer RPC, so this action just assembles
-// the same slim axes/archetype snapshot createPairingInvite/
-// shareProfileWithTeam already compute and hands it to that RPC.
+// a browsable list and message them (see supabase/migrations/0007_approachability.sql,
+// 0008_anonymous_discovery.sql). The only writer of profiles.approachable* /
+// approachable_snapshots is the set_approachable() security-definer RPC, so
+// this action just assembles the same slim axes/archetype snapshot
+// createPairingInvite/shareProfileWithTeam already compute and hands it to
+// that RPC — real display_name/avatar_url are never sent here at all;
+// set_approachable stores only a generated pseudonym (anon_label), matching
+// the "anonymous until a connection is accepted" requirement.
 export async function setApproachable(on: boolean, scope: ApproachableScope, intents: ApproachIntent[] | null) {
   const supabase = await createClient();
   const { data } = await supabase.auth.getUser();
@@ -119,8 +123,7 @@ export async function setApproachable(on: boolean, scope: ApproachableScope, int
       p_intents: null,
       p_axes: null,
       p_archetype_name: null,
-      p_display_name: null,
-      p_avatar_url: null,
+      p_anon_label: null,
     });
     if (error) throw new Error(error.message);
     return;
@@ -128,7 +131,7 @@ export async function setApproachable(on: boolean, scope: ApproachableScope, int
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("results, display_name, avatar_url")
+    .select("results")
     .eq("id", data.user.id)
     .maybeSingle();
 
@@ -139,7 +142,6 @@ export async function setApproachable(on: boolean, scope: ApproachableScope, int
   }
 
   const axes = computeScoringMatrix(results).map((a) => ({ id: a.id, score: a.score }));
-  const displayName = profile?.display_name || data.user.user_metadata?.full_name || null;
 
   const { error } = await supabase.rpc("set_approachable", {
     p_on: true,
@@ -147,8 +149,7 @@ export async function setApproachable(on: boolean, scope: ApproachableScope, int
     p_intents: scope === "intents" ? intents : null,
     p_axes: axes,
     p_archetype_name: combinedProfile.archetype?.name ?? null,
-    p_display_name: displayName,
-    p_avatar_url: profile?.avatar_url || data.user.user_metadata?.avatar_url || null,
+    p_anon_label: generateAnonLabel(),
   });
   if (error) throw new Error(error.message);
 }

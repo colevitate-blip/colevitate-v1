@@ -9,7 +9,9 @@
     "guestSaveBannerCta": "Inicia sesión para guardarlo",
     "footerTagline": "Del lado del cliente y privado — tus resultados nunca salen de tu navegador.",
     "teamsLink": "Para equipos",
-    "discoverLink": "Descubrir"
+    "discoverLink": "Descubrir",
+    "peopleLink": "Personas",
+    "menuLabel": "Menú"
   },
   "landing": {
     "eyebrow": "Cuatro miradas. Unos tres minutos cada una.",

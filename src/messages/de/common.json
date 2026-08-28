@@ -9,7 +9,9 @@
     "guestSaveBannerCta": "Anmelden, um es zu speichern",
     "footerTagline": "Clientseitig und privat — deine Ergebnisse verlassen nie deinen Browser.",
     "teamsLink": "Für Teams",
-    "discoverLink": "Entdecken"
+    "discoverLink": "Entdecken",
+    "peopleLink": "Personen",
+    "menuLabel": "Menü"
   },
   "landing": {
     "eyebrow": "Vier Perspektiven. Je etwa drei Minuten.",

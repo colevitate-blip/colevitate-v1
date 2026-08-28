@@ -3,6 +3,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { generateCombinedProfile } from "@/components/personality/combined/generateCombinedProfile";
 import { computeScoringMatrix } from "@/components/personality/combined/scoringMatrix";
+import { generateAnonLabel } from "@/lib/discovery/anonLabel";
 import type { PersonalityResults } from "@/lib/personality/types";
 import type { ApproachIntent } from "@/components/discovery/discoveryTypes";
 
@@ -17,13 +18,16 @@ async function requireUser() {
 // own slim axes snapshot client-request-side, then hand everything to the
 // security-definer RPC, which is the only thing that can validate the
 // recipient's approachable/scope/intent state and write the row (see
-// supabase/migrations/0007_approachability.sql).
+// supabase/migrations/0007_approachability.sql, 0008_anonymous_discovery.sql).
+// Real display_name/avatar_url are never sent — only the sender's existing
+// anon_label (falling back to a fresh one for a sender who isn't approachable
+// themselves and so has no snapshot row yet).
 export async function sendApproach(recipientId: string, message: string, intent: ApproachIntent) {
   const { supabase, user } = await requireUser();
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("results, display_name, avatar_url")
+    .select("results")
     .eq("id", user.id)
     .maybeSingle();
 
@@ -34,7 +38,12 @@ export async function sendApproach(recipientId: string, message: string, intent:
   }
 
   const axes = computeScoringMatrix(results).map((a) => ({ id: a.id, score: a.score }));
-  const displayName = profile?.display_name || user.user_metadata?.full_name || null;
+
+  const { data: snapshot } = await supabase
+    .from("approachable_snapshots")
+    .select("anon_label")
+    .eq("user_id", user.id)
+    .maybeSingle();
 
   const { error } = await supabase.rpc("send_approach_request", {
     p_recipient_id: recipientId,
@@ -42,8 +51,7 @@ export async function sendApproach(recipientId: string, message: string, intent:
     p_intent: intent,
     p_sender_axes: axes,
     p_sender_archetype_name: combinedProfile.archetype?.name ?? null,
-    p_sender_display_name: displayName,
-    p_sender_avatar_url: profile?.avatar_url || user.user_metadata?.avatar_url || null,
+    p_sender_anon_label: snapshot?.anon_label || generateAnonLabel(),
   });
   if (error) throw new Error(error.message);
 }

@@ -18,8 +18,7 @@ import { cn } from "@/lib/utils";
 
 interface SnapshotRow {
   user_id: string;
-  display_name: string | null;
-  avatar_url: string | null;
+  anon_label: string;
   axes: StoredAxisSnapshot[];
   archetype_name: string | null;
 }
@@ -58,7 +57,7 @@ export default async function DiscoverPage({
 
   let query = supabase
     .from("approachable_snapshots")
-    .select("user_id, display_name, avatar_url, axes, archetype_name")
+    .select("user_id, anon_label, axes, archetype_name")
     .neq("user_id", user.id)
     .order("updated_at", { ascending: false })
     .limit(60);
@@ -87,14 +86,17 @@ export default async function DiscoverPage({
   const cards: DiscoverCardData[] = snapshots.map((s) => {
     const candidateAxes = hydrateAxisSnapshot(s.axes);
     const commonGround = viewerAxes
-      ? computeCompatibility(viewerAxes, candidateAxes, viewerName, s.display_name || "them")
+      ? computeCompatibility(viewerAxes, candidateAxes, viewerName, s.anon_label || "them")
           .axes.filter((a) => a.bucket === "aligned")
           .map((a) => a.label)
       : [];
     return {
       userId: s.user_id,
-      displayName: s.display_name || "Someone",
-      avatarUrl: s.avatar_url,
+      // Anon label only — never a real name/photo. Real identity is revealed
+      // to the other party solely via a mutually accepted approach request
+      // (see supabase/migrations/0008_anonymous_discovery.sql).
+      displayName: s.anon_label || "Someone",
+      avatarUrl: null,
       archetypeName: s.archetype_name,
       commonGround,
       alreadySent: alreadySent.has(s.user_id),

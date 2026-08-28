@@ -21,6 +21,15 @@ export default async function SettingsPage() {
     .eq("id", user.id)
     .maybeSingle();
 
+  // Separate table/query: the anon_label a stranger would actually see lives on
+  // approachable_snapshots (see 0008_anonymous_discovery.sql), not profiles —
+  // only present once the user has turned approachable on at least once.
+  const { data: snapshotData } = await supabase
+    .from("approachable_snapshots")
+    .select("anon_label")
+    .eq("user_id", user.id)
+    .maybeSingle();
+
   const profileMeta: ProfileMeta = {
     displayName: profileData?.display_name || null,
     avatarUrl: profileData?.avatar_url || user.user_metadata?.avatar_url || null,
@@ -32,7 +41,7 @@ export default async function SettingsPage() {
     approachable: profileData?.approachable || false,
     scope: (profileData?.approachable_scope as ApproachableScope) || "paused",
     intents: (profileData?.approachable_intents as ApproachIntent[] | null) || null,
-    displayName: profileData?.display_name || null,
+    anonLabel: snapshotData?.anon_label || null,
   };
 
   return (

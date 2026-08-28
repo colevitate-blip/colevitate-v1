@@ -87,11 +87,20 @@ export function PersonPageTemplate({ content }: { content: FamousPersonContent }
 
       {profile ? <FamousPersonInsights name={content.name} profile={profile} results={results} /> : null}
 
+      <p className="mt-8 text-center">
+        <Link
+          href={`/people/match?a=${content.slug}`}
+          className="text-sm font-medium text-primary underline underline-offset-2"
+        >
+          Compare {content.name}&apos;s personality with someone else
+        </Link>
+      </p>
+
       <Separator className="my-8" />
 
       <QuizCta
         href={`/${ASSESSMENT_CATALOG[primaryFramework].slug}`}
-        label={`See how you compare to ${content.name}`}
+        label={`Take the ${ASSESSMENT_CATALOG[primaryFramework].label} quiz`}
       />
     </article>
   );

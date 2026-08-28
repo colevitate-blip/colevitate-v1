@@ -9,7 +9,9 @@
     "guestSaveBannerCta": "Sign in to save it",
     "footerTagline": "Client-side and private — your results never leave your browser.",
     "teamsLink": "For Teams",
-    "discoverLink": "Discover"
+    "discoverLink": "Discover",
+    "peopleLink": "People",
+    "menuLabel": "Menu"
   },
   "landing": {
     "eyebrow": "Four lenses. About three minutes each.",

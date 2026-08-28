@@ -14,10 +14,13 @@ interface RequestRow {
   message: string;
   created_at: string;
   responded_at: string | null;
-  sender_display_name: string | null;
-  sender_avatar_url: string | null;
-  recipient_display_name: string | null;
-  recipient_avatar_url: string | null;
+  sender_anon_label: string | null;
+  recipient_anon_label: string | null;
+}
+
+interface RevealedIdentity {
+  display_name: string | null;
+  avatar_url: string | null;
 }
 
 export default async function ApproachRequestsPage() {
@@ -38,12 +41,26 @@ export default async function ApproachRequestsPage() {
   const { data: rows } = await supabase
     .from("approach_requests")
     .select(
-      "id, sender_id, recipient_id, status, intent, message, created_at, responded_at, sender_display_name, sender_avatar_url, recipient_display_name, recipient_avatar_url"
+      "id, sender_id, recipient_id, status, intent, message, created_at, responded_at, sender_anon_label, recipient_anon_label"
     )
     .or(`sender_id.eq.${user.id},recipient_id.eq.${user.id}`)
     .order("created_at", { ascending: false });
 
   const requests = (rows as RequestRow[] | null) || [];
+
+  // Real identity is never stored on the request row — it's only ever
+  // computed live, and only for an accepted request's two parties, via
+  // get_connection_identity() (0008_anonymous_discovery.sql). Every other
+  // row falls back to the frozen anon_label captured at send time.
+  const revealed = new Map<string, RevealedIdentity>();
+  await Promise.all(
+    requests
+      .filter((r) => r.status === "accepted")
+      .map(async (r) => {
+        const { data } = await supabase.rpc("get_connection_identity", { p_request_id: r.id }).maybeSingle();
+        if (data) revealed.set(r.id, data as RevealedIdentity);
+      })
+  );
 
   const incoming: ApproachRequestSummary[] = requests
     .filter((r) => r.recipient_id === user.id)
@@ -55,8 +72,8 @@ export default async function ApproachRequestsPage() {
       createdAt: r.created_at,
       respondedAt: r.responded_at,
       counterpartId: r.sender_id,
-      counterpartDisplayName: r.sender_display_name,
-      counterpartAvatarUrl: r.sender_avatar_url,
+      counterpartDisplayName: revealed.get(r.id)?.display_name ?? r.sender_anon_label,
+      counterpartAvatarUrl: revealed.get(r.id)?.avatar_url ?? null,
     }));
 
   const outgoing: ApproachRequestSummary[] = requests
@@ -69,8 +86,8 @@ export default async function ApproachRequestsPage() {
       createdAt: r.created_at,
       respondedAt: r.responded_at,
       counterpartId: r.recipient_id,
-      counterpartDisplayName: r.recipient_display_name,
-      counterpartAvatarUrl: r.recipient_avatar_url,
+      counterpartDisplayName: revealed.get(r.id)?.display_name ?? r.recipient_anon_label,
+      counterpartAvatarUrl: revealed.get(r.id)?.avatar_url ?? null,
     }));
 
   return (

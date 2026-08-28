@@ -16,7 +16,8 @@ export interface ApproachabilityMeta {
   approachable: boolean;
   scope: ApproachableScope;
   intents: ApproachIntent[] | null;
-  displayName: string | null;
+  /** The pseudonym strangers actually see (never the real name) — null until the user has turned approachable on at least once. */
+  anonLabel: string | null;
 }
 
 export function ApproachabilitySettingsForm({ initialMeta }: { initialMeta: ApproachabilityMeta }) {
@@ -126,8 +127,11 @@ export function ApproachabilitySettingsForm({ initialMeta }: { initialMeta: Appr
       {on && hasEnoughAssessments && combinedProfile && (
         <div className="border-t pt-4">
           <p className="mb-2 text-xs font-medium text-muted-foreground">{t("previewTitle")}</p>
+          {/* Deliberately the anon label, never the real name/photo — this is
+              what a stranger browsing Discover actually sees until you two
+              mutually accept a connection (0008_anonymous_discovery.sql). */}
           <SlimProfileCard
-            displayName={initialMeta.displayName || "You"}
+            displayName={initialMeta.anonLabel || "Anonymous"}
             avatarUrl={null}
             archetypeName={combinedProfile.archetype?.name ?? null}
           />

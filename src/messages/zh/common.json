@@ -9,7 +9,9 @@
     "guestSaveBannerCta": "登录以保存",
     "footerTagline": "本地运行、完全私密 —— 你的结果永远不会离开你的浏览器。",
     "teamsLink": "团队版",
-    "discoverLink": "发现"
+    "discoverLink": "发现",
+    "peopleLink": "名人",
+    "menuLabel": "菜单"
   },
   "landing": {
     "eyebrow": "四种视角，每种约三分钟",
