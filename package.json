@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "supabase:whoami": "dotenv -e .env.local -- supabase projects list",
+    "supabase:link": "dotenv -e .env.local -- supabase link --project-ref nmvhxehkqdgyegjgxhoc",
+    "db:push": "dotenv -e .env.local -- supabase db push",
+    "db:migrations": "dotenv -e .env.local -- supabase migration list",
+    "db:diff": "dotenv -e .env.local -- supabase db diff"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.4",
@@ -35,6 +40,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv-cli": "^11.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.3.0",
     "supabase": "^2.116.0",
