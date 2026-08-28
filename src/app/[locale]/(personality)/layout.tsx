@@ -4,7 +4,7 @@ import NextLink from "next/link";
 import { getTranslations } from "next-intl/server";
 import { PersonalityProvider } from "@/lib/personality/context";
 import { Link } from "@/i18n/navigation";
-import { Users } from "lucide-react";
+import { Compass, Users } from "lucide-react";
 import { ColevitateMark } from "@/components/brand/Logo";
 import { AuthProvider } from "@/lib/supabase/AuthProvider";
 import { AuthStatus } from "@/components/auth/AuthStatus";
@@ -42,6 +42,13 @@ export default async function PersonalityLayout({ children }: { children: ReactN
                   aria-hidden
                   className="size-2 rounded-full bg-primary shadow-[0_0_12px_var(--primary)]"
                 />
+                <Link
+                  href="/discover"
+                  className="flex items-center gap-1 rounded-full border px-2 py-1 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground sm:px-2.5"
+                >
+                  <Compass className="size-3.5" />
+                  <span className="hidden sm:inline">{t("discoverLink")}</span>
+                </Link>
                 <Link
                   href="/teams"
                   className="flex items-center gap-1 rounded-full border px-2 py-1 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground sm:px-2.5"

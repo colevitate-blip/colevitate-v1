@@ -2,6 +2,10 @@
 
 import { randomBytes, randomInt } from "node:crypto";
 import { createClient } from "@/lib/supabase/server";
+import { generateCombinedProfile } from "@/components/personality/combined/generateCombinedProfile";
+import { computeScoringMatrix } from "@/components/personality/combined/scoringMatrix";
+import type { PersonalityResults } from "@/lib/personality/types";
+import type { ApproachableScope, ApproachIntent } from "@/components/discovery/discoveryTypes";
 
 // Petname-style slugs (adjective-animal-suffix, e.g. "clever-otter-4f2a") keep public
 // share URLs from leaking the account's real name or email handle.
@@ -94,4 +98,57 @@ export async function disableSharing() {
     .from("profiles")
     .update({ is_public: false })
     .eq("id", data.user.id);
+}
+
+// Separate opt-in from is_public/share_slug above: sharing gives one link
+// full profile access, this lets strangers with no link find the user in
+// a browsable list and message them (see supabase/migrations/0007_approachability.sql).
+// The only writer of profiles.approachable* / approachable_snapshots is the
+// set_approachable() security-definer RPC, so this action just assembles
+// the same slim axes/archetype snapshot createPairingInvite/
+// shareProfileWithTeam already compute and hands it to that RPC.
+export async function setApproachable(on: boolean, scope: ApproachableScope, intents: ApproachIntent[] | null) {
+  const supabase = await createClient();
+  const { data } = await supabase.auth.getUser();
+  if (!data.user) throw new Error("Not authenticated");
+
+  if (!on || scope === "paused") {
+    const { error } = await supabase.rpc("set_approachable", {
+      p_on: false,
+      p_scope: "paused",
+      p_intents: null,
+      p_axes: null,
+      p_archetype_name: null,
+      p_display_name: null,
+      p_avatar_url: null,
+    });
+    if (error) throw new Error(error.message);
+    return;
+  }
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("results, display_name, avatar_url")
+    .eq("id", data.user.id)
+    .maybeSingle();
+
+  const results = (profile?.results as PersonalityResults) || {};
+  const combinedProfile = generateCombinedProfile(results);
+  if (!combinedProfile) {
+    throw new Error("Complete at least 2 assessments before turning this on");
+  }
+
+  const axes = computeScoringMatrix(results).map((a) => ({ id: a.id, score: a.score }));
+  const displayName = profile?.display_name || data.user.user_metadata?.full_name || null;
+
+  const { error } = await supabase.rpc("set_approachable", {
+    p_on: true,
+    p_scope: scope,
+    p_intents: scope === "intents" ? intents : null,
+    p_axes: axes,
+    p_archetype_name: combinedProfile.archetype?.name ?? null,
+    p_display_name: displayName,
+    p_avatar_url: profile?.avatar_url || data.user.user_metadata?.avatar_url || null,
+  });
+  if (error) throw new Error(error.message);
 }

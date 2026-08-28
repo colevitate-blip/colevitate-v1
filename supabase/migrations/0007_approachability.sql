@@ -32,12 +32,21 @@ alter table public.profiles
 -- browsing stranger can ever see. Row only exists while approachable is
 -- on; set_approachable() below deletes it the instant a user pauses, so
 -- there's never a stale exposed snapshot after opt-out.
+-- scope/intents are duplicated here from profiles (rather than read via a
+-- join) because the browse policy below must filter on them without
+-- querying profiles at all: a subquery on profiles inside this table's own
+-- RLS policy would itself be subject to profiles' RLS for the *browsing*
+-- user, who has no select access to a stranger's profile row (see
+-- 0002_profile_and_sharing.sql) — that would make every non-self,
+-- non-public row invisible regardless of approachable state.
 create table public.approachable_snapshots (
   user_id uuid primary key references auth.users (id) on delete cascade,
   display_name text,
   avatar_url text,
   axes jsonb not null,
   archetype_name text,
+  scope text not null check (scope in ('everyone', 'intents')),
+  intents text[] check (intents is null or intents <@ array['friend', 'romantic', 'professional']),
   updated_at timestamptz not null default now()
 );
 
@@ -83,17 +92,14 @@ as $$
   );
 $$;
 
--- Only approachable, non-paused, non-blocked snapshots are ever selectable.
--- No direct client insert/update policy exists on this table at all —
--- set_approachable() (security definer, below) is the only writer.
+-- A row only ever exists here while its owner is approachable and
+-- non-paused (set_approachable() deletes it otherwise), so unlike the
+-- profiles-level approachable/scope flags, this table needs no extra state
+-- check — existence plus the blocked check is sufficient.
 create policy "Anyone can select non-blocked approachable snapshots"
   on public.approachable_snapshots for select
   using (
-    exists (
-      select 1 from public.profiles p
-      where p.id = user_id and p.approachable = true and p.approachable_scope <> 'paused'
-    )
-    and not public.is_blocked(user_id, auth.uid())
+    not public.is_blocked(user_id, auth.uid())
     and not public.is_blocked(auth.uid(), user_id)
   );
 
@@ -135,13 +141,15 @@ begin
     if p_axes is null then
       raise exception 'Complete at least 2 assessments before becoming approachable';
     end if;
-    insert into public.approachable_snapshots (user_id, display_name, avatar_url, axes, archetype_name, updated_at)
-    values (auth.uid(), p_display_name, p_avatar_url, p_axes, p_archetype_name, now())
+    insert into public.approachable_snapshots (user_id, display_name, avatar_url, axes, archetype_name, scope, intents, updated_at)
+    values (auth.uid(), p_display_name, p_avatar_url, p_axes, p_archetype_name, p_scope, p_intents, now())
     on conflict (user_id) do update
       set display_name = excluded.display_name,
           avatar_url = excluded.avatar_url,
           axes = excluded.axes,
           archetype_name = excluded.archetype_name,
+          scope = excluded.scope,
+          intents = excluded.intents,
           updated_at = now();
   else
     delete from public.approachable_snapshots where user_id = auth.uid();
@@ -173,6 +181,13 @@ create table public.approach_requests (
   sender_avatar_url text,
   sender_axes jsonb,
   sender_archetype_name text,
+  -- Denormalized the same way as the sender_* columns, but sourced from
+  -- profiles by send_approach_request() itself (security definer, so this
+  -- bypasses the recipient's own RLS) rather than passed in by the client —
+  -- the sender has no read access to the recipient's profile row otherwise,
+  -- yet still needs a name/avatar to show on their own "Sent" list.
+  recipient_display_name text,
+  recipient_avatar_url text,
   created_at timestamptz not null default now(),
   responded_at timestamptz,
   expires_at timestamptz not null default (now() + interval '30 days')
@@ -235,6 +250,8 @@ declare
   result public.approach_requests;
   recipient_scope text;
   recipient_intents text[];
+  recipient_display_name text;
+  recipient_avatar_url text;
   recent_count integer;
 begin
   if auth.uid() is null then
@@ -253,7 +270,8 @@ begin
     raise exception 'Unable to send this request';
   end if;
 
-  select approachable_scope, approachable_intents into recipient_scope, recipient_intents
+  select approachable_scope, approachable_intents, display_name, avatar_url
+  into recipient_scope, recipient_intents, recipient_display_name, recipient_avatar_url
   from public.profiles
   where id = p_recipient_id and approachable = true;
 
@@ -273,11 +291,13 @@ begin
 
   insert into public.approach_requests (
     sender_id, recipient_id, intent, message,
-    sender_display_name, sender_avatar_url, sender_axes, sender_archetype_name
+    sender_display_name, sender_avatar_url, sender_axes, sender_archetype_name,
+    recipient_display_name, recipient_avatar_url
   )
   values (
     auth.uid(), p_recipient_id, p_intent, btrim(p_message),
-    p_sender_display_name, p_sender_avatar_url, p_sender_axes, p_sender_archetype_name
+    p_sender_display_name, p_sender_avatar_url, p_sender_axes, p_sender_archetype_name,
+    recipient_display_name, recipient_avatar_url
   )
   returning * into result;
 

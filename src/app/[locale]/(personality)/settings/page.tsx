@@ -1,7 +1,9 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { AccountSettingsForm } from "@/components/settings/AccountSettingsForm";
+import { ApproachabilitySettingsForm, type ApproachabilityMeta } from "@/components/settings/ApproachabilitySettingsForm";
 import type { ProfileMeta } from "@/lib/personality/storage";
+import type { ApproachableScope, ApproachIntent } from "@/components/discovery/discoveryTypes";
 
 export default async function SettingsPage() {
   const supabase = await createClient();
@@ -14,7 +16,7 @@ export default async function SettingsPage() {
 
   const { data: profileData } = await supabase
     .from("profiles")
-    .select("display_name, avatar_url, is_public, share_slug")
+    .select("display_name, avatar_url, is_public, share_slug, approachable, approachable_scope, approachable_intents")
     .eq("id", user.id)
     .maybeSingle();
 
@@ -23,6 +25,13 @@ export default async function SettingsPage() {
     avatarUrl: profileData?.avatar_url || user.user_metadata?.avatar_url || null,
     isPublic: profileData?.is_public || false,
     shareSlug: profileData?.share_slug || null,
+  };
+
+  const approachabilityMeta: ApproachabilityMeta = {
+    approachable: profileData?.approachable || false,
+    scope: (profileData?.approachable_scope as ApproachableScope) || "paused",
+    intents: (profileData?.approachable_intents as ApproachIntent[] | null) || null,
+    displayName: profileData?.display_name || null,
   };
 
   return (
@@ -34,7 +43,10 @@ export default async function SettingsPage() {
         </p>
       </div>
 
-      <AccountSettingsForm userId={user.id} initialMeta={profileMeta} userEmail={user.email || ""} userAvatar={user.user_metadata?.avatar_url} />
+      <div className="space-y-6">
+        <AccountSettingsForm userId={user.id} initialMeta={profileMeta} userEmail={user.email || ""} userAvatar={user.user_metadata?.avatar_url} />
+        <ApproachabilitySettingsForm initialMeta={approachabilityMeta} />
+      </div>
     </div>
   );
 }
