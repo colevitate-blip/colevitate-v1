@@ -5,8 +5,8 @@ import { getPathname } from "@/i18n/navigation";
 // and must never be locale-prefixed itself, but any in-app path we build at
 // runtime (a `next=` redirect target, an id/code-resolved destination) is a
 // locale-scoped page and needs the current locale applied explicitly — a
-// bare path always resolves to English (defaultLocale has no prefix under
-// localePrefix: "as-needed" in src/i18n/routing.ts), silently dropping a
+// bare path resolves to a mid-navigation redirect to the default locale
+// (localePrefix: "always" in src/i18n/routing.ts), silently dropping a
 // non-English visitor back into English.
 export async function localizedPath(href: string): Promise<string> {
   const locale = await getLocale();
