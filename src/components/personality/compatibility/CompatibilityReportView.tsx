@@ -3,9 +3,10 @@
 import { useRef, useState } from "react";
 import { GitCompareArrows, Loader2, Share2 } from "lucide-react";
 import type { Compatibility } from "@/components/personality/combined/computeCompatibility";
-import { frameCompatibility, relationshipFramingFor, type RelationshipType } from "./relationshipFraming";
+import { computeMatchGauge, frameCompatibility, relationshipFramingFor, type RelationshipType } from "./relationshipFraming";
 import { CompatibilityAxisBar } from "./CompatibilityAxisBar";
 import { CompatibilityAxisSummary } from "./CompatibilityAxisSummary";
+import { MatchGaugeMeter } from "./MatchGaugeMeter";
 import { PairingShareCard } from "./PairingShareCard";
 import { Button } from "@/components/ui/button";
 
@@ -32,6 +33,7 @@ export function CompatibilityReportView({
 }) {
   const framed = frameCompatibility(compatibility, relationshipType);
   const framing = relationshipFramingFor(relationshipType);
+  const matchGauge = computeMatchGauge(framed, relationshipType);
   const shareCardRef = useRef<HTMLDivElement>(null);
   const [isSharing, setIsSharing] = useState(false);
 
@@ -85,6 +87,7 @@ export function CompatibilityReportView({
         </p>
         <h1 className="relative mt-1 text-2xl font-bold tracking-tight sm:text-3xl">{framed.headline}</h1>
         <p className="relative mt-2 text-sm text-muted-foreground">{framing.aboutClause(nameA, nameB)}</p>
+        {matchGauge && <MatchGaugeMeter gauge={matchGauge} />}
         <Button
           variant="outline"
           size="sm"

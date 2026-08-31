@@ -4,16 +4,19 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Section } from "./Section";
 import { QuizCta } from "./QuizCta";
-import { CATEGORY_LABEL, type FamousPersonContent } from "@/lib/seo/famousPeopleContent";
+import { PersonAvatar } from "./PersonAvatar";
+import { CATEGORY_LABEL, FAMOUS_PEOPLE, type FamousPersonContent } from "@/lib/seo/famousPeopleContent";
 import { getTypeContent, FRAMEWORK_URL_SLUGS } from "@/lib/seo/typeContent";
 import { ASSESSMENT_CATALOG } from "@/lib/personality/catalog";
 import { deriveFamousPersonResults, deriveFamousPersonProfile } from "./famousPersonResults";
 import { FamousPersonInsights } from "./FamousPersonInsights";
+import { pickComparisonSuggestions } from "@/lib/seo/personComparisonSuggestions";
 
 export function PersonPageTemplate({ content }: { content: FamousPersonContent }) {
   const primaryFramework = content.typings[0]?.framework ?? "mbti";
   const profile = deriveFamousPersonProfile(content);
   const results = deriveFamousPersonResults(content);
+  const suggestions = pickComparisonSuggestions(content, FAMOUS_PEOPLE);
 
   return (
     <article className="mx-auto w-full max-w-2xl px-4 py-12 sm:py-16">
@@ -87,14 +90,37 @@ export function PersonPageTemplate({ content }: { content: FamousPersonContent }
 
       {profile ? <FamousPersonInsights name={content.name} profile={profile} results={results} /> : null}
 
-      <p className="mt-8 text-center">
-        <Link
-          href={`/people/match?a=${content.slug}`}
-          className="text-sm font-medium text-primary underline underline-offset-2"
-        >
-          Compare {content.name}&apos;s personality with someone else
-        </Link>
-      </p>
+      <Section title={`Compare ${content.name}`}>
+        <div className="flex flex-wrap justify-center gap-3">
+          {suggestions.map((s) => (
+            <Link
+              key={s.slug}
+              href={`/people/match?a=${content.slug}&b=${s.slug}`}
+              className="flex items-center gap-2 rounded-full border bg-card py-1.5 pl-1.5 pr-4 text-sm font-medium transition-colors hover:bg-muted/50"
+            >
+              <PersonAvatar person={s} size={28} />
+              {s.name}
+            </Link>
+          ))}
+        </div>
+
+        <p className="mt-4 text-center">
+          <Link
+            href={`/people/match?a=${content.slug}&vs=me`}
+            className="text-sm font-medium text-primary underline underline-offset-2"
+          >
+            Compare your own results with {content.name}
+          </Link>
+        </p>
+        <p className="mt-2 text-center">
+          <Link
+            href={`/people/match?a=${content.slug}`}
+            className="text-xs font-medium text-muted-foreground underline underline-offset-2"
+          >
+            Or search anyone else in our roster
+          </Link>
+        </p>
+      </Section>
 
       <Separator className="my-8" />
 

@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { ArrowLeftRight } from "lucide-react";
-import { usePathname, useRouter } from "@/i18n/navigation";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -20,6 +20,17 @@ export interface MatchRosterEntry {
   category: FamousPersonCategory;
 }
 
+// Slug that stands in for "the signed-in viewer's own combined profile"
+// rather than a roster entry — never a real celebrity slug, so it's safe to
+// compare against roster/selection state without a collision.
+export const YOU_SLUG = "me";
+
+// available: true when the viewer is logged in with a completed combined
+// profile ready to compare — "me" becomes a selectable third option.
+// available: false covers both "not logged in" and "no combined profile
+// yet"; ctaLabel/ctaHref point at whichever fixes that.
+export type YouOption = { available: true; name: string } | { available: false; ctaLabel: string; ctaHref: string };
+
 function PersonSlot({
   label,
   roster,
@@ -27,6 +38,7 @@ function PersonSlot({
   excludeSlug,
   onSelect,
   onClear,
+  you,
 }: {
   label: string;
   roster: MatchRosterEntry[];
@@ -34,15 +46,36 @@ function PersonSlot({
   excludeSlug: string | null;
   onSelect: (slug: string) => void;
   onClear: () => void;
+  you: YouOption | null;
 }) {
   const [query, setQuery] = useState("");
-  const selected = roster.find((p) => p.slug === selectedSlug) ?? null;
+  const isYouSelected = selectedSlug === YOU_SLUG && you?.available === true;
+  const selected = isYouSelected ? null : (roster.find((p) => p.slug === selectedSlug) ?? null);
 
   const matches = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return [];
     return roster.filter((p) => p.slug !== excludeSlug && p.name.toLowerCase().includes(q)).slice(0, 8);
   }, [roster, query, excludeSlug]);
+
+  if (isYouSelected && you?.available) {
+    return (
+      <div className="min-w-0 flex-1">
+        <p className="mb-1.5 text-xs font-medium text-muted-foreground">{label}</p>
+        <div className="flex items-center justify-between gap-2 rounded-lg border bg-primary/5 px-3 py-2">
+          <div className="min-w-0">
+            <p className="truncate text-sm font-medium">{you.name}</p>
+            <Badge variant="outline" className="mt-1 rounded-full">
+              You
+            </Badge>
+          </div>
+          <Button type="button" variant="ghost" size="sm" onClick={onClear}>
+            Change
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-w-0 flex-1">
@@ -82,6 +115,23 @@ function PersonSlot({
               ))}
             </div>
           )}
+          {you && excludeSlug !== YOU_SLUG && matches.length === 0 && (
+            <p className="mt-1.5">
+              {you.available ? (
+                <button
+                  type="button"
+                  onClick={() => onSelect(YOU_SLUG)}
+                  className="text-xs font-medium text-primary underline underline-offset-2"
+                >
+                  Compare with your own results
+                </button>
+              ) : (
+                <Link href={you.ctaHref} className="text-xs text-muted-foreground underline underline-offset-2">
+                  {you.ctaLabel}
+                </Link>
+              )}
+            </p>
+          )}
         </div>
       )}
     </div>
@@ -93,17 +143,32 @@ export function CelebrityMatchPicker({
   initialA,
   initialB,
   initialType,
+  you,
 }: {
   roster: MatchRosterEntry[];
   initialA: string | null;
   initialB: string | null;
   initialType: RelationshipType;
+  you: YouOption | null;
 }) {
   const router = useRouter();
   const pathname = usePathname();
 
   function navigate(a: string | null, b: string | null, type: RelationshipType) {
     const params = new URLSearchParams();
+    // Picking "You" in either slot isn't a roster pairing — it routes to the
+    // dedicated vs=me flow (which compares the signed-in viewer's own
+    // combined profile against whichever celebrity slug ends up in `a`)
+    // rather than ever putting the literal "me" slug in the querystring.
+    if (a === YOU_SLUG || b === YOU_SLUG) {
+      const celebSlug = a === YOU_SLUG ? b : a;
+      if (celebSlug) params.set("a", celebSlug);
+      params.set("vs", "me");
+      params.set("type", type);
+      const qs = params.toString();
+      router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+      return;
+    }
     if (a) params.set("a", a);
     if (b) params.set("b", b);
     params.set("type", type);
@@ -121,6 +186,7 @@ export function CelebrityMatchPicker({
           excludeSlug={initialB}
           onSelect={(slug) => navigate(slug, initialB, initialType)}
           onClear={() => navigate(null, initialB, initialType)}
+          you={you}
         />
         <Button
           type="button"
@@ -140,6 +206,7 @@ export function CelebrityMatchPicker({
           excludeSlug={initialA}
           onSelect={(slug) => navigate(initialA, slug, initialType)}
           onClear={() => navigate(initialA, null, initialType)}
+          you={you}
         />
       </div>
 
