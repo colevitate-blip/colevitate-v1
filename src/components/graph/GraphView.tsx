@@ -498,7 +498,13 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
             ? degrees.sort((a, b) => b - a)[Math.max(0, Math.min(degrees.length - 1, Math.floor(degrees.length * 0.15)))]
             : 0;
 
-        visibleNodes.forEach((node) => {
+        // Bigger nodes claim label space before smaller ones, regardless of
+        // draw order — otherwise a landmark node (e.g. an axis dot) sitting
+        // near a smaller, earlier-drawn trait/question dot could lose the
+        // collision check to it, leaving the more important node unlabeled.
+        const labelOrder = [...visibleNodes].sort((a, b) => getNodeRadius(b) - getNodeRadius(a));
+
+        labelOrder.forEach((node) => {
           const degree = degreeRef.current.get(node.id) ?? 0;
           const isImportant = getNodeImportance
             ? getNodeImportance(node as GraphNode, degree)
@@ -973,7 +979,17 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
     }
   };
 
-  const handleWheel = (e: React.WheelEvent<HTMLCanvasElement>) => {
+  // Wired up as a native, non-passive listener below (not React's onWheel —
+  // React attaches wheel handlers passively, which silently no-ops
+  // preventDefault). A plain scroll (no ctrl/meta) is left completely alone
+  // — no preventDefault, no zoom — so the page scrolls normally through the
+  // graph exactly like it would over any other section; only a ctrl/meta +
+  // wheel (a trackpad pinch, or an explicit zoom gesture — browsers report
+  // pinch-to-zoom as a wheel event with ctrlKey set) zooms the graph, and
+  // that's the only case where blocking the browser's own page
+  // scroll/zoom for the gesture is actually correct.
+  const handleWheel = useCallback((e: WheelEvent) => {
+    if (!e.ctrlKey && !e.metaKey) return;
     e.preventDefault();
     const delta = e.deltaY > 0 ? 0.9 : 1.1;
     const rect = canvasRef.current?.getBoundingClientRect();
@@ -988,7 +1004,14 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
     panRef.current.x -= mouseX * (1 / oldZoom - 1 / zoomRef.current);
     panRef.current.y -= mouseY * (1 / oldZoom - 1 / zoomRef.current);
     redraw();
-  };
+  }, [redraw]);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    canvas.addEventListener("wheel", handleWheel, { passive: false });
+    return () => canvas.removeEventListener("wheel", handleWheel);
+  }, [handleWheel]);
 
   return (
     <canvas
@@ -1002,7 +1025,6 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
         redraw();
         onNodeHover?.(null, null);
       }}
-      onWheel={handleWheel}
       className={
         background === "none"
           ? "w-full h-full cursor-grab active:cursor-grabbing"

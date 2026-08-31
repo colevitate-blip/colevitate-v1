@@ -25,13 +25,16 @@ export function getGraphNodeLabel(node: GraphNode) {
 // above, which is also used for the click/hover detail panels where the
 // full text is wanted. On the canvas itself: a question node's "Q: ..."
 // prompt is too noisy at this density (the hover tooltip and click panel
-// already surface it), and once quadrant mode is on, an axis node's own
-// label is redundant with the spectrum name already sitting on the
-// crosshair line (see getGraphQuadrantLabel below).
-export function getGraphNodeCanvasLabel(node: GraphNode, quadrantMode: boolean) {
+// already surface it). Axis nodes DO get their own label even in quadrant
+// mode — the crosshair's spectrum name sits far from the dot itself, so
+// without this an axis node was the only dot on the whole graph with no
+// text anywhere near it, reading as broken/uninitialized rather than
+// intentional. GraphView's label-collision pass prioritizes larger nodes
+// (see getNodeRadius sort in GraphView.tsx), so this rarely fights with a
+// nearby trait label for space.
+export function getGraphNodeCanvasLabel(node: GraphNode) {
   const kind = (node as Record<string, unknown>).kind;
   if (kind === "question") return "";
-  if (quadrantMode && kind === "axis") return "";
   return getGraphNodeLabel(node);
 }
 

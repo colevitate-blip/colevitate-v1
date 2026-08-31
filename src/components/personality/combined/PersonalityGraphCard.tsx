@@ -52,11 +52,6 @@ export function PersonalityGraphCard({
     () => personalityResultsToGraphData(progress, results, profile),
     [progress, results, profile]
   );
-  const getNodeLabel = useMemo(
-    () => (node: GraphNode) => getGraphNodeCanvasLabel(node, quadrantMode),
-    [quadrantMode]
-  );
-
   if (graphData.nodes.length === 0) return null;
 
   return (
@@ -112,7 +107,7 @@ export function PersonalityGraphCard({
         <GraphView
           ref={graphRef}
           data={graphData}
-          getNodeLabel={getNodeLabel}
+          getNodeLabel={getGraphNodeCanvasLabel}
           getNodeSize={getGraphNodeSize}
           // Quadrant mode positions nodes by which spectrum they belong to,
           // so pulling them toward a framework cluster at the same time

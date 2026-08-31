@@ -76,11 +76,6 @@ function QuadrantPreview({ dark, label, quadrantMode }: { dark: boolean; label: 
     () => (combinedProfile ? personalityResultsToGraphData(MOCK_PROGRESS, MOCK_RESULTS, combinedProfile) : null),
     [combinedProfile]
   );
-  const getNodeLabel = useMemo(
-    () => (node: GraphNode) => getGraphNodeCanvasLabel(node, quadrantMode),
-    [quadrantMode]
-  );
-
   if (!combinedProfile || !graphData) return null;
 
   return (
@@ -107,7 +102,7 @@ function QuadrantPreview({ dark, label, quadrantMode }: { dark: boolean; label: 
           <GraphView
             ref={graphRef}
             data={graphData}
-            getNodeLabel={getNodeLabel}
+            getNodeLabel={getGraphNodeCanvasLabel}
             getNodeSize={getGraphNodeSize}
             // Quadrant mode positions nodes by which spectrum they belong to,
             // so pulling them toward a framework cluster at the same time
