@@ -30,12 +30,24 @@ function GoogleIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
+type EmailMode = "password" | "magiclink";
+type PasswordAction = "signin" | "signup";
+
 export function SignInCard({ next }: { next?: string }) {
   const [showEmail, setShowEmail] = React.useState(false);
+  const [emailMode, setEmailMode] = React.useState<EmailMode>("password");
+  const [passwordAction, setPasswordAction] = React.useState<PasswordAction>("signin");
+
   const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
   const [emailSent, setEmailSent] = React.useState(false);
+  const [signupConfirmSent, setSignupConfirmSent] = React.useState(false);
+  const [resetSent, setResetSent] = React.useState(false);
+
   const [googleLoading, setGoogleLoading] = React.useState(false);
   const [emailLoading, setEmailLoading] = React.useState(false);
+  const [resetLoading, setResetLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
 
   const callbackUrl = `${typeof window !== "undefined" ? window.location.origin : ""}/auth/callback${
@@ -58,7 +70,7 @@ export function SignInCard({ next }: { next?: string }) {
     }
   }
 
-  async function handleEmailSignIn(e: React.FormEvent) {
+  async function handleMagicLinkSignIn(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
     setEmailLoading(true);
@@ -75,6 +87,59 @@ export function SignInCard({ next }: { next?: string }) {
       return;
     }
     setEmailSent(true);
+  }
+
+  async function handlePasswordAuth(e: React.FormEvent) {
+    e.preventDefault();
+    setError(null);
+    setEmailLoading(true);
+    const supabase = createClient();
+
+    if (passwordAction === "signin") {
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      setEmailLoading(false);
+      if (error) {
+        setError(error.message);
+        return;
+      }
+      window.location.href = next || "/";
+      return;
+    }
+
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { emailRedirectTo: callbackUrl },
+    });
+    setEmailLoading(false);
+    if (error) {
+      setError(error.message);
+      return;
+    }
+    if (data.session) {
+      window.location.href = next || "/";
+      return;
+    }
+    setSignupConfirmSent(true);
+  }
+
+  async function handleForgotPassword() {
+    if (!email) {
+      setError("Enter your email above first.");
+      return;
+    }
+    setError(null);
+    setResetLoading(true);
+    const supabase = createClient();
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: callbackUrl,
+    });
+    setResetLoading(false);
+    if (error) {
+      setError(error.message);
+      return;
+    }
+    setResetSent(true);
   }
 
   return (
@@ -105,33 +170,133 @@ export function SignInCard({ next }: { next?: string }) {
           >
             or continue with email
           </button>
-        ) : emailSent ? (
-          <div className="flex flex-col items-center gap-2 rounded-lg border bg-muted/30 px-4 py-5 text-center">
-            <MailCheck className="size-5 text-muted-foreground" />
-            <p className="text-sm font-medium">Check your email</p>
-            <p className="text-xs text-muted-foreground">
-              We sent a sign-in link to {email}.
-            </p>
-          </div>
         ) : (
-          <form onSubmit={handleEmailSignIn} className="flex flex-col gap-2">
-            <Input
-              type="email"
-              placeholder="you@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              autoFocus
-            />
-            <Button type="submit" variant="outline" size="sm" className="gap-1.5" disabled={emailLoading}>
-              {emailLoading ? (
-                <Loader2 className="size-3.5 animate-spin" />
+          <div className="flex flex-col gap-3">
+            <div className="flex items-center justify-center gap-1 rounded-lg bg-muted/40 p-1 text-xs">
+              <button
+                type="button"
+                onClick={() => {
+                  setEmailMode("password");
+                  setError(null);
+                }}
+                className={`flex-1 rounded-md px-2 py-1 font-medium transition-colors ${
+                  emailMode === "password"
+                    ? "bg-background shadow-xs"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                Password
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setEmailMode("magiclink");
+                  setError(null);
+                }}
+                className={`flex-1 rounded-md px-2 py-1 font-medium transition-colors ${
+                  emailMode === "magiclink"
+                    ? "bg-background shadow-xs"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                Magic link
+              </button>
+            </div>
+
+            {emailMode === "password" ? (
+              resetSent ? (
+                <div className="flex flex-col items-center gap-2 rounded-lg border bg-muted/30 px-4 py-5 text-center">
+                  <MailCheck className="size-5 text-muted-foreground" />
+                  <p className="text-sm font-medium">Check your email</p>
+                  <p className="text-xs text-muted-foreground">
+                    We sent a password reset link to {email}.
+                  </p>
+                </div>
+              ) : signupConfirmSent ? (
+                <div className="flex flex-col items-center gap-2 rounded-lg border bg-muted/30 px-4 py-5 text-center">
+                  <MailCheck className="size-5 text-muted-foreground" />
+                  <p className="text-sm font-medium">Check your email</p>
+                  <p className="text-xs text-muted-foreground">
+                    We sent a confirmation link to {email}. Confirm to finish creating your account.
+                  </p>
+                </div>
               ) : (
-                <Mail className="size-3.5" />
-              )}
-              Send magic link
-            </Button>
-          </form>
+                <form onSubmit={handlePasswordAuth} className="flex flex-col gap-2">
+                  <Input
+                    type="email"
+                    placeholder="you@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    autoFocus
+                  />
+                  <Input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    minLength={6}
+                    required
+                    autoComplete={passwordAction === "signin" ? "current-password" : "new-password"}
+                  />
+                  <Button type="submit" variant="outline" size="sm" disabled={emailLoading}>
+                    {emailLoading ? <Loader2 className="size-3.5 animate-spin" /> : null}
+                    {passwordAction === "signin" ? "Sign in" : "Create account"}
+                  </Button>
+                  <div className="flex items-center justify-between text-xs">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setPasswordAction((a) => (a === "signin" ? "signup" : "signin"))
+                      }
+                      className="text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+                    >
+                      {passwordAction === "signin"
+                        ? "Need an account? Sign up"
+                        : "Have an account? Sign in"}
+                    </button>
+                    {passwordAction === "signin" ? (
+                      <button
+                        type="button"
+                        onClick={handleForgotPassword}
+                        disabled={resetLoading}
+                        className="text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+                      >
+                        Forgot password?
+                      </button>
+                    ) : null}
+                  </div>
+                </form>
+              )
+            ) : emailSent ? (
+              <div className="flex flex-col items-center gap-2 rounded-lg border bg-muted/30 px-4 py-5 text-center">
+                <MailCheck className="size-5 text-muted-foreground" />
+                <p className="text-sm font-medium">Check your email</p>
+                <p className="text-xs text-muted-foreground">
+                  We sent a sign-in link to {email}.
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleMagicLinkSignIn} className="flex flex-col gap-2">
+                <Input
+                  type="email"
+                  placeholder="you@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  autoFocus
+                />
+                <Button type="submit" variant="outline" size="sm" className="gap-1.5" disabled={emailLoading}>
+                  {emailLoading ? (
+                    <Loader2 className="size-3.5 animate-spin" />
+                  ) : (
+                    <Mail className="size-3.5" />
+                  )}
+                  Send magic link
+                </Button>
+              </form>
+            )}
+          </div>
         )}
       </CardContent>
     </Card>
