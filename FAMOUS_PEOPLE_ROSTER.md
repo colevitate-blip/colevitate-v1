@@ -76,3 +76,60 @@ per photo before shipping it.
 | Angela Merkel | 21st c., CDU | ISTJ | Blue | High Conscientiousness, low Extraversion | Trained as a scientist; publicly documented methodical, low-drama, data-first governing style over charisma-driven politics | Likely (German govt/EU CC options) |
 
 34 people total: 8 scientists, 9 Nobel laureates, 8 entertainment, 9 politicians.
+
+## Business & Innovation
+
+Approved by the user on 2026-09-02, proceeding as proposed with no swaps.
+
+| Name | MBTI | Colors | Big Five snapshot | Rationale | Photo outlook |
+|---|---|---|---|---|---|
+| Steve Jobs | ENTJ | Red | High Openness | Isaacson's biography documents Jobs repeatedly overriding others' input to chase his own product vision, described by colleagues as commanding and confrontational in pursuit of it | Hard — most photos are press/studio, needs a cleared CC source |
+| Bill Gates | INTJ | Blue | High Openness | Documented solitary "Think Weeks" of technical reading, and grueling detail-level interrogation of engineers' code and plans rather than delegating | Possible — some CC event/WEF photos exist |
+| Warren Buffett | ISTJ | Blue | High Conscientiousness | Six decades of the same value-investing discipline from a modest Omaha office, publicly documented aversion to trend-chasing | Possible — some CC event photos exist |
+| Henry Ford | INTJ | Blue | High Conscientiousness | Years methodically re-engineering every step of production before the Model T, relentlessly standardizing manufacturing around one efficiency vision | PD (period photos) |
+| Walt Disney | ENFP | Yellow | High Openness | Bet the company multiple times on unproven ideas (feature-length animation, then a theme park) driven by personal vision his own financiers doubted | Hard — most photos still under Disney company copyright |
+| Coco Chanel | ESTJ | Red | High Conscientiousness | Built and tightly controlled her fashion house for five decades, documented as decisive and unwilling to cede creative control | Uncertain — most photos still under copyright (French terms) |
+| Richard Branson | ENTP | Yellow | High Extraversion | Documented pattern of launching ventures across unrelated industries driven by whatever new challenge currently interests him | Possible — some CC event photos exist |
+| Andrew Carnegie | ENTJ | Red | High Conscientiousness | Built and consolidated an industry through aggressive vertical integration, then applied the same systematic drive to giving away his fortune | PD (period photos) |
+| Sara Blakely | ENFP | Yellow | High Extraversion | Publicly describes pitching Spanx door-to-door for over a year on enthusiasm and conviction before any retailer took her seriously | Uncertain — needs a cleared source |
+
+## Athletes
+
+| Name | MBTI | Colors | Big Five snapshot | Rationale | Photo outlook |
+|---|---|---|---|---|---|
+| Michael Jordan | ESTP | Red | High Extraversion | The Last Dance documents him manufacturing rivalries out of minor slights specifically to fuel game-day intensity | Hard — needs a cleared source |
+| Serena Williams | ESTJ | Red | High Conscientiousness | Sustained an elite career for two-plus decades via documented, highly disciplined training and explicit, methodically pursued goals | Possible — some CC event photos exist |
+| Muhammad Ali | ENFP | Yellow | High Extraversion | Built a public persona around performance and self-created narrative while risking his career on a principled stand against the Vietnam draft | Likely (PD/govt press photos from the era exist) |
+| Usain Bolt | ESFP | Yellow | High Extraversion | Widely documented showmanship before/after races even at the Olympic final level; describes himself as motivated by enjoying the moment | Possible — some CC Olympic/event photos exist |
+| Simone Biles | ISTJ | Blue | High Conscientiousness | Trains injury-risk skills through incremental, methodical repetition; publicly withdrew from a Tokyo final over safety/mental-clarity concerns | Uncertain — needs a cleared source |
+| Michael Phelps | ISTJ | Blue | High Conscientiousness | Documented as swimming every single day for years without exception under his coach's rigid routine | Possible — some CC Olympic/event photos exist |
+| Billie Jean King | ENTJ | Red | High Extraversion | Organized and led the founding of the WTA and the "Battle of the Sexes" as strategic, public confrontations with unequal pay | Possible — some CC event photos exist |
+| Pelé | ESFP | Yellow | High Extraversion | Known for improvisational, joyful flair on the field, described by teammates as thriving on crowd energy over tactical rigidity | Likely (older-era PD/press photos exist) |
+
+## Artists & Musicians
+
+| Name | MBTI | Colors | Big Five snapshot | Rationale | Photo outlook |
+|---|---|---|---|---|---|
+| Frida Kahlo | INFJ | Green | High Openness | Turned decades of chronic pain and personal turmoil into repeated, unflinching self-portraiture, describing it as painting "my own reality" | Uncertain — needs a cleared source |
+| Pablo Picasso | ENTP | Yellow | High Openness | Deliberately abandoned successful styles multiple times over 70 years (Blue Period, Cubism, Neoclassicism) purely to keep exploring | Uncertain — needs a cleared source |
+| Vincent van Gogh | INFP | Yellow | High Openness | Letters to his brother Theo describe painting as an outlet for direct emotional experience, producing 800+ paintings in roughly a decade | PD (died 1890; period photo exists) |
+| Ludwig van Beethoven | INTJ | Blue | High Conscientiousness | Continued obsessively revising and composing after total deafness, notebooks show dozens of reworkings of single passages | PD (period portraits only, no photos) |
+| Bob Dylan | INFP | Yellow | High Openness | Repeatedly abandoned commercially successful personas whenever they stopped matching his own direction, famously alienating fans at Newport 1965 | Hard — needs a cleared source |
+| Freddie Mercury | ESFP | Yellow | High Extraversion | Documented by bandmates as living for live-crowd feedback, restructuring songs like "Bohemian Rhapsody" around performance moments | Hard — needs a cleared source |
+| David Bowie | INFJ | Blue | High Openness | Deliberately constructed and discarded a sequence of personas (Ziggy Stardust, Thin White Duke, Berlin-era) as a self-directed strategy | Hard — needs a cleared source |
+| Louis Armstrong | ESFP | Yellow | High Extraversion | Built his career on in-the-moment improvisation, never playing a solo the same way twice, prioritizing live-audience reaction | Likely (PD/Library of Congress-era photos exist) |
+
+## Authors
+
+| Name | MBTI | Colors | Big Five snapshot | Rationale | Photo outlook |
+|---|---|---|---|---|---|
+| Jane Austen | INTJ | Blue | High Openness | Wrote and revised novels privately for years before publication, a sharp, detached observer of social dynamics rather than a participant | PD (no photos exist; period sketch only) |
+| Mark Twain | ENTP | Yellow | High Extraversion | Built a career on live lecture tours and improvisational wit, constantly testing new ventures out of restless curiosity | PD (period photos) |
+| Virginia Woolf | INFJ | Blue | High Openness | Diaries document an intensely internal process behind novels like Mrs Dalloway, built around interior thought over external plot | Likely PD (early-1900s photos exist) |
+| Leo Tolstoy | INFJ | Green | High Conscientiousness | Abandoned aristocratic wealth and literary fame late in life for a self-authored moral philosophy documented in letters and essays | PD (period photos) |
+| George Orwell | INTJ | Blue | High Conscientiousness | Lived undercover among the poor and fought in the Spanish Civil War specifically to ground his political writing in direct experience | Uncertain — needs a cleared source |
+| Maya Angelou | ENFJ | Yellow | High Extraversion | Moved fluidly across memoir, poetry, and public speaking, framing her work across decades of interviews around shared human connection | Uncertain — needs a cleared source |
+| Agatha Christie | ISTJ | Blue | High Conscientiousness | Constructed meticulously logical, fair-play plots across 66 novels on a disciplined schedule, a private and methodical planner | Uncertain — needs a cleared source |
+| Franz Kafka | INFP | Blue | High Openness | Diaries and letters show him intensely private and self-doubting, asking a friend to burn his unpublished manuscripts after death | PD (died 1924; period photos exist) |
+
+33 people added across these four categories: 9 business, 8 athletes, 8 artists, 8 authors. Same rules as above apply: editorial/speculative typing only, no Human Design (no reliably documented birth data for this group either), and recently-controversial living figures were avoided in business specifically (per the same rule used for politicians) by favoring Gates/Buffett/Branson over more polarizing recent tech-wealth figures.
