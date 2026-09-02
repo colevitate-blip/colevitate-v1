@@ -22,32 +22,33 @@ const BIG_FIVE_TRAITS = ["openness", "conscientiousness", "extraversion", "agree
 const COLORS = ["red", "blue", "green", "yellow"] as const;
 
 const TYPING_PROPERTIES = {
-  mbtiCode: { type: "STRING", description: "Four-letter uppercase MBTI code, e.g. INTJ." },
+  mbtiCode: { type: "string", description: "Four-letter uppercase MBTI code, e.g. INTJ." },
   mbtiRationale: {
-    type: "STRING",
+    type: "string",
     description: "2-3 sentences grounding this MBTI code in specific, concrete behavior. Never generic trait description.",
   },
-  color: { type: "STRING", enum: [...COLORS] },
-  colorRationale: { type: "STRING", description: "1-2 sentences grounding the Colors-framework pick in specific behavior." },
-  bigFiveTrait: { type: "STRING", enum: [...BIG_FIVE_TRAITS] },
-  bigFiveDirection: { type: "STRING", enum: ["high", "low"] },
-  bigFiveRationale: { type: "STRING", description: "1-2 sentences grounding this Big Five trait pick in specific behavior." },
+  color: { type: "string", enum: [...COLORS] },
+  colorRationale: { type: "string", description: "1-2 sentences grounding the Colors-framework pick in specific behavior." },
+  bigFiveTrait: { type: "string", enum: [...BIG_FIVE_TRAITS] },
+  bigFiveDirection: { type: "string", enum: ["high", "low"] },
+  bigFiveRationale: { type: "string", description: "1-2 sentences grounding this Big Five trait pick in specific behavior." },
 } as const;
 const TYPING_REQUIRED = ["mbtiCode", "mbtiRationale", "color", "colorRationale", "bigFiveTrait", "bigFiveDirection", "bigFiveRationale"] as const;
 
 const PERSON_RESPONSE_SCHEMA = {
-  type: "OBJECT",
+  type: "object",
   properties: {
     recognized: {
-      type: "BOOLEAN",
+      type: "boolean",
       description:
         "True only if this is a real, well-documented public figure you have enough public-behavior/biography detail on to ground a specific rationale. False for private individuals, fictional characters, minors, or anyone you don't have solid public information about.",
     },
-    canonicalName: { type: "STRING", description: "The person's full common name." },
-    bio: { type: "STRING", description: "One factual sentence: who they are, in the style of a Wikipedia opening line." },
+    canonicalName: { type: "string", description: "The person's full common name." },
+    bio: { type: "string", description: "One factual sentence: who they are, in the style of a Wikipedia opening line." },
     ...TYPING_PROPERTIES,
   },
   required: ["recognized", "canonicalName", "bio", ...TYPING_REQUIRED],
+  additionalProperties: false,
 } as const;
 
 const PERSON_SYSTEM_INSTRUCTION = `You are Colevitate's editorial personality-typing assistant. Colevitate publishes speculative, editorial personality-type "read"s of well-known public figures across MBTI, a 4-Color framework (red/blue/green/yellow), and Big Five — always grounded in specific, well-documented public behavior or biography, and always explicitly framed as Colevitate's own editorial take, never as fact or as the person's own quiz result.
@@ -63,9 +64,10 @@ Rules:
 // themselves rather than public information — so there's no recognized/bio
 // gate here, just the typing fields.
 const FRIEND_RESPONSE_SCHEMA = {
-  type: "OBJECT",
+  type: "object",
   properties: TYPING_PROPERTIES,
   required: [...TYPING_REQUIRED],
+  additionalProperties: false,
 } as const;
 
 const FRIEND_SYSTEM_INSTRUCTION = `You are Colevitate's editorial personality-typing assistant. A user is describing someone they know personally (a friend, partner, family member, or coworker) in their own words, and wants a speculative, editorial personality read across MBTI, a 4-Color framework (red/blue/green/yellow), and Big Five — grounded only in the description they provide, never in any outside or public information about anyone.
@@ -124,23 +126,24 @@ function toTypings(parsed: GeminiTypings) {
   ];
 }
 
-async function callGemini(apiKey: string, systemInstruction: string, prompt: string, schema: object) {
-  const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        system_instruction: { parts: [{ text: systemInstruction }] },
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: { responseMimeType: "application/json", responseSchema: schema, temperature: 0.4 },
-      }),
-    }
-  );
+async function callMistral(apiKey: string, systemInstruction: string, prompt: string, schemaName: string, schema: object) {
+  const res = await fetch("https://api.mistral.ai/v1/chat/completions", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
+    body: JSON.stringify({
+      model: "mistral-small-latest",
+      messages: [
+        { role: "system", content: systemInstruction },
+        { role: "user", content: prompt },
+      ],
+      temperature: 0.4,
+      response_format: { type: "json_schema", json_schema: { name: schemaName, strict: true, schema } },
+    }),
+  });
 
   if (!res.ok) return null;
   const data = await res.json();
-  const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+  const text = data?.choices?.[0]?.message?.content;
   if (typeof text !== "string") return null;
   return JSON.parse(text);
 }
@@ -151,7 +154,7 @@ async function handlePersonAudit(apiKey: string, rawName: unknown) {
     return NextResponse.json({ error: "Enter a name to search." }, { status: 400 });
   }
 
-  const parsed = await callGemini(apiKey, PERSON_SYSTEM_INSTRUCTION, `Famous person to type: "${name}"`, PERSON_RESPONSE_SCHEMA);
+  const parsed = await callMistral(apiKey, PERSON_SYSTEM_INSTRUCTION, `Famous person to type: "${name}"`, "person_audit", PERSON_RESPONSE_SCHEMA);
   if (!parsed) {
     return NextResponse.json({ error: "Couldn't generate an audit for that search." }, { status: 502 });
   }
@@ -188,10 +191,11 @@ async function handleFriendAudit(apiKey: string, rawName: unknown, rawDescriptio
     return NextResponse.json({ error: "That description is too long — keep it under 1000 characters." }, { status: 400 });
   }
 
-  const parsed = await callGemini(
+  const parsed = await callMistral(
     apiKey,
     FRIEND_SYSTEM_INSTRUCTION,
     `Name: "${name}"\nDescription written by the person typing them:\n"${description}"`,
+    "friend_audit",
     FRIEND_RESPONSE_SCHEMA
   );
   if (!parsed) {
@@ -202,7 +206,7 @@ async function handleFriendAudit(apiKey: string, rawName: unknown, rawDescriptio
 }
 
 export async function POST(request: Request) {
-  const apiKey = process.env.GEMINI_API_KEY;
+  const apiKey = process.env.MISTRAL_API_KEY;
   if (!apiKey) {
     return NextResponse.json({ error: "AI audit is not configured yet." }, { status: 503 });
   }
