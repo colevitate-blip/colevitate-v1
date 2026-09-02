@@ -4,7 +4,7 @@ import NextLink from "next/link";
 import { getTranslations } from "next-intl/server";
 import { PersonalityProvider } from "@/lib/personality/context";
 import { Link } from "@/i18n/navigation";
-import { Compass, Star, Users } from "lucide-react";
+import { Compass, LayoutGrid, Star, Users } from "lucide-react";
 import { ColevitateMark } from "@/components/brand/Logo";
 import { AuthProvider } from "@/lib/supabase/AuthProvider";
 import { AuthStatus } from "@/components/auth/AuthStatus";
@@ -62,6 +62,10 @@ export default async function PersonalityLayout({ children }: { children: ReactN
                       <Star className="size-3.5" />
                       {t("peopleLink")}
                     </Link>
+                    <Link href="/types" className={NAV_LINK_CLASS}>
+                      <LayoutGrid className="size-3.5" />
+                      {t("typesLink")}
+                    </Link>
                     <Link href="/teams" className={NAV_LINK_CLASS}>
                       <Users className="size-3.5" />
                       {t("teamsLink")}
@@ -75,6 +79,7 @@ export default async function PersonalityLayout({ children }: { children: ReactN
                     menuLabel={t("menuLabel")}
                     discoverLabel={t("discoverLink")}
                     peopleLabel={t("peopleLink")}
+                    typesLabel={t("typesLink")}
                     teamsLabel={t("teamsLink")}
                   />
                 </div>

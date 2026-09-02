@@ -3,7 +3,6 @@ import { ArrowRight, Layers, Lock, Users2 } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
-import { ColevitateMark } from "@/components/brand/Logo";
 
 export const metadata: Metadata = {
   title: "Colevitate for Teams — Team Composition Insights",
@@ -23,12 +22,7 @@ export default async function ForTeamsPage() {
 
   return (
     <main className="mx-auto w-full max-w-4xl px-4 py-14 sm:py-20">
-      <Link href="/" className="flex items-center gap-2">
-        <ColevitateMark className="size-8" />
-        <span className="text-sm font-semibold tracking-tight">Colevitate</span>
-      </Link>
-
-      <section className="mx-auto mt-12 max-w-2xl text-center">
+      <section className="mx-auto max-w-2xl text-center">
         <span className="mb-4 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium uppercase tracking-wide text-primary">
           {t("eyebrow")}
         </span>

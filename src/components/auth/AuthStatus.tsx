@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/supabase/AuthProvider";
 import { signOut } from "@/app/auth/actions";
 
-export function AuthStatus() {
+export function AuthStatus({ compact = false }: { compact?: boolean } = {}) {
   const { user, authLoading, profileMeta } = useAuth();
   const t = useTranslations("chrome");
   // next/navigation's usePathname (not @/i18n/navigation's, which strips the
@@ -56,30 +56,38 @@ export function AuthStatus() {
         )}
         <span className="max-w-[120px] truncate">{displayName}</span>
       </div>
-      <Button asChild variant="ghost" size="sm" className="rounded-full gap-1.5">
-        <I18nLink href="/combined">
-          <LayoutDashboard className="size-3.5" />
-          <span className="sr-only">Dashboard</span>
-        </I18nLink>
-      </Button>
-      <Button asChild variant="ghost" size="sm" className="rounded-full gap-1.5">
-        <I18nLink href="/teams">
-          <Users className="size-3.5" />
-          <span className="sr-only">Teams</span>
-        </I18nLink>
-      </Button>
-      <Button asChild variant="ghost" size="sm" className="rounded-full gap-1.5">
-        <I18nLink href="/pair">
-          <GitCompareArrows className="size-3.5" />
-          <span className="sr-only">Comparisons</span>
-        </I18nLink>
-      </Button>
-      <Button asChild variant="ghost" size="sm" className="rounded-full gap-1.5">
-        <I18nLink href="/settings">
-          <Settings className="size-3.5" />
-          <span className="sr-only">Settings</span>
-        </I18nLink>
-      </Button>
+      {/* compact: used on the slim site-wide header (marketing/content pages) where
+          these in-app shortcuts would be redundant with the header's own nav links —
+          full set only shown on the personality-app header where they're the only
+          way to reach dashboard/pair/settings. */}
+      {!compact ? (
+        <>
+          <Button asChild variant="ghost" size="sm" className="rounded-full gap-1.5">
+            <I18nLink href="/combined">
+              <LayoutDashboard className="size-3.5" />
+              <span className="sr-only">Dashboard</span>
+            </I18nLink>
+          </Button>
+          <Button asChild variant="ghost" size="sm" className="rounded-full gap-1.5">
+            <I18nLink href="/teams">
+              <Users className="size-3.5" />
+              <span className="sr-only">Teams</span>
+            </I18nLink>
+          </Button>
+          <Button asChild variant="ghost" size="sm" className="rounded-full gap-1.5">
+            <I18nLink href="/pair">
+              <GitCompareArrows className="size-3.5" />
+              <span className="sr-only">Comparisons</span>
+            </I18nLink>
+          </Button>
+          <Button asChild variant="ghost" size="sm" className="rounded-full gap-1.5">
+            <I18nLink href="/settings">
+              <Settings className="size-3.5" />
+              <span className="sr-only">Settings</span>
+            </I18nLink>
+          </Button>
+        </>
+      ) : null}
       <form action={signOut}>
         <Button type="submit" variant="ghost" size="sm" className="rounded-full gap-1.5">
           <LogOut className="size-3.5" />
