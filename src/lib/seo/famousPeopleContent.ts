@@ -18,13 +18,25 @@
 import type { AssessmentId } from "@/lib/personality/types";
 import { getPersonTranslation } from "./translations";
 
-export type FamousPersonCategory = "scientist" | "nobel-laureate" | "entertainment" | "politician";
+export type FamousPersonCategory =
+  | "scientist"
+  | "nobel-laureate"
+  | "entertainment"
+  | "politician"
+  | "business"
+  | "athlete"
+  | "artist"
+  | "author";
 
 export const CATEGORY_LABEL: Record<FamousPersonCategory, string> = {
   scientist: "Scientist",
   "nobel-laureate": "Nobel Laureate",
   entertainment: "Entertainment",
   politician: "Politician",
+  business: "Business & Innovation",
+  athlete: "Athlete",
+  artist: "Artist & Musician",
+  author: "Author",
 };
 
 /** One framework's editorial typing for a person, with the specific public-behavior rationale it's grounded in. */
