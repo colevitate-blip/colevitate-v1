@@ -1,13 +1,18 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Download, Check, Copy, Loader2, TrendingUp } from "lucide-react";
+import { Download, Check, Copy, Loader2, Trash2, TrendingUp } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { usePersonality } from "@/lib/personality/context";
 import { loadHistory, loadRemoteHistory } from "@/lib/personality/storage";
-import { updateDisplayName, enableSharing, disableSharing } from "@/app/[locale]/(personality)/settings/actions";
+import {
+  updateDisplayName,
+  enableSharing,
+  disableSharing,
+  deleteAccount,
+} from "@/app/[locale]/(personality)/settings/actions";
 import type { ProfileMeta } from "@/lib/personality/storage";
 import type { CombinedSnapshot } from "@/lib/personality/types";
 
@@ -38,8 +43,12 @@ export function AccountSettingsForm({
   const [error, setError] = useState<string | null>(null);
   const [shareUrl, setShareUrl] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
-  const { results } = usePersonality();
+  const { results, resetAll } = usePersonality();
   const copyTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [deleteConfirmText, setDeleteConfirmText] = useState("");
+  const [deleting, setDeleting] = useState(false);
 
   const handleUpdateDisplayName = useCallback(async () => {
     if (!displayName.trim()) {
@@ -276,6 +285,64 @@ export function AccountSettingsForm({
             </Link>
           </Button>
         </div>
+      </div>
+
+      {/* Danger Zone */}
+      <div className="space-y-4 rounded-2xl border border-destructive/30 bg-destructive/5 p-6">
+        <h2 className="font-semibold text-destructive">Danger Zone</h2>
+        <p className="text-sm text-muted-foreground">
+          Permanently delete your account and everything tied to it — assessment results,
+          history, shared profiles, team memberships, and comparisons. This can&apos;t be undone.
+        </p>
+
+        {!deleteOpen ? (
+          <Button variant="destructive" onClick={() => setDeleteOpen(true)} className="gap-2">
+            <Trash2 className="size-4" />
+            Delete my account &amp; data
+          </Button>
+        ) : (
+          <form
+            action={deleteAccount}
+            onSubmit={() => {
+              resetAll();
+              setDeleting(true);
+            }}
+            className="space-y-3 rounded-lg border border-destructive/30 bg-background p-4"
+          >
+            <p className="text-sm">
+              Type <span className="font-mono font-semibold">DELETE</span> to confirm.
+            </p>
+            <Input
+              value={deleteConfirmText}
+              onChange={(e) => setDeleteConfirmText(e.target.value)}
+              placeholder="DELETE"
+              disabled={deleting}
+              autoFocus
+            />
+            <div className="flex gap-2">
+              <Button
+                type="submit"
+                variant="destructive"
+                disabled={deleteConfirmText !== "DELETE" || deleting}
+                className="gap-2"
+              >
+                {deleting ? <Loader2 className="size-4 animate-spin" /> : <Trash2 className="size-4" />}
+                Permanently delete
+              </Button>
+              <Button
+                type="button"
+                variant="ghost"
+                disabled={deleting}
+                onClick={() => {
+                  setDeleteOpen(false);
+                  setDeleteConfirmText("");
+                }}
+              >
+                Cancel
+              </Button>
+            </div>
+          </form>
+        )}
       </div>
 
       {/* Info */}

@@ -1,10 +1,13 @@
 "use server";
 
 import { randomBytes, randomInt } from "node:crypto";
+import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { createServiceRoleClient } from "@/lib/supabase/serviceRole";
 import { generateCombinedProfile } from "@/components/personality/combined/generateCombinedProfile";
 import { computeScoringMatrix } from "@/components/personality/combined/scoringMatrix";
 import { generateAnonLabel } from "@/lib/discovery/anonLabel";
+import { localizedPath } from "@/lib/i18n/serverRedirect";
 import type { PersonalityResults } from "@/lib/personality/types";
 import type { ApproachableScope, ApproachIntent } from "@/components/discovery/discoveryTypes";
 
@@ -111,6 +114,26 @@ export async function disableSharing() {
 // that RPC — real display_name/avatar_url are never sent here at all;
 // set_approachable stores only a generated pseudonym (anon_label), matching
 // the "anonymous until a connection is accepted" requirement.
+// Every user-owned table (profiles, snapshots, teams, pairings,
+// approachable_snapshots, blocks, reports, ...) declares its user_id/owner_id
+// FK as `references auth.users (id) on delete cascade` (see supabase/migrations),
+// so deleting the auth user is enough to erase everything tied to them —
+// requires the service-role client since a user can't delete their own
+// auth.users row through the anon-key client.
+export async function deleteAccount() {
+  const supabase = await createClient();
+  const { data } = await supabase.auth.getUser();
+  const user = data.user;
+  if (!user) throw new Error("Not authenticated");
+
+  const admin = createServiceRoleClient();
+  const { error } = await admin.auth.admin.deleteUser(user.id);
+  if (error) throw new Error(error.message);
+
+  await supabase.auth.signOut();
+  redirect(await localizedPath("/"));
+}
+
 export async function setApproachable(on: boolean, scope: ApproachableScope, intents: ApproachIntent[] | null) {
   const supabase = await createClient();
   const { data } = await supabase.auth.getUser();

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { GitCompareArrows, LogIn, LogOut, Settings, User, Users } from "lucide-react";
+import { GitCompareArrows, LayoutDashboard, LogIn, LogOut, Settings, User, Users } from "lucide-react";
 import { Link as I18nLink } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/supabase/AuthProvider";
@@ -56,6 +56,12 @@ export function AuthStatus() {
         )}
         <span className="max-w-[120px] truncate">{displayName}</span>
       </div>
+      <Button asChild variant="ghost" size="sm" className="rounded-full gap-1.5">
+        <I18nLink href="/combined">
+          <LayoutDashboard className="size-3.5" />
+          <span className="sr-only">Dashboard</span>
+        </I18nLink>
+      </Button>
       <Button asChild variant="ghost" size="sm" className="rounded-full gap-1.5">
         <I18nLink href="/teams">
           <Users className="size-3.5" />
