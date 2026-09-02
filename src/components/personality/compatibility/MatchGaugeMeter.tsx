@@ -17,7 +17,7 @@ const BAND_TEXT: Record<MatchGauge["band"], string> = {
   great: "text-emerald-600 dark:text-emerald-400",
 };
 
-export function MatchGaugeMeter({ gauge }: { gauge: MatchGauge }) {
+export function MatchGaugeMeter({ gauge, verdict }: { gauge: MatchGauge; verdict: string }) {
   return (
     <div className="relative mx-auto mt-6 max-w-xs">
       <div className="flex items-baseline justify-center gap-1">
@@ -38,6 +38,7 @@ export function MatchGaugeMeter({ gauge }: { gauge: MatchGauge }) {
         <span>Not good</span>
         <span>Great</span>
       </div>
+      <p className="mt-3 text-center text-xs leading-relaxed text-muted-foreground">{verdict}</p>
     </div>
   );
 }

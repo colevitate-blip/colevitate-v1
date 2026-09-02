@@ -1,9 +1,9 @@
 import type { AxisId } from "@/lib/personality/types";
-import type { Compatibility } from "@/components/personality/combined/computeCompatibility";
+import type { AxisCompatibility, Compatibility } from "@/components/personality/combined/computeCompatibility";
 
-export type RelationshipType = "romantic" | "friend" | "coworker" | "manager";
+export type RelationshipType = "romantic" | "friend" | "coworker";
 
-export const RELATIONSHIP_TYPE_ORDER: RelationshipType[] = ["romantic", "friend", "coworker", "manager"];
+export const RELATIONSHIP_TYPE_ORDER: RelationshipType[] = ["romantic", "friend", "coworker"];
 
 interface RelationshipFraming {
   label: string;
@@ -48,17 +48,6 @@ const RELATIONSHIP_FRAMING: Record<RelationshipType, RelationshipFraming> = {
       novelty: "Approach to New Ideas",
     },
   },
-  manager: {
-    label: "Manager / Direct Report",
-    reportTitle: "Manager ↔ Direct Report Compatibility Report",
-    aboutClause: (nameA, nameB) => `how ${nameA} and ${nameB} are likely to work together as manager and direct report`,
-    axisLabels: {
-      energy: "Engagement Style",
-      structure: "Structure & Autonomy Fit",
-      people: "Feedback Style Fit",
-      novelty: "Risk & Innovation Appetite",
-    },
-  },
 };
 
 export function relationshipFramingFor(type: RelationshipType): RelationshipFraming {
@@ -79,14 +68,12 @@ export interface MatchGauge {
  * framework-agnostic read of "how similar are these two people"), the gauge
  * is meant to answer "how good a match is this *for this relationship*" —
  * so it weights the axis most predictive of that relationship working out
- * more heavily. No manager entry: a manager/direct-report pairing isn't a
- * "match" you'd score 1-10 like a romantic, friend, or coworker pairing, so
- * that tab deliberately shows no gauge.
+ * more heavily.
  */
-const MATCH_GAUGE_WEIGHTS: Partial<Record<RelationshipType, Record<AxisId, number>>> = {
-  romantic: { energy: 0.25, structure: 0.2, people: 0.35, novelty: 0.2 },
-  friend: { energy: 0.3, structure: 0.15, people: 0.3, novelty: 0.25 },
-  coworker: { energy: 0.15, structure: 0.35, people: 0.3, novelty: 0.2 },
+const MATCH_GAUGE_WEIGHTS: Record<RelationshipType, Record<AxisId, number>> = {
+  romantic: { energy: 0.2, structure: 0.15, people: 0.45, novelty: 0.2 },
+  friend: { energy: 0.35, structure: 0.15, people: 0.2, novelty: 0.3 },
+  coworker: { energy: 0.15, structure: 0.55, people: 0.2, novelty: 0.1 },
 };
 
 const BAND_LABELS: Record<MatchGaugeBand, string> = {
@@ -105,15 +92,71 @@ function bandForValue(value: number): MatchGaugeBand {
   return "great";
 }
 
-/** `null` for a relationship type with no configured weights (currently just "manager") — callers should hide the gauge entirely rather than fall back to an unweighted score. */
-export function computeMatchGauge(compatibility: Compatibility, type: RelationshipType): MatchGauge | null {
-  const weights = MATCH_GAUGE_WEIGHTS[type];
-  if (!weights) return null;
+/**
+ * Gauge for every relationship type at once, for the *same* pair — never one
+ * type in isolation. Two axis weight vectors can legitimately round to the
+ * same 1-10 value for a given pair (they're different weighted averages of
+ * the same four axes, so collisions happen), but showing "8/10" on both the
+ * Romantic and Coworker tabs for one couple reads as a bug, not a
+ * coincidence. So the three raw (unrounded) scores are ranked and nudged
+ * apart just enough to stay distinct, preserving their relative order —
+ * always possible since there are only 3 relationship types across a 1-10
+ * range.
+ */
+export function computeMatchGauges(compatibility: Compatibility): Record<RelationshipType, MatchGauge> {
+  const raw = RELATIONSHIP_TYPE_ORDER.map((type) => {
+    const weights = MATCH_GAUGE_WEIGHTS[type];
+    const weighted = compatibility.axes.reduce((sum, axis) => sum + (weights[axis.id] ?? 0) * axis.similarity, 0);
+    return { type, scaled: 1 + (weighted / 100) * 9 };
+  }).sort((x, y) => x.scaled - y.scaled);
 
-  const weighted = compatibility.axes.reduce((sum, axis) => sum + (weights[axis.id] ?? 0) * axis.similarity, 0);
-  const value = Math.max(1, Math.min(10, Math.round(1 + (weighted / 100) * 9)));
+  const values = raw.map(({ scaled }) => Math.max(1, Math.min(10, Math.round(scaled))));
+  for (let i = 1; i < values.length; i++) {
+    if (values[i] <= values[i - 1]) values[i] = values[i - 1] + 1;
+  }
+  if (values[values.length - 1] > 10) {
+    values[values.length - 1] = 10;
+    for (let i = values.length - 2; i >= 0; i--) {
+      if (values[i] >= values[i + 1]) values[i] = values[i + 1] - 1;
+    }
+  }
 
-  return { value, band: bandForValue(value), label: BAND_LABELS[bandForValue(value)] };
+  const gauges = {} as Record<RelationshipType, MatchGauge>;
+  raw.forEach(({ type }, i) => {
+    const value = values[i];
+    const band = bandForValue(value);
+    gauges[type] = { value, band, label: BAND_LABELS[band] };
+  });
+  return gauges;
+}
+
+/**
+ * One-line "why" under the gauge, naming the axis that's dragging the score
+ * down (or, when nothing is, saying so). Uses the already relationship-framed
+ * axis labels so it reads as "conflict style fit" for a romantic pairing vs.
+ * "communication style fit" for a coworker pairing, even though it's the same
+ * underlying axis. Deliberately picks by raw similarity (not gauge weight) —
+ * the point is to surface the single most concrete friction point, not
+ * re-derive the weighted score in prose.
+ */
+export function verdictFor(gauge: MatchGauge, axes: AxisCompatibility[]): string {
+  const weakest = axes.reduce((worst, axis) => (axis.similarity < worst.similarity ? axis : worst));
+  const axisLabel = weakest.label.toLowerCase();
+
+  switch (gauge.band) {
+    case "great":
+      return weakest.bucket === "aligned"
+        ? "Aligned across the board, with little friction to speak of."
+        : `Aligned on most fronts, with occasional friction around ${axisLabel}.`;
+    case "strong":
+      return `Works well overall — the most likely friction point is ${axisLabel}.`;
+    case "mixed":
+      return `A mixed fit, with real friction likely around ${axisLabel}.`;
+    case "rocky":
+      return `Likely to take real effort, especially around ${axisLabel}.`;
+    case "poor":
+      return `Friction across several axes, most notably ${axisLabel}.`;
+  }
 }
 
 /**
