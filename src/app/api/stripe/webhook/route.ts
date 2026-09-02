@@ -46,6 +46,20 @@ export async function POST(request: Request) {
           .insert({ pairing_id: pairingId, event_type: "report_unlocked", metadata: { stripe_checkout_session_id: session.id } });
       }
     }
+
+    if (session.metadata?.type === "deep_dive") {
+      const supabase = createServiceRoleClient();
+      await supabase
+        .from("deep_dive_purchases")
+        .update({
+          status: "paid",
+          paid_at: new Date().toISOString(),
+          stripe_payment_intent_id:
+            typeof session.payment_intent === "string" ? session.payment_intent : (session.payment_intent?.id ?? null),
+        })
+        .eq("stripe_checkout_session_id", session.id)
+        .eq("status", "pending");
+    }
   }
 
   return NextResponse.json({ received: true });

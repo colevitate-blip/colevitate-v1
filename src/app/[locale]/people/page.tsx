@@ -4,6 +4,9 @@ import { FAMOUS_PEOPLE, CATEGORY_LABEL, type FamousPersonCategory } from "@/lib/
 import { MbtiColorPill } from "@/components/seo/MbtiColorPill";
 import { PersonAvatar } from "@/components/seo/PersonAvatar";
 import { PersonAuditSearch } from "@/components/seo/PersonAuditSearch";
+import { TypeAFriendSearch } from "@/components/seo/TypeAFriendSearch";
+import { createClient } from "@/lib/supabase/server";
+import { loginRedirectTarget } from "@/lib/i18n/serverRedirect";
 
 export const metadata: Metadata = {
   title: "Famous People & Their Personality Types | Colevitate",
@@ -29,7 +32,12 @@ const CATEGORY_ORDER: FamousPersonCategory[] = [
 // inside each card — thumbnail + name + an MBTI pill stroked in the
 // person's dominant Colors-framework gradient — chosen from the
 // /experiments/people-layouts comparison.
-export default function PeopleIndexPage() {
+export default async function PeopleIndexPage() {
+  const supabase = await createClient();
+  const { data: authData } = await supabase.auth.getUser();
+  const isLoggedIn = Boolean(authData.user);
+  const loginHref = await loginRedirectTarget("/people");
+
   return (
     <main className="mx-auto w-full max-w-6xl px-4 py-12 sm:py-16">
       <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Famous People & Their Personality Types</h1>
@@ -65,6 +73,7 @@ export default function PeopleIndexPage() {
       </div>
 
       <PersonAuditSearch />
+      <TypeAFriendSearch isLoggedIn={isLoggedIn} loginHref={loginHref} />
     </main>
   );
 }

@@ -120,3 +120,8 @@ export function getArchetype(axes: AxisScore[]): Archetype | null {
   const key = getArchetypeKey(axes);
   return key ? (ARCHETYPES[key] ?? null) : null;
 }
+
+/** Looks up an archetype directly by its 4-letter bucket key (e.g. from a client that already has the key, like the daily-type-content route validating an incoming request). */
+export function getArchetypeByKey(key: string): Archetype | null {
+  return ARCHETYPES[key] ?? null;
+}

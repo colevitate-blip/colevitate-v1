@@ -18,7 +18,8 @@
     "supabase:link": "dotenv -e .env.local -- supabase link --project-ref nmvhxehkqdgyegjgxhoc",
     "db:push": "dotenv -e .env.local -- supabase db push",
     "db:migrations": "dotenv -e .env.local -- supabase migration list",
-    "db:diff": "dotenv -e .env.local -- supabase db diff"
+    "db:diff": "dotenv -e .env.local -- supabase db diff",
+    "backlog:audit-searches": "dotenv -e .env.local -- node scripts/audit-search-backlog.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.4",

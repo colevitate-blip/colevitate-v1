@@ -22,6 +22,7 @@ import {
   X,
   FileDown,
   GitCompareArrows,
+  Lock,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -42,7 +43,9 @@ import { createPairingInvite } from "@/app/[locale]/(personality)/pair/actions";
 import { RELATIONSHIP_TYPE_ORDER, relationshipFramingFor, type RelationshipType } from "@/components/personality/compatibility/relationshipFraming";
 import { AxisAgreement } from "@/components/personality/shared/AxisAgreement";
 import { getAxisGrowthPrompt, getCareerSuggestions } from "./growthContent";
+import { getArchetypeKey } from "./archetypeMatrix";
 import { AxisTrend } from "./AxisTrend";
+import { DailyTypeInsight } from "./DailyTypeInsight";
 import { ShareCard } from "./ShareCard";
 import { PdfDocument } from "./PdfDocument";
 import { exportProfileAsPdf } from "./exportPdf";
@@ -420,6 +423,12 @@ export function CombinedProfile({
                   {profile.archetype.description}
                 </p>
                 <p className="mt-2 text-xs text-muted-foreground/70">{profile.sourcesLine}</p>
+                {(() => {
+                  const archetypeKey = getArchetypeKey(profile.axes);
+                  return archetypeKey ? (
+                    <DailyTypeInsight archetypeKey={archetypeKey} archetypeName={profile.archetype.name} />
+                  ) : null;
+                })()}
               </>
             ) : (
               <>
@@ -512,6 +521,22 @@ export function CombinedProfile({
             );
           })}
         </div>
+      </div>
+
+      <div className="mt-8 flex flex-col items-start gap-3 rounded-3xl border bg-muted/20 p-6 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h2 className="font-semibold">Want more than this page shows?</h2>
+          <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+            The Deep Dive Report expands career fit, relationship patterns, and growth edges into a longer,
+            AI-assisted read grounded in your own scores.
+          </p>
+        </div>
+        <Button asChild variant="outline" className="shrink-0 gap-2 rounded-full">
+          <Link href="/deep-dive">
+            <Lock className="size-4" />
+            Unlock Deep Dive
+          </Link>
+        </Button>
       </div>
 
       {careerSuggestions.length > 0 ? (

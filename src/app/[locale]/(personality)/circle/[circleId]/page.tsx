@@ -2,6 +2,7 @@ import { notFound, redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { TeamRoster, type RosterMember } from "@/components/teams/TeamRoster";
 import { TeamCompositionView } from "@/components/teams/TeamCompositionView";
+import { PairwiseCompatibilityGrid } from "@/components/teams/PairwiseCompatibilityGrid";
 import type { SharedMemberAxes } from "@/components/teams/teamInsights";
 import type { AxisId } from "@/components/personality/combined/scoringMatrix";
 import { loginRedirectTarget } from "@/lib/i18n/serverRedirect";
@@ -70,7 +71,10 @@ export default async function CirclePage({ params }: { params: Promise<{ circleI
         />
 
         {sharedMembers.length >= 2 ? (
-          <TeamCompositionView members={sharedMembers} title="Circle Composition" />
+          <>
+            <TeamCompositionView members={sharedMembers} title="Circle Composition" />
+            <PairwiseCompatibilityGrid members={sharedMembers} title="Circle Compatibility" />
+          </>
         ) : (
           <div className="rounded-3xl border bg-card p-6 text-sm text-muted-foreground shadow-[0_18px_40px_-16px_var(--elevation-shadow-sm)]">
             Once at least 2 members share their profile with this circle, a composition view will
