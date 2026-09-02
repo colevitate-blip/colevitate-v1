@@ -1,5 +1,5 @@
 import type { AxisId } from "@/lib/personality/types";
-import type { AxisCompatibility, Compatibility } from "@/components/personality/combined/computeCompatibility";
+import type { AxisCompatibility, Compatibility, CompatibilityBucket } from "@/components/personality/combined/computeCompatibility";
 
 export type RelationshipType = "romantic" | "friend" | "coworker";
 
@@ -76,6 +76,37 @@ const MATCH_GAUGE_WEIGHTS: Record<RelationshipType, Record<AxisId, number>> = {
   coworker: { energy: 0.15, structure: 0.55, people: 0.2, novelty: 0.1 },
 };
 
+/**
+ * The single axis each relationship type lives or dies on — its highest-
+ * weighted axis in MATCH_GAUGE_WEIGHTS above. Derived, not hand-maintained,
+ * so it can never drift out of sync if the weights are retuned later.
+ */
+const DEFINING_AXIS: Record<RelationshipType, AxisId> = RELATIONSHIP_TYPE_ORDER.reduce(
+  (acc, type) => {
+    const weights = MATCH_GAUGE_WEIGHTS[type];
+    acc[type] = (Object.keys(weights) as AxisId[]).reduce((best, id) => (weights[id] > weights[best] ? id : best));
+    return acc;
+  },
+  {} as Record<RelationshipType, AxisId>
+);
+
+/**
+ * How hard the defining axis's bucket swings the whole gauge, multiplicatively,
+ * on top of the ordinary weighted blend below. This is what lets two people be
+ * a genuinely great match for one relationship type and a genuinely bad one for
+ * another — not just "the same score with different labels." A pair dead-
+ * aligned on work pace but polar opposite on conflict style should read as
+ * excellent coworkers *and* a rocky romantic pairing, not a 7 and an 8.
+ * "different" (the middle bucket) passes through unchanged — the gate is only
+ * for the two buckets that actually say something decisive about the defining
+ * trait.
+ */
+const DEFINING_AXIS_GATE: Record<CompatibilityBucket, number> = {
+  aligned: 1.15,
+  different: 1,
+  opposite: 0.55,
+};
+
 const BAND_LABELS: Record<MatchGaugeBand, string> = {
   poor: "Not a Match",
   rocky: "Rocky Fit",
@@ -94,20 +125,30 @@ function bandForValue(value: number): MatchGaugeBand {
 
 /**
  * Gauge for every relationship type at once, for the *same* pair — never one
- * type in isolation. Two axis weight vectors can legitimately round to the
- * same 1-10 value for a given pair (they're different weighted averages of
- * the same four axes, so collisions happen), but showing "8/10" on both the
- * Romantic and Coworker tabs for one couple reads as a bug, not a
- * coincidence. So the three raw (unrounded) scores are ranked and nudged
- * apart just enough to stay distinct, preserving their relative order —
- * always possible since there are only 3 relationship types across a 1-10
- * range.
+ * type in isolation. The blend (weighted average of all 4 axes) is then run
+ * through that type's defining-axis gate: if the one axis this relationship
+ * type cares about most is a flat-out mismatch, the whole score gets cut
+ * down hard regardless of how the other axes look, and if it's a strong
+ * match, the score gets a real lift. That's the mechanism that produces
+ * "excellent coworkers, terrible romantic partners" for a pair who are
+ * aligned on work pace but opposite on conflict style — not two numbers a
+ * point or two apart, but two genuinely different verdicts.
+ *
+ * Even after gating, two types can still land on the same rounded value for
+ * a given pair (they're different functions of the same four axes) — but
+ * showing "8/10" on both the Romantic and Coworker tabs for one couple reads
+ * as a bug, not a coincidence. So the three raw (unrounded, pre-clamp)
+ * scores are ranked and nudged apart just enough to stay distinct,
+ * preserving their relative order — always possible since there are only 3
+ * relationship types across a 1-10 range.
  */
 export function computeMatchGauges(compatibility: Compatibility): Record<RelationshipType, MatchGauge> {
   const raw = RELATIONSHIP_TYPE_ORDER.map((type) => {
     const weights = MATCH_GAUGE_WEIGHTS[type];
-    const weighted = compatibility.axes.reduce((sum, axis) => sum + (weights[axis.id] ?? 0) * axis.similarity, 0);
-    return { type, scaled: 1 + (weighted / 100) * 9 };
+    const blended = compatibility.axes.reduce((sum, axis) => sum + (weights[axis.id] ?? 0) * axis.similarity, 0);
+    const definingAxis = compatibility.axes.find((axis) => axis.id === DEFINING_AXIS[type])!;
+    const gated = Math.max(0, Math.min(100, blended * DEFINING_AXIS_GATE[definingAxis.bucket]));
+    return { type, scaled: 1 + (gated / 100) * 9 };
   }).sort((x, y) => x.scaled - y.scaled);
 
   const values = raw.map(({ scaled }) => Math.max(1, Math.min(10, Math.round(scaled))));
