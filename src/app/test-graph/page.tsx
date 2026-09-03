@@ -8,6 +8,7 @@ import { personalityResultsToGraphData } from "@/components/personality/combined
 import { generateCombinedProfile } from "@/components/personality/combined/generateCombinedProfile";
 import {
   getGraphNodeCanvasLabel,
+  getGraphNodeCanvasLabelQuadrant,
   getGraphNodeSize,
   getGraphNodeCluster,
   getGraphNodeGradient,
@@ -102,7 +103,7 @@ function QuadrantPreview({ dark, label, quadrantMode }: { dark: boolean; label: 
           <GraphView
             ref={graphRef}
             data={graphData}
-            getNodeLabel={getGraphNodeCanvasLabel}
+            getNodeLabel={quadrantMode ? getGraphNodeCanvasLabelQuadrant : getGraphNodeCanvasLabel}
             getNodeSize={getGraphNodeSize}
             // Quadrant mode positions nodes by which spectrum they belong to,
             // so pulling them toward a framework cluster at the same time
@@ -139,7 +140,7 @@ export default function TestGraphPage() {
         <h1 className="text-2xl font-black text-foreground">Quadrant graph test</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           Card/border stripped (<code className="rounded bg-muted px-1 py-0.5 text-xs">background=&quot;none&quot;</code>
-          ) so it floats on transparency. When quadrant mode is on, each of the 4 spectrums — Energy Direction,
+          ) so it floats on transparency. When quadrant mode is on, each of the 4 spectrums — Inward / Outward Focus,
           Openness to Novelty, People Orientation, Structure &amp; Pace — owns one quadrant (top-left, top-right,
           bottom-left, bottom-right), and every trait/answer that feeds that spectrum gets pulled into it. Threads and
           your overall archetype span more than one spectrum, so they settle near the shared center instead. Off goes

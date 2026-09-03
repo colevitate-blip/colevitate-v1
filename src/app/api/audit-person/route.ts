@@ -22,6 +22,11 @@ const BIG_FIVE_TRAITS = ["openness", "conscientiousness", "extraversion", "agree
 const COLORS = ["red", "blue", "green", "yellow"] as const;
 
 const TYPING_PROPERTIES = {
+  gender: {
+    type: "string",
+    enum: ["man", "woman"],
+    description: "This person's gender, for phrasing their result page in he/she pronouns rather than you. Best guess is fine.",
+  },
   mbtiCode: { type: "string", description: "Four-letter uppercase MBTI code, e.g. INTJ." },
   mbtiRationale: {
     type: "string",
@@ -33,7 +38,7 @@ const TYPING_PROPERTIES = {
   bigFiveDirection: { type: "string", enum: ["high", "low"] },
   bigFiveRationale: { type: "string", description: "1-2 sentences grounding this Big Five trait pick in specific behavior." },
 } as const;
-const TYPING_REQUIRED = ["mbtiCode", "mbtiRationale", "color", "colorRationale", "bigFiveTrait", "bigFiveDirection", "bigFiveRationale"] as const;
+const TYPING_REQUIRED = ["gender", "mbtiCode", "mbtiRationale", "color", "colorRationale", "bigFiveTrait", "bigFiveDirection", "bigFiveRationale"] as const;
 
 const PERSON_RESPONSE_SCHEMA = {
   type: "object",
@@ -105,6 +110,7 @@ function logMissingRosterSearch(rawName: string, canonicalName: string): void {
 }
 
 interface GeminiTypings {
+  gender: string;
   mbtiCode: string;
   mbtiRationale: string;
   color: string;
@@ -112,6 +118,10 @@ interface GeminiTypings {
   bigFiveTrait: string;
   bigFiveDirection: string;
   bigFiveRationale: string;
+}
+
+function toGender(parsed: GeminiTypings): "man" | "woman" {
+  return parsed.gender === "woman" ? "woman" : "man";
 }
 
 function toTypings(parsed: GeminiTypings) {
@@ -169,7 +179,12 @@ async function handlePersonAudit(apiKey: string, rawName: unknown) {
   const canonicalName = String(parsed.canonicalName ?? name);
   logMissingRosterSearch(name, canonicalName);
 
-  return NextResponse.json({ name: canonicalName, bio: String(parsed.bio ?? ""), typings: toTypings(parsed) });
+  return NextResponse.json({
+    name: canonicalName,
+    bio: String(parsed.bio ?? ""),
+    gender: toGender(parsed),
+    typings: toTypings(parsed),
+  });
 }
 
 async function handleFriendAudit(apiKey: string, rawName: unknown, rawDescription: unknown) {
@@ -202,7 +217,7 @@ async function handleFriendAudit(apiKey: string, rawName: unknown, rawDescriptio
     return NextResponse.json({ error: "Couldn't generate an audit for that description." }, { status: 502 });
   }
 
-  return NextResponse.json({ name, bio: "", typings: toTypings(parsed) });
+  return NextResponse.json({ name, bio: "", gender: toGender(parsed), typings: toTypings(parsed) });
 }
 
 export async function POST(request: Request) {

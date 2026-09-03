@@ -31,7 +31,7 @@ export interface AxisDefinition {
 export const AXES: AxisDefinition[] = [
   {
     id: "energy",
-    label: "Energy Direction",
+    label: "Inward / Outward Focus",
     leftPole: "Inward",
     rightPole: "Outward",
     weights: { mbti: 0.35, bigfive: 0.35, humandesign: 0.1, colors: 0.2 },
@@ -300,10 +300,46 @@ function computeAgreement(contributions: AxisContribution[]): { agreement: AxisA
   return { agreement: "disagree", agreementLabel: "Your frameworks disagree here." };
 }
 
+// Who a tier's sentence (and the other hand-written explanation copy in
+// graphAppearance.ts) is written to: the profile owner reading their own
+// results ("You lean toward...") vs. a visitor reading about a third party
+// — a famous person's editorial profile — phrased as "He"/"She" per that
+// person's documented gender. Every existing caller of this file omits the
+// subject and gets "you" by default, so the self combined-profile page,
+// PDF export, compatibility bars, and discovery all read exactly as before;
+// only the personality graph threads a real subject through, for famous
+// people (see PersonalityGraphCard's `subject` prop).
+export type Subject = "you" | "he" | "she";
+
+export interface PronounSet {
+  subj: string; // he / she / you
+  Subj: string; // He / She / You
+  poss: string; // his / her / your
+  Poss: string; // His / Her / Your
+  obj: string; // him / her / you
+  isAre: string; // is / is / are
+  contractIs: string; // he's / she's / you're
+  ContractIs: string; // He's / She's / You're
+  Would: string; // He'd / She'd / You'd
+}
+
+const PRONOUNS: Record<Subject, PronounSet> = {
+  you: { subj: "you", Subj: "You", poss: "your", Poss: "Your", obj: "you", isAre: "are", contractIs: "you're", ContractIs: "You're", Would: "You'd" },
+  he: { subj: "he", Subj: "He", poss: "his", Poss: "His", obj: "him", isAre: "is", contractIs: "he's", ContractIs: "He's", Would: "He'd" },
+  she: { subj: "she", Subj: "She", poss: "her", Poss: "Her", obj: "her", isAre: "is", contractIs: "she's", ContractIs: "She's", Would: "She'd" },
+};
+
+export function pronounsFor(subject: Subject): PronounSet {
+  return PRONOUNS[subject];
+}
+
 interface Tier {
   max: number; // upper bound of this tier (inclusive), Infinity for the last
   tierLabel: string;
+  /** Always the "you" copy — every existing caller of tier.sentence()/computeScoringMatrix keeps reading this, unchanged. */
   sentence: (axis: AxisDefinition) => string;
+  /** Same sentence, addressed to a third party — only used by axisSentenceFor below, for the personality graph's famous-person view. */
+  sentenceThird: (p: PronounSet) => string;
 }
 
 const TIERS: Record<AxisId, Tier[]> = {
@@ -313,30 +349,40 @@ const TIERS: Record<AxisId, Tier[]> = {
       tierLabel: "Strongly inward",
       sentence: () =>
         "Across your results, energy consistently runs inward — you do your best thinking alone or in very small groups, and recover by stepping out of the noise, not into it.",
+      sentenceThird: (p) =>
+        `Across ${p.poss} results, energy consistently runs inward — ${p.subj} does ${p.poss} best thinking alone or in very small groups, and recovers by stepping out of the noise, not into it.`,
     },
     {
       max: -25,
       tierLabel: "Leans inward",
       sentence: () =>
         "Your energy leans inward more often than not — you can perform outwardly when needed, but quiet, low-stimulation time is where you actually recharge.",
+      sentenceThird: (p) =>
+        `${p.Poss} energy leans inward more often than not — ${p.subj} can perform outwardly when needed, but quiet, low-stimulation time is where ${p.subj} actually recharges.`,
     },
     {
       max: 25,
       tierLabel: "Situational",
       sentence: () =>
         "Your energy reads as genuinely situational — outward and engaged in the right context, inward and conserving in others, rather than fixed either way.",
+      sentenceThird: (p) =>
+        `${p.Poss} energy reads as genuinely situational — outward and engaged in the right context, inward and conserving in others, rather than fixed either way.`,
     },
     {
       max: 60,
       tierLabel: "Leans outward",
       sentence: () =>
         "Your energy leans outward more often than not — people and momentum tend to add to your tank rather than drain it.",
+      sentenceThird: (p) =>
+        `${p.Poss} energy leans outward more often than not — people and momentum tend to add to ${p.poss} tank rather than drain it.`,
     },
     {
       max: Infinity,
       tierLabel: "Strongly outward",
       sentence: () =>
         "Across your results, energy consistently runs outward — you're genuinely recharged by people and momentum, not just tolerant of them.",
+      sentenceThird: (p) =>
+        `Across ${p.poss} results, energy consistently runs outward — ${p.contractIs} genuinely recharged by people and momentum, not just tolerant of them.`,
     },
   ],
   structure: [
@@ -345,30 +391,40 @@ const TIERS: Record<AxisId, Tier[]> = {
       tierLabel: "Strongly emergent",
       sentence: () =>
         "You operate almost entirely in the moment — plans are loose scaffolding at best, and you do your best work responding to what's actually in front of you.",
+      sentenceThird: (p) =>
+        `${p.Subj} operates almost entirely in the moment — plans are loose scaffolding at best, and ${p.subj} does ${p.poss} best work responding to what's actually in front of ${p.obj}.`,
     },
     {
       max: -25,
       tierLabel: "Leans emergent",
       sentence: () =>
         "You lean toward staying flexible and responsive, following the moment more often than a plan drawn up in advance.",
+      sentenceThird: (p) =>
+        `${p.Subj} leans toward staying flexible and responsive, following the moment more often than a plan drawn up in advance.`,
     },
     {
       max: 25,
       tierLabel: "Balanced",
       sentence: () =>
         "You move between planning ahead and staying open to the moment, picking whichever the situation actually calls for.",
+      sentenceThird: (p) =>
+        `${p.Subj} moves between planning ahead and staying open to the moment, picking whichever the situation actually calls for.`,
     },
     {
       max: 60,
       tierLabel: "Leans planned",
       sentence: () =>
         "You lean toward planning things out — you're capable of improvising, but you do your best work with some structure already in place.",
+      sentenceThird: (p) =>
+        `${p.Subj} leans toward planning things out — ${p.contractIs} capable of improvising, but ${p.subj} does ${p.poss} best work with some structure already in place.`,
     },
     {
       max: Infinity,
       tierLabel: "Strongly planned",
       sentence: () =>
         "Structure is a consistent thread across your results — you plan ahead, follow through, and feel most capable when the shape of things is already clear.",
+      sentenceThird: (p) =>
+        `Structure is a consistent thread across ${p.poss} results — ${p.subj} plans ahead, follows through, and feels most capable when the shape of things is already clear.`,
     },
   ],
   people: [
@@ -377,30 +433,40 @@ const TIERS: Record<AxisId, Tier[]> = {
       tierLabel: "Strongly task-focused",
       sentence: () =>
         "Across your results, you consistently prioritize the work itself over managing how people feel about it — clarity and results come first.",
+      sentenceThird: (p) =>
+        `Across ${p.poss} results, ${p.subj} consistently prioritizes the work itself over managing how people feel about it — clarity and results come first.`,
     },
     {
       max: -25,
       tierLabel: "Leans task-focused",
       sentence: () =>
         "You lean toward prioritizing the task at hand, though you're not indifferent to the people involved — just not led by it.",
+      sentenceThird: (p) =>
+        `${p.Subj} leans toward prioritizing the task at hand, though ${p.contractIs} not indifferent to the people involved — just not led by it.`,
     },
     {
       max: 25,
       tierLabel: "Balanced",
       sentence: () =>
         "You balance people and task fairly evenly — neither consistently overrides the other in how you operate.",
+      sentenceThird: (p) =>
+        `${p.Subj} balances people and task fairly evenly — neither consistently overrides the other in how ${p.subj} operates.`,
     },
     {
       max: 60,
       tierLabel: "Leans people-focused",
       sentence: () =>
         "You lean toward prioritizing the people in the room — decisions tend to get filtered through how they'll land on others.",
+      sentenceThird: (p) =>
+        `${p.Subj} leans toward prioritizing the people in the room — decisions tend to get filtered through how they'll land on others.`,
     },
     {
       max: Infinity,
       tierLabel: "Strongly people-focused",
       sentence: () =>
         "Across your results, people consistently come first — you read the room, protect relationships, and let that shape almost every call you make.",
+      sentenceThird: (p) =>
+        `Across ${p.poss} results, people consistently come first — ${p.subj} reads the room, protects relationships, and lets that shape almost every call ${p.subj} makes.`,
     },
   ],
   novelty: [
@@ -409,33 +475,58 @@ const TIERS: Record<AxisId, Tier[]> = {
       tierLabel: "Strongly grounded",
       sentence: () =>
         "You consistently favor the proven and concrete over the untested — new ideas earn trust by demonstrating they work, not by being new.",
+      sentenceThird: (p) =>
+        `${p.Subj} consistently favors the proven and concrete over the untested — new ideas earn trust by demonstrating they work, not by being new.`,
     },
     {
       max: -25,
       tierLabel: "Leans grounded",
       sentence: () =>
         "You lean toward the practical and familiar, though you're not closed to new ideas once they've shown some substance.",
+      sentenceThird: (p) =>
+        `${p.Subj} leans toward the practical and familiar, though ${p.contractIs} not closed to new ideas once they've shown some substance.`,
     },
     {
       max: 25,
       tierLabel: "Balanced",
       sentence: () =>
         "You move between the familiar and the experimental depending on the stakes, rather than defaulting to either.",
+      sentenceThird: (p) =>
+        `${p.Subj} moves between the familiar and the experimental depending on the stakes, rather than defaulting to either.`,
     },
     {
       max: 60,
       tierLabel: "Leans exploratory",
       sentence: () =>
         "You lean toward the new and untested — novelty tends to pull your attention more than routine does.",
+      sentenceThird: (p) =>
+        `${p.Subj} leans toward the new and untested — novelty tends to pull ${p.poss} attention more than routine does.`,
     },
     {
       max: Infinity,
       tierLabel: "Strongly exploratory",
       sentence: () =>
         "Across your results, you're consistently drawn to the unfamiliar — new ideas, new angles, and new possibilities are where your energy naturally goes.",
+      sentenceThird: (p) =>
+        `Across ${p.poss} results, ${p.contractIs} consistently drawn to the unfamiliar — new ideas, new angles, and new possibilities are where ${p.poss} energy naturally goes.`,
     },
   ],
 };
+
+/**
+ * The tier sentence for one axis, addressed to whichever `subject` the
+ * caller needs — "you" just returns the axis's own canonical sentence
+ * (already computed by computeScoringMatrix), while "he"/"she" re-derives
+ * the matching tier by its label and renders the third-person copy above.
+ * Only the personality graph calls this with a non-"you" subject (see
+ * PersonalityGraphCard); every other consumer of AxisScore.sentence is
+ * unaffected.
+ */
+export function axisSentenceFor(axisId: AxisId, tierLabel: string, subject: Subject, selfSentence: string): string {
+  if (subject === "you") return selfSentence;
+  const tier = TIERS[axisId]?.find((t) => t.tierLabel === tierLabel);
+  return tier ? tier.sentenceThird(pronounsFor(subject)) : selfSentence;
+}
 
 function tierFor(axis: AxisDefinition, score: number): Tier {
   const tiers = TIERS[axis.id];

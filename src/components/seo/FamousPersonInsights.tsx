@@ -9,13 +9,17 @@ import type { CombinedProfile } from "@/components/personality/combined/generate
 /** Same axis-agreement bars and connected graph shown on a real user's /combined page — reused here against a famous person's derived, editorial results. */
 export function FamousPersonInsights({
   name,
+  gender,
   profile,
   results,
 }: {
   name: string;
+  /** Drives whether the graph's hover explanations read "He..." or "She..." — this is a real person, not the visitor, so the copy is never "You...". */
+  gender: "man" | "woman";
   profile: CombinedProfile;
   results: PersonalityResults;
 }) {
+  const subject = gender === "man" ? "he" : "she";
   return (
     <>
       <div className="mt-8 rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_var(--elevation-shadow-sm)]">
@@ -38,7 +42,7 @@ export function FamousPersonInsights({
         </div>
       </div>
 
-      <PersonalityGraphCard profile={profile} results={results} progress={{}} />
+      <PersonalityGraphCard profile={profile} results={results} progress={{}} subject={subject} />
     </>
   );
 }

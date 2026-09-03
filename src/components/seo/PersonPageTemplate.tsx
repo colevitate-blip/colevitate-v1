@@ -88,7 +88,9 @@ export function PersonPageTemplate({ content }: { content: FamousPersonContent }
         </div>
       </Section>
 
-      {profile ? <FamousPersonInsights name={content.name} profile={profile} results={results} /> : null}
+      {profile ? (
+        <FamousPersonInsights name={content.name} gender={content.gender} profile={profile} results={results} />
+      ) : null}
 
       <Section title={`Compare ${content.name}`}>
         <div className="flex flex-wrap justify-center gap-3">

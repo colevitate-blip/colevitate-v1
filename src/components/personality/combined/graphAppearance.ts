@@ -1,5 +1,8 @@
 import type { GraphNode } from "@/components/graph/types";
 import type { AxisId } from "@/lib/personality/types";
+import { axisSentenceFor, pronounsFor, type PronounSet, type Subject } from "./scoringMatrix";
+
+export type { Subject };
 
 // Module-level so identity stays stable across re-renders — GraphView keys
 // its simulation-setup effect off these, and a fresh function reference on
@@ -25,17 +28,30 @@ export function getGraphNodeLabel(node: GraphNode) {
 // above, which is also used for the click/hover detail panels where the
 // full text is wanted. On the canvas itself: a question node's "Q: ..."
 // prompt is too noisy at this density (the hover tooltip and click panel
-// already surface it). Axis nodes DO get their own label even in quadrant
-// mode — the crosshair's spectrum name sits far from the dot itself, so
+// already surface it). Axis nodes get their own label here — outside
+// quadrant mode there's no crosshair heading naming the spectrum, so
 // without this an axis node was the only dot on the whole graph with no
 // text anywhere near it, reading as broken/uninitialized rather than
-// intentional. GraphView's label-collision pass prioritizes larger nodes
-// (see getNodeRadius sort in GraphView.tsx), so this rarely fights with a
-// nearby trait label for space.
+// intentional. (In quadrant mode, use getGraphNodeCanvasLabelQuadrant
+// below instead — the crosshair already carries that name.) GraphView's
+// label-collision pass prioritizes larger nodes (see getNodeRadius sort in
+// GraphView.tsx), so this rarely fights with a nearby trait label for space.
 export function getGraphNodeCanvasLabel(node: GraphNode) {
   const kind = (node as Record<string, unknown>).kind;
   if (kind === "question") return "";
   return getGraphNodeLabel(node);
+}
+
+// Quadrant mode already prints the spectrum's name as the crosshair heading
+// (see getGraphQuadrantLabel) right next to the axis dot, so labeling the
+// dot itself with that same name a few pixels away is pure repetition —
+// this variant drops it there while keeping every other kind's label (and
+// the non-quadrant behavior above, where the crosshair heading doesn't
+// exist and the axis dot needs its own label or it reads as broken).
+export function getGraphNodeCanvasLabelQuadrant(node: GraphNode) {
+  const kind = (node as Record<string, unknown>).kind;
+  if (kind === "axis") return "";
+  return getGraphNodeCanvasLabel(node);
 }
 
 // Concentric ring per node kind — 0 is dead center. This mirrors the real
@@ -76,57 +92,63 @@ export function getGraphNodeImportance(node: GraphNode, degree: number) {
   return degree >= 3;
 }
 
+// "archetype" isn't here — its tag is built from the subject's own
+// possessive pronoun below ("Your archetype" / "His archetype" / "Her
+// archetype") instead of a fixed string.
 const KIND_TAGS: Record<string, string> = {
-  archetype: "Your archetype",
   axis: "Spectrum — a core personality scale",
   trait: "Trait",
   question: "Your answer",
 };
 
 /** Short "what kind of thing is this" tag shown at the top of the click-to-explain panel. */
-export function getGraphNodeKindTag(node: GraphNode): string {
+export function getGraphNodeKindTag(node: GraphNode, subject: Subject = "you"): string {
   const kind = (node as Record<string, unknown>).kind;
+  if (kind === "archetype") return `${pronounsFor(subject).Poss} archetype`;
   return KIND_TAGS[typeof kind === "string" ? kind : ""] ?? "";
 }
 
-// "You..." phrasing per Big Five trait, tiered by the user's actual 0-100
-// score — the personalized half of a trait's explanation, appended after
-// the generic description so a click answers both "what is this" and
-// "where do I land on it."
-const BIG_FIVE_YOU: Record<string, { high: string; mid: string; low: string }> = {
+// Big Five trait phrasing, tiered by the actual 0-100 score — the
+// personalized half of a trait's explanation, appended after the generic
+// description so a click answers both "what is this" and "where does this
+// person land on it." Each entry is a function of the subject's pronoun
+// set so the exact same tier reads as "You're drawn to..." on the self
+// profile graph and "She's drawn to..." on a famous person's.
+const BIG_FIVE_TEXT: Record<string, { high: (p: PronounSet) => string; mid: (p: PronounSet) => string; low: (p: PronounSet) => string }> = {
   openness: {
-    high: "You're drawn to new ideas, unconventional thinking, and exploring the unfamiliar.",
-    mid: "You're about equally comfortable with the familiar and the untested, without a strong pull either way.",
-    low: "You gravitate toward the practical and familiar over the abstract or untested.",
+    high: (p) => `${p.ContractIs} drawn to new ideas, unconventional thinking, and exploring the unfamiliar.`,
+    mid: (p) => `${p.ContractIs} about equally comfortable with the familiar and the untested, without a strong pull either way.`,
+    low: (p) => `${p.Subj} ${p.subj === "you" ? "gravitate" : "gravitates"} toward the practical and familiar over the abstract or untested.`,
   },
   conscientiousness: {
-    high: "You lean organized and goal-directed, and tend to follow through once you commit.",
-    mid: "You balance structure and spontaneity about evenly.",
-    low: "You favor flexibility over rigid plans, and adapt as you go.",
+    high: (p) => `${p.Subj} ${p.subj === "you" ? "lean" : "leans"} organized and goal-directed, and ${p.subj === "you" ? "tend" : "tends"} to follow through once ${p.subj} ${p.subj === "you" ? "commit" : "commits"}.`,
+    mid: (p) => `${p.Subj} ${p.subj === "you" ? "balance" : "balances"} structure and spontaneity about evenly.`,
+    low: (p) => `${p.Subj} ${p.subj === "you" ? "favor" : "favors"} flexibility over rigid plans, and ${p.subj === "you" ? "adapt" : "adapts"} as ${p.subj} ${p.subj === "you" ? "go" : "goes"}.`,
   },
   extraversion: {
-    high: "Social engagement and stimulation genuinely energize you.",
-    mid: "You're comfortable both around people and on your own, depending on the moment.",
-    low: "Time alone recharges you more reliably than social stimulation does.",
+    high: (p) => `Social engagement and stimulation genuinely energize ${p.obj}.`,
+    mid: (p) => `${p.ContractIs} comfortable both around people and on ${p.poss} own, depending on the moment.`,
+    low: (p) => `Time alone recharges ${p.obj} more reliably than social stimulation does.`,
   },
   agreeableness: {
-    high: "You prioritize cooperation and how a decision lands on other people.",
-    mid: "You weigh your own read on things and others' feelings about evenly.",
-    low: "You prioritize your own read on a situation over managing how it lands on others.",
+    high: (p) => `${p.Subj} ${p.subj === "you" ? "prioritize" : "prioritizes"} cooperation and how a decision lands on other people.`,
+    mid: (p) => `${p.Subj} ${p.subj === "you" ? "weigh" : "weighs"} ${p.poss} own read on things and others' feelings about evenly.`,
+    low: (p) => `${p.Subj} ${p.subj === "you" ? "prioritize" : "prioritizes"} ${p.poss} own read on a situation over managing how it lands on others.`,
   },
   neuroticism: {
-    high: "Stress and emotional swings register strongly and quickly for you.",
-    mid: "You feel stress like anyone does, without it dominating how you operate.",
-    low: "You stay even-keeled under pressure more reliably than most.",
+    high: (p) => `Stress and emotional swings register strongly and quickly for ${p.obj}.`,
+    mid: (p) => `${p.Subj} ${p.subj === "you" ? "feel" : "feels"} stress like anyone does, without it dominating how ${p.subj} ${p.subj === "you" ? "operate" : "operates"}.`,
+    low: (p) => `${p.Subj} ${p.subj === "you" ? "stay" : "stays"} even-keeled under pressure more reliably than most.`,
   },
 };
 
-function bigFiveYouText(trait: string, score: number): string {
-  const phrases = BIG_FIVE_YOU[trait];
+function bigFiveText(trait: string, score: number, subject: Subject): string {
+  const phrases = BIG_FIVE_TEXT[trait];
   if (!phrases) return "";
-  if (score >= 70) return phrases.high;
-  if (score <= 30) return phrases.low;
-  return phrases.mid;
+  const p = pronounsFor(subject);
+  if (score >= 70) return phrases.high(p);
+  if (score <= 30) return phrases.low(p);
+  return phrases.mid(p);
 }
 
 const MBTI_POLE_NAME: Record<string, string> = {
@@ -140,39 +162,112 @@ const MBTI_POLE_NAME: Record<string, string> = {
   P: "Perceiving",
 };
 
-function mbtiYouText(pole: string, confidence: number): string {
+function mbtiText(pole: string, confidence: number, subject: Subject): string {
   const poleName = MBTI_POLE_NAME[pole];
   if (!poleName) return "";
-  return `You lean toward ${poleName} — ${Math.round(confidence)}% in that direction based on your answers.`;
+  const p = pronounsFor(subject);
+  const lean = subject === "you" ? "lean" : "leans";
+  return `${p.Subj} ${lean} toward ${poleName} — ${Math.round(confidence)}% in that direction based on ${p.poss} answers.`;
 }
 
+// Same idea as BIG_FIVE_TEXT above, but for the ~10 generic trait
+// descriptions (personalityResultsToGraphData's TRAIT_DESCRIPTIONS) that
+// happen to be written in second person — the rest of that dictionary
+// doesn't reference "you" at all, so it's reused unchanged for every
+// subject and doesn't need an entry here.
+const TRAIT_DESCRIPTION_THIRD: Partial<Record<string, (p: PronounSet) => string>> = {
+  EI: (p) => `Whether ${p.subj} ${p.subj === "you" ? "draw" : "draws"} energy from engaging with the outer world (Extraversion) or from time alone with ${p.poss} own thoughts (Introversion).`,
+  SN: (p) => `Whether ${p.subj} ${p.subj === "you" ? "trust" : "trusts"} concrete, present detail (Sensing) or patterns and possibilities (Intuition).`,
+  JP: (p) => `Whether ${p.subj} ${p.subj === "you" ? "prefer" : "prefers"} things settled and planned (Judging) or open and flexible (Perceiving).`,
+  openness: (p) => `How drawn ${p.subj} ${p.isAre} to new ideas and unconventional thinking versus the practical and familiar.`,
+  conscientiousness: (p) => `How organized, disciplined, and goal-directed ${p.subj} ${p.subj === "you" ? "tend" : "tends"} to be.`,
+  extraversion: (p) => `How much social engagement and stimulation energize ${p.obj}, versus drain ${p.obj}.`,
+  agreeableness: (p) => `How much ${p.subj} ${p.subj === "you" ? "prioritize" : "prioritizes"} cooperation and others' feelings versus ${p.poss} own agenda.`,
+  neuroticism: (p) => `How easily ${p.subj} ${p.subj === "you" ? "experience" : "experiences"} stress, worry, or emotional volatility.`,
+  generator: (p) => `A Human Design type built to respond to what shows up, generating energy by engaging with what lights ${p.obj} up.`,
+  manifestor: (p) => `A Human Design type built to initiate — ${p.subj} ${p.subj === "you" ? "act" : "acts"} first and ${p.subj === "you" ? "inform" : "informs"} others, rather than waiting to respond.`,
+};
+
+// Every archetype's description (archetypeMatrix.ts) is written in second
+// person — this mirrors it for the same reason as TRAIT_DESCRIPTION_THIRD
+// above, keyed by the archetype's name since that's what the graph node
+// carries (there's no bucket-key id on ArchetypeNode to key off instead).
+const ARCHETYPE_DESCRIPTION_THIRD: Record<string, (p: PronounSet) => string> = {
+  "The Quiet Craftsman": (p) =>
+    `${p.Subj} ${p.subj === "you" ? "work" : "works"} best alone, in the moment, on things ${p.subj} can hold to ${p.poss} own standard rather than anyone else's.`,
+  "The Independent Tinkerer": (p) =>
+    `${p.Subj} ${p.subj === "you" ? "chase" : "chases"} ideas on ${p.poss} own terms, happiest improvising ${p.poss} way through something new without an audience.`,
+  "The Steady Confidant": (p) =>
+    `People trust ${p.obj} precisely because ${p.contractIs} low-key and consistent — present for them without needing the spotlight.`,
+  "The Gentle Wanderer": (p) =>
+    `${p.Subj} ${p.subj === "you" ? "drift" : "drifts"} toward new people and new ideas at ${p.poss} own quiet pace, curious more than restless.`,
+  "The Precise Architect": (p) =>
+    `${p.Subj} ${p.subj === "you" ? "build" : "builds"} things carefully and alone, trusting a well-made plan over improvisation or outside input.`,
+  "The Methodical Innovator": (p) =>
+    `${p.Subj} ${p.subj === "you" ? "bring" : "brings"} new ideas to life through discipline, not spontaneity — structure is what lets ${p.obj} go somewhere genuinely new.`,
+  "The Devoted Caretaker": (p) =>
+    `${p.Subj} ${p.subj === "you" ? "show" : "shows"} up reliably for the people close to ${p.obj}, preferring dependable routines over grand gestures.`,
+  "The Thoughtful Visionary": (p) =>
+    `${p.Subj} quietly ${p.subj === "you" ? "plan" : "plans"} for people and ideas that don't exist yet, thinking ahead more than ${p.subj} ${p.subj === "you" ? "talk" : "talks"} ahead.`,
+  "The Bold Doer": (p) =>
+    `${p.Would} rather act on something real right now than plan or discuss it — momentum is how ${p.subj} ${p.subj === "you" ? "think" : "thinks"}.`,
+  "The Restless Pioneer": (p) =>
+    `${p.ContractIs} pulled toward whatever's newest and most alive, moving fast and figuring out the plan later.`,
+  "The Grounded Connector": (p) =>
+    `${p.Subj} ${p.subj === "you" ? "bring" : "brings"} people together around what's real and immediate, energized by others without needing a script.`,
+  "The Spontaneous Catalyst": (p) =>
+    `${p.Subj} ${p.subj === "you" ? "spark" : "sparks"} energy in a room and ${p.subj === "you" ? "chase" : "chases"} what's new in the same breath, rarely the same way twice.`,
+  "The Driven Organizer": (p) =>
+    `${p.Subj} ${p.subj === "you" ? "turn" : "turns"} plans into results through sheer forward motion, most comfortable when there's a clear structure to push against.`,
+  "The Strategic Trailblazer": (p) =>
+    `${p.Subj} ${p.subj === "you" ? "chase" : "chases"} bold new directions but ${p.subj === "you" ? "back" : "backs"} them with real planning, treating vision and structure as partners, not opposites.`,
+  "The Reliable Host": (p) =>
+    `${p.Subj} ${p.subj === "you" ? "keep" : "keeps"} people and plans running smoothly at once, dependable in a way that makes everyone else's life easier.`,
+  "The Inspiring Ringleader": (p) =>
+    `${p.Subj} ${p.subj === "you" ? "rally" : "rallies"} people around big new ideas and actually ${p.subj === "you" ? "organize" : "organizes"} the follow-through, equal parts visionary and planner.`,
+};
+
 /** Plain-English explanation of a specific node, for the click-to-explain panel. */
-export function getGraphNodeExplanation(node: GraphNode): string {
+export function getGraphNodeExplanation(node: GraphNode, subject: Subject = "you"): string {
   const n = node as Record<string, unknown>;
   switch (n.kind) {
-    case "archetype":
-      return String(n.description ?? "");
+    case "archetype": {
+      if (subject === "you") return String(n.description ?? "");
+      const label = String(n.label ?? "");
+      const thirdPerson = ARCHETYPE_DESCRIPTION_THIRD[label];
+      return thirdPerson ? thirdPerson(pronounsFor(subject)) : String(n.description ?? "");
+    }
     case "axis": {
       const left = String(n.leftPole ?? "");
       const right = String(n.rightPole ?? "");
-      const sentence = String(n.sentence ?? "");
+      const selfSentence = String(n.sentence ?? "");
+      const sentence = axisSentenceFor(n.id as AxisId, String(n.tierLabel ?? ""), subject, selfSentence);
       return `Measures ${left} vs. ${right}. ${sentence}`;
     }
     case "trait": {
-      const description = String(n.description ?? "");
+      const traitId = String(n.id ?? "");
+      const description =
+        subject === "you"
+          ? String(n.description ?? "")
+          : (TRAIT_DESCRIPTION_THIRD[traitId]?.(pronounsFor(subject)) ?? String(n.description ?? ""));
       let youText = "";
       if (typeof n.score === "number") {
-        youText = bigFiveYouText(String(n.id), n.score);
+        youText = bigFiveText(traitId, n.score, subject);
       } else if (typeof n.pole === "string" && typeof n.confidence === "number") {
-        youText = mbtiYouText(n.pole, n.confidence);
+        youText = mbtiText(n.pole, n.confidence, subject);
       }
       return youText ? `${description} ${youText}` : description;
     }
     case "question": {
+      // Question nodes only exist when raw in-progress answers are cached
+      // locally (see personalityResultsToGraphData) — that's never true for
+      // a famous person's editorial profile, so this is unreachable with a
+      // non-"you" subject in practice, but keep the pronoun right anyway.
       const prompt = String(n.prompt ?? "");
       const answer = n.answer;
       const answerText = Array.isArray(answer) ? answer.join(" > ") : String(answer);
-      return `"${prompt}" — your answer: ${answerText}`;
+      const p = pronounsFor(subject);
+      return `"${prompt}" — ${p.poss} answer: ${answerText}`;
     }
     default:
       return "";
@@ -304,7 +399,7 @@ export function getGraphNodeQuadrant(node: GraphNode): number | undefined {
 // Same spectrum names as scoringMatrix.ts's AXIS_DEFINITIONS — duplicated
 // here (like RING_LABELS above) since this is presentation, not scoring.
 const AXIS_LABEL: Record<AxisId, string> = {
-  energy: "Energy Direction",
+  energy: "Inward / Outward Focus",
   novelty: "Openness to Novelty",
   people: "People Orientation",
   structure: "Structure & Pace",

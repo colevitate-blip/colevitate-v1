@@ -8,6 +8,7 @@ import { personalityResultsToGraphData } from "./personalityResultsToGraphData";
 import {
   getGraphNodeLabel,
   getGraphNodeCanvasLabel,
+  getGraphNodeCanvasLabelQuadrant,
   getGraphNodeSize,
   getGraphNodeCluster,
   getGraphNodeGradient,
@@ -16,6 +17,7 @@ import {
   getGraphNodeQuadrant,
   getGraphNodeQuadrantPull,
   getGraphQuadrantLabel,
+  type Subject,
 } from "./graphAppearance";
 import { GraphLegend } from "./GraphLegend";
 import { Switch } from "@/components/ui/switch";
@@ -36,10 +38,13 @@ export function PersonalityGraphCard({
   profile,
   results,
   progress,
+  subject = "you",
 }: {
   profile: CombinedProfileData;
   results: PersonalityResults;
   progress: ProgressMap;
+  /** Who the hover/click explanations are addressed to — "you" for the profile owner (the default, used on the self combined-profile page), or "he"/"she" when this graph belongs to a third party, like a famous person's editorial profile. */
+  subject?: Subject;
 }) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [, setSimulation] = useState<Simulation<any, any> | null>(null);
@@ -107,7 +112,7 @@ export function PersonalityGraphCard({
         <GraphView
           ref={graphRef}
           data={graphData}
-          getNodeLabel={getGraphNodeCanvasLabel}
+          getNodeLabel={quadrantMode ? getGraphNodeCanvasLabelQuadrant : getGraphNodeCanvasLabel}
           getNodeSize={getGraphNodeSize}
           // Quadrant mode positions nodes by which spectrum they belong to,
           // so pulling them toward a framework cluster at the same time
@@ -132,11 +137,11 @@ export function PersonalityGraphCard({
           <div className="pointer-events-none absolute bottom-3 left-3 z-10 max-w-[calc(100%-1.5rem)] sm:left-auto sm:right-3 sm:w-64">
             <div className="rounded-xl border border-border bg-popover/85 p-3 text-popover-foreground shadow-xl backdrop-blur-sm animate-in fade-in slide-in-from-bottom-1 duration-150">
               <p className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
-                {getGraphNodeKindTag(hoveredNode)}
+                {getGraphNodeKindTag(hoveredNode, subject)}
               </p>
               <p className="mt-0.5 text-sm font-semibold">{getGraphNodeLabel(hoveredNode)}</p>
               <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                {getGraphNodeExplanation(hoveredNode)}
+                {getGraphNodeExplanation(hoveredNode, subject)}
               </p>
             </div>
           </div>
