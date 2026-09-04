@@ -13,7 +13,7 @@
     "intentsLabel": "Ouvert(e) aux demandes concernant",
     "intentFriend": "Amitié",
     "intentRomantic": "Rencontres",
-    "intentProfessional": "Réseau professionnel",
+    "intentProfessional": "Professionnel",
     "needAssessments": "Terminez au moins 2 tests avant d'activer ceci — Découverte a besoin d'un profil combiné à afficher.",
     "previewTitle": "Ce qu'un inconnu verrait",
     "previewEmpty": "Activez cette option pour voir votre aperçu.",
@@ -21,18 +21,21 @@
     "saving": "Enregistrement…",
     "saved": "Enregistré",
     "error": "Impossible de mettre à jour vos paramètres de Découverte",
-    "manageRequests": "Voir vos demandes de contact"
+    "manageRequests": "Voir vos demandes de contact",
+    "manageSkipped": "Gérer les personnes ignorées"
   },
   "browse": {
     "title": "Découvrir",
     "subtitle": "Des personnes qui ont choisi d'être accessibles aux demandes d'inconnus — ce n'est pas la même chose que vos connexions de comparaison ou d'équipe.",
     "intentFilterLabel": "Je recherche",
-    "intentFilterAll": "N'importe qui",
     "commonGround": "Ce que vous avez en commun",
+    "compatibilityLabel": "{percent}% compatible",
     "approachButton": "Contacter",
     "empty": "Personne ne correspond pour l'instant — revenez plus tard.",
     "needOwnProfile": "Terminez au moins 2 tests pour voir comment vous vous situez par rapport aux personnes ici.",
-    "loadError": "Impossible de charger la liste de Découverte pour le moment."
+    "loadError": "Impossible de charger la liste de Découverte pour le moment.",
+    "loadMore": "Charger plus",
+    "loadMoreError": "Impossible de charger plus de personnes pour le moment."
   },
   "compose": {
     "title": "Contacter {name}",
@@ -79,6 +82,16 @@
     "reportDetailsLabel": "Détails supplémentaires (facultatif)",
     "reportSubmit": "Envoyer le signalement",
     "reportSubmitted": "Signalement envoyé — merci.",
-    "reportError": "Impossible d'envoyer le signalement"
+    "reportError": "Impossible d'envoyer le signalement",
+    "skipButton": "Ignorer",
+    "moreOptions": "Plus d'options"
+  },
+  "skipped": {
+    "title": "Personnes ignorées",
+    "subtitle": "Personnes que vous avez ignorées dans Découvrir. Ignorer est privé et réversible — elles ne sont jamais notifiées, et annuler ici les fait réapparaître dans votre liste.",
+    "empty": "Vous n'avez ignoré personne.",
+    "noLongerVisible": "N'est plus accessible aux demandes",
+    "undoButton": "Annuler",
+    "undoError": "Impossible d'annuler pour le moment"
   }
 }

@@ -13,7 +13,7 @@
     "intentsLabel": "Abierto/a a que te contacten para",
     "intentFriend": "Amistad",
     "intentRomantic": "Citas",
-    "intentProfessional": "Contactos profesionales",
+    "intentProfessional": "Profesional",
     "needAssessments": "Completa al menos 2 tests antes de activar esto — Descubrimiento necesita un perfil combinado para mostrar.",
     "previewTitle": "Lo que vería un desconocido",
     "previewEmpty": "Actívalo para ver tu vista previa.",
@@ -21,18 +21,21 @@
     "saving": "Guardando…",
     "saved": "Guardado",
     "error": "No se pudo actualizar tu configuración de Descubrimiento",
-    "manageRequests": "Ver tus solicitudes de contacto"
+    "manageRequests": "Ver tus solicitudes de contacto",
+    "manageSkipped": "Gestionar personas omitidas"
   },
   "browse": {
     "title": "Descubrir",
     "subtitle": "Personas que han decidido estar disponibles para que desconocidos las contacten — no es lo mismo que tus conexiones de pairing o equipo.",
     "intentFilterLabel": "Estoy buscando",
-    "intentFilterAll": "Cualquiera",
     "commonGround": "Lo que tienen en común",
+    "compatibilityLabel": "{percent}% de compatibilidad",
     "approachButton": "Contactar",
     "empty": "Ahora mismo no hay coincidencias — vuelve más tarde.",
     "needOwnProfile": "Completa al menos 2 tests para ver cómo te comparas con las personas de aquí.",
-    "loadError": "No se pudo cargar la lista de Descubrimiento en este momento."
+    "loadError": "No se pudo cargar la lista de Descubrimiento en este momento.",
+    "loadMore": "Cargar más",
+    "loadMoreError": "No se pudieron cargar más personas en este momento."
   },
   "compose": {
     "title": "Contactar a {name}",
@@ -79,6 +82,16 @@
     "reportDetailsLabel": "Detalles adicionales (opcional)",
     "reportSubmit": "Enviar reporte",
     "reportSubmitted": "Reporte enviado — gracias.",
-    "reportError": "No se pudo enviar el reporte"
+    "reportError": "No se pudo enviar el reporte",
+    "skipButton": "Omitir",
+    "moreOptions": "Más opciones"
+  },
+  "skipped": {
+    "title": "Personas omitidas",
+    "subtitle": "Personas que has omitido en Descubrir. Omitir es privado y reversible — nunca se les notifica, y deshacerlo aquí hace que vuelvan a aparecer en tu lista.",
+    "empty": "No has omitido a nadie.",
+    "noLongerVisible": "Ya no está disponible para contacto",
+    "undoButton": "Deshacer",
+    "undoError": "No se pudo deshacer esto en este momento"
   }
 }

@@ -21,9 +21,12 @@ const MIN_MESSAGE_LENGTH = 20;
 export function ApproachComposeDialog({
   recipientId,
   recipientName,
+  onSent,
 }: {
   recipientId: string;
   recipientName: string;
+  /** Called right after a successful send, in addition to the in-dialog "sent" confirmation — lets the discover queue advance to the next card behind the still-open dialog. */
+  onSent?: () => void;
 }) {
   const t = useTranslations("discovery");
   const router = useRouter();
@@ -44,6 +47,7 @@ export function ApproachComposeDialog({
     try {
       await sendApproach(recipientId, message.trim(), intent);
       setSent(true);
+      onSent?.();
       router.refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : t("compose.error"));
@@ -66,7 +70,7 @@ export function ApproachComposeDialog({
       }}
     >
       <DialogTrigger asChild>
-        <Button size="sm" className="rounded-full">
+        <Button size="lg" className="flex-1 rounded-full" data-discover-action="approach">
           <Send className="size-3.5" />
           {t("browse.approachButton")}
         </Button>

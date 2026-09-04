@@ -13,7 +13,7 @@
     "intentsLabel": "愿意接受以下类型的搭讪",
     "intentFriend": "交友",
     "intentRomantic": "约会",
-    "intentProfessional": "职业社交",
+    "intentProfessional": "职业",
     "needAssessments": "开启此功能前请至少完成 2 项测试——发现功能需要一份综合档案来展示。",
     "previewTitle": "陌生人会看到的内容",
     "previewEmpty": "开启后即可查看你的预览。",
@@ -21,18 +21,21 @@
     "saving": "保存中…",
     "saved": "已保存",
     "error": "无法更新你的发现设置",
-    "manageRequests": "查看你的搭讪请求"
+    "manageRequests": "查看你的搭讪请求",
+    "manageSkipped": "管理已跳过的人"
   },
   "browse": {
     "title": "发现",
     "subtitle": "已选择接受陌生人搭讪的用户——这与你的配对或团队连接不同。",
     "intentFilterLabel": "我想寻找",
-    "intentFilterAll": "任何人",
     "commonGround": "你们的共同点",
+    "compatibilityLabel": "{percent}% 契合",
     "approachButton": "搭讪",
     "empty": "目前没有匹配的人——稍后再来看看吧。",
     "needOwnProfile": "完成至少 2 项测试后，才能查看你和这里的人的对比情况。",
-    "loadError": "暂时无法加载发现列表。"
+    "loadError": "暂时无法加载发现列表。",
+    "loadMore": "加载更多",
+    "loadMoreError": "暂时无法加载更多人。"
   },
   "compose": {
     "title": "向 {name} 搭讪",
@@ -79,6 +82,16 @@
     "reportDetailsLabel": "补充说明（可选）",
     "reportSubmit": "提交举报",
     "reportSubmitted": "举报已提交——感谢你的反馈。",
-    "reportError": "举报提交失败"
+    "reportError": "举报提交失败",
+    "skipButton": "跳过",
+    "moreOptions": "更多选项"
+  },
+  "skipped": {
+    "title": "已跳过的人",
+    "subtitle": "你在“发现”中跳过的用户。跳过是私密且可撤销的——对方不会收到任何通知，在这里撤销后他们会重新出现在你的列表中。",
+    "empty": "你还没有跳过任何人。",
+    "noLongerVisible": "已不再可被搭讪",
+    "undoButton": "撤销",
+    "undoError": "暂时无法撤销"
   }
 }

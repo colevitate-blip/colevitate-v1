@@ -13,7 +13,7 @@
     "intentsLabel": "Open to being approached about",
     "intentFriend": "Friendship",
     "intentRomantic": "Dating",
-    "intentProfessional": "Professional networking",
+    "intentProfessional": "Professional",
     "needAssessments": "Complete at least 2 assessments before turning this on — Discovery needs a combined profile to show.",
     "previewTitle": "What a stranger would see",
     "previewEmpty": "Turn this on to see your preview.",
@@ -21,18 +21,21 @@
     "saving": "Saving…",
     "saved": "Saved",
     "error": "Failed to update your Discovery settings",
-    "manageRequests": "View your approach requests"
+    "manageRequests": "View your approach requests",
+    "manageSkipped": "Manage skipped people"
   },
   "browse": {
     "title": "Discover",
     "subtitle": "People who've opted in to being approached by strangers — not the same as your pairing/team connections.",
     "intentFilterLabel": "Looking for",
-    "intentFilterAll": "Anyone",
     "commonGround": "What you have in common",
+    "compatibilityLabel": "{percent}% compatible",
     "approachButton": "Approach",
     "empty": "No one matches right now — check back later.",
     "needOwnProfile": "Complete at least 2 assessments to see how you compare with people here.",
-    "loadError": "Couldn't load the discovery list right now."
+    "loadError": "Couldn't load the discovery list right now.",
+    "loadMore": "Load more",
+    "loadMoreError": "Couldn't load more people right now."
   },
   "compose": {
     "title": "Approach {name}",
@@ -79,6 +82,16 @@
     "reportDetailsLabel": "Additional details (optional)",
     "reportSubmit": "Submit report",
     "reportSubmitted": "Report submitted — thank you.",
-    "reportError": "Failed to submit report"
+    "reportError": "Failed to submit report",
+    "skipButton": "Skip",
+    "moreOptions": "More options"
+  },
+  "skipped": {
+    "title": "Skipped People",
+    "subtitle": "People you've skipped in Discover. Skipping is private and reversible — they're never notified, and undoing it here lets them show up in your feed again.",
+    "empty": "You haven't skipped anyone.",
+    "noLongerVisible": "No longer approachable",
+    "undoButton": "Undo",
+    "undoError": "Couldn't undo this right now"
   }
 }

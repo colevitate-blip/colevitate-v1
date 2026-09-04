@@ -13,7 +13,7 @@
     "intentsLabel": "Offen für Anfragen zu",
     "intentFriend": "Freundschaft",
     "intentRomantic": "Dating",
-    "intentProfessional": "Berufliches Netzwerken",
+    "intentProfessional": "Beruflich",
     "needAssessments": "Schließe mindestens 2 Tests ab, bevor du das aktivierst — Entdecken braucht ein kombiniertes Profil zum Anzeigen.",
     "previewTitle": "Was ein Fremder sehen würde",
     "previewEmpty": "Aktiviere dies, um deine Vorschau zu sehen.",
@@ -21,18 +21,21 @@
     "saving": "Wird gespeichert…",
     "saved": "Gespeichert",
     "error": "Deine Entdecken-Einstellungen konnten nicht aktualisiert werden",
-    "manageRequests": "Deine Anfragen ansehen"
+    "manageRequests": "Deine Anfragen ansehen",
+    "manageSkipped": "Übersprungene Personen verwalten"
   },
   "browse": {
     "title": "Entdecken",
     "subtitle": "Menschen, die sich dafür entschieden haben, von Fremden angesprochen zu werden — nicht dasselbe wie deine Pairing-/Team-Verbindungen.",
     "intentFilterLabel": "Ich suche",
-    "intentFilterAll": "Alle",
     "commonGround": "Was ihr gemeinsam habt",
+    "compatibilityLabel": "{percent}% kompatibel",
     "approachButton": "Ansprechen",
     "empty": "Gerade passt niemand — schau später wieder vorbei.",
     "needOwnProfile": "Schließe mindestens 2 Tests ab, um zu sehen, wie du im Vergleich zu Menschen hier abschneidest.",
-    "loadError": "Die Entdecken-Liste konnte gerade nicht geladen werden."
+    "loadError": "Die Entdecken-Liste konnte gerade nicht geladen werden.",
+    "loadMore": "Mehr laden",
+    "loadMoreError": "Es konnten gerade keine weiteren Personen geladen werden."
   },
   "compose": {
     "title": "{name} ansprechen",
@@ -79,6 +82,16 @@
     "reportDetailsLabel": "Zusätzliche Details (optional)",
     "reportSubmit": "Meldung absenden",
     "reportSubmitted": "Meldung gesendet — danke.",
-    "reportError": "Meldung konnte nicht gesendet werden"
+    "reportError": "Meldung konnte nicht gesendet werden",
+    "skipButton": "Überspringen",
+    "moreOptions": "Weitere Optionen"
+  },
+  "skipped": {
+    "title": "Übersprungene Personen",
+    "subtitle": "Personen, die du in Entdecken übersprungen hast. Das Überspringen ist privat und rückgängig zu machen — sie werden nie benachrichtigt, und wenn du es hier rückgängig machst, tauchen sie wieder in deinem Feed auf.",
+    "empty": "Du hast noch niemanden übersprungen.",
+    "noLongerVisible": "Nicht mehr ansprechbar",
+    "undoButton": "Rückgängig machen",
+    "undoError": "Konnte gerade nicht rückgängig gemacht werden"
   }
 }

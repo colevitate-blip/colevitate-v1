@@ -23,6 +23,14 @@ fresh sessions or you'll have to re-paste the approved output):
   back → tell it to build → it does 5.2, 5.3, 5.4, 5.5 in that order in
   the same conversation. Don't parallelize this tier — each stage builds
   directly on the previous stage's schema/UI.
+- Tier 5.6/5.7/5.8 (added after 5.1-5.5 shipped): these are a separate,
+  later addition — no need to replay the original 5.1-5.5 conversation
+  or its context. Start a fresh session, run 5.6 on its own → it has its
+  own embedded plan-first checkpoint (skip-table semantics) → review
+  that → tell it to build. Only after 5.6 is merged, run 5.7 and/or 5.8
+  (both extend 5.6 — 5.7 extends its query, 5.8 extends its pagination/
+  cursor for the one-at-a-time queue refill — so both depend on 5.6
+  existing, not on 5.1-5.5's chain, and not on each other).
 - Ordering constraint across tiers: run 1.1 before 4.2 (4.2's nav link
   assumes 1.1's homepage link already exists).
 
@@ -687,4 +695,153 @@ Close the loop on the blocks/reports tables from 5.2.
 Done when: block and report are enforced server-side and tested, full
 deletion cascades correctly, and a specific pass has confirmed no
 sensitive field from this feature can leak into logs/analytics.
+```
+
+### 5.6 Discovery feed scaling: ranking, exclusion, and pagination
+
+```
+The discover feed as built in 5.4 (src/app/[locale]/(personality)/discover/page.tsx)
+works fine at the current handful of users but doesn't degrade gracefully as the
+approachable pool grows. Concretely, today's query is:
+
+    supabase.from("approachable_snapshots")
+      .select("user_id, anon_label, axes, archetype_name")
+      .neq("user_id", user.id)
+      .order("updated_at", { ascending: false })
+      .limit(60)
+
+That's an unranked, uncapped-in-spirit dump: it orders by snapshot recency (not
+match quality), has no pagination past the first 60, and — aside from the
+`is_blocked()` check already enforced by the "Anyone can select non-blocked
+approachable snapshots" RLS policy (0007_approachability.sql) — has no way for a
+viewer to permanently stop seeing someone they've already decided isn't a fit
+short of the heavy, silent, no-notification `block_user` RPC from 5.5. Blocking is
+the right tool for bad actors, not for "not interested, but not a problem."
+`computeCompatibility` is already called per-row in page.tsx to build the
+`commonGround` tags, but its score is discarded rather than used for ordering.
+
+1. Write a short plan (mirroring 5.1) for a lightweight "skip" concept, distinct
+   from `blocks`: a `discovery_skips` table (user_id, skipped_user_id, created_at)
+   with the same RLS shape as `blocks` (a user can insert/delete only their own
+   rows), no notification to the skipped party, and no effect on anything the
+   skipped party can see. Decide and state whether a skip is permanent-until-undone
+   (with an "undo" affordance somewhere) or resurfaces after a cooldown period —
+   either is fine, but the 5.2-style plan-first checkpoint applies here since it's
+   new schema.
+2. Change the discover query to exclude, at the query level (not client-side):
+   rows in `discovery_skips` for the current viewer, and — decide explicitly,
+   since today's code only checks `status = 'pending'` for the `alreadySent`
+   badge — whether a `declined` approach_request should also suppress that
+   profile from resurfacing to the same sender. Right now a decline has zero
+   effect on the feed.
+3. Replace `order("updated_at", desc)` with real ranking: compute each
+   candidate's compatibility score server-side (reusing
+   computeScoringMatrix/computeCompatibility, already imported in page.tsx) as
+   the primary sort key, with a secondary tiebreaker (recency or a small random
+   jitter) so the same top rows don't calcify at the top of every viewer's feed
+   indefinitely.
+4. Replace the flat `.limit(60)` with real pagination — a keyset/cursor
+   (e.g. encoding score + id) that lets the page fetch the next batch, rather
+   than assuming 60 rows is always enough. This is the actual fix for "as more
+   people sign up this gets messy": the query should return a stable, ranked
+   slice at any pool size, not a bigger unranked pile capped at an arbitrary
+   number.
+5. Add whatever index(es) `approachable_snapshots` needs to support that
+   ordering/filtering efficiently — check what 0007_approachability.sql already
+   indexed and add what's missing for the new sort and the skip/decline
+   exclusion joins.
+
+Done when: the discover feed excludes blocked, skipped, and (per your 5.6.2
+decision) declined-against profiles at the query level; is ordered by
+compatibility score rather than recency; supports fetching additional pages
+without duplicates or gaps; and skip is reversible, silent, and never touches
+the heavier block/report path.
+```
+
+### 5.7 Optional location-based filtering (opt-in, coarse-grained)
+
+```
+Colevitate's discovery differentiator is compatibility, not proximity — this
+tier adds location as one more optional filter/sort a user can ignore
+entirely, not a replacement for 5.6's ranking. Ship it off by default, same as
+`approachable` itself defaults to off in 5.2.
+
+1. Write a short plan (mirroring 5.1) that commits to storing only coarse
+   location — a geohash truncated to city/neighborhood precision, or a
+   self-reported city/region string — never exact lat/long. This follows the
+   same minimize-what's-stored principle 5.2 and 5.5 already apply to
+   personality data (pairings.sql's slim-snapshot comments); location deserves
+   the same discipline.
+2. Add an optional, separately-labeled location toggle to
+   src/components/settings/ApproachabilitySettingsForm.tsx — distinct from the
+   `approachable` toggle from 5.3, since a user should be able to use
+   personality-based discovery without ever sharing location.
+3. Extend `approachable_snapshots` (or a separate joined table, if that keeps
+   RLS cleaner) with the coarse location value, written only for users who
+   opt in; leave it null for everyone else, including retroactively for
+   existing rows.
+4. Add a distance filter/sort to the 5.6 query — surface a distance bucket
+   ("nearby" / "same region") rather than a precise distance, and never show
+   distance to a viewer whose own location isn't also set, so visibility is
+   never one-sided.
+5. Extend 5.5's guarantees to cover this column explicitly: block/report/full
+   deletion must purge location data too, and the "no sensitive field leaks
+   into logs/analytics" audit from 5.5 needs to be re-run to include it.
+
+Done when: location is a fully optional, off-by-default filter that never
+overrides compatibility as the primary ranking signal, stores only
+coarse/bucketed location, and is covered by the same block/delete/audit
+guarantees as the rest of the discovery feature.
+```
+
+### 5.8 One-at-a-time discovery card (replace the grid)
+
+```
+The discover feed (src/components/discovery/DiscoverFeed.tsx,
+src/components/discovery/DiscoverCard.tsx, page.tsx) currently renders every
+fetched candidate at once as a grid, each card showing four buttons side by
+side (Approach, Skip, Report, Block via src/components/discovery/SafetyActions.tsx).
+That's a lot of simultaneous choice for what should be a single lightweight
+decision per person, and it's a mismatch with how this kind of browsing
+normally works (Tinder/Hinge-style: one candidate, one decision, then the
+next) — more options visible at once means slower, more fatiguing decisions
+(this is Hick's law, not just a vibe).
+
+Before writing any code, share a short plan covering:
+1. How DiscoverFeed's state changes from "array of cards rendered in a grid"
+   to "one current card + a queue behind it" — this is a state-shape change,
+   not a CSS/layout change, so trace exactly how removeCard/onSkipped/
+   onBlocked and the existing loadMoreDiscoverCards pagination (5.6) need to
+   adapt so the queue refills from the cursor before it runs dry, without the
+   user ever seeing a loading gap.
+2. Trimming the per-card action surface: Approach/Skip should be the two
+   primary, large actions on the single visible card. Report and Block are
+   safety actions, not browsing actions — move them into a secondary/overflow
+   affordance (e.g. a "..." menu) so they don't visually compete with the
+   Approach/Skip decision. Confirm this doesn't reduce their discoverability
+   below what Tier 5.5's safety-hardening pass assumed.
+3. What happens after Approach — does composing/sending a message keep the
+   card in place (so the user can still Skip afterward) or immediately advance
+   to the next card in the queue? Decide and state which, since it changes the
+   ApproachComposeDialog flow in DiscoverCard.tsx.
+4. Whether to keep a fallback grid/list view (e.g. for larger screens, or for
+   revisiting /discover/skipped which is a list of past decisions, not a
+   queue of new ones, and should NOT be converted to this card format) —
+   /discover/skipped stays a list; this change is scoped to the live discover
+   feed only.
+5. Cover all 5 locales for any new copy/labels this introduces.
+
+Share the plan and stop. Once approved:
+6. Implement the one-at-a-time card UI, reusing DiscoverCard's existing
+   rendering for the profile content (photo/label/archetype/common-ground)
+   rather than rebuilding it — this is a presentation and interaction-flow
+   change, not a new visual design for the card itself.
+7. Keep keyboard/quick interaction in mind (e.g. arrow keys or equivalent for
+   Approach/Skip) since a single-card-at-a-time flow is naturally suited to
+   fast repeated decisions, unlike a grid.
+
+Done when: a viewer sees one candidate at a time with Approach/Skip as the
+two primary actions, Report/Block tucked into a secondary menu, the queue
+refills seamlessly from 5.6's pagination without a visible loading gap, and
+/discover/skipped is unaffected.
 ```

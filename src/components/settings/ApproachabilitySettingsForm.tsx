@@ -9,7 +9,9 @@ import { Switch } from "@/components/ui/switch";
 import { usePersonality } from "@/lib/personality/context";
 import { generateCombinedProfile } from "@/components/personality/combined/generateCombinedProfile";
 import { setApproachable } from "@/app/[locale]/(personality)/settings/actions";
+import { computeFrameworkBadges } from "@/lib/discovery/frameworkBadges";
 import { SlimProfileCard } from "@/components/discovery/SlimProfileCard";
+import { FrameworkBadges } from "@/components/discovery/FrameworkBadges";
 import { APPROACH_INTENTS, type ApproachIntent, type ApproachableScope } from "@/components/discovery/discoveryTypes";
 
 export interface ApproachabilityMeta {
@@ -35,6 +37,7 @@ export function ApproachabilitySettingsForm({ initialMeta }: { initialMeta: Appr
 
   const combinedProfile = useMemo(() => generateCombinedProfile(results), [results]);
   const hasEnoughAssessments = combinedProfile !== null;
+  const badges = useMemo(() => computeFrameworkBadges(results), [results]);
 
   const toggleIntent = useCallback((intent: ApproachIntent) => {
     setIntents((prev) => {
@@ -134,7 +137,14 @@ export function ApproachabilitySettingsForm({ initialMeta }: { initialMeta: Appr
             displayName={initialMeta.anonLabel || "Anonymous"}
             avatarUrl={null}
             archetypeName={combinedProfile.archetype?.name ?? null}
-          />
+          >
+            <FrameworkBadges
+              mbtiBadge={badges.mbti}
+              humandesignBadge={badges.humandesign}
+              colorsBadge={badges.colors}
+              bigfiveBadge={badges.bigfive}
+            />
+          </SlimProfileCard>
         </div>
       )}
 
@@ -147,6 +157,9 @@ export function ApproachabilitySettingsForm({ initialMeta }: { initialMeta: Appr
         {saved && <span className="text-xs text-muted-foreground">{t("saved")}</span>}
         <Button asChild variant="ghost" size="sm" className="ml-auto">
           <Link href="/discover/requests">{t("manageRequests")}</Link>
+        </Button>
+        <Button asChild variant="ghost" size="sm">
+          <Link href="/discover/skipped">{t("manageSkipped")}</Link>
         </Button>
       </div>
     </div>

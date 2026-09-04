@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { generateCombinedProfile } from "@/components/personality/combined/generateCombinedProfile";
 import { computeScoringMatrix } from "@/components/personality/combined/scoringMatrix";
 import { generateAnonLabel } from "@/lib/discovery/anonLabel";
+import { decodeDiscoverCursor, fetchDiscoverPage, type DiscoverPageResult } from "@/app/[locale]/(personality)/discover/discoveryQuery";
 import type { PersonalityResults } from "@/lib/personality/types";
 import type { ApproachIntent } from "@/components/discovery/discoveryTypes";
 
@@ -78,6 +79,44 @@ export async function blockUser(userId: string) {
   const { supabase } = await requireUser();
   const { error } = await supabase.rpc("block_user", { p_blocked_id: userId });
   if (error) throw new Error(error.message);
+}
+
+// Skipping is a plain owned-row insert/delete (see 0012_discovery_skips.sql) —
+// unlike blockUser, there's no cross-user validation for RLS to be unable to
+// express, so no security-definer RPC is needed here.
+export async function skipUser(userId: string) {
+  const { supabase, user } = await requireUser();
+  const { error } = await supabase.from("discovery_skips").insert({ user_id: user.id, skipped_user_id: userId });
+  if (error) throw new Error(error.message);
+}
+
+export async function unskipUser(userId: string) {
+  const { supabase, user } = await requireUser();
+  const { error } = await supabase
+    .from("discovery_skips")
+    .delete()
+    .eq("user_id", user.id)
+    .eq("skipped_user_id", userId);
+  if (error) throw new Error(error.message);
+}
+
+export async function loadMoreDiscoverCards(cursor: string, intent: ApproachIntent | null): Promise<DiscoverPageResult> {
+  const { supabase, user } = await requireUser();
+
+  const { data: profile } = await supabase.from("profiles").select("results").eq("id", user.id).maybeSingle();
+
+  const results = (profile?.results as PersonalityResults) || {};
+  const combinedProfile = generateCombinedProfile(results);
+  const viewerAxes = combinedProfile ? computeScoringMatrix(results) : null;
+
+  return fetchDiscoverPage(supabase, {
+    viewerId: user.id,
+    viewerAxes,
+    // Same as page.tsx's initial load — discovery is anonymous, so this reads "You", never the real name.
+    viewerName: "You",
+    intentFilter: intent,
+    cursor: decodeDiscoverCursor(cursor),
+  });
 }
 
 export async function reportUser(reportedUserId: string, reportedApproachRequestId: string | null, reason: string, details: string | null) {

@@ -7,6 +7,7 @@ import { createServiceRoleClient } from "@/lib/supabase/serviceRole";
 import { generateCombinedProfile } from "@/components/personality/combined/generateCombinedProfile";
 import { computeScoringMatrix } from "@/components/personality/combined/scoringMatrix";
 import { generateAnonLabel } from "@/lib/discovery/anonLabel";
+import { computeFrameworkBadges } from "@/lib/discovery/frameworkBadges";
 import { localizedPath } from "@/lib/i18n/serverRedirect";
 import type { PersonalityResults } from "@/lib/personality/types";
 import type { ApproachableScope, ApproachIntent } from "@/components/discovery/discoveryTypes";
@@ -147,6 +148,10 @@ export async function setApproachable(on: boolean, scope: ApproachableScope, int
       p_axes: null,
       p_archetype_name: null,
       p_anon_label: null,
+      p_mbti_badge: null,
+      p_humandesign_badge: null,
+      p_colors_badge: null,
+      p_bigfive_badge: null,
     });
     if (error) throw new Error(error.message);
     return;
@@ -165,6 +170,7 @@ export async function setApproachable(on: boolean, scope: ApproachableScope, int
   }
 
   const axes = computeScoringMatrix(results).map((a) => ({ id: a.id, score: a.score }));
+  const badges = computeFrameworkBadges(results);
 
   const { error } = await supabase.rpc("set_approachable", {
     p_on: true,
@@ -173,6 +179,10 @@ export async function setApproachable(on: boolean, scope: ApproachableScope, int
     p_axes: axes,
     p_archetype_name: combinedProfile.archetype?.name ?? null,
     p_anon_label: generateAnonLabel(),
+    p_mbti_badge: badges.mbti,
+    p_humandesign_badge: badges.humandesign,
+    p_colors_badge: badges.colors,
+    p_bigfive_badge: badges.bigfive,
   });
   if (error) throw new Error(error.message);
 }
