@@ -3,16 +3,12 @@
 import { useMemo, useState } from "react";
 import { ArrowLeftRight } from "lucide-react";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
-import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CATEGORY_LABEL, type FamousPersonCategory } from "@/lib/seo/famousPeopleContent";
-import {
-  RELATIONSHIP_TYPE_ORDER,
-  relationshipFramingFor,
-  type RelationshipType,
-} from "@/components/personality/compatibility/relationshipFraming";
+import type { RelationshipType } from "@/components/personality/compatibility/relationshipFraming";
+import { RelationshipTypeToggle } from "@/components/personality/compatibility/RelationshipTypeToggle";
 
 export interface MatchRosterEntry {
   slug: string;
@@ -210,22 +206,8 @@ export function CelebrityMatchPicker({
         />
       </div>
 
-      <div className="mt-5 flex flex-wrap gap-2 border-t pt-4">
-        {RELATIONSHIP_TYPE_ORDER.map((type) => (
-          <button
-            key={type}
-            type="button"
-            onClick={() => navigate(initialA, initialB, type)}
-            className={cn(
-              "rounded-full border px-3 py-1 text-xs font-medium transition-colors",
-              type === initialType
-                ? "border-primary bg-primary text-primary-foreground"
-                : "border-border text-muted-foreground hover:bg-muted"
-            )}
-          >
-            {relationshipFramingFor(type).label}
-          </button>
-        ))}
+      <div className="mt-5 border-t pt-4">
+        <RelationshipTypeToggle value={initialType} onSelect={(type) => navigate(initialA, initialB, type)} />
       </div>
     </div>
   );

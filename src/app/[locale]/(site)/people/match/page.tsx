@@ -12,6 +12,7 @@ import { CompatibilityReportView } from "@/components/personality/compatibility/
 import { RELATIONSHIP_TYPE_ORDER, type RelationshipType } from "@/components/personality/compatibility/relationshipFraming";
 import { CelebrityMatchPicker, type MatchRosterEntry, type YouOption } from "@/components/match/CelebrityMatchPicker";
 import { PersonVersusHeader } from "@/components/match/PersonVersusHeader";
+import { VsMeRelationshipToggle } from "@/components/match/VsMeRelationshipToggle";
 import type { PersonalityResults } from "@/lib/personality/types";
 
 type Params = { locale: string };
@@ -155,6 +156,10 @@ export default async function CelebrityMatchPage({
 
         <div className="mt-8">
           <PersonVersusHeader personA={null} personB={personA} />
+        </div>
+
+        <div className="mt-6 flex justify-center">
+          <VsMeRelationshipToggle slug={personA.slug} value={relationshipType} />
         </div>
 
         {report}

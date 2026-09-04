@@ -4,25 +4,32 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "@/i18n/navigation";
 import { COLOR_THEME } from "@/lib/personality/theme";
 import type { ColorId } from "@/lib/personality/types";
-
-interface AuditTyping {
-  framework: "mbti" | "colors" | "bigfive";
-  code: string;
-  rationale: string;
-}
+import { usePersonality } from "@/lib/personality/context";
+import { generateCombinedProfile } from "@/components/personality/combined/generateCombinedProfile";
+import { computeScoringMatrix } from "@/components/personality/combined/scoringMatrix";
+import { computeCompatibility } from "@/components/personality/combined/computeCompatibility";
+import { CompatibilityReportView } from "@/components/personality/compatibility/CompatibilityReportView";
+import { RelationshipTypeToggle } from "@/components/personality/compatibility/RelationshipTypeToggle";
+import type { RelationshipType } from "@/components/personality/compatibility/relationshipFraming";
+import { deriveFamousPersonProfile, deriveFamousPersonResults } from "@/components/seo/famousPersonResults";
+import { FamousPersonInsights } from "@/components/seo/FamousPersonInsights";
+import type { FamousPersonTyping } from "@/lib/seo/famousPeopleContent";
 
 interface AuditResult {
   name: string;
   bio: string;
-  typings: AuditTyping[];
+  gender: "man" | "woman";
+  typings: FamousPersonTyping[];
 }
 
-const FRAMEWORK_LABEL: Record<AuditTyping["framework"], string> = {
+const FRAMEWORK_LABEL: Record<FamousPersonTyping["framework"], string> = {
   mbti: "MBTI",
   colors: "Colors",
   bigfive: "Big Five",
+  humandesign: "Human Design",
 };
 
 function formatBigFiveCode(code: string): string {
@@ -31,12 +38,14 @@ function formatBigFiveCode(code: string): string {
   return `${trait[0].toUpperCase()}${trait.slice(1)} — ${direction === "high" ? "High" : "Low"}`;
 }
 
-/** Not in FAMOUS_PEOPLE? Type any famous person's name and Gemini drafts a same-shaped speculative audit on the spot — clearly marked as AI-generated, unreviewed, distinct from the editorial roster above. */
+/** Not in FAMOUS_PEOPLE? Type any famous person's name and Mistral drafts a same-shaped speculative audit on the spot — clearly marked as AI-generated, unreviewed, distinct from the editorial roster above. The audit reuses the exact same combined-profile/graph and compatibility machinery a real user gets on /combined and /people/match, by deriving a synthetic PersonalityResults from the AI's typings (see famousPersonResults.ts). */
 export function PersonAuditSearch() {
+  const { mounted, results: myResults } = usePersonality();
   const [name, setName] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "error" | "done">("idle");
   const [error, setError] = useState("");
   const [result, setResult] = useState<AuditResult | null>(null);
+  const [relationshipType, setRelationshipType] = useState<RelationshipType>("friend");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -64,6 +73,42 @@ export function PersonAuditSearch() {
     } catch {
       setError("Couldn't reach the audit service — try again.");
       setStatus("error");
+    }
+  }
+
+  const auditedProfile = result ? deriveFamousPersonProfile(result) : null;
+  const auditedResults = result ? deriveFamousPersonResults(result) : null;
+  const myProfile = mounted ? generateCombinedProfile(myResults) : null;
+
+  let compareSection: React.ReactNode = null;
+  if (result && auditedResults) {
+    if (myProfile) {
+      const viewerAxes = computeScoringMatrix(myResults);
+      const personAxes = computeScoringMatrix(auditedResults);
+      const compatibility = computeCompatibility(viewerAxes, personAxes, "You", result.name);
+      compareSection = (
+        <div className="mt-8">
+          <div className="flex justify-center">
+            <RelationshipTypeToggle value={relationshipType} onSelect={setRelationshipType} />
+          </div>
+          <CompatibilityReportView
+            compatibility={compatibility}
+            nameA="You"
+            nameB={result.name}
+            relationshipType={relationshipType}
+            shareLevel="axes"
+          />
+        </div>
+      );
+    } else if (mounted) {
+      compareSection = (
+        <p className="mt-8 text-center text-sm text-muted-foreground">
+          <Link href="/" className="font-medium text-primary underline underline-offset-2">
+            Complete at least 2 assessments
+          </Link>{" "}
+          to see how you compare with {result.name}.
+        </p>
+      );
     }
   }
 
@@ -127,8 +172,19 @@ export function PersonAuditSearch() {
               );
             })}
           </div>
+
+          {auditedProfile && auditedResults ? (
+            <FamousPersonInsights
+              name={result.name}
+              gender={result.gender}
+              profile={auditedProfile}
+              results={auditedResults}
+            />
+          ) : null}
         </div>
       ) : null}
+
+      {compareSection}
     </div>
   );
 }

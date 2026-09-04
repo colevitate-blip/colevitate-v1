@@ -14,7 +14,12 @@
 
 import type { BigFiveResult, ColorId, ColorResult, Dichotomy, MbtiLetter, MbtiResult, PersonalityResults } from "@/lib/personality/types";
 import { generateCombinedProfile, type CombinedProfile } from "@/components/personality/combined/generateCombinedProfile";
-import type { FamousPersonContent } from "@/lib/seo/famousPeopleContent";
+import type { FamousPersonTyping } from "@/lib/seo/famousPeopleContent";
+
+/** The only shape these derivations need — satisfied by both a roster FamousPersonContent and an ad-hoc AI-audit result (same typings shape, see audit-person/route.ts). */
+export interface TypingsSource {
+  typings: FamousPersonTyping[];
+}
 
 const MBTI_CONFIDENCE = 72;
 const BIG_FIVE_TRAIT_MAGNITUDE = 32; // stated trait -> 82 (high) or 18 (low)
@@ -45,7 +50,7 @@ function bigFiveResultFromCodes(codes: string[]): BigFiveResult {
 }
 
 /** Human Design is never present for famous people — see famousPeopleContent.ts for why. */
-export function deriveFamousPersonResults(content: FamousPersonContent): PersonalityResults {
+export function deriveFamousPersonResults(content: TypingsSource): PersonalityResults {
   const results: PersonalityResults = {};
 
   const mbtiTyping = content.typings.find((t) => t.framework === "mbti");
@@ -60,6 +65,6 @@ export function deriveFamousPersonResults(content: FamousPersonContent): Persona
   return results;
 }
 
-export function deriveFamousPersonProfile(content: FamousPersonContent): CombinedProfile | null {
+export function deriveFamousPersonProfile(content: TypingsSource): CombinedProfile | null {
   return generateCombinedProfile(deriveFamousPersonResults(content));
 }
