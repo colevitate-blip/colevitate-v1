@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Compass, LayoutGrid, Menu, Star, Users, X } from "lucide-react";
+import { BookOpen, Compass, LayoutGrid, Menu, Star, Users, X } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 
 /** sm:hidden hamburger menu — the inline pill row (rendered separately in the layout)
@@ -13,12 +13,14 @@ export function MobileNavMenu({
   discoverLabel,
   peopleLabel,
   typesLabel,
+  learnLabel,
   teamsLabel,
 }: {
   menuLabel: string;
   discoverLabel: string;
   peopleLabel: string;
   typesLabel: string;
+  learnLabel: string;
   teamsLabel: string;
 }) {
   const [open, setOpen] = useState(false);
@@ -27,6 +29,7 @@ export function MobileNavMenu({
     { href: "/discover" as const, label: discoverLabel, icon: Compass },
     { href: "/people" as const, label: peopleLabel, icon: Star },
     { href: "/types" as const, label: typesLabel, icon: LayoutGrid },
+    { href: "/learn" as const, label: learnLabel, icon: BookOpen },
     { href: "/teams" as const, label: teamsLabel, icon: Users },
   ];
 

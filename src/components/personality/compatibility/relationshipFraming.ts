@@ -1,5 +1,5 @@
 import type { AxisId } from "@/lib/personality/types";
-import type { AxisCompatibility, Compatibility, CompatibilityBucket } from "@/components/personality/combined/computeCompatibility";
+import { sentenceFor, type AxisCompatibility, type Compatibility, type CompatibilityBucket } from "@/components/personality/combined/computeCompatibility";
 
 export type RelationshipType = "romantic" | "friend" | "coworker";
 
@@ -69,8 +69,11 @@ export interface MatchGauge {
  * is meant to answer "how good a match is this *for this relationship*" —
  * so it weights the axis most predictive of that relationship working out
  * more heavily.
+ *
+ * Exported so documentation (the Methodology page) can render this table
+ * live instead of a hand-typed, driftable copy of it.
  */
-const MATCH_GAUGE_WEIGHTS: Record<RelationshipType, Record<AxisId, number>> = {
+export const MATCH_GAUGE_WEIGHTS: Record<RelationshipType, Record<AxisId, number>> = {
   romantic: { energy: 0.2, structure: 0.15, people: 0.45, novelty: 0.2 },
   friend: { energy: 0.35, structure: 0.15, people: 0.2, novelty: 0.3 },
   coworker: { energy: 0.15, structure: 0.55, people: 0.2, novelty: 0.1 },
@@ -81,7 +84,7 @@ const MATCH_GAUGE_WEIGHTS: Record<RelationshipType, Record<AxisId, number>> = {
  * weighted axis in MATCH_GAUGE_WEIGHTS above. Derived, not hand-maintained,
  * so it can never drift out of sync if the weights are retuned later.
  */
-const DEFINING_AXIS: Record<RelationshipType, AxisId> = RELATIONSHIP_TYPE_ORDER.reduce(
+export const DEFINING_AXIS: Record<RelationshipType, AxisId> = RELATIONSHIP_TYPE_ORDER.reduce(
   (acc, type) => {
     const weights = MATCH_GAUGE_WEIGHTS[type];
     acc[type] = (Object.keys(weights) as AxisId[]).reduce((best, id) => (weights[id] > weights[best] ? id : best));
@@ -100,8 +103,11 @@ const DEFINING_AXIS: Record<RelationshipType, AxisId> = RELATIONSHIP_TYPE_ORDER.
  * "different" (the middle bucket) passes through unchanged — the gate is only
  * for the two buckets that actually say something decisive about the defining
  * trait.
+ *
+ * Exported so documentation (the Methodology page) can quote these exact
+ * multipliers instead of a hand-typed, driftable copy of them.
  */
-const DEFINING_AXIS_GATE: Record<CompatibilityBucket, number> = {
+export const DEFINING_AXIS_GATE: Record<CompatibilityBucket, number> = {
   aligned: 1.15,
   different: 1,
   opposite: 0.55,
@@ -200,20 +206,52 @@ export function verdictFor(gauge: MatchGauge, axes: AxisCompatibility[]): string
   }
 }
 
+export interface MatchDrivers {
+  /** The best-aligned axis's own descriptive sentence — always shown, even for a low overall gauge, since there's always a relatively strongest axis. */
+  strength: string;
+  /** The most-mismatched axis's sentence, or null when every axis is aligned (verdictFor's "little friction to speak of" case) — nothing meaningful to name as friction. */
+  friction: string | null;
+}
+
+/**
+ * The two-sided "why" behind the single-line verdict above it: which axis is
+ * carrying the match, and which one is the actual risk. Both reuse each
+ * axis's own sentence from computeCompatibility (already relationship-framed
+ * via frameCompatibility's axis labels) rather than inventing new prose, so
+ * this can never say something the axis breakdown below it contradicts.
+ */
+export function matchDriversFor(axes: AxisCompatibility[]): MatchDrivers {
+  const strongest = axes.reduce((best, axis) => (axis.similarity > best.similarity ? axis : best));
+  const weakest = axes.reduce((worst, axis) => (axis.similarity < worst.similarity ? axis : worst));
+  return {
+    strength: strongest.sentence,
+    friction: weakest.bucket === "aligned" ? null : weakest.sentence,
+  };
+}
+
 /**
  * Applies relationship-specific axis labels/report copy on top of an
  * already-computed Compatibility. Deliberately never touches
- * scoreA/scoreB/similarity/bucket/sentence — those come from
- * computeCompatibility's framework-agnostic math and stay identical
- * regardless of relationship type; only the framing changes.
+ * scoreA/scoreB/similarity/bucket — those come from computeCompatibility's
+ * framework-agnostic math and stay identical regardless of relationship
+ * type. `sentence` DOES get regenerated (via the same sentenceFor
+ * computeCompatibility already uses) against the new label — otherwise a
+ * relabeled "Conflict Style Fit" axis would still read "...on people
+ * orientation" in its own sentence, contradicting the header right above it.
  */
-export function frameCompatibility(compatibility: Compatibility, type: RelationshipType): Compatibility {
+export function frameCompatibility(compatibility: Compatibility, type: RelationshipType, nameA: string, nameB: string): Compatibility {
   const framing = RELATIONSHIP_FRAMING[type];
   return {
     ...compatibility,
-    axes: compatibility.axes.map((axis) => ({
-      ...axis,
-      label: framing.axisLabels[axis.id] ?? axis.label,
-    })),
+    axes: compatibility.axes.map((axis) => {
+      const label = framing.axisLabels[axis.id] ?? axis.label;
+      return {
+        ...axis,
+        label,
+        // sentenceFor only reads label/leftPole/rightPole off this shape — `score` is
+        // unused here but required by ComparableAxis, so scoreA fills the slot.
+        sentence: sentenceFor(nameA, nameB, { ...axis, label, score: axis.scoreA }, axis.scoreA, axis.scoreB, axis.bucket),
+      };
+    }),
   };
 }

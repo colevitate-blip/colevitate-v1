@@ -1,0 +1,76 @@
+{
+  "meta": {
+    "title": "Wie dein Profil berechnet wird — Methodik | Colevitate",
+    "description": "Die echte Mathematik hinter deinem kombinierten Profil: wie jedes der vier Frameworks bewertet wird, wie ihre Signale zu vier Achsen gewichtet werden, wie die 16 Archetypen entstehen und wie zwei Profile verglichen werden."
+  },
+  "hero": {
+    "eyebrow": "Methodik",
+    "title": "Wie dein Profil berechnet wird",
+    "intro": "Colevitate erfindet kein neues Persönlichkeitsmodell — es lässt vier bestehende, sehr unterschiedliche Frameworks nebeneinander laufen und verbindet das, worin sie übereinstimmen und wo sie sich unterscheiden, zu einem kombinierten Profil. Diese Seite zeigt den tatsächlichen Mechanismus dahinter, direkt aus dem Code, der ihn berechnet — keine vereinfachte Marketingversion."
+  },
+  "frameworks": {
+    "heading": "Die vier Linsen",
+    "intro": "Jedes Framework wird zunächst vollständig nach seinen eigenen Regeln bewertet. Nichts hier ist für diese Seite erfunden — das sind genau die Mechanismen, die auch beim eigentlichen Test verwendet werden.",
+    "questionCount": "{count} Fragen",
+    "fullWriteUp": "Vollständiger Beitrag: Herkunft, Validität & was gemessen wird",
+    "mbti": {
+      "mechanic": "3 Fragen pro Dichotomie — Extraversion/Introversion, Wahrnehmung/Intuition, Denken/Fühlen, Urteilen/Wahrnehmen. Jede Antwort verschiebt einen laufenden Wert in Richtung eines Pols; welcher Pol am Ende vorne liegt, wird zum Buchstaben in deinem Typ, und wie eindeutig dieser Wert ausfiel, wird zu deinem Konfidenzwert dafür."
+    },
+    "bigfive": {
+      "mechanic": "2 Fragen pro Eigenschaft, einige davon umgekehrt gewichtet, damit reine Zustimmung eine Eigenschaft nicht künstlich erhöht. Die Antworten jeder Eigenschaft werden gemittelt und auf eine Skala von 0–100 umgerechnet — fünf unabhängige Werte, kein Typ, in den du einsortiert wirst."
+    },
+    "humandesign": {
+      "mechanic": "Jede Antwortoption ist auf einen oder mehrere der fünf Energietypen gewichtet. Die Gewichte werden über alle deine Antworten summiert, und welcher Typ die höchste Gesamtsumme erreicht, gewinnt — es gibt keinen Teilwert, nur einen eindeutigen Gewinner."
+    },
+    "colors": {
+      "mechanic": "Fragen mit fester Auswahl, bei denen jede Option auf eine oder mehrere Farben gewichtet ist, summiert wie bei Human Design. Deine dominante Farbe ist die mit dem höchsten Wert; deine sekundäre Farbe — die mit dem zweithöchsten Wert — zählt trotzdem mit (siehe unten)."
+    }
+  },
+  "combine": {
+    "heading": "Wie wir sie zu einem Profil kombinieren",
+    "intro": "Bevor irgendetwas kombiniert wird, wird das Ergebnis jedes Frameworks in dieselbe Einheit umgerechnet: ein Signal von -100 bis 100 auf jeder von vier Achsen.",
+    "axesIntro": "Energie (nach innen ↔ nach außen), Struktur & Tempo (spontan ↔ geplant), Personenorientierung (aufgaben- ↔ menschenorientiert) und Offenheit für Neues (bodenständig ↔ experimentierfreudig).",
+    "weightsHeading": "Die Gewichtung jedes Frameworks, pro Achse",
+    "weightsNote": "Diese Gewichte werden live aus demselben Bewertungsmodul gelesen, das dein tatsächliches Profil berechnet — werden sie jemals neu justiert, aktualisiert sich diese Tabelle automatisch mit.",
+    "renormalization": "Dein Wert auf einer Achse ist ein gewichteter Durchschnitt aus dem Signal jedes abgeschlossenen Frameworks, nach den obigen Gewichten. Hast du nur einen Teil der Tests gemacht, werden die Gewichte der abgeschlossenen Tests hochskaliert, sodass sie zusammen 100 % ergeben — ein unvollständiges Profil bleibt ein echter Durchschnitt, nie so behandelt, als hätten die fehlenden Frameworks null Punkte erzielt.",
+    "agreementHeading": "Wo deine Linsen übereinstimmen",
+    "agreement": "Wir verfolgen außerdem, wie weit die rohen Signale der Frameworks auf jeder Achse auseinanderliegen. Eine Spanne unter {agree} Punkten gilt als Übereinstimmung, bis {mixed} als gemischt, und alles darüber als Uneinigkeit — kein Widerspruch, nur verschiedene Linsen, die unterschiedliche Seiten von dir erfassen."
+  },
+  "archetypes": {
+    "heading": "Die 16 Archetypen",
+    "intro": "Jede der vier Achsen wird auf ein einfaches Vorzeichen reduziert — landet dein kombinierter Wert links oder rechts der Mitte? Vier Achsen, zwei Seiten je Achse, ergibt 2 × 2 × 2 × 2 = 16 mögliche Kombinationen. Dein Archetyp ist einfach, in welche dieser 16 Ecken dein Profil fällt.",
+    "tableNote": "Namen und Beschreibungen unten sind dieselben, die auch deine eigene Profilseite verwendet."
+  },
+  "compare": {
+    "heading": "Wie wir zwei Profile vergleichen",
+    "intro": "Der Vergleich zweier Personen nutzt dieselben vier Achsen wie oben, nie die rohen Framework-Daten — ein Kompatibilitätsbericht sieht also immer nur dieselben abgeleiteten Zahlen, die du auch auf deinem eigenen Profil sehen würdest.",
+    "similarityHeading": "Gesamtähnlichkeit",
+    "similarity": "Für jede Achse nehmen wir den Abstand zwischen den Werten zweier Personen (bis zu 200 Punkte möglich) und rechnen ihn in einen Ähnlichkeitswert von 0–100 um. Der Durchschnitt über alle vier Achsen ergibt die Gesamtähnlichkeit.",
+    "bucketsHeading": "Übereinstimmend, unterschiedlich oder gegensätzlich",
+    "buckets": "Ein Abstand von {aligned} Punkten oder weniger auf einer Achse gilt als übereinstimmend, bis zu {different} als unterschiedlich, und alles darüber als gegensätzlich — dieselbe beschreibende, nicht wertende Einordnung wie überall sonst auf dieser Seite.",
+    "matchGaugeHeading": "Die beziehungsspezifische Match-Anzeige",
+    "matchGauge": "Die 1–10-Match-Anzeige in einem Kompatibilitätsbericht ist nicht dasselbe wie die Gesamtähnlichkeit oben — sie gewichtet die vier Achsen je nach Beziehungstyp unterschiedlich, denn die Achse, die eine romantische Beziehung trägt oder zum Scheitern bringt, ist nicht dieselbe wie bei einer Arbeitsbeziehung.",
+    "matchGaugeTableNote": "Die Gewichte jedes Beziehungstyps, live aus demselben Modul gelesen, das auch echte Berichte berechnet.",
+    "definingAxisHeading": "Der Achsen-Gate-Mechanismus",
+    "definingAxis": "Jeder Beziehungstyp hat außerdem eine Achse, auf die er sich am stärksten stützt — seine entscheidende Achse. Nach der gewichteten Mischung oben multipliziert die Kategorie dieser Achse (übereinstimmend, unterschiedlich oder gegensätzlich) den Gesamtwert zusätzlich nach oben oder unten. Das erlaubt es demselben Paar, als starkes Arbeits-Match und gleichzeitig als wacklige romantische Beziehung eingestuft zu werden, statt zwei Werte zu erhalten, die nur einen Punkt auseinanderliegen.",
+    "definingAxisPerType": "Entscheidende Achse nach Beziehungstyp",
+    "curious": "Für die Neugierigen: die genauen Multiplikatoren",
+    "curiousDetail": "Der Multiplikator der entscheidenden Achse beträgt {aligned}×, wenn diese Achse übereinstimmt, {different}×, wenn sie nur unterschiedlich ist, und {opposite}×, wenn sie gegensätzlich ist — eine eindeutige Nichtübereinstimmung auf der für diesen Beziehungstyp wichtigsten Achse begrenzt also den Höchstwert wirklich, egal wie gut die anderen drei Achsen passen."
+  },
+  "labels": {
+    "framework": "Framework",
+    "axis": "Achse",
+    "weight": "Gewicht",
+    "romantic": "Romantisch",
+    "friend": "Freundschaft",
+    "coworker": "Arbeit",
+    "aligned": "Übereinstimmend",
+    "different": "Unterschiedlich",
+    "opposite": "Gegensätzlich"
+  },
+  "ui": {
+    "hideDetail": "Die genauen Zahlen ausblenden",
+    "ctaCompare": "Hast du schon ein Profil? Vergleiche es mit jemandem, den du kennst.",
+    "ctaCompareLink": "Kompatibilitätsbericht starten"
+  }
+}

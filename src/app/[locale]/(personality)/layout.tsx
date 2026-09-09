@@ -4,7 +4,7 @@ import NextLink from "next/link";
 import { getTranslations } from "next-intl/server";
 import { PersonalityProvider } from "@/lib/personality/context";
 import { Link } from "@/i18n/navigation";
-import { Compass, LayoutGrid, Star, Users } from "lucide-react";
+import { BookOpen, Compass, LayoutGrid, Star, Users } from "lucide-react";
 import { ColevitateMark } from "@/components/brand/Logo";
 import { AuthProvider } from "@/lib/supabase/AuthProvider";
 import { AuthStatus } from "@/components/auth/AuthStatus";
@@ -66,6 +66,10 @@ export default async function PersonalityLayout({ children }: { children: ReactN
                       <LayoutGrid className="size-3.5" />
                       {t("typesLink")}
                     </Link>
+                    <Link href="/learn" className={NAV_LINK_CLASS}>
+                      <BookOpen className="size-3.5" />
+                      {t("learnLink")}
+                    </Link>
                     <Link href="/teams" className={NAV_LINK_CLASS}>
                       <Users className="size-3.5" />
                       {t("teamsLink")}
@@ -80,6 +84,7 @@ export default async function PersonalityLayout({ children }: { children: ReactN
                     discoverLabel={t("discoverLink")}
                     peopleLabel={t("peopleLink")}
                     typesLabel={t("typesLink")}
+                    learnLabel={t("learnLink")}
                     teamsLabel={t("teamsLink")}
                   />
                 </div>
@@ -97,6 +102,9 @@ export default async function PersonalityLayout({ children }: { children: ReactN
           <footer className="mx-auto mt-16 flex w-full max-w-6xl flex-col items-center gap-3 px-4 pb-10 text-center text-xs text-muted-foreground">
             <p>{t("footerTagline")}</p>
             <div className="flex gap-4">
+              <Link href="/methodology" className="hover:text-foreground hover:underline">
+                {t("methodologyLink")}
+              </Link>
               <NextLink href="/privacy" className="hover:text-foreground hover:underline">
                 Privacy Policy
               </NextLink>

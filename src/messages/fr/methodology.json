@@ -1,0 +1,76 @@
+{
+  "meta": {
+    "title": "Comment votre profil est calculé — Méthodologie | Colevitate",
+    "description": "Les calculs réels derrière votre profil combiné : comment chacun des quatre référentiels est noté, comment leurs signaux sont pondérés sur quatre axes, comment les 16 archétypes sont obtenus, et comment deux profils sont comparés."
+  },
+  "hero": {
+    "eyebrow": "Méthodologie",
+    "title": "Comment votre profil est calculé",
+    "intro": "Colevitate n'invente pas un nouveau modèle de personnalité — l'outil fait fonctionner en parallèle quatre référentiels existants, très différents les uns des autres, puis combine leurs points d'accord et de désaccord en un seul profil combiné. Cette page montre le mécanisme réel derrière ce processus, tiré directement du code qui le calcule, et non une version simplifiée à visée marketing."
+  },
+  "frameworks": {
+    "heading": "Les quatre lentilles",
+    "intro": "Chaque référentiel est d'abord noté entièrement selon ses propres règles. Rien ici n'est inventé pour cette page — ce sont exactement les mécanismes utilisés lorsque vous passez chaque test.",
+    "questionCount": "{count} questions",
+    "fullWriteUp": "Article complet : origine, validité et ce qui est mesuré",
+    "mbti": {
+      "mechanic": "3 questions par dichotomie — Extraversion/Introversion, Sensation/Intuition, Pensée/Sentiment, Jugement/Perception. Chaque réponse déplace un score en cours vers l'un des pôles de sa dichotomie ; le pôle en tête à la fin des questions devient une lettre de votre type, et l'écart obtenu devient votre pourcentage de confiance pour ce pôle."
+    },
+    "bigfive": {
+      "mechanic": "2 questions par trait, certaines notées à l'inverse pour qu'être d'accord avec tout ne gonfle pas un trait. Les réponses de chaque trait sont moyennées puis ramenées sur une échelle de 0 à 100 — cinq nombres indépendants, pas un type dans lequel on vous classe."
+    },
+    "humandesign": {
+      "mechanic": "Chaque option de réponse est pondérée vers un ou plusieurs des cinq types d'énergie. Les poids sont additionnés sur l'ensemble de vos réponses, et le type avec le total le plus élevé l'emporte — il n'y a pas de score partiel, seulement un gagnant unique."
+    },
+    "colors": {
+      "mechanic": "Questions à choix forcé où chaque option est pondérée vers une ou plusieurs couleurs, additionnées de la même façon que pour le Human Design. Votre couleur dominante est celle qui obtient le score le plus élevé ; votre couleur secondaire — celle qui arrive en deuxième position — compte tout de même (voir ci-dessous)."
+    }
+  },
+  "combine": {
+    "heading": "Comment nous les combinons en un seul profil",
+    "intro": "Avant toute combinaison, le résultat de chaque référentiel est converti dans la même unité : un signal de -100 à 100 sur chacun des quatre axes.",
+    "axesIntro": "Énergie (introvertie ↔ extravertie), Structure et rythme (émergent ↔ planifié), Orientation vers les autres (centrée sur la tâche ↔ centrée sur les personnes), et Ouverture à la nouveauté (ancrée ↔ exploratoire).",
+    "weightsHeading": "Le poids de chaque référentiel, par axe",
+    "weightsNote": "Ces poids sont lus en direct depuis le même module de notation qui calcule votre profil réel — s'ils sont un jour réajustés, ce tableau se met à jour en même temps.",
+    "renormalization": "Votre score sur un axe est une moyenne pondérée du signal de chaque référentiel complété, selon les poids ci-dessus. Si vous n'avez terminé qu'une partie des tests, les poids de ceux que vous avez complétés sont remis à l'échelle pour atteindre 100 % — un profil partiel reste une vraie moyenne, jamais traité comme si les référentiels manquants avaient obtenu zéro.",
+    "agreementHeading": "Où vos lentilles s'accordent",
+    "agreement": "Nous mesurons aussi l'écart entre les signaux bruts des référentiels sur chaque axe. Un écart inférieur à {agree} points se lit comme un accord, jusqu'à {mixed} comme mitigé, et au-delà comme un désaccord — pas une contradiction, juste des lentilles différentes qui captent des facettes différentes de vous."
+  },
+  "archetypes": {
+    "heading": "Les 16 archétypes",
+    "intro": "Chacun des quatre axes se réduit à un simple signe — votre score combiné est-il tombé à gauche ou à droite du centre ? Quatre axes, deux côtés chacun, donnent 2 × 2 × 2 × 2 = 16 combinaisons possibles. Votre archétype est simplement celui de ces 16 combinaisons dans laquelle votre profil est tombé.",
+    "tableNote": "Les noms et descriptions ci-dessous sont exactement ceux utilisés sur votre propre page de profil combiné."
+  },
+  "compare": {
+    "heading": "Comment nous comparons deux profils",
+    "intro": "Comparer deux personnes utilise les quatre mêmes axes ci-dessus, jamais les données brutes des référentiels — un rapport de compatibilité ne voit donc que les mêmes nombres dérivés que ceux affichés sur votre propre profil.",
+    "similarityHeading": "Similarité globale",
+    "similarity": "Pour chaque axe, nous prenons l'écart entre les scores de deux personnes (jusqu'à 200 points d'écart possibles) et le convertissons en un nombre de similarité de 0 à 100. La moyenne de ces quatre axes donne la similarité globale.",
+    "bucketsHeading": "Alignés, différents ou opposés",
+    "buckets": "Un écart de {aligned} points ou moins sur un axe se lit comme aligné, jusqu'à {different} comme différent, et au-delà comme opposé — la même approche descriptive, non normative, utilisée partout ailleurs sur ce site.",
+    "matchGaugeHeading": "La jauge de compatibilité selon le type de relation",
+    "matchGauge": "La jauge de 1 à 10 d'un rapport de compatibilité n'est pas la même chose que la similarité globale ci-dessus — elle pondère différemment les quatre axes selon le type de relation, car l'axe qui fait ou défait un couple romantique n'est pas celui qui fait ou défait une relation professionnelle.",
+    "matchGaugeTableNote": "Les poids de chaque type de relation, lus en direct depuis le même module qui calcule un rapport réel.",
+    "definingAxisHeading": "Le verrou de l'axe déterminant",
+    "definingAxis": "Chaque type de relation a aussi un axe sur lequel il s'appuie le plus — son axe déterminant. Après le mélange pondéré ci-dessus, la catégorie de cet axe (aligné, différent ou opposé) multiplie le score global vers le haut ou vers le bas, en plus de la moyenne habituelle. C'est ce qui permet aux deux mêmes personnes d'obtenir un score de très bons collègues et, en même temps, de couple romantique fragile, au lieu de deux nombres séparés d'un seul point.",
+    "definingAxisPerType": "Axe déterminant selon le type de relation",
+    "curious": "Pour les curieux : les multiplicateurs exacts",
+    "curiousDetail": "Le multiplicateur de l'axe déterminant est de {aligned}× lorsque cet axe est aligné, {different}× lorsqu'il est simplement différent, et {opposite}× lorsqu'il est opposé — un désaccord total sur l'axe le plus important pour ce type de relation plafonne donc réellement le score, quelle que soit la qualité de l'accord sur les trois autres axes."
+  },
+  "labels": {
+    "framework": "Référentiel",
+    "axis": "Axe",
+    "weight": "Poids",
+    "romantic": "Romantique",
+    "friend": "Amitié",
+    "coworker": "Professionnelle",
+    "aligned": "Aligné",
+    "different": "Différent",
+    "opposite": "Opposé"
+  },
+  "ui": {
+    "hideDetail": "Masquer les chiffres exacts",
+    "ctaCompare": "Vous avez déjà un profil ? Comparez-le avec celui d'une personne que vous connaissez.",
+    "ctaCompareLink": "Démarrer un rapport de compatibilité"
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "meta": {
+    "title": "How Your Profile Is Calculated — Methodology | Colevitate",
+    "description": "The real math behind your combined profile: how each of the four frameworks is scored, how their signals are weighted into four axes, how the 16 archetypes are derived, and how two profiles get compared."
+  },
+  "hero": {
+    "eyebrow": "Methodology",
+    "title": "How Your Profile Is Calculated",
+    "intro": "Colevitate doesn't invent a new personality model — it runs four existing, very different frameworks side by side and blends what they agree and disagree on into one combined profile. This page shows the actual mechanism behind that, sourced straight from the code that computes it, not a simplified marketing version."
+  },
+  "frameworks": {
+    "heading": "The Four Lenses",
+    "intro": "Each framework is scored entirely on its own terms first. Nothing here is invented for this page — these are the exact mechanics used when you take each assessment.",
+    "questionCount": "{count} questions",
+    "fullWriteUp": "Full write-up: origin, validity & what it measures",
+    "mbti": {
+      "mechanic": "3 questions per dichotomy — Extraversion/Introversion, Sensing/Intuition, Thinking/Feeling, Judging/Perceiving. Each answer nudges a running score toward one pole of its dichotomy; whichever pole is ahead when the questions run out becomes a letter in your type, and how lopsided that score was becomes your confidence percentage for it."
+    },
+    "bigfive": {
+      "mechanic": "2 questions per trait, some reverse-scored so agreeing with everything doesn't inflate a trait. Each trait's answers average out and rescale onto a 0–100 line — five independent numbers, not a type you get sorted into."
+    },
+    "humandesign": {
+      "mechanic": "Every answer option is weighted toward one or more of the five energy types. Weights are summed across all your answers, and whichever type ends up with the highest total wins — there's no partial score, just a single winner."
+    },
+    "colors": {
+      "mechanic": "Forced-choice questions where every option is weighted toward one or more colors, summed the same way as Human Design. Your dominant color is whichever one scores highest; your secondary — whichever scores second — still matters (see below)."
+    }
+  },
+  "combine": {
+    "heading": "How We Combine Them Into One Profile",
+    "intro": "Before anything gets combined, every framework's result is converted into the same currency: a signal from -100 to 100 on each of four axes.",
+    "axesIntro": "Energy (inward ↔ outward), Structure & Pace (emergent ↔ planned), People Orientation (task-focused ↔ people-focused), and Openness to Novelty (grounded ↔ exploratory).",
+    "weightsHeading": "Each framework's weight, per axis",
+    "weightsNote": "These weights are read live from the same scoring module used to compute your actual profile — if they're ever retuned, this table updates with them.",
+    "renormalization": "Your score on an axis is a weighted average of every completed framework's signal, using the weights above. If you've only finished some assessments, the weights among the ones you did complete get scaled back up to fill 100% — a partial profile is still a real average, never treated as if the missing frameworks scored zero.",
+    "agreementHeading": "Where your lenses agree",
+    "agreement": "We also track how far apart the frameworks' raw signals land on each axis. A spread under {agree} points reads as agreement, up to {mixed} as mixed, and anything wider as disagreement — not a contradiction, just different lenses catching different parts of you."
+  },
+  "archetypes": {
+    "heading": "The 16 Archetypes",
+    "intro": "Each of the four axes collapses to a simple sign — did your combined score land left of center or right of center? Four axes, two sides each, gives 2 × 2 × 2 × 2 = 16 possible combinations. Your archetype is just which of those 16 corners your profile landed in.",
+    "tableNote": "Names and descriptions below are the same ones your own combined-profile page uses."
+  },
+  "compare": {
+    "heading": "How We Compare Two Profiles",
+    "intro": "Comparing two people uses the same four axes above, never the raw framework data — so a compatibility report only ever sees the same derived numbers you'd see on your own profile.",
+    "similarityHeading": "Overall similarity",
+    "similarity": "For each axis, we take the gap between two people's scores (0 to 200 points apart is possible) and convert it into a 0–100 similarity number. Averaging that across all four axes gives an overall similarity score.",
+    "bucketsHeading": "Aligned, different, or opposite",
+    "buckets": "A gap of {aligned} points or less on an axis reads as aligned, up to {different} as different, and anything wider as opposite — the same descriptive, not judgmental, framing used everywhere else on this site.",
+    "matchGaugeHeading": "The relationship-specific match gauge",
+    "matchGauge": "The 1–10 match gauge on a compatibility report isn't the same as the overall similarity score above — it re-weights the four axes differently depending on the relationship type, because the axis that makes or breaks a romantic pairing isn't the one that makes or breaks a coworking relationship.",
+    "matchGaugeTableNote": "Each relationship type's weights, read live from the same module used to compute a real report.",
+    "definingAxisHeading": "The defining-axis gate",
+    "definingAxis": "Every relationship type also has one axis it leans on hardest — its defining axis. After the weighted blend above, that axis's bucket (aligned, different, or opposite) multiplies the whole score up or down, on top of the ordinary average. That's what lets the same two people score as a strong coworker match and a rocky romantic one, instead of two numbers a point apart.",
+    "definingAxisPerType": "Defining axis by relationship type",
+    "curious": "For the curious: the exact multipliers",
+    "curiousDetail": "The defining-axis multiplier is {aligned}× when that axis is aligned, {different}× when it's merely different, and {opposite}× when it's opposite — so a flat-out mismatch on the axis that matters most for a given relationship type genuinely caps how high the score can go, no matter how well the other three axes line up."
+  },
+  "labels": {
+    "framework": "Framework",
+    "axis": "Axis",
+    "weight": "Weight",
+    "romantic": "Romantic",
+    "friend": "Friend",
+    "coworker": "Coworker",
+    "aligned": "Aligned",
+    "different": "Different",
+    "opposite": "Opposite"
+  },
+  "ui": {
+    "hideDetail": "Hide the exact numbers",
+    "ctaCompare": "Already have a profile? Compare it with someone you know.",
+    "ctaCompareLink": "Start a compatibility report"
+  }
+}

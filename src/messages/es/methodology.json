@@ -1,0 +1,76 @@
+{
+  "meta": {
+    "title": "Cómo se calcula tu perfil — Metodología | Colevitate",
+    "description": "Las matemáticas reales detrás de tu perfil combinado: cómo se puntúa cada uno de los cuatro marcos, cómo se ponderan sus señales en cuatro ejes, cómo se derivan los 16 arquetipos y cómo se comparan dos perfiles."
+  },
+  "hero": {
+    "eyebrow": "Metodología",
+    "title": "Cómo se calcula tu perfil",
+    "intro": "Colevitate no inventa un nuevo modelo de personalidad: combina cuatro marcos ya existentes, muy distintos entre sí, y mezcla en qué coinciden y en qué difieren en un único perfil combinado. Esta página muestra el mecanismo real detrás de eso, tomado directamente del código que lo calcula, no una versión simplificada de marketing."
+  },
+  "frameworks": {
+    "heading": "Los cuatro lentes",
+    "intro": "Cada marco se puntúa primero por completo según sus propias reglas. Nada aquí se ha inventado para esta página: son exactamente los mecanismos que se usan al hacer cada evaluación.",
+    "questionCount": "{count} preguntas",
+    "fullWriteUp": "Artículo completo: origen, validez y qué mide",
+    "mbti": {
+      "mechanic": "3 preguntas por dicotomía — Extraversión/Introversión, Sensación/Intuición, Pensamiento/Sentimiento, Juicio/Percepción. Cada respuesta desplaza una puntuación en curso hacia uno de los polos de su dicotomía; el polo que quede por delante al terminar las preguntas se convierte en una letra de tu tipo, y lo marcada que haya sido esa puntuación se convierte en tu porcentaje de confianza para ella."
+    },
+    "bigfive": {
+      "mechanic": "2 preguntas por rasgo, algunas puntuadas de forma inversa para que estar de acuerdo con todo no infle un rasgo. Las respuestas de cada rasgo se promedian y se reescalan a una línea de 0 a 100: cinco números independientes, no un tipo en el que te clasifican."
+    },
+    "humandesign": {
+      "mechanic": "Cada opción de respuesta está ponderada hacia uno o más de los cinco tipos de energía. Los pesos se suman a lo largo de todas tus respuestas, y el tipo con la suma más alta gana: no hay puntuación parcial, solo un ganador único."
+    },
+    "colors": {
+      "mechanic": "Preguntas de elección forzada en las que cada opción está ponderada hacia uno o más colores, sumadas igual que en Human Design. Tu color dominante es el que obtiene la puntuación más alta; tu color secundario —el que queda en segundo lugar— también cuenta (ver más abajo)."
+    }
+  },
+  "combine": {
+    "heading": "Cómo los combinamos en un solo perfil",
+    "intro": "Antes de combinar nada, el resultado de cada marco se convierte a la misma unidad: una señal de -100 a 100 en cada uno de cuatro ejes.",
+    "axesIntro": "Energía (hacia dentro ↔ hacia fuera), Estructura y ritmo (emergente ↔ planificado), Orientación hacia las personas (centrado en la tarea ↔ centrado en las personas) y Apertura a lo nuevo (con los pies en la tierra ↔ explorador).",
+    "weightsHeading": "El peso de cada marco, por eje",
+    "weightsNote": "Estos pesos se leen en vivo del mismo módulo de puntuación que calcula tu perfil real — si alguna vez se reajustan, esta tabla se actualiza con ellos.",
+    "renormalization": "Tu puntuación en un eje es un promedio ponderado de la señal de cada marco que hayas completado, usando los pesos de arriba. Si solo has terminado algunas evaluaciones, los pesos de las que sí completaste se reescalan para sumar el 100 % — un perfil parcial sigue siendo un promedio real, nunca se trata como si los marcos que faltan hubieran puntuado cero.",
+    "agreementHeading": "Dónde coinciden tus lentes",
+    "agreement": "También rastreamos cuánto se separan entre sí las señales en bruto de los marcos en cada eje. Una diferencia menor a {agree} puntos se lee como acuerdo, hasta {mixed} como mixta, y cualquier valor mayor como desacuerdo — no es una contradicción, solo lentes distintos captando partes distintas de ti."
+  },
+  "archetypes": {
+    "heading": "Los 16 arquetipos",
+    "intro": "Cada uno de los cuatro ejes se reduce a un signo simple: ¿tu puntuación combinada cayó a la izquierda o a la derecha del centro? Cuatro ejes, dos lados cada uno, dan 2 × 2 × 2 × 2 = 16 combinaciones posibles. Tu arquetipo es simplemente en cuál de esas 16 esquinas cayó tu perfil.",
+    "tableNote": "Los nombres y descripciones de abajo son los mismos que usa tu propia página de perfil combinado."
+  },
+  "compare": {
+    "heading": "Cómo comparamos dos perfiles",
+    "intro": "Comparar a dos personas usa los mismos cuatro ejes de arriba, nunca los datos en bruto de los marcos — un informe de compatibilidad solo ve los mismos números derivados que verías en tu propio perfil.",
+    "similarityHeading": "Similitud general",
+    "similarity": "Para cada eje, tomamos la diferencia entre las puntuaciones de dos personas (puede haber hasta 200 puntos de distancia) y la convertimos en un número de similitud de 0 a 100. Promediar eso en los cuatro ejes da la similitud general.",
+    "bucketsHeading": "Alineados, distintos u opuestos",
+    "buckets": "Una diferencia de {aligned} puntos o menos en un eje se lee como alineados, hasta {different} como distintos, y cualquier valor mayor como opuestos — el mismo enfoque descriptivo, no valorativo, que se usa en el resto del sitio.",
+    "matchGaugeHeading": "El medidor de compatibilidad según el tipo de relación",
+    "matchGauge": "El medidor de 1 a 10 de un informe de compatibilidad no es lo mismo que la similitud general de arriba: pondera los cuatro ejes de forma distinta según el tipo de relación, porque el eje que hace o deshace una pareja romántica no es el mismo que hace o deshace una relación laboral.",
+    "matchGaugeTableNote": "Los pesos de cada tipo de relación, leídos en vivo del mismo módulo que calcula un informe real.",
+    "definingAxisHeading": "El filtro del eje decisivo",
+    "definingAxis": "Cada tipo de relación también tiene un eje en el que se apoya con más fuerza: su eje decisivo. Después de la mezcla ponderada de arriba, la categoría de ese eje (alineado, distinto u opuesto) multiplica la puntuación total hacia arriba o hacia abajo, además del promedio normal. Eso es lo que permite que la misma pareja obtenga una puntuación de gran compañero de trabajo y, a la vez, de pareja romántica inestable, en lugar de dos números separados por apenas un punto.",
+    "definingAxisPerType": "Eje decisivo según el tipo de relación",
+    "curious": "Para los curiosos: los multiplicadores exactos",
+    "curiousDetail": "El multiplicador del eje decisivo es de {aligned}× cuando ese eje está alineado, {different}× cuando es simplemente distinto, y {opposite}× cuando es opuesto — así que un desajuste total en el eje más importante para ese tipo de relación limita de verdad hasta dónde puede llegar la puntuación, sin importar lo bien que encajen los otros tres ejes."
+  },
+  "labels": {
+    "framework": "Marco",
+    "axis": "Eje",
+    "weight": "Peso",
+    "romantic": "Romántica",
+    "friend": "Amistad",
+    "coworker": "Laboral",
+    "aligned": "Alineados",
+    "different": "Distintos",
+    "opposite": "Opuestos"
+  },
+  "ui": {
+    "hideDetail": "Ocultar los números exactos",
+    "ctaCompare": "¿Ya tienes un perfil? Compáralo con alguien que conozcas.",
+    "ctaCompareLink": "Iniciar un informe de compatibilidad"
+  }
+}

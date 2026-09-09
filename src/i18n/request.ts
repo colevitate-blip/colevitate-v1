@@ -3,12 +3,13 @@ import { hasLocale } from "next-intl";
 import { routing } from "./routing";
 
 async function loadMessages(locale: string) {
-  const [common, mbti, discovery] = await Promise.all([
+  const [common, mbti, discovery, methodology] = await Promise.all([
     import(`../messages/${locale}/common.json`).then((m) => m.default),
     import(`../messages/${locale}/mbti.json`).then((m) => m.default),
     import(`../messages/${locale}/discovery.json`).then((m) => m.default),
+    import(`../messages/${locale}/methodology.json`).then((m) => m.default),
   ]);
-  return { ...common, mbti, discovery };
+  return { ...common, mbti, discovery, methodology };
 }
 
 // Deep-merges `overrides` onto `base`, keeping base values for any key the

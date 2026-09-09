@@ -21,7 +21,9 @@ function bucket(axes: AxisScore[], id: AxisId): Bucket {
 // Key order matches AXES order: energy, structure, people, novelty.
 // Letters denote the right-pole (1) side per axis: E=outward, P=planned,
 // F=people-focused, X=exploratory. Left-pole (0) uses I, M, T, G.
-const ARCHETYPES: Record<string, Archetype> = {
+// Exported (alongside the lookup helpers below) so documentation pages can
+// list every archetype without hand-copying this table.
+export const ARCHETYPES: Record<string, Archetype> = {
   IMTG: {
     name: "The Quiet Craftsman",
     description:

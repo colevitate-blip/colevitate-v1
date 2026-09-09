@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { AuthProvider } from "@/lib/supabase/AuthProvider";
 import { PersonalityProvider } from "@/lib/personality/context";
 import { SiteHeader } from "@/components/nav/SiteHeader";
+import { Link } from "@/i18n/navigation";
 
 export default async function SiteLayout({ children }: { children: ReactNode }) {
   const t = await getTranslations("chrome");
@@ -17,6 +18,9 @@ export default async function SiteLayout({ children }: { children: ReactNode }) 
           <footer className="mx-auto mt-16 flex w-full max-w-6xl flex-col items-center gap-3 px-4 pb-10 text-center text-xs text-muted-foreground">
             <p>{t("footerTagline")}</p>
             <div className="flex gap-4">
+              <Link href="/methodology" className="hover:text-foreground hover:underline">
+                {t("methodologyLink")}
+              </Link>
               <NextLink href="/privacy" className="hover:text-foreground hover:underline">
                 Privacy Policy
               </NextLink>

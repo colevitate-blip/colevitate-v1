@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import type { MatchGauge } from "./relationshipFraming";
+import type { MatchDrivers, MatchGauge } from "./relationshipFraming";
 
 const BAND_FILL: Record<MatchGauge["band"], string> = {
   poor: "bg-rose-500",
@@ -17,7 +17,15 @@ const BAND_TEXT: Record<MatchGauge["band"], string> = {
   great: "text-emerald-600 dark:text-emerald-400",
 };
 
-export function MatchGaugeMeter({ gauge, verdict }: { gauge: MatchGauge; verdict: string }) {
+export function MatchGaugeMeter({
+  gauge,
+  verdict,
+  drivers,
+}: {
+  gauge: MatchGauge;
+  verdict: string;
+  drivers: MatchDrivers;
+}) {
   return (
     <div className="relative mx-auto mt-6 max-w-xs">
       <div className="flex items-baseline justify-center gap-1">
@@ -39,6 +47,19 @@ export function MatchGaugeMeter({ gauge, verdict }: { gauge: MatchGauge; verdict
         <span>Great</span>
       </div>
       <p className="mt-3 text-center text-xs leading-relaxed text-muted-foreground">{verdict}</p>
+
+      <div className="mt-4 space-y-2 border-t pt-4 text-left">
+        <p className="text-xs leading-relaxed">
+          <span className="font-semibold text-emerald-600 dark:text-emerald-400">Why it could work: </span>
+          <span className="text-muted-foreground">{drivers.strength}</span>
+        </p>
+        {drivers.friction && (
+          <p className="text-xs leading-relaxed">
+            <span className="font-semibold text-orange-600 dark:text-orange-400">Where the friction is: </span>
+            <span className="text-muted-foreground">{drivers.friction}</span>
+          </p>
+        )}
+      </div>
     </div>
   );
 }

@@ -285,16 +285,20 @@ function computeAxisScore(axis: AxisDefinition, results: PersonalityResults): nu
 
 // Spread of raw framework signals (max - min, out of a possible 200)
 // determines whether the frameworks are reading this axis the same way.
+// Exported so documentation (the Methodology page) can quote the exact
+// cutoffs instead of a hand-typed, driftable copy of them.
+export const AGREEMENT_SPREAD_THRESHOLDS = { agree: 40, mixed: 90 };
+
 function computeAgreement(contributions: AxisContribution[]): { agreement: AxisAgreement; agreementLabel: string } {
   if (contributions.length < 2) {
     return { agreement: "agree", agreementLabel: "Only one framework weighs in here." };
   }
   const signals = contributions.map((c) => c.signal);
   const spread = Math.max(...signals) - Math.min(...signals);
-  if (spread < 40) {
+  if (spread < AGREEMENT_SPREAD_THRESHOLDS.agree) {
     return { agreement: "agree", agreementLabel: "Your frameworks agree here." };
   }
-  if (spread < 90) {
+  if (spread < AGREEMENT_SPREAD_THRESHOLDS.mixed) {
     return { agreement: "mixed", agreementLabel: "Your frameworks mostly agree, with some nuance." };
   }
   return { agreement: "disagree", agreementLabel: "Your frameworks disagree here." };

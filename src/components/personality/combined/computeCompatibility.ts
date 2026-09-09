@@ -4,7 +4,7 @@ import type { AxisScore } from "./scoringMatrix";
 // (which also carries per-person narrative like `sentence`/`contributions`
 // that a stored pairing snapshot doesn't need to keep) so callers can pass
 // either a live computeScoringMatrix() result or a slim stored snapshot.
-type ComparableAxis = Pick<AxisScore, "id" | "label" | "leftPole" | "rightPole" | "score">;
+export type ComparableAxis = Pick<AxisScore, "id" | "label" | "leftPole" | "rightPole" | "score">;
 
 export type CompatibilityBucket = "aligned" | "different" | "opposite";
 
@@ -26,9 +26,13 @@ export interface Compatibility {
   axes: AxisCompatibility[];
 }
 
+// Exported so documentation (the Methodology page) can quote the exact
+// cutoffs instead of a hand-typed, driftable copy of them.
+export const COMPATIBILITY_BUCKET_THRESHOLDS = { aligned: 30, different: 90 };
+
 function bucketFor(gap: number): CompatibilityBucket {
-  if (gap <= 30) return "aligned";
-  if (gap <= 90) return "different";
+  if (gap <= COMPATIBILITY_BUCKET_THRESHOLDS.aligned) return "aligned";
+  if (gap <= COMPATIBILITY_BUCKET_THRESHOLDS.different) return "different";
   return "opposite";
 }
 
@@ -46,7 +50,11 @@ function does(name: string): string {
 // Deliberately descriptive, not evaluative — a wide gap on an axis isn't
 // framed as good or bad, just named, matching the app's existing "not a
 // scientific composite score" stance on the rest of the combined profile.
-function sentenceFor(nameA: string, nameB: string, axis: ComparableAxis, scoreA: number, scoreB: number, bucket: CompatibilityBucket): string {
+// Exported so frameCompatibility (relationshipFraming.ts) can regenerate a
+// sentence against a relationship-specific axis label — the label swap
+// alone would otherwise leave old sentences like "...on people orientation"
+// sitting next to a "Conflict Style Fit" header.
+export function sentenceFor(nameA: string, nameB: string, axis: ComparableAxis, scoreA: number, scoreB: number, bucket: CompatibilityBucket): string {
   if (bucket === "aligned") {
     return `${nameA} and ${nameB} land in a similar place on ${axis.label.toLowerCase()}.`;
   }

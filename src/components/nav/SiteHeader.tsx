@@ -33,6 +33,9 @@ export async function SiteHeader() {
           <Link href="/types" className={NAV_LINK_CLASS}>
             {t("typesLink")}
           </Link>
+          <Link href="/learn" className={NAV_LINK_CLASS}>
+            {t("learnLink")}
+          </Link>
           <Link href="/teams" className={NAV_LINK_CLASS}>
             {t("teamsLink")}
           </Link>
@@ -48,6 +51,7 @@ export async function SiteHeader() {
             discoverLabel={t("discoverLink")}
             peopleLabel={t("peopleLink")}
             typesLabel={t("typesLink")}
+            learnLabel={t("learnLink")}
             teamsLabel={t("teamsLink")}
           />
           <AuthStatus compact />

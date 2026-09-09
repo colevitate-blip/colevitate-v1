@@ -304,6 +304,90 @@ Done when: every type page under /types/[framework]/[slug] renders real
 content in all three sections instead of "coming soon," for English only.
 ```
 
+
+### 1.4 Build the Methodology / "how this is calculated" page
+
+```
+PROJECT_STATUS.md lists a "Methodology / how this is calculated page" under
+Tier 1 (shipped/in-progress, no backend required) — it has not actually
+been built yet (no route or component references "methodology" anywhere in
+src/app). This is a trust/differentiation feature worth doing properly:
+PROJECT_STATUS.md's own business analysis calls the multi-framework
+synthesis "the core differentiator; no direct consumer competitor combines
+this many frameworks into one profile," and right now a user has no way to
+see how their result was actually produced.
+
+Build a real, linked page (not a one-off doc) that explains, in the app's
+own voice and components:
+
+1. The four frameworks and how each is scored — one section per framework,
+   read directly from its own scoring.ts (question count, the actual signal
+   mechanic): src/components/personality/mbti/scoring.ts (4 dichotomies,
+   3 questions each, confidence = 50 + |sum|/max * 50), bigfive/questions.ts
+   + content.ts (5 traits, situational statements, 0-100 scores),
+   humandesign/scoring.ts (5 fixed energy types, not a continuous score),
+   colors/scoring.ts (dominant + secondary color, 75/25 blend elsewhere).
+
+2. The combined axis system — src/components/personality/combined/
+   scoringMatrix.ts is the source of truth: the AXES array's per-framework
+   weights (e.g. Energy is 35% MBTI / 35% Big Five / 10% Human Design / 20%
+   Colors), the weighted-average formula with renormalization for partial
+   completion, and the framework agreement/disagreement bucketing (spread
+   of raw signals: <40 "agree", <90 "mixed", else "disagree" — see
+   computeAgreement). Pull these numbers from the constants at render time
+   (or via a thin shared content/derivation module) — do not hand-type a
+   duplicate copy of the weight table in JSX, or the page will silently go
+   stale the next time scoringMatrix.ts is retuned.
+
+3. The 16 archetypes — combined/archetypeMatrix.ts: explain that each axis
+   collapses to its sign (≥0 vs <0), giving 2^4 combinations, and how the
+   4-letter code maps to Energy+Structure+People+Novelty. Doesn't need to
+   list all 16 by name; link to /types or wherever archetypes are already
+   surfaced if that exists, otherwise a compact table is fine.
+
+4. Decide explicitly whether the two-person compatibility model
+   (compatibility/relationshipFraming.ts, combined/computeCompatibility.ts
+   — gap buckets, the per-relationship-type match-gauge weights, the
+   defining-axis gate) belongs on THIS page or on the pairing/report page
+   instead (src/app/[locale]/(personality)/pair/[id]/report). It's a
+   separate enough mental model (two profiles, not one) that it may read
+   better as its own "how we compare two profiles" section linked FROM the
+   report page rather than bolted onto the single-profile methodology page.
+   Flag this choice to the user rather than guessing silently.
+
+Implementation notes:
+- Route under src/app/[locale]/(personality)/ following the existing
+  routing/i18n convention — check messages/ and add string keys for all 5
+  locales (en/de/es/fr/zh), not just English.
+- Reuse existing UI primitives (shadcn/Radix) and, where a chart/graph is
+  useful, check what combined/graphAppearance.ts and the existing
+  PersonalityGraphCard/AxisTrend/GraphLegend components already render
+  before building new chart components — this content overlaps with the
+  existing personality graph visualization (archetype → axis → trait →
+  question rings), so a "static/explanatory" reuse of those is likely
+  cheaper and more consistent than new bespoke charts.
+- Match the "warmth" copy tone already applied to landing/assessment copy.
+- Keep the internal tuning constants (e.g. the 1.15/1.0/0.55 defining-axis
+  gate multipliers, or the exact spread thresholds) out of the user-facing
+  copy in raw form — translate them into plain language; a "for the
+  curious" expandable section can carry more technical detail for the
+  minority who want it.
+- Link it from somewhere real (results page footer, main nav, or a "how we
+  calculated this" link near the axis breakdown) — confirm entry point(s)
+  with the user if ambiguous.
+- A first full draft of this content (info text + illustrative graphs for
+  all four frameworks, the axis weights, and the archetype matrix) was
+  produced as a reference write-up on 2026-09-08 — useful as source
+  copy/structure to adapt, but rebuild it with real components and live
+  i18n rather than porting any HTML directly.
+
+Done when: a real, linked page exists explaining all four frameworks and
+the combined axis/archetype system (with an explicit, user-confirmed
+decision on where the compatibility model lives) in the app's own visual
+language, sourcing its numbers from the live scoring code so it can't drift
+out of sync, working in all 5 locales.
+```
+
 ---
 
 ## Tier 2 — Medium effort (drafted-but-not-shipped, per PROJECT_STATUS.md Tier 2)

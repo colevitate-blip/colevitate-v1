@@ -5,6 +5,7 @@ import { SITE_URL } from "@/lib/seo/siteConfig";
 import { getAllTypePageParams, getTypeContent } from "@/lib/seo/typeContent";
 import { getAllCombinationSlugs } from "@/lib/seo/combinationContent";
 import { getAllFamousPeopleSlugs, getFamousPeopleByTyping } from "@/lib/seo/famousPeopleContent";
+import { FRAMEWORK_CONTENT, FRAMEWORK_ORDER } from "@/lib/seo/frameworkContent";
 
 // Builds one sitemap entry per locale for a given internal href, with
 // `alternates.languages` pointing at every other locale's URL for the same
@@ -22,7 +23,9 @@ function localizedEntries(href: string): MetadataRoute.Sitemap {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticPaths = ["/", "/types", "/people", "/for-teams"];
+  const staticPaths = ["/", "/types", "/people", "/for-teams", "/learn", "/methodology"];
+
+  const learnPaths = FRAMEWORK_ORDER.map((id) => `/learn/${FRAMEWORK_CONTENT[id].slug}`);
 
   const typePaths = getAllTypePageParams().map(
     ({ frameworkUrlSlug, slug }) => `/types/${frameworkUrlSlug}/${slug}`
@@ -39,7 +42,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
     .map(({ frameworkUrlSlug, slug }) => `/types/${frameworkUrlSlug}/${slug}/famous`);
 
-  return [...staticPaths, ...typePaths, ...combinationPaths, ...peoplePaths, ...famousTypePaths].flatMap(
-    localizedEntries
-  );
+  return [
+    ...staticPaths,
+    ...learnPaths,
+    ...typePaths,
+    ...combinationPaths,
+    ...peoplePaths,
+    ...famousTypePaths,
+  ].flatMap(localizedEntries);
 }
