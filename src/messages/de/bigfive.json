@@ -1,0 +1,79 @@
+{
+  "name": "Der {noun}",
+  "traitLabel": {
+    "openness": "Offenheit",
+    "conscientiousness": "Gewissenhaftigkeit",
+    "extraversion": "Extraversion",
+    "agreeableness": "Verträglichkeit",
+    "neuroticism": "Emotionale Sensibilität"
+  },
+  "archetypeNoun": {
+    "openness": { "high": "Entdecker", "low": "Realist" },
+    "conscientiousness": { "high": "Organisator", "low": "Improvisator" },
+    "extraversion": { "high": "Verbinder", "low": "Beobachter" },
+    "agreeableness": { "high": "Teamplayer", "low": "Herausforderer" },
+    "neuroticism": { "high": "Gefühlsmensch", "low": "Anker" }
+  },
+  "traitLevels": {
+    "openness": {
+      "high": {
+        "blurb": "Dich ziehen neue Ideen, Kunst und abstraktes Denken mehr an als Routine und Konvention.",
+        "strength": "Du bringst frische, unkonventionelle Blickwinkel in Probleme ein, die alle anderen gleich sehen.",
+        "growth": "Kann der nächsten interessanten Idee hinterherjagen, bevor die aktuelle fertig ist."
+      },
+      "low": {
+        "blurb": "Du bevorzugst das Praktische und Bewährte gegenüber dem Abstrakten und Ungetesteten.",
+        "strength": "Du bleibst bodenständig bei dem, was konkret und nachweislich verlässlich ist.",
+        "growth": "Kann eine unkonventionelle Idee abtun, bevor sie wirklich in Betracht gezogen wurde."
+      }
+    },
+    "conscientiousness": {
+      "high": {
+        "blurb": "Du planst voraus, bleibst dran und stellst hohe Ansprüche an dich selbst.",
+        "strength": "Menschen können sich darauf verlassen, dass du hältst, was du versprochen hast.",
+        "growth": "Hohe Ansprüche können in Perfektionismus kippen, der alles verlangsamt."
+      },
+      "low": {
+        "blurb": "Du bleibst lieber flexibel und passt dich im Moment an, statt im Detail zu planen.",
+        "strength": "Du passt dich schnell an, wenn sich Pläne ändern, und fühlst dich selten eingeengt.",
+        "growth": "Fristen und routinemäßiges Dranbleiben können ohne mehr Struktur ins Rutschen geraten."
+      }
+    },
+    "extraversion": {
+      "high": {
+        "blurb": "Du schöpfst Energie aus anderen Menschen und denkst in der Gruppe eher laut.",
+        "strength": "Du bringst schnell Schwung und Wärme in einen Raum.",
+        "growth": "Braucht womöglich bewusst eingeplante, ruhigere und reizärmere Zeit."
+      },
+      "low": {
+        "blurb": "Du tankst in ruhigeren Umgebungen auf und bevorzugst in Gesprächen Tiefe statt Breite.",
+        "strength": "Du bringst ruhige, fokussierte Aufmerksamkeit in Eins-zu-eins-Gespräche ein.",
+        "growth": "Kann in lauten Gruppensituationen übersehen werden, wenn du dich nicht aktiv bemerkbar machst."
+      }
+    },
+    "agreeableness": {
+      "high": {
+        "blurb": "Du legst Wert auf Harmonie und hilfst den Menschen um dich herum wirklich gerne.",
+        "strength": "Du baust schnell und aufrichtig Vertrauen und Zusammenarbeit mit anderen auf.",
+        "growth": "Kann notwendige Konflikte vermeiden, um den Frieden zu wahren."
+      },
+      "low": {
+        "blurb": "Du bist es gewohnt, dein eigenes Urteil über den Gruppenkonsens zu stellen.",
+        "strength": "Du sprichst die harte, ehrliche Wahrheit aus, die eine Gruppe davor bewahrt, sich selbst zu täuschen.",
+        "growth": "Direktheit kann schroff wirken, wo Wärme besser ankommen würde."
+      }
+    },
+    "neuroticism": {
+      "high": {
+        "blurb": "Du empfindest Gefühle intensiv und bleibst wachsam gegenüber allem, was schiefgehen könnte.",
+        "strength": "Deine Wachsamkeit erkennt Risiken, die entspanntere Menschen komplett übersehen.",
+        "growth": "Sorgen können Energie für Dinge verbrauchen, die am Ende nie eintreten."
+      },
+      "low": {
+        "blurb": "Du bleibst auch unter echtem Druck meist ruhig und emotional stabil.",
+        "strength": "Du bewahrst einen kühlen Kopf in Momenten, die die meisten Menschen aus der Fassung bringen würden.",
+        "growth": "Geringes Dringlichkeitsempfinden kann dazu führen, dass echte Risiken unterschätzt werden."
+      }
+    }
+  }
+}

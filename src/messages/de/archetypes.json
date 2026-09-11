@@ -1,0 +1,66 @@
+{
+  "IMTG": {
+    "name": "Der stille Handwerker",
+    "description": "Du arbeitest am besten allein, im Moment, an Dingen, die du nach deinem eigenen Maßstab bewerten kannst, statt nach dem eines anderen."
+  },
+  "IMTX": {
+    "name": "Der unabhängige Tüftler",
+    "description": "Du verfolgst Ideen nach deinen eigenen Regeln und bist am glücklichsten, wenn du dich ohne Publikum improvisierend durch etwas Neues arbeitest."
+  },
+  "IMFG": {
+    "name": "Der verlässliche Vertraute",
+    "description": "Menschen vertrauen dir gerade deshalb, weil du unaufgeregt und beständig bist — für sie da, ohne das Rampenlicht zu brauchen."
+  },
+  "IMFX": {
+    "name": "Der sanfte Wanderer",
+    "description": "Du bewegst dich in deinem eigenen ruhigen Tempo auf neue Menschen und neue Ideen zu — neugierig, nicht getrieben."
+  },
+  "IPTG": {
+    "name": "Der präzise Architekt",
+    "description": "Du baust Dinge sorgfältig und allein auf und vertraust einem gut durchdachten Plan mehr als Improvisation oder fremdem Input."
+  },
+  "IPTX": {
+    "name": "Der methodische Neuerer",
+    "description": "Du bringst neue Ideen durch Disziplin zum Leben, nicht durch Spontaneität — Struktur ist es, was dich wirklich Neues erreichen lässt."
+  },
+  "IPFG": {
+    "name": "Der fürsorgliche Betreuer",
+    "description": "Du bist zuverlässig für die Menschen da, die dir nahestehen, und bevorzugst verlässliche Routinen gegenüber großen Gesten."
+  },
+  "IPFX": {
+    "name": "Der besonnene Visionär",
+    "description": "Du planst still für Menschen und Ideen, die es noch nicht gibt — du denkst weiter voraus, als du darüber sprichst."
+  },
+  "EMTG": {
+    "name": "Der mutige Macher",
+    "description": "Du handelst lieber sofort an etwas Realem, statt es zu planen oder zu besprechen — Schwung ist deine Art zu denken."
+  },
+  "EMTX": {
+    "name": "Der rastlose Pionier",
+    "description": "Dich zieht es zu dem, was gerade am neuesten und lebendigsten ist — du bewegst dich schnell und findest den Plan später heraus."
+  },
+  "EMFG": {
+    "name": "Der bodenständige Verbinder",
+    "description": "Du bringst Menschen rund um das zusammen, was real und unmittelbar ist, und schöpfst Energie aus anderen, ohne ein Skript zu brauchen."
+  },
+  "EMFX": {
+    "name": "Der spontane Katalysator",
+    "description": "Du bringst Schwung in einen Raum und jagst im selben Atemzug dem Neuen hinterher — selten auf dieselbe Weise zweimal."
+  },
+  "EPTG": {
+    "name": "Der zielstrebige Organisator",
+    "description": "Du verwandelst Pläne durch schiere Vorwärtsbewegung in Ergebnisse und fühlst dich am wohlsten, wenn es eine klare Struktur gibt, gegen die du drücken kannst."
+  },
+  "EPTX": {
+    "name": "Der strategische Wegbereiter",
+    "description": "Du verfolgst mutige neue Richtungen, untermauerst sie aber mit echter Planung — für dich sind Vision und Struktur Partner, keine Gegensätze."
+  },
+  "EPFG": {
+    "name": "Der verlässliche Gastgeber",
+    "description": "Du hältst Menschen und Pläne gleichzeitig reibungslos am Laufen — so verlässlich, dass es allen anderen das Leben leichter macht."
+  },
+  "EPFX": {
+    "name": "Der inspirierende Anführer",
+    "description": "Du sammelst Menschen um große neue Ideen und organisierst die Umsetzung tatsächlich auch — zu gleichen Teilen Visionär und Planer."
+  }
+}

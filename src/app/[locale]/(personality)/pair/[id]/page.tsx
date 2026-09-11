@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { getTranslations, getLocale } from "next-intl/server";
 import NextLink from "next/link";
 import { GitCompareArrows } from "lucide-react";
 import { Link } from "@/i18n/navigation";
@@ -51,7 +52,9 @@ export default async function PairInvitePage({ params }: { params: Promise<{ id:
   if (user) {
     const { data: profile } = await supabase.from("profiles").select("results").eq("id", user.id).maybeSingle();
     const results = (profile?.results as PersonalityResults) || {};
-    readyToRespond = generateCombinedProfile(results) !== null;
+    const t = await getTranslations();
+    const locale = await getLocale();
+    readyToRespond = generateCombinedProfile(results, t, locale) !== null;
   }
 
   // /login lives outside locale routing, so this must use next/link (not

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations, useLocale } from "next-intl";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -40,6 +41,8 @@ function formatBigFiveCode(code: string): string {
 
 /** Not in FAMOUS_PEOPLE? Type any famous person's name and Mistral drafts a same-shaped speculative audit on the spot — clearly marked as AI-generated, unreviewed, distinct from the editorial roster above. The audit reuses the exact same combined-profile/graph and compatibility machinery a real user gets on /combined and /people/match, by deriving a synthetic PersonalityResults from the AI's typings (see famousPersonResults.ts). */
 export function PersonAuditSearch() {
+  const t = useTranslations();
+  const locale = useLocale();
   const { mounted, results: myResults } = usePersonality();
   const [name, setName] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "error" | "done">("idle");
@@ -76,15 +79,15 @@ export function PersonAuditSearch() {
     }
   }
 
-  const auditedProfile = result ? deriveFamousPersonProfile(result) : null;
+  const auditedProfile = result ? deriveFamousPersonProfile(result, t, locale) : null;
   const auditedResults = result ? deriveFamousPersonResults(result) : null;
-  const myProfile = mounted ? generateCombinedProfile(myResults) : null;
+  const myProfile = mounted ? generateCombinedProfile(myResults, t, locale) : null;
 
   let compareSection: React.ReactNode = null;
   if (result && auditedResults) {
     if (myProfile) {
-      const viewerAxes = computeScoringMatrix(myResults);
-      const personAxes = computeScoringMatrix(auditedResults);
+      const viewerAxes = computeScoringMatrix(myResults, t);
+      const personAxes = computeScoringMatrix(auditedResults, t);
       const compatibility = computeCompatibility(viewerAxes, personAxes, "You", result.name);
       compareSection = (
         <div className="mt-8">

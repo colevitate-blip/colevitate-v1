@@ -1,5 +1,6 @@
 import type { BigFiveResult } from "@/lib/personality/types";
 import type { BigFiveTrait } from "./questions";
+import type { Translator } from "@/components/personality/combined/scoringMatrix";
 
 export const TRAIT_LABEL: Record<BigFiveTrait, string> = {
   openness: "Openness",
@@ -103,27 +104,54 @@ export interface BigFiveSummary {
   growth: string[];
 }
 
-export function summarizeBigFive(result: BigFiveResult): BigFiveSummary {
-  const ranked = [...TRAIT_ORDER].sort(
+export function getTopTraits(result: BigFiveResult): BigFiveTrait[] {
+  return [...TRAIT_ORDER].sort(
     (a, b) => Math.abs(result.scores[b] - 50) - Math.abs(result.scores[a] - 50)
-  );
-  const top = ranked.slice(0, 3);
+  ).slice(0, 3);
+}
 
-  const levelFor = (trait: BigFiveTrait): "high" | "low" =>
-    result.scores[trait] >= 50 ? "high" : "low";
+export function levelFor(result: BigFiveResult, trait: BigFiveTrait): "high" | "low" {
+  return result.scores[trait] >= 50 ? "high" : "low";
+}
 
+export function summarizeBigFive(result: BigFiveResult): BigFiveSummary {
+  const top = getTopTraits(result);
   const [primary, secondary] = top;
-  const primaryLevel = TRAIT_LEVELS[primary][levelFor(primary)];
-  const secondaryLevel = TRAIT_LEVELS[secondary][levelFor(secondary)];
+  const primaryLevel = TRAIT_LEVELS[primary][levelFor(result, primary)];
+  const secondaryLevel = TRAIT_LEVELS[secondary][levelFor(result, secondary)];
 
   const code = top.slice(0, 2).map((t) => TRAIT_CODE[t][0]).join("");
-  const name = `The ${ARCHETYPE_NOUN[primary][levelFor(primary)]}`;
+  const name = `The ${ARCHETYPE_NOUN[primary][levelFor(result, primary)]}`;
   const tagline = `${TRAIT_LABEL[primary]} · ${TRAIT_LABEL[secondary]}-led`;
 
   const description = `${primaryLevel.blurb} ${secondaryLevel.blurb}`;
 
-  const strengths = top.map((t) => TRAIT_LEVELS[t][levelFor(t)].strength);
-  const growth = top.map((t) => TRAIT_LEVELS[t][levelFor(t)].growth);
+  const strengths = top.map((t) => TRAIT_LEVELS[t][levelFor(result, t)].strength);
+  const growth = top.map((t) => TRAIT_LEVELS[t][levelFor(result, t)].growth);
+
+  return { code, name, tagline, description, strengths, growth };
+}
+
+/**
+ * Locale-aware variant used by the combined-profile assembly
+ * (generateCombinedProfile.ts, PartialProfilePreview.tsx) — same ranking,
+ * but every displayed string is pulled from bigfive.json via `t` instead of
+ * the static English tables above. Kept separate from summarizeBigFive
+ * (rather than adding a `t` param there) so the standalone Big Five result
+ * page and other existing callers keep working unchanged.
+ */
+export function summarizeBigFiveTranslated(result: BigFiveResult, t: Translator): BigFiveSummary {
+  const top = getTopTraits(result);
+  const [primary, secondary] = top;
+  const primaryLevelId = levelFor(result, primary);
+  const secondaryLevelId = levelFor(result, secondary);
+
+  const code = top.slice(0, 2).map((tr) => TRAIT_CODE[tr][0]).join("");
+  const name = t("bigfive.name", { noun: t(`bigfive.archetypeNoun.${primary}.${primaryLevelId}`) });
+  const tagline = `${t(`bigfive.traitLabel.${primary}`)} · ${t(`bigfive.traitLabel.${secondary}`)}-led`;
+  const description = `${t(`bigfive.traitLevels.${primary}.${primaryLevelId}.blurb`)} ${t(`bigfive.traitLevels.${secondary}.${secondaryLevelId}.blurb`)}`;
+  const strengths = top.map((tr) => t(`bigfive.traitLevels.${tr}.${levelFor(result, tr)}.strength`));
+  const growth = top.map((tr) => t(`bigfive.traitLevels.${tr}.${levelFor(result, tr)}.growth`));
 
   return { code, name, tagline, description, strengths, growth };
 }

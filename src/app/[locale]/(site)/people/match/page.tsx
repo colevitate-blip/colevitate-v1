@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
+import { getTranslations, getLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { loginRedirectTarget } from "@/lib/i18n/serverRedirect";
@@ -45,7 +46,9 @@ async function resolveYouOption(): Promise<YouOption> {
 
   const { data: profile } = await supabase.from("profiles").select("results").eq("id", user.id).maybeSingle();
   const results = (profile?.results as PersonalityResults) || {};
-  const combinedProfile = generateCombinedProfile(results);
+  const t = await getTranslations();
+  const locale = await getLocale();
+  const combinedProfile = generateCombinedProfile(results, t, locale);
 
   if (!combinedProfile) {
     return {
@@ -109,6 +112,7 @@ export default async function CelebrityMatchPage({
 
   const relationshipType = resolveRelationshipType(type);
   const personA = a ? getFamousPerson(a, locale) : null;
+  const t = await getTranslations();
 
   if (vs === "me" && personA) {
     const supabase = await createClient();
@@ -121,7 +125,7 @@ export default async function CelebrityMatchPage({
 
     const { data: profile } = await supabase.from("profiles").select("results").eq("id", user.id).maybeSingle();
     const results = (profile?.results as PersonalityResults) || {};
-    const combinedProfile = generateCombinedProfile(results);
+    const combinedProfile = generateCombinedProfile(results, t, locale);
 
     let report: React.ReactNode;
     if (!combinedProfile) {
@@ -131,8 +135,8 @@ export default async function CelebrityMatchPage({
         </p>
       );
     } else {
-      const viewerAxes = computeScoringMatrix(results);
-      const celebAxes = computeScoringMatrix(deriveFamousPersonResults(personA));
+      const viewerAxes = computeScoringMatrix(results, t);
+      const celebAxes = computeScoringMatrix(deriveFamousPersonResults(personA), t);
       const compatibility = computeCompatibility(viewerAxes, celebAxes, "You", personA.name);
       report = (
         <CompatibilityReportView
@@ -189,8 +193,8 @@ export default async function CelebrityMatchPage({
         </p>
       );
     } else {
-      const axesA = computeScoringMatrix(deriveFamousPersonResults(personA));
-      const axesB = computeScoringMatrix(deriveFamousPersonResults(personB));
+      const axesA = computeScoringMatrix(deriveFamousPersonResults(personA), t);
+      const axesB = computeScoringMatrix(deriveFamousPersonResults(personB), t);
       const compatibility = computeCompatibility(axesA, axesB, personA.name, personB.name);
       report = (
         <>

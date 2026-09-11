@@ -1,0 +1,115 @@
+{
+  "ringLabels": { "1": "Spektren", "2": "Merkmale", "3": "Antworten" },
+  "kindTags": {
+    "axis": "Spektrum — eine zentrale Persönlichkeitsskala",
+    "trait": "Merkmal",
+    "question": "Deine Antwort"
+  },
+  "archetypeTag": {
+    "you": "Dein Archetyp"
+  },
+  "traits": {
+    "EI": {
+      "label": "Extraversion/Introversion",
+      "description": "Ob du Energie aus der Auseinandersetzung mit der Außenwelt (Extraversion) oder aus der Zeit allein mit deinen eigenen Gedanken (Introversion) ziehst."
+    },
+    "SN": {
+      "label": "Empfindung/Intuition",
+      "description": "Ob du eher konkreten, gegenwärtigen Details (Empfindung) oder Mustern und Möglichkeiten (Intuition) vertraust."
+    },
+    "TF": {
+      "label": "Denken/Fühlen",
+      "description": "Ob sich Entscheidungen auf logische Konsistenz (Denken) oder auf Wirkung und Werte (Fühlen) stützen."
+    },
+    "JP": {
+      "label": "Urteilen/Wahrnehmen",
+      "description": "Ob du Dinge lieber geklärt und geplant (Urteilen) oder offen und flexibel (Wahrnehmen) magst."
+    },
+    "openness": {
+      "label": "Offenheit",
+      "description": "Wie sehr dich neue Ideen und unkonventionelles Denken anziehen, im Vergleich zum Praktischen und Vertrauten."
+    },
+    "conscientiousness": {
+      "label": "Gewissenhaftigkeit",
+      "description": "Wie organisiert, diszipliniert und zielgerichtet du tendenziell bist."
+    },
+    "extraversion": {
+      "label": "Extraversion",
+      "description": "Wie sehr soziales Engagement und Reize dich aufladen statt zu erschöpfen."
+    },
+    "agreeableness": {
+      "label": "Verträglichkeit",
+      "description": "Wie sehr du Kooperation und die Gefühle anderer über deine eigene Agenda stellst."
+    },
+    "neuroticism": {
+      "label": "Neurotizismus",
+      "description": "Wie leicht du Stress, Sorgen oder emotionale Schwankungen erlebst."
+    },
+    "generator": {
+      "label": "Generator",
+      "description": "Ein Human-Design-Typ, der darauf ausgelegt ist, auf das zu reagieren, was sich zeigt, und Energie daraus zieht, sich mit dem zu beschäftigen, was dich begeistert."
+    },
+    "manifesting-generator": {
+      "label": "Manifestierender Generator",
+      "description": "Ein Human-Design-Typ, der die reaktionsgetriebene Energie eines Generators mit dem Instinkt eines Manifestors verbindet, den ersten Schritt zu machen."
+    },
+    "manifestor": {
+      "label": "Manifestor",
+      "description": "Ein Human-Design-Typ, der darauf ausgelegt ist, den ersten Schritt zu machen — du handelst zuerst und informierst andere, statt abzuwarten, um zu reagieren."
+    },
+    "projector": {
+      "label": "Projektor",
+      "description": "Ein Human-Design-Typ, der darauf ausgelegt ist zu führen und Systeme klar zu erkennen — am besten, wenn er eingeladen wird, statt zu drängen."
+    },
+    "reflector": {
+      "label": "Reflektor",
+      "description": "Ein seltener Human-Design-Typ, der den Zustand der Menschen und der Umgebung widerspiegelt."
+    },
+    "red": {
+      "label": "Rot",
+      "description": "Eine Farbtyp-Energie, die sich um Antrieb, Dringlichkeit und sofortiges Erledigen dreht."
+    },
+    "blue": {
+      "label": "Blau",
+      "description": "Eine Farbtyp-Energie, die sich um Präzision, Struktur und korrektes Handeln dreht."
+    },
+    "green": {
+      "label": "Grün",
+      "description": "Eine Farbtyp-Energie, die sich um Harmonie, Unterstützung und beständige Beziehungen dreht."
+    },
+    "yellow": {
+      "label": "Gelb",
+      "description": "Eine Farbtyp-Energie, die sich um Optimismus, Spontaneität und Verbindung zu Menschen dreht."
+    }
+  },
+  "bigFiveText": {
+    "openness": {
+      "high": { "you": "Dich ziehen neue Ideen, unkonventionelles Denken und das Erkunden des Unbekannten an." },
+      "mid": { "you": "Du fühlst dich mit dem Vertrauten und dem Ungetesteten etwa gleich wohl, ohne starken Zug in eine Richtung." },
+      "low": { "you": "Du tendierst zum Praktischen und Vertrauten statt zum Abstrakten oder Ungetesteten." }
+    },
+    "conscientiousness": {
+      "high": { "you": "Du bist eher organisiert und zielgerichtet und bleibst meist dran, sobald du dich festgelegt hast." },
+      "mid": { "you": "Du balancierst Struktur und Spontaneität ungefähr gleich aus." },
+      "low": { "you": "Du bevorzugst Flexibilität gegenüber starren Plänen und passt dich unterwegs an." }
+    },
+    "extraversion": {
+      "high": { "you": "Soziales Engagement und Reize laden dich wirklich auf." },
+      "mid": { "you": "Du fühlst dich sowohl unter Menschen als auch allein wohl, je nach Moment." },
+      "low": { "you": "Zeit allein lädt dich verlässlicher auf als soziale Reize." }
+    },
+    "agreeableness": {
+      "high": { "you": "Du legst Wert auf Kooperation und darauf, wie eine Entscheidung bei anderen ankommt." },
+      "mid": { "you": "Du gewichtest deine eigene Einschätzung und die Gefühle anderer etwa gleich." },
+      "low": { "you": "Du stellst deine eigene Einschätzung einer Situation über die Frage, wie sie bei anderen ankommt." }
+    },
+    "neuroticism": {
+      "high": { "you": "Stress und emotionale Schwankungen schlagen bei dir stark und schnell an." },
+      "mid": { "you": "Du empfindest Stress wie jeder andere auch, ohne dass er dein Handeln dominiert." },
+      "low": { "you": "Du bleibst unter Druck verlässlicher gelassen als die meisten." }
+    }
+  },
+  "mbtiLean": {
+    "you": "Du tendierst zu {pole} — {confidence}% in diese Richtung, basierend auf deinen Antworten."
+  }
+}

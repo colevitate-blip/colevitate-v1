@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { Loader2 } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
@@ -24,6 +24,8 @@ export interface ApproachabilityMeta {
 
 export function ApproachabilitySettingsForm({ initialMeta }: { initialMeta: ApproachabilityMeta }) {
   const t = useTranslations("discovery.settings");
+  const tRoot = useTranslations();
+  const locale = useLocale();
   const { results } = usePersonality();
 
   const [on, setOn] = useState(initialMeta.approachable);
@@ -35,7 +37,7 @@ export function ApproachabilitySettingsForm({ initialMeta }: { initialMeta: Appr
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const combinedProfile = useMemo(() => generateCombinedProfile(results), [results]);
+  const combinedProfile = useMemo(() => generateCombinedProfile(results, tRoot, locale), [results, tRoot, locale]);
   const hasEnoughAssessments = combinedProfile !== null;
   const badges = useMemo(() => computeFrameworkBadges(results), [results]);
 

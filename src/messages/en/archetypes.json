@@ -1,0 +1,130 @@
+{
+  "IMTG": {
+    "name": "The Quiet Craftsman",
+    "description": "You work best alone, in the moment, on things you can hold to your own standard rather than anyone else's.",
+    "descriptionThird": {
+      "he": "He works best alone, in the moment, on things he can hold to his own standard rather than anyone else's.",
+      "she": "She works best alone, in the moment, on things she can hold to her own standard rather than anyone else's."
+    }
+  },
+  "IMTX": {
+    "name": "The Independent Tinkerer",
+    "description": "You chase ideas on your own terms, happiest improvising your way through something new without an audience.",
+    "descriptionThird": {
+      "he": "He chases ideas on his own terms, happiest improvising his way through something new without an audience.",
+      "she": "She chases ideas on her own terms, happiest improvising her way through something new without an audience."
+    }
+  },
+  "IMFG": {
+    "name": "The Steady Confidant",
+    "description": "People trust you precisely because you're low-key and consistent — present for them without needing the spotlight.",
+    "descriptionThird": {
+      "he": "People trust him precisely because he's low-key and consistent — present for them without needing the spotlight.",
+      "she": "People trust her precisely because she's low-key and consistent — present for them without needing the spotlight."
+    }
+  },
+  "IMFX": {
+    "name": "The Gentle Wanderer",
+    "description": "You drift toward new people and new ideas at your own quiet pace, curious more than restless.",
+    "descriptionThird": {
+      "he": "He drifts toward new people and new ideas at his own quiet pace, curious more than restless.",
+      "she": "She drifts toward new people and new ideas at her own quiet pace, curious more than restless."
+    }
+  },
+  "IPTG": {
+    "name": "The Precise Architect",
+    "description": "You build things carefully and alone, trusting a well-made plan over improvisation or outside input.",
+    "descriptionThird": {
+      "he": "He builds things carefully and alone, trusting a well-made plan over improvisation or outside input.",
+      "she": "She builds things carefully and alone, trusting a well-made plan over improvisation or outside input."
+    }
+  },
+  "IPTX": {
+    "name": "The Methodical Innovator",
+    "description": "You bring new ideas to life through discipline, not spontaneity — structure is what lets you go somewhere genuinely new.",
+    "descriptionThird": {
+      "he": "He brings new ideas to life through discipline, not spontaneity — structure is what lets him go somewhere genuinely new.",
+      "she": "She brings new ideas to life through discipline, not spontaneity — structure is what lets her go somewhere genuinely new."
+    }
+  },
+  "IPFG": {
+    "name": "The Devoted Caretaker",
+    "description": "You show up reliably for the people close to you, preferring dependable routines over grand gestures.",
+    "descriptionThird": {
+      "he": "He shows up reliably for the people close to him, preferring dependable routines over grand gestures.",
+      "she": "She shows up reliably for the people close to her, preferring dependable routines over grand gestures."
+    }
+  },
+  "IPFX": {
+    "name": "The Thoughtful Visionary",
+    "description": "You quietly plan for people and ideas that don't exist yet, thinking ahead more than you talk ahead.",
+    "descriptionThird": {
+      "he": "He quietly plans for people and ideas that don't exist yet, thinking ahead more than he talks ahead.",
+      "she": "She quietly plans for people and ideas that don't exist yet, thinking ahead more than she talks ahead."
+    }
+  },
+  "EMTG": {
+    "name": "The Bold Doer",
+    "description": "You'd rather act on something real right now than plan or discuss it — momentum is how you think.",
+    "descriptionThird": {
+      "he": "He'd rather act on something real right now than plan or discuss it — momentum is how he thinks.",
+      "she": "She'd rather act on something real right now than plan or discuss it — momentum is how she thinks."
+    }
+  },
+  "EMTX": {
+    "name": "The Restless Pioneer",
+    "description": "You're pulled toward whatever's newest and most alive, moving fast and figuring out the plan later.",
+    "descriptionThird": {
+      "he": "He's pulled toward whatever's newest and most alive, moving fast and figuring out the plan later.",
+      "she": "She's pulled toward whatever's newest and most alive, moving fast and figuring out the plan later."
+    }
+  },
+  "EMFG": {
+    "name": "The Grounded Connector",
+    "description": "You bring people together around what's real and immediate, energized by others without needing a script.",
+    "descriptionThird": {
+      "he": "He brings people together around what's real and immediate, energized by others without needing a script.",
+      "she": "She brings people together around what's real and immediate, energized by others without needing a script."
+    }
+  },
+  "EMFX": {
+    "name": "The Spontaneous Catalyst",
+    "description": "You spark energy in a room and chase what's new in the same breath, rarely the same way twice.",
+    "descriptionThird": {
+      "he": "He sparks energy in a room and chases what's new in the same breath, rarely the same way twice.",
+      "she": "She sparks energy in a room and chases what's new in the same breath, rarely the same way twice."
+    }
+  },
+  "EPTG": {
+    "name": "The Driven Organizer",
+    "description": "You turn plans into results through sheer forward motion, most comfortable when there's a clear structure to push against.",
+    "descriptionThird": {
+      "he": "He turns plans into results through sheer forward motion, most comfortable when there's a clear structure to push against.",
+      "she": "She turns plans into results through sheer forward motion, most comfortable when there's a clear structure to push against."
+    }
+  },
+  "EPTX": {
+    "name": "The Strategic Trailblazer",
+    "description": "You chase bold new directions but back them with real planning, treating vision and structure as partners, not opposites.",
+    "descriptionThird": {
+      "he": "He chases bold new directions but backs them with real planning, treating vision and structure as partners, not opposites.",
+      "she": "She chases bold new directions but backs them with real planning, treating vision and structure as partners, not opposites."
+    }
+  },
+  "EPFG": {
+    "name": "The Reliable Host",
+    "description": "You keep people and plans running smoothly at once, dependable in a way that makes everyone else's life easier.",
+    "descriptionThird": {
+      "he": "He keeps people and plans running smoothly at once, dependable in a way that makes everyone else's life easier.",
+      "she": "She keeps people and plans running smoothly at once, dependable in a way that makes everyone else's life easier."
+    }
+  },
+  "EPFX": {
+    "name": "The Inspiring Ringleader",
+    "description": "You rally people around big new ideas and actually organize the follow-through, equal parts visionary and planner.",
+    "descriptionThird": {
+      "he": "He rallies people around big new ideas and actually organizes the follow-through, equal parts visionary and planner.",
+      "she": "She rallies people around big new ideas and actually organizes the follow-through, equal parts visionary and planner."
+    }
+  }
+}

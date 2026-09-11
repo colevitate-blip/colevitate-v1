@@ -1,5 +1,6 @@
 "use server";
 
+import { getTranslations, getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { generateCombinedProfile } from "@/components/personality/combined/generateCombinedProfile";
 import { computeScoringMatrix } from "@/components/personality/combined/scoringMatrix";
@@ -33,12 +34,14 @@ export async function sendApproach(recipientId: string, message: string, intent:
     .maybeSingle();
 
   const results = (profile?.results as PersonalityResults) || {};
-  const combinedProfile = generateCombinedProfile(results);
+  const t = await getTranslations();
+  const locale = await getLocale();
+  const combinedProfile = generateCombinedProfile(results, t, locale);
   if (!combinedProfile) {
     throw new Error("Complete at least 2 assessments before approaching someone");
   }
 
-  const axes = computeScoringMatrix(results).map((a) => ({ id: a.id, score: a.score }));
+  const axes = computeScoringMatrix(results, t).map((a) => ({ id: a.id, score: a.score }));
 
   const { data: snapshot } = await supabase
     .from("approachable_snapshots")
@@ -106,8 +109,10 @@ export async function loadMoreDiscoverCards(cursor: string, intent: ApproachInte
   const { data: profile } = await supabase.from("profiles").select("results").eq("id", user.id).maybeSingle();
 
   const results = (profile?.results as PersonalityResults) || {};
-  const combinedProfile = generateCombinedProfile(results);
-  const viewerAxes = combinedProfile ? computeScoringMatrix(results) : null;
+  const t = await getTranslations();
+  const locale = await getLocale();
+  const combinedProfile = generateCombinedProfile(results, t, locale);
+  const viewerAxes = combinedProfile ? computeScoringMatrix(results, t) : null;
 
   return fetchDiscoverPage(supabase, {
     viewerId: user.id,

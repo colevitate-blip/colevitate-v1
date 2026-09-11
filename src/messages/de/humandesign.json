@@ -1,0 +1,89 @@
+{
+  "types": {
+    "generator": {
+      "name": "Der Generator",
+      "tagline": "Strategie: Reagieren",
+      "strategy": "Reagiere auf das, was bereits vor dir liegt, statt etwas Neues gewaltsam in Bewegung zu setzen.",
+      "description": "Generatoren tragen eine gleichmäßige, erneuerbare Energie in sich. Du bist dafür gemacht, über lange Strecken Arbeit zu leisten, die du wirklich liebst, und findest deinen Weg nicht, indem du Plänen hinterherjagst, sondern indem du ehrlich auf das reagierst, was das Leben dir vor die Füße legt.",
+      "strengths": [
+        "Hält fokussierte Anstrengung viel länger durch als die meisten, sobald echtes Interesse geweckt ist",
+        "Bringt eine gleichmäßige, bodenständige Energie ein, auf der andere aufbauen können",
+        "Meistert ein Handwerk durch schiere, befriedigende Wiederholung",
+        "Weiß fast sofort, ob etwas ein echtes „Ja“ ist"
+      ],
+      "growth": [
+        "In Arbeit zu verharren, die kein echtes „Ja“ auslöst, laugt die Energie schnell aus",
+        "Kann aus Gewohnheit „Ja“ sagen statt aus echtem Wunsch",
+        "Frustration baut sich auf, wenn er initiiert statt reagiert"
+      ]
+    },
+    "manifesting-generator": {
+      "name": "Der Multitalentierte",
+      "tagline": "Strategie: Reagieren, dann handeln",
+      "strategy": "Reagiere auf das, was dich begeistert, und handle dann schnell — Schritte zu überspringen ist für dich oft goldrichtig.",
+      "description": "Manifestierende Generatoren verbinden die nachhaltige Energie eines Generators mit einem schnelleren, mehrgleisigen Tempo. Du machst selten nur eine Sache auf einmal und erreichst dein Ziel oft über einen effizienten, nicht offensichtlichen Weg, den andere nicht einschlagen würden.",
+      "strengths": [
+        "Wechselt schnell zwischen Projekten, ohne den Schwung insgesamt zu verlieren",
+        "Findet effiziente Abkürzungen, die rein linear Denkende übersehen",
+        "Meistert mehrere, scheinbar unzusammenhängende Fähigkeiten parallel",
+        "Passt Pläne mittendrin an, ohne die Motivation zu verlieren"
+      ],
+      "growth": [
+        "Übersprungene Schritte können Lücken hinterlassen, die später auftauchen",
+        "Langeweile setzt schnell ein, sobald der Reiz eines Projekts nachlässt",
+        "Zu viele gleichzeitige Verpflichtungen können den Fokus verwässern"
+      ]
+    },
+    "manifestor": {
+      "name": "Der Initiator",
+      "tagline": "Strategie: Informieren, dann handeln",
+      "strategy": "Handle aus eigenem Antrieb und informiere die Betroffenen, bevor du loslegst.",
+      "description": "Manifestoren sind dafür gemacht, den Anfang zu machen. Du brauchst weder Erlaubnis noch einen äußeren Funken, um in Bewegung zu kommen — du erzeugst deinen eigenen Schwung, und Dinge geschehen meist, weil du entschieden hast, dass sie geschehen.",
+      "strengths": [
+        "Bringt Dinge aus dem Nichts in Gang, ohne äußere Bestätigung zu brauchen",
+        "Handelt entschlossen, sobald die eigene Klarheit steht",
+        "Scheut sich nicht, einen unpopulären, aber notwendigen ersten Schritt zu machen",
+        "Ist von Natur aus unabhängig darin, wie er plant und umsetzt"
+      ],
+      "growth": [
+        "Den Schritt des Informierens auszulassen, erzeugt unnötige Reibung mit anderen",
+        "Widerstand dagegen, sich etwas sagen zu lassen, kann streitlustig wirken",
+        "Schübe intensiver Leistung brauchen danach echte Erholungszeit"
+      ]
+    },
+    "projector": {
+      "name": "Der Wegweiser",
+      "tagline": "Strategie: Auf die Einladung warten",
+      "strategy": "Warte darauf, erkannt und eingeladen zu werden, bevor du eine Rolle übernimmst oder tiefgehenden Rat gibst.",
+      "description": "Projektoren sind dafür gemacht, Systeme und Menschen klar von außen zu sehen, nicht dafür, sich durch ständige Leistung zu quälen. Deine Gabe ist Einsicht und Orientierung — sie kommt am besten an, wenn sie wirklich erbeten wird, statt ungefragt angeboten zu werden.",
+      "strengths": [
+        "Sieht den effizienten Weg durch ein System, in dem andere feststecken",
+        "Bietet Rat, der die Arbeitsweise anderer zuverlässig verbessert",
+        "Liest Menschen und Gruppendynamiken mit echter Genauigkeit",
+        "Fokussiert sich tief, ohne ständige äußere Bewegung zu brauchen"
+      ],
+      "growth": [
+        "Ungebetener Rat kommt meist schlecht an, egal wie zutreffend er ist",
+        "Die Energie geht schneller zur Neige als bei den Nicht-Projektor-Typen im Umfeld",
+        "Auf Anerkennung zu warten kann passiv wirken, wenn es nicht mit Sichtbarkeit einhergeht"
+      ]
+    },
+    "reflector": {
+      "name": "Der Spiegel",
+      "tagline": "Strategie: Einen Mondzyklus abwarten",
+      "strategy": "Gib großen Entscheidungen wirklich Zeit — traditionell einen vollen Mondzyklus — bevor du dich festlegst.",
+      "description": "Reflektoren sind selten und tief empfänglich für ihre Umgebung — sie nehmen den Zustand der Menschen und Räume um sie herum auf und spiegeln ihn wider. Deine Klarheit stellt sich mit Zeit und im richtigen Umfeld ein, nicht unter dem Druck des Augenblicks.",
+      "strengths": [
+        "Bietet eine ungewöhnlich ehrliche Einschätzung des Zustands einer Gruppe oder Umgebung",
+        "Passt sich mühelos an und nimmt wirklich unterschiedliche Perspektiven auf",
+        "Bemerkt, was wirklich vorgeht, unter einer Oberfläche, die in Ordnung wirkt",
+        "Bringt eine seltene, weitwinklige Objektivität in Situationen, in denen andere mittendrin stecken"
+      ],
+      "growth": [
+        "Schnellschüsse unter Druck halten später selten stand",
+        "Die Umgebung beeinflusst Stimmung und Energie stärker, als den meisten bewusst ist",
+        "Kann den emotionalen Zustand anderer aufnehmen, als wäre er der eigene"
+      ]
+    }
+  }
+}

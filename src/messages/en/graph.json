@@ -1,0 +1,219 @@
+{
+  "ringLabels": { "1": "Spectrums", "2": "Traits", "3": "Answers" },
+  "kindTags": {
+    "axis": "Spectrum — a core personality scale",
+    "trait": "Trait",
+    "question": "Your answer"
+  },
+  "archetypeTag": {
+    "you": "Your archetype",
+    "he": "His archetype",
+    "she": "Her archetype"
+  },
+  "traits": {
+    "EI": {
+      "label": "Extraversion/Introversion",
+      "description": "Whether you draw energy from engaging with the outer world (Extraversion) or from time alone with your own thoughts (Introversion).",
+      "descriptionThird": {
+        "he": "Whether he draws energy from engaging with the outer world (Extraversion) or from time alone with his own thoughts (Introversion).",
+        "she": "Whether she draws energy from engaging with the outer world (Extraversion) or from time alone with her own thoughts (Introversion)."
+      }
+    },
+    "SN": {
+      "label": "Sensing/Intuition",
+      "description": "Whether you trust concrete, present detail (Sensing) or patterns and possibilities (Intuition).",
+      "descriptionThird": {
+        "he": "Whether he trusts concrete, present detail (Sensing) or patterns and possibilities (Intuition).",
+        "she": "Whether she trusts concrete, present detail (Sensing) or patterns and possibilities (Intuition)."
+      }
+    },
+    "TF": {
+      "label": "Thinking/Feeling",
+      "description": "Whether decisions lean on logical consistency (Thinking) or on impact and values (Feeling)."
+    },
+    "JP": {
+      "label": "Judging/Perceiving",
+      "description": "Whether you prefer things settled and planned (Judging) or open and flexible (Perceiving).",
+      "descriptionThird": {
+        "he": "Whether he prefers things settled and planned (Judging) or open and flexible (Perceiving).",
+        "she": "Whether she prefers things settled and planned (Judging) or open and flexible (Perceiving)."
+      }
+    },
+    "openness": {
+      "label": "Openness",
+      "description": "How drawn you are to new ideas and unconventional thinking versus the practical and familiar.",
+      "descriptionThird": {
+        "he": "How drawn he is to new ideas and unconventional thinking versus the practical and familiar.",
+        "she": "How drawn she is to new ideas and unconventional thinking versus the practical and familiar."
+      }
+    },
+    "conscientiousness": {
+      "label": "Conscientiousness",
+      "description": "How organized, disciplined, and goal-directed you tend to be.",
+      "descriptionThird": {
+        "he": "How organized, disciplined, and goal-directed he tends to be.",
+        "she": "How organized, disciplined, and goal-directed she tends to be."
+      }
+    },
+    "extraversion": {
+      "label": "Extraversion",
+      "description": "How much social engagement and stimulation energize you, versus drain you.",
+      "descriptionThird": {
+        "he": "How much social engagement and stimulation energize him, versus drain him.",
+        "she": "How much social engagement and stimulation energize her, versus drain her."
+      }
+    },
+    "agreeableness": {
+      "label": "Agreeableness",
+      "description": "How much you prioritize cooperation and others' feelings versus your own agenda.",
+      "descriptionThird": {
+        "he": "How much he prioritizes cooperation and others' feelings versus his own agenda.",
+        "she": "How much she prioritizes cooperation and others' feelings versus her own agenda."
+      }
+    },
+    "neuroticism": {
+      "label": "Neuroticism",
+      "description": "How easily you experience stress, worry, or emotional volatility.",
+      "descriptionThird": {
+        "he": "How easily he experiences stress, worry, or emotional volatility.",
+        "she": "How easily she experiences stress, worry, or emotional volatility."
+      }
+    },
+    "generator": {
+      "label": "Generator",
+      "description": "A Human Design type built to respond to what shows up, generating energy by engaging with what lights you up.",
+      "descriptionThird": {
+        "he": "A Human Design type built to respond to what shows up, generating energy by engaging with what lights him up.",
+        "she": "A Human Design type built to respond to what shows up, generating energy by engaging with what lights her up."
+      }
+    },
+    "manifesting-generator": {
+      "label": "Manifesting Generator",
+      "description": "A Human Design type combining a Generator's response-driven energy with a Manifestor's instinct to initiate."
+    },
+    "manifestor": {
+      "label": "Manifestor",
+      "description": "A Human Design type built to initiate — you act first and inform others, rather than waiting to respond.",
+      "descriptionThird": {
+        "he": "A Human Design type built to initiate — he acts first and informs others, rather than waiting to respond.",
+        "she": "A Human Design type built to initiate — she acts first and informs others, rather than waiting to respond."
+      }
+    },
+    "projector": {
+      "label": "Projector",
+      "description": "A Human Design type built to guide and see systems clearly, working best when invited rather than pushing."
+    },
+    "reflector": {
+      "label": "Reflector",
+      "description": "A rare Human Design type that reflects the health of the people and environment around them."
+    },
+    "red": {
+      "label": "Red",
+      "description": "A color-type energy centered on drive, urgency, and getting things done now."
+    },
+    "blue": {
+      "label": "Blue",
+      "description": "A color-type energy centered on precision, structure, and doing things correctly."
+    },
+    "green": {
+      "label": "Green",
+      "description": "A color-type energy centered on harmony, support, and steady relationships."
+    },
+    "yellow": {
+      "label": "Yellow",
+      "description": "A color-type energy centered on optimism, spontaneity, and connecting with people."
+    }
+  },
+  "bigFiveText": {
+    "openness": {
+      "high": {
+        "you": "You're drawn to new ideas, unconventional thinking, and exploring the unfamiliar.",
+        "he": "He's drawn to new ideas, unconventional thinking, and exploring the unfamiliar.",
+        "she": "She's drawn to new ideas, unconventional thinking, and exploring the unfamiliar."
+      },
+      "mid": {
+        "you": "You're about equally comfortable with the familiar and the untested, without a strong pull either way.",
+        "he": "He's about equally comfortable with the familiar and the untested, without a strong pull either way.",
+        "she": "She's about equally comfortable with the familiar and the untested, without a strong pull either way."
+      },
+      "low": {
+        "you": "You gravitate toward the practical and familiar over the abstract or untested.",
+        "he": "He gravitates toward the practical and familiar over the abstract or untested.",
+        "she": "She gravitates toward the practical and familiar over the abstract or untested."
+      }
+    },
+    "conscientiousness": {
+      "high": {
+        "you": "You lean organized and goal-directed, and tend to follow through once you commit.",
+        "he": "He leans organized and goal-directed, and tends to follow through once he commits.",
+        "she": "She leans organized and goal-directed, and tends to follow through once she commits."
+      },
+      "mid": {
+        "you": "You balance structure and spontaneity about evenly.",
+        "he": "He balances structure and spontaneity about evenly.",
+        "she": "She balances structure and spontaneity about evenly."
+      },
+      "low": {
+        "you": "You favor flexibility over rigid plans, and adapt as you go.",
+        "he": "He favors flexibility over rigid plans, and adapts as he goes.",
+        "she": "She favors flexibility over rigid plans, and adapts as she goes."
+      }
+    },
+    "extraversion": {
+      "high": {
+        "you": "Social engagement and stimulation genuinely energize you.",
+        "he": "Social engagement and stimulation genuinely energize him.",
+        "she": "Social engagement and stimulation genuinely energize her."
+      },
+      "mid": {
+        "you": "You're comfortable both around people and on your own, depending on the moment.",
+        "he": "He's comfortable both around people and on his own, depending on the moment.",
+        "she": "She's comfortable both around people and on her own, depending on the moment."
+      },
+      "low": {
+        "you": "Time alone recharges you more reliably than social stimulation does.",
+        "he": "Time alone recharges him more reliably than social stimulation does.",
+        "she": "Time alone recharges her more reliably than social stimulation does."
+      }
+    },
+    "agreeableness": {
+      "high": {
+        "you": "You prioritize cooperation and how a decision lands on other people.",
+        "he": "He prioritizes cooperation and how a decision lands on other people.",
+        "she": "She prioritizes cooperation and how a decision lands on other people."
+      },
+      "mid": {
+        "you": "You weigh your own read on things and others' feelings about evenly.",
+        "he": "He weighs his own read on things and others' feelings about evenly.",
+        "she": "She weighs her own read on things and others' feelings about evenly."
+      },
+      "low": {
+        "you": "You prioritize your own read on a situation over managing how it lands on others.",
+        "he": "He prioritizes his own read on a situation over managing how it lands on others.",
+        "she": "She prioritizes her own read on a situation over managing how it lands on others."
+      }
+    },
+    "neuroticism": {
+      "high": {
+        "you": "Stress and emotional swings register strongly and quickly for you.",
+        "he": "Stress and emotional swings register strongly and quickly for him.",
+        "she": "Stress and emotional swings register strongly and quickly for her."
+      },
+      "mid": {
+        "you": "You feel stress like anyone does, without it dominating how you operate.",
+        "he": "He feels stress like anyone does, without it dominating how he operates.",
+        "she": "She feels stress like anyone does, without it dominating how she operates."
+      },
+      "low": {
+        "you": "You stay even-keeled under pressure more reliably than most.",
+        "he": "He stays even-keeled under pressure more reliably than most.",
+        "she": "She stays even-keeled under pressure more reliably than most."
+      }
+    }
+  },
+  "mbtiLean": {
+    "you": "You lean toward {pole} — {confidence}% in that direction based on your answers.",
+    "he": "He leans toward {pole} — {confidence}% in that direction based on his answers.",
+    "she": "She leans toward {pole} — {confidence}% in that direction based on her answers."
+  }
+}

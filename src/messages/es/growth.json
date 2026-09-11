@@ -1,0 +1,138 @@
+{
+  "axisPrompts": {
+    "energy": [
+      "Programa tiempo de recuperación en soledad de forma proactiva, antes de agotarte, en lugar de retirarte solo cuando socializar ya te haya desgastado.",
+      "Antes de un tramo social exigente, resérvate un breve margen de tiempo tranquilo antes y después — proteger tu ventana de recuperación hace que el esfuerzo hacia afuera sea sostenible.",
+      "Fíjate en qué contextos realmente te agotan frente a los que te energizan, y empieza a elegir tus compromisos teniendo en cuenta ese patrón en vez de dejarte llevar por la costumbre.",
+      "Incluye de vez en cuando tiempo libre a solas aunque sientas que no lo necesitas — la energía hacia afuera puede enmascarar el agotamiento hasta que ya te ha alcanzado.",
+      "Practica estar con el silencio o la soledad en pequeñas dosis — es un músculo que vale la pena desarrollar, aunque no sea tu terreno natural."
+    ],
+    "structure": [
+      "Ancla solo una parte de tu día a una rutina fija — un único hábito constante le da a tu estilo emergente algo desde donde impulsarte sin encasillarte.",
+      "Elige un compromiso recurrente cada semana y trátalo como innegociable — una pequeña dosis de estructura se acumula sin exigir una revisión completa de tu forma de planificar.",
+      "Fíjate en qué situaciones piden un plan y cuáles piden improvisación, y haz esa elección de forma explícita desde el principio en lugar de decidir por defecto.",
+      "Deja deliberadamente un bloque de tiempo sin estructurar en tu semana — practica tolerar la incomodidad de no tenerlo todo planeado.",
+      "Cuando un plan se rompe, trátalo como información y no como un fracaso — desarrolla el hábito de adaptarte sobre la marcha en vez de replanificar desde cero."
+    ],
+    "people": [
+      "Antes de dar una retroalimentación difícil o comunicar una decisión, haz una pausa y nombra en voz alta cómo podría afectar a la otra persona — no para cambiar la decisión, solo para verla con claridad.",
+      "En tu próximo desacuerdo, haz una pregunta genuina sobre lo que la otra persona tiene en juego en el resultado antes de exponer tu postura.",
+      "Fíjate en cuándo cambias entre el modo tarea y el modo personas, y sé intencional sobre cuál de los dos pide realmente cada momento.",
+      "Practica tomar una decisión esta semana basándote únicamente en lo más efectivo, aunque no sea la opción más popular en la sala.",
+      "Marca un límite esta semana en el que la tarea realmente necesite ir primero — fíjate en cómo se siente sostener esa línea."
+    ],
+    "novelty": [
+      "Prueba deliberadamente algo pequeño y desconocido esta semana — de bajo riesgo, solo para mantener el músculo de explorar algo nuevo.",
+      "Dale a una idea nueva una prueba real antes de descartarla — basta con un piloto breve, no un compromiso total, para ponerla realmente a prueba.",
+      "Fíjate si te inclinas por lo familiar por costumbre o por un juicio genuino, y revisa esa elección de vez en cuando.",
+      "Antes de perseguir la próxima idea nueva, termina una que ya empezaste — la novedad vale más cuando va acompañada de seguimiento.",
+      "Elige una idea actual y comprométete a llevarla hasta el final más allá de la parte emocionante — practica quedarte una vez que se le pasa la novedad."
+    ]
+  },
+  "careerSuggestions": {
+    "IMTG": [
+      "Puestos de contratista independiente o especialista donde el trabajo habla por sí solo",
+      "Oficios artesanales — carpintería, ingeniería de precisión, redacción técnica",
+      "Trayectorias profundas como colaborador individual, antes que la gestión de personas",
+      "Control de calidad o trabajo técnico centrado en la precisión"
+    ],
+    "IMTX": [
+      "Puestos de I+D o prototipado con espacio para experimentar",
+      "Desarrollo de software en solitario o proyectos independientes",
+      "Investigación aplicada",
+      "Puestos de experimentación con productos o hardware"
+    ],
+    "IMFG": [
+      "Consejería, coaching o puestos de apoyo individual",
+      "Gestión de casos",
+      "Trabajo comunitario o de cuidado pastoral",
+      "Puestos de éxito del cliente basados en una relación tranquila y constante"
+    ],
+    "IMFX": [
+      "Escritura de viajes o trabajo documental",
+      "Investigación de usuarios o investigación etnográfica",
+      "Trabajo creativo independiente con temas centrados en las personas",
+      "Organización comunitaria a pequeña escala y de carácter personal"
+    ],
+    "IPTG": [
+      "Arquitectura de sistemas o ingeniería de infraestructura",
+      "Análisis actuarial o financiero",
+      "Planificación técnica de proyectos",
+      "Ingeniería de procesos o de calidad"
+    ],
+    "IPTX": [
+      "Ingeniería de I+D con rigor formal",
+      "Arquitectura de producto para categorías nuevas",
+      "Investigación científica con un método estructurado",
+      "Trabajo inventivo orientado a patentes"
+    ],
+    "IPFG": [
+      "Puestos de salud o áreas afines con cargas de casos estables",
+      "Puestos de operaciones que dan soporte a un equipo estable",
+      "Puestos administrativos en una organización guiada por una misión",
+      "Coordinación de cuidado familiar o de adultos mayores"
+    ],
+    "IPFX": [
+      "Planificación estratégica para organizaciones centradas en las personas (ONG, educación)",
+      "Trabajo de recursos humanos o diseño organizacional a largo plazo",
+      "Diseño curricular",
+      "Puestos de investigación en prospectiva o estudios de futuro"
+    ],
+    "EMTG": [
+      "Operaciones de campo o ejecución de proyectos sobre el terreno",
+      "Puestos de ventas con ciclos de retroalimentación rápidos",
+      "Trabajo de crisis o respuesta a emergencias",
+      "Oficios prácticos con trato directo con clientes"
+    ],
+    "EMTX": [
+      "Fundador de startup o puestos en etapa inicial",
+      "Marketing orientado al crecimiento o la experimentación",
+      "Desarrollo de negocio en mercados nuevos",
+      "Prospección o ventas exploratorias"
+    ],
+    "EMFG": [
+      "Gestión de comunidades",
+      "Presentación de eventos o liderazgo en hospitalidad",
+      "Facilitación de equipos",
+      "Liderazgo de primera línea con trato directo al cliente"
+    ],
+    "EMFX": [
+      "Marketing de marca o creativo",
+      "Actuación o entretenimiento basado en la improvisación",
+      "Puestos centrados en alianzas y networking",
+      "Producción de eventos en vivo"
+    ],
+    "EPTG": [
+      "Gestión de operaciones",
+      "Gestión de programas o proyectos",
+      "Liderazgo en logística",
+      "Gestión de construcción o manufactura"
+    ],
+    "EPTX": [
+      "Estrategia de producto para nuevos emprendimientos",
+      "Consultoría de gestión",
+      "Estrategia de negocio en industrias emergentes",
+      "Liderazgo de equipos de innovación"
+    ],
+    "EPFG": [
+      "Hospitalidad o gestión de cuentas",
+      "Liderazgo de oficina u operaciones de personas",
+      "Liderazgo de éxito del cliente",
+      "Coordinación de programas en organizaciones sin fines de lucro"
+    ],
+    "EPFX": [
+      "Liderazgo ejecutivo en una organización en etapa de crecimiento",
+      "Liderazgo organizacional de cara al público",
+      "Dirección de eventos o campañas a gran escala",
+      "Liderazgo en la construcción de movimientos o en incidencia social"
+    ]
+  },
+  "themes": {
+    "conflict": "evitar el conflicto necesario",
+    "perfectionism": "dejar que el perfeccionismo te frene",
+    "followThrough": "el seguimiento de las partes poco atractivas de un plan",
+    "personalizesFeedback": "tomarte la retroalimentación más a pecho de lo que se pretendía",
+    "overcommitment": "comprometerte en exceso con las necesidades de otras personas",
+    "energyManagement": "la gestión de la energía"
+  }
+}

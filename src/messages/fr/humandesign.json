@@ -1,0 +1,89 @@
+{
+  "types": {
+    "generator": {
+      "name": "Le Générateur",
+      "tagline": "Stratégie : Répondre",
+      "strategy": "Répondez à ce qui se trouve déjà devant vous, plutôt que de forcer quelque chose de nouveau à démarrer.",
+      "description": "Les Générateurs portent une énergie stable et renouvelable. Vous êtes fait pour accomplir, sur de longues périodes, un travail que vous aimez sincèrement, et vous trouvez votre voie non pas en poursuivant des plans, mais en répondant honnêtement à ce que la vie place devant vous.",
+      "strengths": [
+        "Soutient un effort concentré bien plus longtemps que la plupart, une fois véritablement engagé",
+        "Apporte une énergie stable et ancrée sur laquelle les autres peuvent s'appuyer",
+        "Maîtrise un métier par la simple répétition accumulée et satisfaisante",
+        "Sait presque immédiatement si quelque chose est un véritable « oui »"
+      ],
+      "growth": [
+        "Rester dans un travail qui ne suscite pas un vrai « oui » épuise rapidement l'énergie",
+        "Peut dire « oui » par habitude plutôt que par désir sincère",
+        "La frustration s'accumule lorsqu'il faut prendre l'initiative au lieu de répondre"
+      ]
+    },
+    "manifesting-generator": {
+      "name": "Le Multi-Passionné",
+      "tagline": "Stratégie : Répondre, puis Agir",
+      "strategy": "Répondez à ce qui vous enthousiasme, puis avancez vite — sauter des étapes est souvent le bon choix pour vous.",
+      "description": "Les Générateurs Manifesteurs combinent l'énergie durable d'un Générateur avec un rythme plus rapide et multi-tâches. Vous faites rarement une seule chose à la fois, et vous atteignez souvent votre destination par un chemin efficace et peu évident que d'autres n'emprunteraient pas.",
+      "strengths": [
+        "Passe rapidement d'un projet à l'autre sans perdre son élan global",
+        "Trouve des raccourcis efficaces que les esprits purement linéaires ne voient pas",
+        "Maîtrise en parallèle plusieurs compétences apparemment sans rapport entre elles",
+        "Adapte ses plans en cours de route sans perdre sa motivation"
+      ],
+      "growth": [
+        "Sauter des étapes peut créer des lacunes qui refont surface plus tard",
+        "L'ennui s'installe vite une fois que la nouveauté d'un projet s'estompe",
+        "S'engager sur trop de fronts à la fois peut diluer la concentration"
+      ]
+    },
+    "manifestor": {
+      "name": "L'Initiateur",
+      "tagline": "Stratégie : Informer, puis Agir",
+      "strategy": "Agissez de votre propre initiative, et informez les personnes concernées avant de bouger.",
+      "description": "Les Manifesteurs sont faits pour initier. Vous n'avez besoin ni de permission ni d'une étincelle extérieure pour vous mettre en mouvement — vous générez votre propre élan, et les choses ont tendance à se produire parce que vous avez décidé qu'elles se produiraient.",
+      "strengths": [
+        "Démarre les choses à partir de rien, sans avoir besoin de validation extérieure",
+        "Avance de façon décisive une fois sa propre clarté établie",
+        "N'a pas peur de faire un premier pas impopulaire mais nécessaire",
+        "Naturellement indépendant dans sa façon de planifier et d'exécuter"
+      ],
+      "growth": [
+        "Sauter l'étape « informer » crée des frictions inutiles avec les autres",
+        "La résistance à recevoir des ordres peut être perçue comme combative",
+        "Les poussées de production intense nécessitent un véritable temps de récupération ensuite"
+      ]
+    },
+    "projector": {
+      "name": "Le Guide",
+      "tagline": "Stratégie : Attendre l'Invitation",
+      "strategy": "Attendez d'être reconnu et invité avant d'endosser un rôle ou d'offrir des conseils approfondis.",
+      "description": "Les Projecteurs sont faits pour voir clairement les systèmes et les personnes de l'extérieur, et non pour s'épuiser dans une production constante. Votre don, c'est la clairvoyance et l'orientation — il porte le mieux ses fruits quand il est réellement sollicité plutôt qu'offert spontanément.",
+      "strengths": [
+        "Voit le chemin efficace à travers un système dans lequel les autres restent bloqués",
+        "Offre des conseils qui améliorent durablement la façon de travailler des autres",
+        "Lit les personnes et les dynamiques de groupe avec une réelle précision",
+        "Se concentre profondément sans avoir besoin d'une agitation extérieure constante"
+      ],
+      "growth": [
+        "Un conseil non sollicité est généralement mal reçu, aussi juste soit-il",
+        "L'énergie s'épuise plus vite que chez les types non-Projecteurs autour de vous",
+        "Attendre d'être reconnu peut sembler passif si cela ne s'accompagne pas d'une réelle visibilité"
+      ]
+    },
+    "reflector": {
+      "name": "Le Miroir",
+      "tagline": "Stratégie : Attendre un Cycle Lunaire",
+      "strategy": "Accordez un vrai temps aux grandes décisions — traditionnellement un cycle lunaire complet — avant de vous engager.",
+      "description": "Les Réflecteurs sont rares et profondément sensibles à leur environnement, absorbant et reflétant la santé des personnes et des lieux qui les entourent. Votre clarté vient avec le temps et le bon environnement, pas dans la pression de l'instant.",
+      "strengths": [
+        "Offre une lecture d'une honnêteté rare sur la santé d'un groupe ou d'un environnement",
+        "S'adapte et intègre avec aisance des perspectives réellement différentes",
+        "Remarque ce qui se passe vraiment sous une surface qui semble pourtant intacte",
+        "Apporte une objectivité rare et à grand angle sur des situations dans lesquelles les autres sont impliqués"
+      ],
+      "growth": [
+        "Les décisions prises dans la précipitation sous pression tiennent rarement dans la durée",
+        "L'environnement affecte l'humeur et l'énergie plus que la plupart des gens ne le réalisent",
+        "Peut absorber l'état émotionnel des autres comme s'il était le sien"
+      ]
+    }
+  }
+}

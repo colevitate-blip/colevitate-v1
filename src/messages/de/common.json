@@ -14,7 +14,12 @@
     "typesLink": "Typen",
     "learnLink": "Wissen",
     "methodologyLink": "Methodik",
-    "menuLabel": "Menü"
+    "menuLabel": "Menü",
+    "closeMenuLabel": "Menü schließen"
+  },
+  "axisAgreement": {
+    "showWhy": "Warum diese Punktzahl?",
+    "hideWhy": "Begründung ausblenden"
   },
   "landing": {
     "eyebrow": "Vier Perspektiven. Je etwa drei Minuten.",

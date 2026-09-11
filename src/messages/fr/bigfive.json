@@ -1,0 +1,79 @@
+{
+  "name": "L'archétype {noun}",
+  "traitLabel": {
+    "openness": "Ouverture",
+    "conscientiousness": "Conscienciosité",
+    "extraversion": "Extraversion",
+    "agreeableness": "Agréabilité",
+    "neuroticism": "Sensibilité Émotionnelle"
+  },
+  "archetypeNoun": {
+    "openness": { "high": "Explorateur", "low": "Réaliste" },
+    "conscientiousness": { "high": "Organisateur", "low": "Improvisateur" },
+    "extraversion": { "high": "Connecteur", "low": "Observateur" },
+    "agreeableness": { "high": "Collaborateur", "low": "Franc-tireur" },
+    "neuroticism": { "high": "Émotif", "low": "Ancre" }
+  },
+  "traitLevels": {
+    "openness": {
+      "high": {
+        "blurb": "Vous êtes attiré par les idées nouvelles, l'art et la pensée abstraite plutôt que par la routine et les conventions.",
+        "strength": "Vous apportez des angles neufs et originaux à des problèmes que tout le monde aborde de la même façon.",
+        "growth": "Peut courir après la prochaine idée intéressante avant d'avoir terminé la précédente."
+      },
+      "low": {
+        "blurb": "Vous privilégiez le pratique et l'éprouvé plutôt que l'abstrait et l'inédit.",
+        "strength": "Vous restez ancré dans ce qui est concret et dont la fiabilité est démontrée.",
+        "growth": "Peut écarter une idée originale sans vraiment l'avoir considérée."
+      }
+    },
+    "conscientiousness": {
+      "high": {
+        "blurb": "Vous planifiez à l'avance, allez jusqu'au bout, et vous tenez à un niveau d'exigence élevé.",
+        "strength": "On peut compter sur vous pour tenir ce que vous avez promis.",
+        "growth": "Vos exigences peuvent basculer dans un perfectionnisme qui ralentit les choses."
+      },
+      "low": {
+        "blurb": "Vous préférez rester flexible et vous adapter dans l'instant plutôt que de tout planifier en détail.",
+        "strength": "Vous vous adaptez rapidement quand les plans changent et vous vous sentez rarement enfermé.",
+        "growth": "Les échéances et le suivi routinier peuvent vous échapper sans un peu plus de structure."
+      }
+    },
+    "extraversion": {
+      "high": {
+        "blurb": "Vous puisez votre énergie dans le contact avec les gens et vous avez tendance à réfléchir à voix haute en groupe.",
+        "strength": "Vous créez rapidement de l'élan et de la chaleur dans une pièce.",
+        "growth": "Peut avoir besoin de s'aménager consciemment des moments plus calmes, à faible stimulation."
+      },
+      "low": {
+        "blurb": "Vous rechargez vos batteries dans des environnements plus calmes et préférez la profondeur à la diversité dans la conversation.",
+        "strength": "Vous apportez une attention calme et concentrée aux conversations en tête-à-tête.",
+        "growth": "Peut passer inaperçu dans des environnements de groupe bruyants à moins de faire l'effort de se faire entendre."
+      }
+    },
+    "agreeableness": {
+      "high": {
+        "blurb": "Vous privilégiez l'harmonie et prenez un plaisir sincère à aider les gens autour de vous.",
+        "strength": "Vous instaurez rapidement et sincèrement la confiance et la coopération avec les autres.",
+        "growth": "Peut éviter un conflit nécessaire pour préserver la paix."
+      },
+      "low": {
+        "blurb": "Vous êtes à l'aise à privilégier votre propre jugement plutôt que le consensus du groupe.",
+        "strength": "Vous dites la vérité qui dérange, celle qui empêche un groupe de se voiler la face.",
+        "growth": "Votre franchise peut paraître brusque quand un peu de chaleur serait mieux reçue."
+      }
+    },
+    "neuroticism": {
+      "high": {
+        "blurb": "Vous ressentez les émotions intensément et restez attentif à ce qui pourrait mal tourner.",
+        "strength": "Votre vigilance repère des risques que des personnes plus détendues ne voient absolument pas.",
+        "growth": "L'inquiétude peut dépenser de l'énergie sur des choses qui ne se produisent jamais."
+      },
+      "low": {
+        "blurb": "Vous avez tendance à rester calme et stable émotionnellement, même sous une réelle pression.",
+        "strength": "Vous gardez la tête froide dans des moments qui déstabiliseraient la plupart des gens.",
+        "growth": "Un faible sentiment d'urgence peut conduire à sous-estimer de vrais risques."
+      }
+    }
+  }
+}

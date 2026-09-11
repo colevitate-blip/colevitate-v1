@@ -14,7 +14,12 @@
     "typesLink": "Tipos",
     "learnLink": "Aprender",
     "methodologyLink": "Metodología",
-    "menuLabel": "Menú"
+    "menuLabel": "Menú",
+    "closeMenuLabel": "Cerrar menú"
+  },
+  "axisAgreement": {
+    "showWhy": "¿Por qué esta puntuación?",
+    "hideWhy": "Ocultar el porqué"
   },
   "landing": {
     "eyebrow": "Cuatro miradas. Unos tres minutos cada una.",

@@ -1,10 +1,10 @@
 import type { AssessmentId, PersonalityResults } from "@/lib/personality/types";
 import { MBTI_CONTENT } from "@/components/personality/mbti/content";
-import { summarizeBigFive } from "@/components/personality/bigfive/content";
+import { getTopTraits, levelFor, TRAIT_LEVELS, summarizeBigFiveTranslated } from "@/components/personality/bigfive/content";
 import { HD_CONTENT } from "@/components/personality/humandesign/content";
 import { COLOR_CONTENT } from "@/components/personality/colors/content";
 import { ASSESSMENT_CATALOG } from "@/lib/personality/catalog";
-import { computeScoringMatrix, type AxisScore } from "./scoringMatrix";
+import { computeScoringMatrix, type AxisScore, type Translator } from "./scoringMatrix";
 import { getArchetype, type Archetype } from "./archetypeMatrix";
 
 export interface CombinedThread {
@@ -31,44 +31,54 @@ export interface CombinedProfile {
   archetype: Archetype | null;
 }
 
-const GROWTH_THEMES: { theme: string; keywords: string[] }[] = [
-  { theme: "avoiding necessary conflict", keywords: ["conflict"] },
-  { theme: "letting perfectionism slow you down", keywords: ["perfection"] },
-  { theme: "follow-through on the unglamorous parts of a plan", keywords: ["follow-through", "follow through", "routine"] },
-  { theme: "taking feedback more personally than intended", keywords: ["criticism", "personally"] },
-  { theme: "overcommitting to other people's needs", keywords: ["overcommit", "over-give", "own needs"] },
-  { theme: "energy management", keywords: ["energy", "drain", "recovery"] },
+// Which shared-growth-edge theme (growth.themes.<key> for display) a
+// framework's growth text matches, by English keyword — matching always
+// runs against the static English source content (MBTI_CONTENT, HD_CONTENT,
+// COLOR_CONTENT, bigfive's TRAIT_LEVELS below), never the translated
+// display text, so it works identically regardless of the active locale.
+const GROWTH_THEME_KEYWORDS: { themeKey: string; keywords: string[] }[] = [
+  { themeKey: "conflict", keywords: ["conflict"] },
+  { themeKey: "perfectionism", keywords: ["perfection"] },
+  { themeKey: "followThrough", keywords: ["follow-through", "follow through", "routine"] },
+  { themeKey: "personalizesFeedback", keywords: ["criticism", "personally"] },
+  { themeKey: "overcommitment", keywords: ["overcommit", "over-give", "own needs"] },
+  { themeKey: "energyManagement", keywords: ["energy", "drain", "recovery"] },
 ];
 
-export function findSharedGrowthTheme(threads: CombinedThread[]): { theme: string; ids: AssessmentId[] } | null {
-  for (const { theme, keywords } of GROWTH_THEMES) {
-    const matches = threads.filter((t) =>
-      t.growth.some((g) => keywords.some((k) => g.toLowerCase().includes(k)))
-    );
-    if (matches.length >= 2) {
-      return { theme, ids: matches.map((m) => m.id) };
+export function findSharedGrowthTheme(englishGrowth: Map<AssessmentId, string[]>): { themeKey: string; ids: AssessmentId[] } | null {
+  for (const { themeKey, keywords } of GROWTH_THEME_KEYWORDS) {
+    const matches: AssessmentId[] = [];
+    for (const [id, texts] of englishGrowth) {
+      if (texts.some((g) => keywords.some((k) => g.toLowerCase().includes(k)))) matches.push(id);
     }
+    if (matches.length >= 2) return { themeKey, ids: matches };
   }
   return null;
 }
 
-export function generateCombinedProfile(results: PersonalityResults): CombinedProfile | null {
+export function generateCombinedProfile(results: PersonalityResults, t: Translator, locale: string): CombinedProfile | null {
   const threads: CombinedThread[] = [];
+  // English-only growth text per framework, used solely to detect a shared
+  // growth theme (see findSharedGrowthTheme) — kept separate from the
+  // translated `growth` field threads carry for display.
+  const englishGrowth = new Map<AssessmentId, string[]>();
 
   if (results.mbti) {
-    const c = MBTI_CONTENT[results.mbti.type];
+    const type = results.mbti.type;
+    const c = MBTI_CONTENT[type];
     threads.push({
       id: "mbti",
       label: ASSESSMENT_CATALOG.mbti.label,
       code: c.code,
-      name: c.name,
-      tagline: c.tagline,
-      strengths: c.strengths,
-      growth: c.growth,
+      name: t(`mbti.types.${type}.name`),
+      tagline: t(`mbti.types.${type}.tagline`),
+      strengths: [0, 1, 2, 3].map((i) => t(`mbti.types.${type}.strengths.${i}`)),
+      growth: [0, 1, 2].map((i) => t(`mbti.types.${type}.growth.${i}`)),
     });
+    englishGrowth.set("mbti", c.growth);
   }
   if (results.bigfive) {
-    const s = summarizeBigFive(results.bigfive);
+    const s = summarizeBigFiveTranslated(results.bigfive, t);
     threads.push({
       id: "bigfive",
       label: ASSESSMENT_CATALOG.bigfive.label,
@@ -78,54 +88,68 @@ export function generateCombinedProfile(results: PersonalityResults): CombinedPr
       strengths: s.strengths,
       growth: s.growth,
     });
+    const top = getTopTraits(results.bigfive);
+    englishGrowth.set("bigfive", top.map((trait) => TRAIT_LEVELS[trait][levelFor(results.bigfive!, trait)].growth));
   }
   if (results.humandesign) {
-    const c = HD_CONTENT[results.humandesign.type];
+    const type = results.humandesign.type;
+    const c = HD_CONTENT[type];
     threads.push({
       id: "humandesign",
       label: ASSESSMENT_CATALOG.humandesign.label,
       code: c.code,
-      name: c.name,
-      tagline: c.tagline,
-      strengths: c.strengths,
-      growth: c.growth,
+      name: t(`humandesign.types.${type}.name`),
+      tagline: t(`humandesign.types.${type}.tagline`),
+      strengths: [0, 1, 2, 3].map((i) => t(`humandesign.types.${type}.strengths.${i}`)),
+      growth: [0, 1, 2].map((i) => t(`humandesign.types.${type}.growth.${i}`)),
     });
+    englishGrowth.set("humandesign", c.growth);
   }
   if (results.colors) {
-    const c = COLOR_CONTENT[results.colors.dominant];
+    const dominant = results.colors.dominant;
+    const c = COLOR_CONTENT[dominant];
     threads.push({
       id: "colors",
       label: ASSESSMENT_CATALOG.colors.label,
-      code: results.colors.dominant.slice(0, 1).toUpperCase(),
-      name: c.name,
-      tagline: c.tagline,
-      strengths: c.strengths,
-      growth: c.growth,
+      code: dominant.slice(0, 1).toUpperCase(),
+      name: t(`colors.types.${dominant}.name`),
+      tagline: t(`colors.types.${dominant}.tagline`),
+      strengths: [0, 1, 2, 3].map((i) => t(`colors.types.${dominant}.strengths.${i}`)),
+      growth: [0, 1, 2].map((i) => t(`colors.types.${dominant}.growth.${i}`)),
     });
+    englishGrowth.set("colors", c.growth);
   }
 
   if (threads.length < 2) return null;
 
-  const headline = threads.map((t) => t.name.replace(/^The /, "")).join(" · ");
-  const subtitle = `Woven from ${threads.length} of 4 assessments`;
-  const sourcesLine = `Built from ${threads.length} of 4 lenses — ${threads.map((t) => t.label).join(", ")}`;
+  const listFormat = new Intl.ListFormat(locale, { style: "long", type: "conjunction" });
 
-  const openingClauses = threads.map((t) => {
-    switch (t.id) {
+  const headline = threads.map((th) => th.name).join(" · ");
+  const subtitle = t("combined.narrative.subtitle", { count: threads.length });
+  const sourcesLine = t("combined.narrative.sourcesLine", {
+    count: threads.length,
+    list: listFormat.format(threads.map((th) => th.label)),
+  });
+
+  const openingClauses = threads.map((th) => {
+    switch (th.id) {
       case "mbti":
-        return `show up as ${t.name} (${t.code})`;
+        return t("combined.narrative.openingClause.mbti", { name: th.name, code: th.code });
       case "bigfive":
-        return `carry ${t.name}'s temperament in day-to-day behavior`;
+        return t("combined.narrative.openingClause.bigfive", { name: th.name });
       case "humandesign":
-        return `run on ${t.name} energy, built to ${HD_CONTENT[results.humandesign!.type].strategy.toLowerCase().replace(/\.$/, "")}`;
+        return t("combined.narrative.openingClause.humandesign", {
+          name: th.name,
+          strategy: t(`humandesign.types.${results.humandesign!.type}.strategy`).toLowerCase().replace(/\.$/, ""),
+        });
       case "colors":
-        return `lead with ${t.name.split("—")[0].trim()} energy in how you operate with other people`;
+        return t("combined.narrative.openingClause.colors", { name: th.name.split("—")[0].trim() });
       default:
         return "";
     }
   });
 
-  const opening = `Here's the shape of you: you ${joinClauses(openingClauses)}.`;
+  const opening = t("combined.narrative.opening", { clauses: listFormat.format(openingClauses.filter(Boolean)) });
 
   const paragraphs = [opening];
 
@@ -133,32 +157,28 @@ export function generateCombinedProfile(results: PersonalityResults): CombinedPr
   // axis, into a single weighted composite (see scoringMatrix.ts). Lead
   // the narrative with whichever axis has the strongest signal — that's
   // the most defining, best-corroborated trait across your results.
-  const axes = computeScoringMatrix(results);
+  const axes = computeScoringMatrix(results, t);
   const strongestAxis = [...axes].sort((a, b) => Math.abs(b.score) - Math.abs(a.score))[0];
   if (strongestAxis) {
     paragraphs.push(strongestAxis.sentence);
   }
 
-  const sharedGrowth = findSharedGrowthTheme(threads);
+  const sharedGrowth = findSharedGrowthTheme(englishGrowth);
   if (sharedGrowth) {
-    const labels = sharedGrowth.ids.map((id) => threads.find((t) => t.id === id)!.label);
+    const labels = sharedGrowth.ids.map((id) => threads.find((th) => th.id === id)!.label);
     paragraphs.push(
-      `Across ${labels.join(" and ")}, the same growth edge keeps surfacing: ${sharedGrowth.theme}. When two independent frameworks point at the same thing, it's usually the highest-leverage place to focus.`
+      t("combined.narrative.sharedGrowth", {
+        labels: listFormat.format(labels),
+        theme: t(`growth.themes.${sharedGrowth.themeKey}`),
+      })
     );
   }
 
-  const strengths = dedupeTop(threads.flatMap((t) => t.strengths.slice(0, 1)), 4);
-  const growth = dedupeTop(threads.flatMap((t) => t.growth.slice(0, 1)), 4);
-  const archetype = getArchetype(axes);
+  const strengths = dedupeTop(threads.flatMap((th) => th.strengths.slice(0, 1)), 4);
+  const growth = dedupeTop(threads.flatMap((th) => th.growth.slice(0, 1)), 4);
+  const archetype = getArchetype(axes, t);
 
   return { headline, subtitle, sourcesLine, narrative: paragraphs, threads, strengths, growth, axes, archetype };
-}
-
-function joinClauses(clauses: string[]) {
-  const filtered = clauses.filter(Boolean);
-  if (filtered.length === 1) return filtered[0];
-  if (filtered.length === 2) return `${filtered[0]} and ${filtered[1]}`;
-  return `${filtered.slice(0, -1).join(", ")}, and ${filtered[filtered.length - 1]}`;
 }
 
 function dedupeTop(items: string[], max: number) {

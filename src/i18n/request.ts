@@ -3,13 +3,47 @@ import { hasLocale } from "next-intl";
 import { routing } from "./routing";
 
 async function loadMessages(locale: string) {
-  const [common, mbti, discovery, methodology] = await Promise.all([
+  const [
+    common,
+    mbti,
+    discovery,
+    methodology,
+    archetypes,
+    scoring,
+    growth,
+    bigfive,
+    humandesign,
+    colors,
+    combined,
+    graph,
+  ] = await Promise.all([
     import(`../messages/${locale}/common.json`).then((m) => m.default),
     import(`../messages/${locale}/mbti.json`).then((m) => m.default),
     import(`../messages/${locale}/discovery.json`).then((m) => m.default),
     import(`../messages/${locale}/methodology.json`).then((m) => m.default),
+    import(`../messages/${locale}/archetypes.json`).then((m) => m.default),
+    import(`../messages/${locale}/scoring.json`).then((m) => m.default),
+    import(`../messages/${locale}/growth.json`).then((m) => m.default),
+    import(`../messages/${locale}/bigfive.json`).then((m) => m.default),
+    import(`../messages/${locale}/humandesign.json`).then((m) => m.default),
+    import(`../messages/${locale}/colors.json`).then((m) => m.default),
+    import(`../messages/${locale}/combined.json`).then((m) => m.default),
+    import(`../messages/${locale}/graph.json`).then((m) => m.default),
   ]);
-  return { ...common, mbti, discovery, methodology };
+  return {
+    ...common,
+    mbti,
+    discovery,
+    methodology,
+    archetypes,
+    scoring,
+    growth,
+    bigfive,
+    humandesign,
+    colors,
+    combined,
+    graph,
+  };
 }
 
 // Deep-merges `overrides` onto `base`, keeping base values for any key the

@@ -1,0 +1,95 @@
+{
+  "ui": {
+    "overview": "Resumen",
+    "combinedProfileBadge": "Perfil Combinado",
+    "shareTitle": "Mi perfil de Personality Studio",
+    "inviteErrorFallback": "Algo salió mal al crear la invitación. Inténtalo de nuevo.",
+    "linkCopied": "Enlace copiado",
+    "exportAsLink": "Exportar como enlace",
+    "inviteCreated": "Invitación creada",
+    "compareWithSomeone": "Comparar con alguien",
+    "compareExplainer": "Crearemos un enlace privado para enviarle. Una vez que complete sus propias evaluaciones y acepte, ambos podrán desbloquear un informe de compatibilidad.",
+    "whoComparing": "¿Con quién te estás comparando?",
+    "exportAsPdf": "Exportar como PDF",
+    "saveShare": "Guardar / Compartir",
+    "inviteErrorPrefix": "No se pudo crear la invitación: {error}",
+    "dismiss": "Descartar",
+    "inviteLinkCopied": "Enlace de invitación copiado — envíaselo a {relationshipLabel} con quien quieres compararte.",
+    "inviteFollowUp": "Una vez que complete sus propias evaluaciones y acepte, ambos podrán desbloquear un informe de compatibilidad. Puedes verlo en cualquier momento en",
+    "comparisonsLink": "Comparaciones",
+    "copyAgain": "Copiar de nuevo",
+    "copied": "Copiado",
+    "whereLensesAgree": "Dónde Coinciden Tus Miradas",
+    "howThisIsCalculated": "Cómo se calcula esto",
+    "lensesAgreeIntro": "En algunas cosas, todas tus miradas llegan casi al mismo lugar — eso es una señal clara. En otras tiran en direcciones distintas, y eso normalmente no es una contradicción, es simplemente que eres una persona completa según el contexto. Esto es lo que hay realmente detrás del titular de arriba.",
+    "howYouveMoved": "Cómo Has Cambiado",
+    "firstSnapshot": "Así eres tú, hoy. Repite cualquier mirada dentro de unos meses y te mostraremos exactamente qué cambió — y qué no.",
+    "movedAcross": "Cómo se ha movido cada eje a lo largo de tus {count} evaluaciones completadas, de la más antigua a la más reciente.",
+    "whereToLeanIn": "Dónde Enfocarte",
+    "wantMore": "¿Quieres más de lo que muestra esta página?",
+    "deepDiveExplainer": "El Informe en Profundidad amplía el ajuste profesional, los patrones de relación y los puntos de crecimiento en una lectura más extensa, asistida por IA y basada en tus propias puntuaciones.",
+    "unlockDeepDive": "Desbloquear el Informe en Profundidad",
+    "whereThisMightFit": "Dónde Podría Encajar Esto",
+    "roleFitIntro": "Roles y estilos de trabajo que suelen encajar con {name}.",
+    "roleFitFallback": "tu combinación de rasgos",
+    "strengths": "Fortalezas",
+    "growthAreas": "Áreas de crecimiento",
+    "yourFourLenses": "Tus Cuatro Miradas",
+    "disclaimer": "Esta es nuestra síntesis de tus cuatro resultados, no una medición de laboratorio — pensada para ayudarte a ver el patrón, no para calificarte por él.",
+    "notReadyTitle": "Todavía no está listo",
+    "notReadyBody": "Completa al menos una evaluación para empezar a construir tu perfil combinado.",
+    "backToAssessments": "Volver a las evaluaciones",
+    "partial": {
+      "oneOfFourComplete": "1 de 4 completada",
+      "alreadyKnowTitle": "Esto es lo que ya sabemos de ti",
+      "alreadyKnowBody": "El perfil combinado completo entreteje los cuatro modelos — pero tu resultado de {label} ya cuenta parte de la historia.",
+      "completeNext": "Completa {label} a continuación para empezar a ver en qué coinciden tus modelos — y en qué se separan.",
+      "continueWith": "Continuar con {label}"
+    },
+    "dailyInsight": {
+      "todayFor": "Hoy, para {name}"
+    },
+    "shareCard": {
+      "yourArchetype": "Tu Arquetipo",
+      "footer": "Personality Studio"
+    },
+    "graphCard": {
+      "title": "Cómo Se Conecta Todo",
+      "groupBySpectrum": "Agrupar por espectro",
+      "recenter": "Recentrar",
+      "recenterAriaLabel": "Recentrar el gráfico — restablece el desplazamiento y el zoom sin mover ningún punto",
+      "howToRead": "Cómo leer esto",
+      "legendIntroQuadrant": ", uno por cuadrante. Todo lo demás se ubica en el espectro al que alimenta.",
+      "legendIntroFramework": ", como cuánto se orienta tu energía hacia afuera frente a hacia adentro. Todo lo demás se agrupa según el modelo del que proviene.",
+      "legendIntroPart1": "El punto grande es tu arquetipo general. Los puntos medianos son tus 4",
+      "spectrumsStrong": "espectros",
+      "legendIntroPart2": "— las escalas centrales contra las que se mide todo lo demás",
+      "legendSize": "Tamaño = qué tan central es para tu perfil",
+      "legendLines": "Líneas = qué alimenta a qué",
+      "legendPosition": "Posición = a cuál de tus 4 espectros pertenece",
+      "legendHover": "Pasa el cursor sobre cualquier punto para ver detalles"
+    },
+    "pdf": {
+      "combinedProfileBadge": "Perfil Combinado",
+      "whereLensesAgree": "Dónde Coinciden Tus Miradas",
+      "whereToLeanIn": "Dónde Enfocarte",
+      "whereThisMightFit": "Dónde Podría Encajar Esto",
+      "strengths": "Fortalezas",
+      "growthAreas": "Áreas de Crecimiento",
+      "yourFourLenses": "Tus Cuatro Miradas",
+      "footer": "Esta es nuestra síntesis de tus cuatro resultados, no una medición de laboratorio — pensada para ayudarte a ver el patrón, no para calificarte por él. Generado por Colevitate el {date}."
+    }
+  },
+  "narrative": {
+    "subtitle": "Elaborado a partir de {count} de 4 evaluaciones",
+    "sourcesLine": "Construido a partir de {count} de 4 miradas — {list}",
+    "opening": "Esta es tu forma: {clauses}.",
+    "openingClause": {
+      "mbti": "te muestras como {name} ({code})",
+      "bigfive": "llevas el temperamento de {name} en tu comportamiento diario",
+      "humandesign": "funcionas con la energía de {name}, hecha para {strategy}",
+      "colors": "lideras con la energía {name} en tu forma de relacionarte con los demás"
+    },
+    "sharedGrowth": "En {labels}, el mismo punto de crecimiento sigue apareciendo: {theme}. Cuando dos modelos independientes señalan lo mismo, suele ser el lugar con mayor impacto en el que enfocarte."
+  }
+}

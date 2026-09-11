@@ -1,0 +1,228 @@
+{
+  "axes": {
+    "energy": { "label": "Inward / Outward Focus", "leftPole": "Inward", "rightPole": "Outward" },
+    "structure": { "label": "Structure & Pace", "leftPole": "Emergent", "rightPole": "Planned" },
+    "people": { "label": "People Orientation", "leftPole": "Task-focused", "rightPole": "People-focused" },
+    "novelty": { "label": "Openness to Novelty", "leftPole": "Grounded", "rightPole": "Exploratory" }
+  },
+  "tiers": {
+    "energy": [
+      {
+        "tierLabel": "Strongly inward",
+        "sentence": "Across your results, energy consistently runs inward — you do your best thinking alone or in very small groups, and recover by stepping out of the noise, not into it.",
+        "sentenceThird": {
+          "he": "Across his results, energy consistently runs inward — he does his best thinking alone or in very small groups, and recovers by stepping out of the noise, not into it.",
+          "she": "Across her results, energy consistently runs inward — she does her best thinking alone or in very small groups, and recovers by stepping out of the noise, not into it."
+        }
+      },
+      {
+        "tierLabel": "Leans inward",
+        "sentence": "Your energy leans inward more often than not — you can perform outwardly when needed, but quiet, low-stimulation time is where you actually recharge.",
+        "sentenceThird": {
+          "he": "His energy leans inward more often than not — he can perform outwardly when needed, but quiet, low-stimulation time is where he actually recharges.",
+          "she": "Her energy leans inward more often than not — she can perform outwardly when needed, but quiet, low-stimulation time is where she actually recharges."
+        }
+      },
+      {
+        "tierLabel": "Situational",
+        "sentence": "Your energy reads as genuinely situational — outward and engaged in the right context, inward and conserving in others, rather than fixed either way.",
+        "sentenceThird": {
+          "he": "His energy reads as genuinely situational — outward and engaged in the right context, inward and conserving in others, rather than fixed either way.",
+          "she": "Her energy reads as genuinely situational — outward and engaged in the right context, inward and conserving in others, rather than fixed either way."
+        }
+      },
+      {
+        "tierLabel": "Leans outward",
+        "sentence": "Your energy leans outward more often than not — people and momentum tend to add to your tank rather than drain it.",
+        "sentenceThird": {
+          "he": "His energy leans outward more often than not — people and momentum tend to add to his tank rather than drain it.",
+          "she": "Her energy leans outward more often than not — people and momentum tend to add to her tank rather than drain it."
+        }
+      },
+      {
+        "tierLabel": "Strongly outward",
+        "sentence": "Across your results, energy consistently runs outward — you're genuinely recharged by people and momentum, not just tolerant of them.",
+        "sentenceThird": {
+          "he": "Across his results, energy consistently runs outward — he's genuinely recharged by people and momentum, not just tolerant of them.",
+          "she": "Across her results, energy consistently runs outward — she's genuinely recharged by people and momentum, not just tolerant of them."
+        }
+      }
+    ],
+    "structure": [
+      {
+        "tierLabel": "Strongly emergent",
+        "sentence": "You operate almost entirely in the moment — plans are loose scaffolding at best, and you do your best work responding to what's actually in front of you.",
+        "sentenceThird": {
+          "he": "He operates almost entirely in the moment — plans are loose scaffolding at best, and he does his best work responding to what's actually in front of him.",
+          "she": "She operates almost entirely in the moment — plans are loose scaffolding at best, and she does her best work responding to what's actually in front of her."
+        }
+      },
+      {
+        "tierLabel": "Leans emergent",
+        "sentence": "You lean toward staying flexible and responsive, following the moment more often than a plan drawn up in advance.",
+        "sentenceThird": {
+          "he": "He leans toward staying flexible and responsive, following the moment more often than a plan drawn up in advance.",
+          "she": "She leans toward staying flexible and responsive, following the moment more often than a plan drawn up in advance."
+        }
+      },
+      {
+        "tierLabel": "Balanced",
+        "sentence": "You move between planning ahead and staying open to the moment, picking whichever the situation actually calls for.",
+        "sentenceThird": {
+          "he": "He moves between planning ahead and staying open to the moment, picking whichever the situation actually calls for.",
+          "she": "She moves between planning ahead and staying open to the moment, picking whichever the situation actually calls for."
+        }
+      },
+      {
+        "tierLabel": "Leans planned",
+        "sentence": "You lean toward planning things out — you're capable of improvising, but you do your best work with some structure already in place.",
+        "sentenceThird": {
+          "he": "He leans toward planning things out — he's capable of improvising, but he does his best work with some structure already in place.",
+          "she": "She leans toward planning things out — she's capable of improvising, but she does her best work with some structure already in place."
+        }
+      },
+      {
+        "tierLabel": "Strongly planned",
+        "sentence": "Structure is a consistent thread across your results — you plan ahead, follow through, and feel most capable when the shape of things is already clear.",
+        "sentenceThird": {
+          "he": "Structure is a consistent thread across his results — he plans ahead, follows through, and feels most capable when the shape of things is already clear.",
+          "she": "Structure is a consistent thread across her results — she plans ahead, follows through, and feels most capable when the shape of things is already clear."
+        }
+      }
+    ],
+    "people": [
+      {
+        "tierLabel": "Strongly task-focused",
+        "sentence": "Across your results, you consistently prioritize the work itself over managing how people feel about it — clarity and results come first.",
+        "sentenceThird": {
+          "he": "Across his results, he consistently prioritizes the work itself over managing how people feel about it — clarity and results come first.",
+          "she": "Across her results, she consistently prioritizes the work itself over managing how people feel about it — clarity and results come first."
+        }
+      },
+      {
+        "tierLabel": "Leans task-focused",
+        "sentence": "You lean toward prioritizing the task at hand, though you're not indifferent to the people involved — just not led by it.",
+        "sentenceThird": {
+          "he": "He leans toward prioritizing the task at hand, though he's not indifferent to the people involved — just not led by it.",
+          "she": "She leans toward prioritizing the task at hand, though she's not indifferent to the people involved — just not led by it."
+        }
+      },
+      {
+        "tierLabel": "Balanced",
+        "sentence": "You balance people and task fairly evenly — neither consistently overrides the other in how you operate.",
+        "sentenceThird": {
+          "he": "He balances people and task fairly evenly — neither consistently overrides the other in how he operates.",
+          "she": "She balances people and task fairly evenly — neither consistently overrides the other in how she operates."
+        }
+      },
+      {
+        "tierLabel": "Leans people-focused",
+        "sentence": "You lean toward prioritizing the people in the room — decisions tend to get filtered through how they'll land on others.",
+        "sentenceThird": {
+          "he": "He leans toward prioritizing the people in the room — decisions tend to get filtered through how they'll land on others.",
+          "she": "She leans toward prioritizing the people in the room — decisions tend to get filtered through how they'll land on others."
+        }
+      },
+      {
+        "tierLabel": "Strongly people-focused",
+        "sentence": "Across your results, people consistently come first — you read the room, protect relationships, and let that shape almost every call you make.",
+        "sentenceThird": {
+          "he": "Across his results, people consistently come first — he reads the room, protects relationships, and lets that shape almost every call he makes.",
+          "she": "Across her results, people consistently come first — she reads the room, protects relationships, and lets that shape almost every call she makes."
+        }
+      }
+    ],
+    "novelty": [
+      {
+        "tierLabel": "Strongly grounded",
+        "sentence": "You consistently favor the proven and concrete over the untested — new ideas earn trust by demonstrating they work, not by being new.",
+        "sentenceThird": {
+          "he": "He consistently favors the proven and concrete over the untested — new ideas earn trust by demonstrating they work, not by being new.",
+          "she": "She consistently favors the proven and concrete over the untested — new ideas earn trust by demonstrating they work, not by being new."
+        }
+      },
+      {
+        "tierLabel": "Leans grounded",
+        "sentence": "You lean toward the practical and familiar, though you're not closed to new ideas once they've shown some substance.",
+        "sentenceThird": {
+          "he": "He leans toward the practical and familiar, though he's not closed to new ideas once they've shown some substance.",
+          "she": "She leans toward the practical and familiar, though she's not closed to new ideas once they've shown some substance."
+        }
+      },
+      {
+        "tierLabel": "Balanced",
+        "sentence": "You move between the familiar and the experimental depending on the stakes, rather than defaulting to either.",
+        "sentenceThird": {
+          "he": "He moves between the familiar and the experimental depending on the stakes, rather than defaulting to either.",
+          "she": "She moves between the familiar and the experimental depending on the stakes, rather than defaulting to either."
+        }
+      },
+      {
+        "tierLabel": "Leans exploratory",
+        "sentence": "You lean toward the new and untested — novelty tends to pull your attention more than routine does.",
+        "sentenceThird": {
+          "he": "He leans toward the new and untested — novelty tends to pull his attention more than routine does.",
+          "she": "She leans toward the new and untested — novelty tends to pull her attention more than routine does."
+        }
+      },
+      {
+        "tierLabel": "Strongly exploratory",
+        "sentence": "Across your results, you're consistently drawn to the unfamiliar — new ideas, new angles, and new possibilities are where your energy naturally goes.",
+        "sentenceThird": {
+          "he": "Across his results, he's consistently drawn to the unfamiliar — new ideas, new angles, and new possibilities are where his energy naturally goes.",
+          "she": "Across her results, she's consistently drawn to the unfamiliar — new ideas, new angles, and new possibilities are where her energy naturally goes."
+        }
+      }
+    ]
+  },
+  "explain": {
+    "mbti": "Your {dichotomy} score leans {pole} ({confidence}% confidence) — that's {signal}.",
+    "bigfive": "Your {trait} score is {score}/100 — that's {signal}.",
+    "humandesign": "As a {hdType}, Human Design's energy-type mapping contributes {signal} — that comes from the type itself, not a specific trait score.",
+    "colors": "Your dominant color is {dominant} (75% weight) and secondary is {secondary} (25% weight) — blended, that's {signal}."
+  },
+  "signalPhrase": "{amount} toward {pole}",
+  "labels": {
+    "dichotomies": {
+      "EI": "Extraversion/Introversion",
+      "SN": "Sensing/Intuition",
+      "TF": "Thinking/Feeling",
+      "JP": "Judging/Perceiving"
+    },
+    "mbtiPoles": {
+      "E": "Extraversion",
+      "I": "Introversion",
+      "S": "Sensing",
+      "N": "Intuition",
+      "T": "Thinking",
+      "F": "Feeling",
+      "J": "Judging",
+      "P": "Perceiving"
+    },
+    "hdTypes": {
+      "generator": "Generator",
+      "manifesting-generator": "Manifesting Generator",
+      "manifestor": "Manifestor",
+      "projector": "Projector",
+      "reflector": "Reflector"
+    },
+    "colors": {
+      "red": "Red",
+      "blue": "Blue",
+      "green": "Green",
+      "yellow": "Yellow"
+    },
+    "bigFiveTraits": {
+      "extraversion": "Extraversion",
+      "conscientiousness": "Conscientiousness",
+      "agreeableness": "Agreeableness",
+      "openness": "Openness"
+    }
+  },
+  "agreement": {
+    "onlyOne": "Only one framework weighs in here.",
+    "agree": "Your frameworks agree here.",
+    "mixed": "Your frameworks mostly agree, with some nuance.",
+    "disagree": "Your frameworks disagree here."
+  }
+}

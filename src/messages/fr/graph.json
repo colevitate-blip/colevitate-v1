@@ -1,0 +1,145 @@
+{
+  "ringLabels": { "1": "Spectres", "2": "Traits", "3": "Réponses" },
+  "kindTags": {
+    "axis": "Spectre — une échelle centrale de personnalité",
+    "trait": "Trait",
+    "question": "Votre réponse"
+  },
+  "archetypeTag": {
+    "you": "Votre archétype"
+  },
+  "traits": {
+    "EI": {
+      "label": "Extraversion/Introversion",
+      "description": "Que vous tiriez votre énergie de l'engagement avec le monde extérieur (Extraversion) ou du temps passé seul avec vos propres pensées (Introversion)."
+    },
+    "SN": {
+      "label": "Sensation/Intuition",
+      "description": "Que vous fassiez confiance au détail concret et présent (Sensation) ou aux schémas et aux possibilités (Intuition)."
+    },
+    "TF": {
+      "label": "Pensée/Sentiment",
+      "description": "Que vos décisions s'appuient sur la cohérence logique (Pensée) ou sur l'impact et les valeurs (Sentiment)."
+    },
+    "JP": {
+      "label": "Jugement/Perception",
+      "description": "Que vous préfériez les choses réglées et planifiées (Jugement) ou ouvertes et flexibles (Perception)."
+    },
+    "openness": {
+      "label": "Ouverture",
+      "description": "À quel point vous êtes attiré par les idées nouvelles et la pensée non conventionnelle plutôt que par le pratique et le familier."
+    },
+    "conscientiousness": {
+      "label": "Conscienciosité",
+      "description": "À quel point vous avez tendance à être organisé, discipliné et orienté vers vos objectifs."
+    },
+    "extraversion": {
+      "label": "Extraversion",
+      "description": "À quel point l'engagement social et la stimulation vous dynamisent, plutôt qu'ils ne vous épuisent."
+    },
+    "agreeableness": {
+      "label": "Agréabilité",
+      "description": "À quel point vous privilégiez la coopération et les sentiments des autres plutôt que votre propre priorité."
+    },
+    "neuroticism": {
+      "label": "Sensibilité Émotionnelle",
+      "description": "À quel point vous ressentez facilement le stress, l'inquiétude ou l'instabilité émotionnelle."
+    },
+    "generator": {
+      "label": "Générateur",
+      "description": "Un type de Human Design fait pour répondre à ce qui se présente, générant de l'énergie en s'engageant dans ce qui vous anime."
+    },
+    "manifesting-generator": {
+      "label": "Générateur Manifesteur",
+      "description": "Un type de Human Design combinant l'énergie réactive d'un Générateur avec l'instinct d'initiative d'un Manifesteur."
+    },
+    "manifestor": {
+      "label": "Manifesteur",
+      "description": "Un type de Human Design fait pour initier — vous agissez d'abord et informez les autres, plutôt que d'attendre pour répondre."
+    },
+    "projector": {
+      "label": "Projecteur",
+      "description": "Un type de Human Design fait pour guider et voir clairement les systèmes, fonctionnant mieux quand il est invité plutôt que quand il s'impose."
+    },
+    "reflector": {
+      "label": "Réflecteur",
+      "description": "Un type de Human Design rare qui reflète la santé des personnes et de l'environnement qui l'entourent."
+    },
+    "red": {
+      "label": "Rouge",
+      "description": "Une énergie de type couleur centrée sur l'action, l'urgence et le fait d'accomplir les choses immédiatement."
+    },
+    "blue": {
+      "label": "Bleu",
+      "description": "Une énergie de type couleur centrée sur la précision, la structure et le fait de bien faire les choses."
+    },
+    "green": {
+      "label": "Vert",
+      "description": "Une énergie de type couleur centrée sur l'harmonie, le soutien et des relations stables."
+    },
+    "yellow": {
+      "label": "Jaune",
+      "description": "Une énergie de type couleur centrée sur l'optimisme, la spontanéité et le lien avec les autres."
+    }
+  },
+  "bigFiveText": {
+    "openness": {
+      "high": {
+        "you": "Vous êtes attiré par les idées nouvelles, la pensée non conventionnelle et l'exploration de l'inconnu."
+      },
+      "mid": {
+        "you": "Vous êtes à peu près aussi à l'aise avec le familier qu'avec l'inédit, sans forte préférence pour l'un ou l'autre."
+      },
+      "low": {
+        "you": "Vous êtes attiré par le pratique et le familier plutôt que par l'abstrait ou l'inédit."
+      }
+    },
+    "conscientiousness": {
+      "high": {
+        "you": "Vous êtes plutôt organisé et orienté vers vos objectifs, et vous avez tendance à aller jusqu'au bout une fois engagé."
+      },
+      "mid": {
+        "you": "Vous équilibrez la structure et la spontanéité de façon à peu près égale."
+      },
+      "low": {
+        "you": "Vous privilégiez la flexibilité aux plans rigides, et vous vous adaptez au fil de l'eau."
+      }
+    },
+    "extraversion": {
+      "high": {
+        "you": "L'engagement social et la stimulation vous dynamisent réellement."
+      },
+      "mid": {
+        "you": "Vous êtes à l'aise aussi bien entouré que seul, selon le moment."
+      },
+      "low": {
+        "you": "Le temps seul recharge vos batteries plus sûrement que la stimulation sociale."
+      }
+    },
+    "agreeableness": {
+      "high": {
+        "you": "Vous privilégiez la coopération et l'impact d'une décision sur les autres."
+      },
+      "mid": {
+        "you": "Vous accordez à peu près le même poids à votre propre lecture des choses et aux sentiments des autres."
+      },
+      "low": {
+        "you": "Vous privilégiez votre propre lecture d'une situation plutôt que de gérer son impact sur les autres."
+      }
+    },
+    "neuroticism": {
+      "high": {
+        "you": "Le stress et les variations émotionnelles vous affectent fortement et rapidement."
+      },
+      "mid": {
+        "you": "Vous ressentez le stress comme tout le monde, sans qu'il ne domine votre façon de fonctionner."
+      },
+      "low": {
+        "you": "Vous restez plus stable sous pression que la plupart des gens."
+      }
+    }
+  },
+  "mbtiLean": {
+    "you": "Vous penchez vers {pole} — {confidence}% dans cette direction d'après vos réponses."
+  }
+}

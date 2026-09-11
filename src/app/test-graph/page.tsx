@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useMemo, useRef, useState } from "react";
+import { useTranslations, useLocale, NextIntlClientProvider } from "next-intl";
 import type { Simulation } from "d3-force";
 import { Locate } from "lucide-react";
 import { GraphView, type GraphViewHandle } from "@/components/graph/GraphView";
@@ -22,6 +23,32 @@ import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { GraphLegend } from "@/components/personality/combined/GraphLegend";
 import { GraphNodeTooltip } from "@/components/personality/combined/GraphNodeTooltip";
+import enCommon from "@/messages/en/common.json";
+import enCombined from "@/messages/en/combined.json";
+import enScoring from "@/messages/en/scoring.json";
+import enGrowth from "@/messages/en/growth.json";
+import enArchetypes from "@/messages/en/archetypes.json";
+import enMbti from "@/messages/en/mbti.json";
+import enBigfive from "@/messages/en/bigfive.json";
+import enHumandesign from "@/messages/en/humandesign.json";
+import enColors from "@/messages/en/colors.json";
+import enGraph from "@/messages/en/graph.json";
+
+// This route lives outside the `[locale]` segment (no NextIntlClientProvider
+// from the locale layout), so it supplies its own English-only messages —
+// dev/QA harness only, never localized for real users.
+const DEV_MESSAGES = {
+  ...enCommon,
+  combined: enCombined,
+  scoring: enScoring,
+  growth: enGrowth,
+  archetypes: enArchetypes,
+  mbti: enMbti,
+  bigfive: enBigfive,
+  humandesign: enHumandesign,
+  colors: enColors,
+  graph: enGraph,
+};
 
 // Same mock data used by /experiments/personality-graph — just enough to
 // exercise all node kinds without needing a real completed assessment.
@@ -72,10 +99,12 @@ function QuadrantPreview({ dark, label, quadrantMode }: { dark: boolean; label: 
   const graphRef = useRef<GraphViewHandle>(null);
   const [tooltip, setTooltip] = useState<{ node: GraphNode; x: number; y: number } | null>(null);
 
-  const combinedProfile = useMemo(() => generateCombinedProfile(MOCK_RESULTS), []);
+  const t = useTranslations();
+  const locale = useLocale();
+  const combinedProfile = useMemo(() => generateCombinedProfile(MOCK_RESULTS, t, locale), [t, locale]);
   const graphData = useMemo(
-    () => (combinedProfile ? personalityResultsToGraphData(MOCK_PROGRESS, MOCK_RESULTS, combinedProfile) : null),
-    [combinedProfile]
+    () => (combinedProfile ? personalityResultsToGraphData(MOCK_PROGRESS, MOCK_RESULTS, combinedProfile, t) : null),
+    [combinedProfile, t]
   );
   if (!combinedProfile || !graphData) return null;
 
@@ -112,7 +141,7 @@ function QuadrantPreview({ dark, label, quadrantMode }: { dark: boolean; label: 
             getNodeCluster={quadrantMode ? undefined : getGraphNodeCluster}
             getNodeQuadrant={quadrantMode ? getGraphNodeQuadrant : undefined}
             getNodeQuadrantPull={quadrantMode ? getGraphNodeQuadrantPull : undefined}
-            getQuadrantLabel={quadrantMode ? getGraphQuadrantLabel : undefined}
+            getQuadrantLabel={quadrantMode ? (quadrant: number) => getGraphQuadrantLabel(quadrant, t) : undefined}
             getNodeGradient={getGraphNodeGradient}
             getNodeShape={uniformCircleShape}
             monochrome
@@ -135,31 +164,33 @@ export default function TestGraphPage() {
   const switchId = useId();
 
   return (
-    <div className="min-h-screen bg-muted/30 p-8">
-      <div className="mx-auto max-w-3xl">
-        <h1 className="text-2xl font-black text-foreground">Quadrant graph test</h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Card/border stripped (<code className="rounded bg-muted px-1 py-0.5 text-xs">background=&quot;none&quot;</code>
-          ) so it floats on transparency. When quadrant mode is on, each of the 4 spectrums — Inward / Outward Focus,
-          Openness to Novelty, People Orientation, Structure &amp; Pace — owns one quadrant (top-left, top-right,
-          bottom-left, bottom-right), and every trait/answer that feeds that spectrum gets pulled into it. Threads and
-          your overall archetype span more than one spectrum, so they settle near the shared center instead. Off goes
-          back to the plain force-directed layout, clustered by which framework each node came from.
-        </p>
+    <NextIntlClientProvider locale="en" timeZone="UTC" messages={DEV_MESSAGES}>
+      <div className="min-h-screen bg-muted/30 p-8">
+        <div className="mx-auto max-w-3xl">
+          <h1 className="text-2xl font-black text-foreground">Quadrant graph test</h1>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Card/border stripped (<code className="rounded bg-muted px-1 py-0.5 text-xs">background=&quot;none&quot;</code>
+            ) so it floats on transparency. When quadrant mode is on, each of the 4 spectrums — Inward / Outward Focus,
+            Openness to Novelty, People Orientation, Structure &amp; Pace — owns one quadrant (top-left, top-right,
+            bottom-left, bottom-right), and every trait/answer that feeds that spectrum gets pulled into it. Threads and
+            your overall archetype span more than one spectrum, so they settle near the shared center instead. Off goes
+            back to the plain force-directed layout, clustered by which framework each node came from.
+          </p>
 
-        <div className="mt-6 flex items-center gap-3 rounded-xl border border-border/60 bg-background px-4 py-3">
-          <Switch id={switchId} checked={quadrantMode} onCheckedChange={setQuadrantMode} />
-          <label htmlFor={switchId} className="text-sm font-medium text-foreground">
-            Quadrant layout
-          </label>
-          <span className="text-xs text-muted-foreground">{quadrantMode ? "On — grouped by spectrum" : "Off — free force-directed"}</span>
-        </div>
+          <div className="mt-6 flex items-center gap-3 rounded-xl border border-border/60 bg-background px-4 py-3">
+            <Switch id={switchId} checked={quadrantMode} onCheckedChange={setQuadrantMode} />
+            <label htmlFor={switchId} className="text-sm font-medium text-foreground">
+              Quadrant layout
+            </label>
+            <span className="text-xs text-muted-foreground">{quadrantMode ? "On — grouped by spectrum" : "Off — free force-directed"}</span>
+          </div>
 
-        <div className="mt-8 space-y-8">
-          <QuadrantPreview dark={false} label="Light" quadrantMode={quadrantMode} />
-          <QuadrantPreview dark={true} label="Dark" quadrantMode={quadrantMode} />
+          <div className="mt-8 space-y-8">
+            <QuadrantPreview dark={false} label="Light" quadrantMode={quadrantMode} />
+            <QuadrantPreview dark={true} label="Dark" quadrantMode={quadrantMode} />
+          </div>
         </div>
       </div>
-    </div>
+    </NextIntlClientProvider>
   );
 }

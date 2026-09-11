@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, ChevronDown, GitCompareArrows } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -15,6 +16,7 @@ export function AxisAgreement({
   axis: AxisScore;
   results: PersonalityResults;
 }) {
+  const t = useTranslations("axisAgreement");
   const { left: fillLeft, width: fillWidth } = fillRect(axis.score);
   const [expanded, setExpanded] = useState(false);
 
@@ -87,7 +89,7 @@ export function AxisAgreement({
         aria-expanded={expanded}
       >
         <ChevronDown className={cn("size-3.5 transition-transform", expanded && "rotate-180")} />
-        {expanded ? "Hide why" : "Why this score?"}
+        {expanded ? t("hideWhy") : t("showWhy")}
       </button>
 
       <AnimatePresence initial={false}>

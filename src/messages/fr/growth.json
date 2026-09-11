@@ -1,0 +1,138 @@
+{
+  "axisPrompts": {
+    "energy": [
+      "Planifiez du temps de récupération en solitaire de façon proactive, avant d'être épuisé, plutôt que de vous retirer seulement une fois que les interactions sociales vous ont déjà usé.",
+      "Avant une période sociale exigeante, réservez une courte plage de calme de part et d'autre — protéger cette fenêtre de récupération rend l'effort extraverti tenable dans la durée.",
+      "Repérez quels contextes vous épuisent réellement par rapport à ceux qui vous énergisent, et commencez à choisir vos engagements en tenant compte de ce schéma plutôt que par habitude.",
+      "Intégrez de temps en temps du temps de repos en solitaire, même quand vous n'en ressentez pas le besoin — l'énergie extravertie peut masquer l'épuisement jusqu'à ce qu'il vous rattrape.",
+      "Entraînez-vous à accueillir le silence ou la solitude à petites doses — c'est un muscle qui vaut la peine d'être développé, même si ce n'est pas votre terrain naturel."
+    ],
+    "structure": [
+      "Ancrez une seule partie de votre journée dans une routine fixe — une habitude constante et unique donne à votre style émergent un point d'appui sans vous enfermer.",
+      "Choisissez un engagement récurrent chaque semaine et traitez-le comme non négociable — une petite dose de structure s'accumule sans exiger une refonte complète de votre organisation.",
+      "Repérez quelles situations demandent un plan plutôt que de l'improvisation, et clarifiez ce choix en amont plutôt que de le laisser se décider par défaut.",
+      "Laissez délibérément une plage non structurée dans votre semaine — entraînez-vous à tolérer l'inconfort de ne pas tout avoir planifié.",
+      "Quand un plan tombe à l'eau, considérez-le comme une information plutôt qu'un échec — prenez l'habitude de vous adapter en cours de route plutôt que de tout replanifier depuis zéro."
+    ],
+    "people": [
+      "Avant de donner un retour difficile ou d'annoncer une décision, arrêtez-vous et nommez à voix haute la façon dont cela pourrait être reçu par l'autre personne — non pas pour changer votre décision, mais simplement pour la voir clairement.",
+      "Lors de votre prochain désaccord, posez une question sincère sur ce que l'autre personne a en jeu dans le résultat avant d'exposer votre point de vue.",
+      "Repérez le moment où vous basculez entre le mode tâche et le mode relationnel, et devenez intentionnel quant à celui que la situation demande réellement.",
+      "Entraînez-vous à prendre une décision cette semaine en vous fondant uniquement sur ce qui est le plus efficace, même si ce n'est pas le choix le plus populaire dans la pièce.",
+      "Fixez une limite cette semaine où la tâche doit réellement passer en premier — observez ce que cela fait de tenir cette ligne."
+    ],
+    "novelty": [
+      "Essayez délibérément une petite chose inhabituelle cette semaine — sans grand enjeu, juste pour entretenir le muscle de l'exploration de la nouveauté.",
+      "Donnez à une nouvelle idée un véritable essai avant de l'écarter — un court test, pas un engagement complet, suffit pour réellement la mettre à l'épreuve.",
+      "Repérez si vous vous rabattez sur le familier par habitude ou par véritable jugement, et vérifiez ce choix de temps en temps.",
+      "Avant de courir après la prochaine nouvelle idée, terminez-en une que vous avez déjà commencée — la nouveauté prend plus de valeur lorsqu'elle s'accompagne de suivi.",
+      "Choisissez une idée en cours et engagez-vous à la mener au-delà de la phase excitante — entraînez-vous à rester une fois que la nouveauté s'estompe."
+    ]
+  },
+  "careerSuggestions": {
+    "IMTG": [
+      "Contractant indépendant ou postes de spécialiste où le travail parle de lui-même",
+      "Métiers artisanaux — menuiserie, ingénierie de précision, rédaction technique",
+      "Parcours d'expert individuel plutôt que la gestion d'équipe",
+      "Assurance qualité ou travail technique axé sur la précision"
+    ],
+    "IMTX": [
+      "Postes en R&D ou en prototypage laissant de la place à l'expérimentation",
+      "Développement logiciel en solo ou projets indépendants",
+      "Recherche appliquée",
+      "Bricolage de produits ou postes de hacking matériel"
+    ],
+    "IMFG": [
+      "Conseil, coaching ou postes d'accompagnement individuel",
+      "Gestion de dossiers (case management)",
+      "Travail communautaire ou d'accompagnement pastoral",
+      "Postes de relation client fondés sur un rapport discret et constant"
+    ],
+    "IMFX": [
+      "Écriture de voyage ou travail documentaire",
+      "Recherche utilisateur ou recherche ethnographique",
+      "Travail créatif indépendant sur des thématiques centrées sur les personnes",
+      "Organisation communautaire à petite échelle et à taille humaine"
+    ],
+    "IPTG": [
+      "Architecture des systèmes ou ingénierie d'infrastructure",
+      "Analyse actuarielle ou financière",
+      "Planification de projets techniques",
+      "Ingénierie des processus ou de la qualité"
+    ],
+    "IPTX": [
+      "Ingénierie de R&D avec une rigueur formelle",
+      "Architecture produit pour de nouvelles catégories",
+      "Recherche scientifique avec une méthode structurée",
+      "Travail inventif orienté vers le dépôt de brevets"
+    ],
+    "IPFG": [
+      "Postes de santé ou paramédicaux avec une charge de dossiers stable",
+      "Postes opérationnels au service d'une équipe stable",
+      "Postes administratifs au sein d'une organisation porteuse de sens",
+      "Coordination des soins familiaux ou aux aînés"
+    ],
+    "IPFX": [
+      "Planification stratégique pour des organisations centrées sur les personnes (associations, éducation)",
+      "Travail RH ou de conception organisationnelle à long terme",
+      "Conception de programmes pédagogiques",
+      "Postes de recherche prospective"
+    ],
+    "EMTG": [
+      "Opérations de terrain ou exécution de projets sur le terrain",
+      "Postes commerciaux avec des retours rapides",
+      "Travail de gestion de crise ou d'intervention d'urgence",
+      "Métiers manuels en contact direct avec la clientèle"
+    ],
+    "EMTX": [
+      "Fondateur de startup ou postes en phase de démarrage",
+      "Marketing axé sur la croissance et l'expérimentation",
+      "Développement commercial sur de nouveaux marchés",
+      "Prospection ou ventes exploratoires"
+    ],
+    "EMFG": [
+      "Gestion de communauté",
+      "Animation d'événements ou direction dans l'hôtellerie",
+      "Animation d'équipe",
+      "Encadrement de première ligne en contact avec la clientèle"
+    ],
+    "EMFX": [
+      "Marketing de marque ou marketing créatif",
+      "Performance ou divertissement basés sur l'improvisation",
+      "Postes axés sur les partenariats et le réseautage",
+      "Production d'événements en direct"
+    ],
+    "EPTG": [
+      "Gestion des opérations",
+      "Gestion de programmes ou de projets",
+      "Direction logistique",
+      "Gestion de la construction ou de la production industrielle"
+    ],
+    "EPTX": [
+      "Stratégie produit pour de nouvelles entreprises",
+      "Conseil en management",
+      "Stratégie d'entreprise dans des secteurs émergents",
+      "Direction d'équipes d'innovation"
+    ],
+    "EPFG": [
+      "Hôtellerie ou gestion de comptes clients",
+      "Direction administrative ou des opérations liées au personnel",
+      "Direction de la relation client",
+      "Coordination de programmes associatifs"
+    ],
+    "EPFX": [
+      "Direction générale au sein d'une organisation en forte croissance",
+      "Direction organisationnelle exposée au public",
+      "Direction d'événements ou de campagnes à grande échelle",
+      "Direction de mouvements militants ou de plaidoyer"
+    ]
+  },
+  "themes": {
+    "conflict": "éviter un conflit nécessaire",
+    "perfectionism": "laisser le perfectionnisme vous ralentir",
+    "followThrough": "le suivi des aspects les moins gratifiants d'un plan",
+    "personalizesFeedback": "prendre un retour plus personnellement qu'il n'était voulu",
+    "overcommitment": "trop s'engager envers les besoins des autres",
+    "energyManagement": "la gestion de l'énergie"
+  }
+}

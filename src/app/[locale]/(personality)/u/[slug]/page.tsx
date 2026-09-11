@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { getTranslations, getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { CombinedProfile } from "@/components/personality/combined/CombinedProfile";
 import { generateCombinedProfile } from "@/components/personality/combined/generateCombinedProfile";
@@ -36,7 +37,9 @@ export default async function PublicSharePage({ params }: { params: Promise<{ sl
     );
   }
 
-  const combinedProfile = generateCombinedProfile(results);
+  const t = await getTranslations();
+  const locale = await getLocale();
+  const combinedProfile = generateCombinedProfile(results, t, locale);
   if (!combinedProfile) {
     notFound();
   }
@@ -45,7 +48,7 @@ export default async function PublicSharePage({ params }: { params: Promise<{ sl
     <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:py-12">
       <div className="mb-8 flex flex-col items-center gap-3 text-center">
         <p className="text-sm text-muted-foreground">
-          {profile.display_name || "Someone"}'s Personality Profile
+          {profile.display_name || "Someone"}&apos;s Personality Profile
         </p>
       </div>
       <CombinedProfile profile={combinedProfile} results={results} recordHistory={false} />

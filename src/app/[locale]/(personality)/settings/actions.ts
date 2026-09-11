@@ -2,6 +2,7 @@
 
 import { randomBytes, randomInt } from "node:crypto";
 import { redirect } from "next/navigation";
+import { getTranslations, getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { createServiceRoleClient } from "@/lib/supabase/serviceRole";
 import { generateCombinedProfile } from "@/components/personality/combined/generateCombinedProfile";
@@ -164,12 +165,14 @@ export async function setApproachable(on: boolean, scope: ApproachableScope, int
     .maybeSingle();
 
   const results = (profile?.results as PersonalityResults) || {};
-  const combinedProfile = generateCombinedProfile(results);
+  const t = await getTranslations();
+  const locale = await getLocale();
+  const combinedProfile = generateCombinedProfile(results, t, locale);
   if (!combinedProfile) {
     throw new Error("Complete at least 2 assessments before turning this on");
   }
 
-  const axes = computeScoringMatrix(results).map((a) => ({ id: a.id, score: a.score }));
+  const axes = computeScoringMatrix(results, t).map((a) => ({ id: a.id, score: a.score }));
   const badges = computeFrameworkBadges(results);
 
   const { error } = await supabase.rpc("set_approachable", {

@@ -1,0 +1,66 @@
+{
+  "IMTG": {
+    "name": "L'Artisan Discret",
+    "description": "Vous donnez le meilleur de vous-même seul, dans l'instant, sur des projets que vous pouvez mesurer à votre propre exigence plutôt qu'à celle des autres."
+  },
+  "IMTX": {
+    "name": "Le Bricoleur Indépendant",
+    "description": "Vous poursuivez vos idées à votre façon, plus heureux en improvisant à travers quelque chose de nouveau, sans public."
+  },
+  "IMFG": {
+    "name": "Le Confident Stable",
+    "description": "On vous fait confiance précisément parce que vous êtes discret et constant — présent pour les autres sans avoir besoin d'être sous les projecteurs."
+  },
+  "IMFX": {
+    "name": "Le Vagabond Paisible",
+    "description": "Vous dérivez vers de nouvelles personnes et de nouvelles idées à votre propre rythme tranquille, curieux plus qu'agité."
+  },
+  "IPTG": {
+    "name": "L'Architecte Précis",
+    "description": "Vous construisez les choses avec soin et en solitaire, faisant davantage confiance à un plan bien conçu qu'à l'improvisation ou aux avis extérieurs."
+  },
+  "IPTX": {
+    "name": "L'Innovateur Méthodique",
+    "description": "Vous donnez vie à de nouvelles idées par la discipline, pas la spontanéité — c'est la structure qui vous permet d'aller réellement quelque part de nouveau."
+  },
+  "IPFG": {
+    "name": "L'Aidant Dévoué",
+    "description": "Vous êtes toujours là de façon fiable pour vos proches, préférant des habitudes sur lesquelles on peut compter aux grands gestes."
+  },
+  "IPFX": {
+    "name": "Le Visionnaire Réfléchi",
+    "description": "Vous préparez discrètement le terrain pour des personnes et des idées qui n'existent pas encore, pensant à l'avance plus que vous n'en parlez."
+  },
+  "EMTG": {
+    "name": "Le Fonceur Audacieux",
+    "description": "Vous préférez agir sur quelque chose de concret maintenant plutôt que de le planifier ou d'en discuter — l'élan, c'est votre façon de penser."
+  },
+  "EMTX": {
+    "name": "Le Pionnier Impatient",
+    "description": "Vous êtes attiré par tout ce qui est le plus nouveau et le plus vivant, avançant vite et réglant les détails du plan plus tard."
+  },
+  "EMFG": {
+    "name": "Le Rassembleur Ancré",
+    "description": "Vous rassemblez les gens autour de ce qui est concret et immédiat, stimulé par les autres sans avoir besoin d'un scénario préétabli."
+  },
+  "EMFX": {
+    "name": "Le Catalyseur Spontané",
+    "description": "Vous insufflez de l'énergie dans une pièce et courez après la nouveauté dans le même élan, rarement de la même façon deux fois."
+  },
+  "EPTG": {
+    "name": "L'Organisateur Déterminé",
+    "description": "Vous transformez les plans en résultats par la seule force de l'avancée, plus à l'aise quand il existe une structure claire sur laquelle prendre appui."
+  },
+  "EPTX": {
+    "name": "Le Précurseur Stratégique",
+    "description": "Vous poursuivez des orientations audacieuses et nouvelles, mais vous les soutenez par une véritable planification, traitant vision et structure comme des partenaires, non des opposés."
+  },
+  "EPFG": {
+    "name": "L'Hôte Fiable",
+    "description": "Vous faites tourner à la fois les gens et les plans sans accroc, fiable d'une manière qui simplifie la vie de tout le monde."
+  },
+  "EPFX": {
+    "name": "Le Meneur Inspirant",
+    "description": "Vous rassemblez les gens autour de grandes idées nouvelles et organisez vraiment leur mise en œuvre, à parts égales visionnaire et organisateur."
+  }
+}

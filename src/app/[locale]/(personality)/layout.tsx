@@ -11,6 +11,7 @@ import { AuthStatus } from "@/components/auth/AuthStatus";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { MobileNavMenu } from "@/components/nav/MobileNavMenu";
+import { PageTransition } from "@/components/nav/PageTransition";
 
 const NAV_LINK_CLASS =
   "flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground";
@@ -81,6 +82,7 @@ export default async function PersonalityLayout({ children }: { children: ReactN
                       shrinking to unlabeled icons — that's what made "People" easy to miss. */}
                   <MobileNavMenu
                     menuLabel={t("menuLabel")}
+                    closeMenuLabel={t("closeMenuLabel")}
                     discoverLabel={t("discoverLink")}
                     peopleLabel={t("peopleLink")}
                     typesLabel={t("typesLink")}
@@ -98,7 +100,7 @@ export default async function PersonalityLayout({ children }: { children: ReactN
               </Link>
             </div>
           </header>
-          {children}
+          <PageTransition>{children}</PageTransition>
           <footer className="mx-auto mt-16 flex w-full max-w-6xl flex-col items-center gap-3 px-4 pb-10 text-center text-xs text-muted-foreground">
             <p>{t("footerTagline")}</p>
             <div className="flex gap-4">

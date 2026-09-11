@@ -1,0 +1,148 @@
+{
+  "axes": {
+    "energy": { "label": "Enfoque Interior / Exterior", "leftPole": "Interior", "rightPole": "Exterior" },
+    "structure": { "label": "Estructura y Ritmo", "leftPole": "Emergente", "rightPole": "Planificado" },
+    "people": { "label": "Orientación hacia las Personas", "leftPole": "Centrado en la tarea", "rightPole": "Centrado en las personas" },
+    "novelty": { "label": "Apertura a la Novedad", "leftPole": "Realista", "rightPole": "Explorador" }
+  },
+  "tiers": {
+    "energy": [
+      {
+        "tierLabel": "Marcadamente interior",
+        "sentence": "En todos tus resultados, la energía se orienta sistemáticamente hacia dentro — piensas mejor a solas o en grupos muy pequeños, y te recuperas alejándote del ruido, no metiéndote en él."
+      },
+      {
+        "tierLabel": "Tiende hacia lo interior",
+        "sentence": "Tu energía tiende hacia dentro más veces de las que no — puedes desenvolverte hacia afuera cuando hace falta, pero el tiempo tranquilo y de baja estimulación es donde realmente te recargas."
+      },
+      {
+        "tierLabel": "Situacional",
+        "sentence": "Tu energía se lee como genuinamente situacional — hacia afuera y comprometida en el contexto adecuado, hacia dentro y conservadora en otros, en lugar de ser fija en un sentido u otro."
+      },
+      {
+        "tierLabel": "Tiende hacia lo exterior",
+        "sentence": "Tu energía tiende hacia afuera más veces de las que no — la gente y el impulso suelen sumar a tu tanque de energía en vez de vaciarlo."
+      },
+      {
+        "tierLabel": "Marcadamente exterior",
+        "sentence": "En todos tus resultados, la energía se orienta sistemáticamente hacia afuera — la gente y el impulso realmente te recargan, no solo los toleras."
+      }
+    ],
+    "structure": [
+      {
+        "tierLabel": "Marcadamente emergente",
+        "sentence": "Operas casi por completo en el momento — los planes son, en el mejor de los casos, un andamiaje flexible, y tu mejor trabajo surge al responder a lo que de verdad tienes delante."
+      },
+      {
+        "tierLabel": "Tiende hacia lo emergente",
+        "sentence": "Tiendes a mantenerte flexible y receptivo, siguiendo el momento más a menudo que un plan trazado de antemano."
+      },
+      {
+        "tierLabel": "Equilibrado",
+        "sentence": "Te mueves entre planificar con anticipación y mantenerte abierto al momento, eligiendo lo que la situación realmente pide."
+      },
+      {
+        "tierLabel": "Tiende hacia lo planificado",
+        "sentence": "Tiendes a planificar las cosas — eres capaz de improvisar, pero tu mejor trabajo surge cuando ya hay algo de estructura en su sitio."
+      },
+      {
+        "tierLabel": "Marcadamente planificado",
+        "sentence": "La estructura es un hilo constante en todos tus resultados — planificas con anticipación, cumples lo que empiezas, y te sientes más capaz cuando la forma de las cosas ya está clara."
+      }
+    ],
+    "people": [
+      {
+        "tierLabel": "Marcadamente centrado en la tarea",
+        "sentence": "En todos tus resultados, priorizas sistemáticamente el trabajo en sí por encima de cómo se sienta la gente al respecto — la claridad y los resultados van primero."
+      },
+      {
+        "tierLabel": "Tiende a centrarse en la tarea",
+        "sentence": "Tiendes a priorizar la tarea que tienes entre manos, aunque no eres indiferente a las personas involucradas — simplemente no te dejas guiar por eso."
+      },
+      {
+        "tierLabel": "Equilibrado",
+        "sentence": "Equilibras a las personas y la tarea de forma bastante pareja — ninguna de las dos predomina de forma constante en cómo actúas."
+      },
+      {
+        "tierLabel": "Tiende a centrarse en las personas",
+        "sentence": "Tiendes a priorizar a las personas presentes — las decisiones suelen filtrarse por cómo van a afectar a los demás."
+      },
+      {
+        "tierLabel": "Marcadamente centrado en las personas",
+        "sentence": "En todos tus resultados, las personas van primero de forma constante — lees el ambiente, proteges las relaciones, y dejas que eso determine casi cada decisión que tomas."
+      }
+    ],
+    "novelty": [
+      {
+        "tierLabel": "Marcadamente realista",
+        "sentence": "Favoreces sistemáticamente lo comprobado y concreto por encima de lo no probado — las ideas nuevas se ganan tu confianza demostrando que funcionan, no por el simple hecho de ser nuevas."
+      },
+      {
+        "tierLabel": "Tiende a lo realista",
+        "sentence": "Tiendes hacia lo práctico y lo familiar, aunque no estás cerrado a ideas nuevas una vez que han mostrado algo de sustancia."
+      },
+      {
+        "tierLabel": "Equilibrado",
+        "sentence": "Te mueves entre lo familiar y lo experimental según lo que esté en juego, en lugar de inclinarte por defecto hacia uno de los dos."
+      },
+      {
+        "tierLabel": "Tiende a lo explorador",
+        "sentence": "Tiendes hacia lo nuevo y lo no probado — la novedad suele captar tu atención más que la rutina."
+      },
+      {
+        "tierLabel": "Marcadamente explorador",
+        "sentence": "En todos tus resultados, te sientes atraído sistemáticamente por lo desconocido — las ideas nuevas, los ángulos nuevos y las posibilidades nuevas son donde tu energía va de forma natural."
+      }
+    ]
+  },
+  "explain": {
+    "mbti": "Tu puntuación de {dichotomy} se inclina hacia {pole} ({confidence}% de confianza) — eso es {signal}.",
+    "bigfive": "Tu puntuación de {trait} es {score}/100 — eso es {signal}.",
+    "humandesign": "Como {hdType}, la asignación de tipos de energía del Diseño Humano aporta {signal} — eso viene del tipo en sí, no de una puntuación de rasgo específica.",
+    "colors": "Tu color dominante es {dominant} (75% de peso) y el secundario es {secondary} (25% de peso) — combinados, eso es {signal}."
+  },
+  "signalPhrase": "{amount} hacia {pole}",
+  "labels": {
+    "dichotomies": {
+      "EI": "Extraversión/Introversión",
+      "SN": "Sensación/Intuición",
+      "TF": "Pensamiento/Sentimiento",
+      "JP": "Juicio/Percepción"
+    },
+    "mbtiPoles": {
+      "E": "Extraversión",
+      "I": "Introversión",
+      "S": "Sensación",
+      "N": "Intuición",
+      "T": "Pensamiento",
+      "F": "Sentimiento",
+      "J": "Juicio",
+      "P": "Percepción"
+    },
+    "hdTypes": {
+      "generator": "Generador",
+      "manifesting-generator": "Generador Manifestante",
+      "manifestor": "Manifestador",
+      "projector": "Proyector",
+      "reflector": "Reflector"
+    },
+    "colors": {
+      "red": "Rojo",
+      "blue": "Azul",
+      "green": "Verde",
+      "yellow": "Amarillo"
+    },
+    "bigFiveTraits": {
+      "extraversion": "Extraversión",
+      "conscientiousness": "Responsabilidad",
+      "agreeableness": "Amabilidad",
+      "openness": "Apertura"
+    }
+  },
+  "agreement": {
+    "onlyOne": "Aquí solo opina un modelo.",
+    "agree": "Tus modelos coinciden aquí.",
+    "mixed": "Tus modelos coinciden en su mayoría, con algunos matices.",
+    "disagree": "Tus modelos no coinciden aquí."
+  }
+}

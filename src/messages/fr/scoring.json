@@ -1,0 +1,148 @@
+{
+  "axes": {
+    "energy": { "label": "Orientation Intérieure / Extérieure", "leftPole": "Intérieure", "rightPole": "Extérieure" },
+    "structure": { "label": "Structure et Rythme", "leftPole": "Émergent", "rightPole": "Planifié" },
+    "people": { "label": "Orientation Relationnelle", "leftPole": "Orienté tâche", "rightPole": "Orienté relations" },
+    "novelty": { "label": "Ouverture à la Nouveauté", "leftPole": "Ancré", "rightPole": "Exploratoire" }
+  },
+  "tiers": {
+    "energy": [
+      {
+        "tierLabel": "Fortement intérieur",
+        "sentence": "Dans l'ensemble de vos résultats, votre énergie est constamment tournée vers l'intérieur — vous réfléchissez le mieux seul ou en tout petit comité, et vous récupérez en vous éloignant du bruit, pas en vous y plongeant."
+      },
+      {
+        "tierLabel": "Penche vers l'intérieur",
+        "sentence": "Votre énergie penche vers l'intérieur plus souvent qu'autrement — vous pouvez vous montrer extraverti quand il le faut, mais c'est dans le calme et la faible stimulation que vous rechargez réellement vos batteries."
+      },
+      {
+        "tierLabel": "Situationnel",
+        "sentence": "Votre énergie se révèle vraiment situationnelle — extravertie et engagée dans le bon contexte, intérieure et économe dans d'autres, plutôt que figée dans un sens ou l'autre."
+      },
+      {
+        "tierLabel": "Penche vers l'extérieur",
+        "sentence": "Votre énergie penche vers l'extérieur plus souvent qu'autrement — les gens et l'élan collectif ont tendance à remplir votre réservoir plutôt qu'à le vider."
+      },
+      {
+        "tierLabel": "Fortement extérieur",
+        "sentence": "Dans l'ensemble de vos résultats, votre énergie est constamment tournée vers l'extérieur — vous êtes véritablement rechargé par les gens et l'élan collectif, pas simplement tolérant à leur égard."
+      }
+    ],
+    "structure": [
+      {
+        "tierLabel": "Fortement émergent",
+        "sentence": "Vous fonctionnez presque entièrement dans l'instant — les plans ne sont au mieux qu'une ossature souple, et vous donnez le meilleur de vous-même en répondant à ce qui se trouve réellement devant vous."
+      },
+      {
+        "tierLabel": "Penche vers l'émergent",
+        "sentence": "Vous avez tendance à rester flexible et réactif, suivant l'instant plus souvent qu'un plan établi à l'avance."
+      },
+      {
+        "tierLabel": "Équilibré",
+        "sentence": "Vous alternez entre planifier à l'avance et rester ouvert à l'instant présent, choisissant ce que la situation exige réellement."
+      },
+      {
+        "tierLabel": "Penche vers le planifié",
+        "sentence": "Vous avez tendance à tout planifier — vous êtes capable d'improviser, mais vous donnez le meilleur de vous-même quand une certaine structure est déjà en place."
+      },
+      {
+        "tierLabel": "Fortement planifié",
+        "sentence": "La structure est un fil conducteur constant dans vos résultats — vous planifiez à l'avance, vous allez jusqu'au bout, et vous vous sentez le plus compétent quand les contours des choses sont déjà clairs."
+      }
+    ],
+    "people": [
+      {
+        "tierLabel": "Fortement orienté tâche",
+        "sentence": "Dans l'ensemble de vos résultats, vous privilégiez constamment le travail lui-même plutôt que la gestion du ressenti des autres à son sujet — la clarté et les résultats passent en premier."
+      },
+      {
+        "tierLabel": "Penche vers l'orientation tâche",
+        "sentence": "Vous avez tendance à privilégier la tâche à accomplir, sans pour autant être indifférent aux personnes impliquées — simplement, ce n'est pas ce qui vous guide."
+      },
+      {
+        "tierLabel": "Équilibré",
+        "sentence": "Vous équilibrez assez également les personnes et la tâche — ni l'une ni l'autre ne prend systématiquement le dessus dans votre façon de fonctionner."
+      },
+      {
+        "tierLabel": "Penche vers l'orientation relationnelle",
+        "sentence": "Vous avez tendance à privilégier les personnes présentes — vos décisions ont tendance à passer par le filtre de leur impact sur les autres."
+      },
+      {
+        "tierLabel": "Fortement orienté relations",
+        "sentence": "Dans l'ensemble de vos résultats, les personnes passent constamment en premier — vous lisez l'ambiance, protégez les relations, et cela façonne presque chacune de vos décisions."
+      }
+    ],
+    "novelty": [
+      {
+        "tierLabel": "Fortement ancré",
+        "sentence": "Vous privilégiez constamment ce qui est éprouvé et concret plutôt que ce qui n'a pas fait ses preuves — les nouvelles idées gagnent votre confiance en démontrant qu'elles fonctionnent, pas en étant nouvelles."
+      },
+      {
+        "tierLabel": "Penche vers l'ancré",
+        "sentence": "Vous avez tendance à privilégier le pratique et le familier, sans pour autant être fermé aux nouvelles idées une fois qu'elles ont fait preuve d'un peu de substance."
+      },
+      {
+        "tierLabel": "Équilibré",
+        "sentence": "Vous naviguez entre le familier et l'expérimental selon les enjeux, plutôt que de pencher par défaut vers l'un ou l'autre."
+      },
+      {
+        "tierLabel": "Penche vers l'exploratoire",
+        "sentence": "Vous avez tendance à privilégier le nouveau et l'inédit — la nouveauté attire davantage votre attention que la routine."
+      },
+      {
+        "tierLabel": "Fortement exploratoire",
+        "sentence": "Dans l'ensemble de vos résultats, vous êtes constamment attiré par l'inconnu — les nouvelles idées, les nouveaux angles et les nouvelles possibilités sont là où votre énergie se porte naturellement."
+      }
+    ]
+  },
+  "explain": {
+    "mbti": "Votre score sur {dichotomy} penche vers {pole} ({confidence}% de confiance) — c'est {signal}.",
+    "bigfive": "Votre score de {trait} est de {score}/100 — c'est {signal}.",
+    "humandesign": "En tant que {hdType}, la cartographie des types d'énergie du Human Design contribue à {signal} — cela vient du type lui-même, pas d'un score de trait spécifique.",
+    "colors": "Votre couleur dominante est {dominant} (poids de 75%) et votre couleur secondaire est {secondary} (poids de 25%) — combinées, c'est {signal}."
+  },
+  "signalPhrase": "{amount} vers {pole}",
+  "labels": {
+    "dichotomies": {
+      "EI": "Extraversion/Introversion",
+      "SN": "Sensation/Intuition",
+      "TF": "Pensée/Sentiment",
+      "JP": "Jugement/Perception"
+    },
+    "mbtiPoles": {
+      "E": "Extraversion",
+      "I": "Introversion",
+      "S": "Sensation",
+      "N": "Intuition",
+      "T": "Pensée",
+      "F": "Sentiment",
+      "J": "Jugement",
+      "P": "Perception"
+    },
+    "hdTypes": {
+      "generator": "Générateur",
+      "manifesting-generator": "Générateur Manifesteur",
+      "manifestor": "Manifesteur",
+      "projector": "Projecteur",
+      "reflector": "Réflecteur"
+    },
+    "colors": {
+      "red": "Rouge",
+      "blue": "Bleu",
+      "green": "Vert",
+      "yellow": "Jaune"
+    },
+    "bigFiveTraits": {
+      "extraversion": "Extraversion",
+      "conscientiousness": "Conscienciosité",
+      "agreeableness": "Agréabilité",
+      "openness": "Ouverture"
+    }
+  },
+  "agreement": {
+    "onlyOne": "Un seul modèle se prononce ici.",
+    "agree": "Vos modèles sont d'accord sur ce point.",
+    "mixed": "Vos modèles sont globalement d'accord, avec quelques nuances.",
+    "disagree": "Vos modèles divergent sur ce point."
+  }
+}

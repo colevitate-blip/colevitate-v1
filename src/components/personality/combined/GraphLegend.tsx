@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { MousePointer2 } from "lucide-react";
 
 // Every glyph here is a miniature of the real mark it explains — same
@@ -41,25 +42,26 @@ function QuadrantGlyph() {
  * deeper), so that's exactly what this covers and nothing else.
  */
 export function GraphLegend({ quadrantMode }: { quadrantMode: boolean }) {
+  const t = useTranslations("combined.ui.graphCard");
   return (
     <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5 text-xs text-muted-foreground">
       <div className="flex items-center gap-1.5">
         <SizeGlyph />
-        Size = how central to your profile
+        {t("legendSize")}
       </div>
       <div className="flex items-center gap-1.5">
         <LineGlyph />
-        Lines = what feeds what
+        {t("legendLines")}
       </div>
       {quadrantMode ? (
         <div className="flex items-center gap-1.5">
           <QuadrantGlyph />
-          Position = which of your 4 spectrums
+          {t("legendPosition")}
         </div>
       ) : null}
       <div className="flex items-center gap-1.5">
         <MousePointer2 className="size-3.5 text-foreground/40" aria-hidden />
-        Hover any dot for details
+        {t("legendHover")}
       </div>
     </div>
   );

@@ -35,7 +35,7 @@ export function FamousTypeTemplate({
           >
             {person.photo ? (
               <div className="relative size-14 shrink-0 overflow-hidden rounded-full border">
-                <Image src={person.photo.url} alt={person.name} fill sizes="56px" className="object-cover" />
+                <Image src={person.photo.url} alt={person.name} fill unoptimized className="object-cover" />
               </div>
             ) : (
               <div className="size-14 shrink-0 rounded-full border bg-muted" aria-hidden />

@@ -1,5 +1,6 @@
 "use server";
 
+import { getTranslations, getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { generateCombinedProfile } from "@/components/personality/combined/generateCombinedProfile";
 import { generateInviteCode } from "@/lib/inviteCode";
@@ -112,7 +113,9 @@ export async function shareProfileWithTeam(teamId: string) {
     .maybeSingle();
 
   const results = (profile?.results as PersonalityResults) || {};
-  const combinedProfile = generateCombinedProfile(results);
+  const t = await getTranslations();
+  const locale = await getLocale();
+  const combinedProfile = generateCombinedProfile(results, t, locale);
   if (!combinedProfile) {
     throw new Error("Complete at least 2 assessments before sharing with a team");
   }

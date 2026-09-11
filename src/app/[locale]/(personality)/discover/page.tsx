@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { Link } from "@/i18n/navigation";
 import { generateCombinedProfile } from "@/components/personality/combined/generateCombinedProfile";
@@ -24,6 +24,8 @@ export default async function DiscoverPage({
   const intentFilter: ApproachIntent = isApproachIntent(intent) ? intent : "friend";
 
   const t = await getTranslations("discovery");
+  const tRoot = await getTranslations();
+  const locale = await getLocale();
   const supabase = await createClient();
   const { data: authData } = await supabase.auth.getUser();
   const user = authData.user;
@@ -35,8 +37,8 @@ export default async function DiscoverPage({
   const { data: profile } = await supabase.from("profiles").select("results").eq("id", user.id).maybeSingle();
 
   const results = (profile?.results as PersonalityResults) || {};
-  const combinedProfile = generateCombinedProfile(results);
-  const viewerAxes = combinedProfile ? computeScoringMatrix(results) : null;
+  const combinedProfile = generateCombinedProfile(results, tRoot, locale);
+  const viewerAxes = combinedProfile ? computeScoringMatrix(results, tRoot) : null;
 
   const { cards, nextCursor } = await fetchDiscoverPage(supabase, {
     viewerId: user.id,

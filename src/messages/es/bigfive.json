@@ -1,0 +1,79 @@
+{
+  "name": "El {noun}",
+  "traitLabel": {
+    "openness": "Apertura",
+    "conscientiousness": "Responsabilidad",
+    "extraversion": "Extraversión",
+    "agreeableness": "Amabilidad",
+    "neuroticism": "Sensibilidad Emocional"
+  },
+  "archetypeNoun": {
+    "openness": { "high": "Explorador", "low": "Realista" },
+    "conscientiousness": { "high": "Organizador", "low": "Improvisador" },
+    "extraversion": { "high": "Conector", "low": "Observador" },
+    "agreeableness": { "high": "Colaborador", "low": "Retador" },
+    "neuroticism": { "high": "Sensible", "low": "Ancla" }
+  },
+  "traitLevels": {
+    "openness": {
+      "high": {
+        "blurb": "Te atraen las ideas novedosas, el arte y el pensamiento abstracto por encima de la rutina y la convención.",
+        "strength": "Aportas ángulos frescos y poco convencionales a problemas que todos los demás ven de la misma manera.",
+        "growth": "Puede perseguir la siguiente idea interesante antes de terminar la actual."
+      },
+      "low": {
+        "blurb": "Prefieres lo práctico y comprobado por encima de lo abstracto y no probado.",
+        "strength": "Te mantienes anclado en lo concreto y demostrablemente confiable.",
+        "growth": "Puede descartar una idea poco convencional antes de considerarla de verdad."
+      }
+    },
+    "conscientiousness": {
+      "high": {
+        "blurb": "Planificas con anticipación, cumples lo que empiezas y te exiges un estándar alto.",
+        "strength": "La gente puede contar contigo para cumplir lo que dijiste que harías.",
+        "growth": "Los estándares pueden derivar en un perfeccionismo que frena las cosas."
+      },
+      "low": {
+        "blurb": "Prefieres mantenerte flexible y adaptarte en el momento en vez de planificar en detalle.",
+        "strength": "Te adaptas rápido cuando los planes cambian y rara vez te sientes encasillado.",
+        "growth": "Las fechas límite y el seguimiento rutinario pueden descuidarse sin más estructura."
+      }
+    },
+    "extraversion": {
+      "high": {
+        "blurb": "Sacas energía de la gente y sueles pensar en voz alta dentro de un grupo.",
+        "strength": "Generas impulso y calidez en una sala rápidamente.",
+        "growth": "Puede necesitar incluir conscientemente tiempo más tranquilo y de baja estimulación."
+      },
+      "low": {
+        "blurb": "Te recargas en entornos más tranquilos y prefieres la profundidad sobre la amplitud en una conversación.",
+        "strength": "Aportas una atención calmada y enfocada a las conversaciones cara a cara.",
+        "growth": "Puede pasar desapercibido en entornos grupales ruidosos a menos que se esfuerce por hacerse escuchar."
+      }
+    },
+    "agreeableness": {
+      "high": {
+        "blurb": "Priorizas la armonía y disfrutas genuinamente ayudar a la gente que te rodea.",
+        "strength": "Generas confianza y cooperación con la gente rápida y sinceramente.",
+        "growth": "Puede evitar el conflicto necesario para mantener la paz."
+      },
+      "low": {
+        "blurb": "Te sientes cómodo priorizando tu propio juicio por encima del consenso del grupo.",
+        "strength": "Dices lo difícil y honesto que evita que un grupo se engañe a sí mismo.",
+        "growth": "La franqueza puede sonar brusca cuando la calidez habría funcionado mejor."
+      }
+    },
+    "neuroticism": {
+      "high": {
+        "blurb": "Sientes las emociones con intensidad y te mantienes alerta a lo que podría salir mal.",
+        "strength": "Tu vigilancia detecta riesgos que a personas más relajadas se les escapan por completo.",
+        "growth": "La preocupación puede gastar energía en cosas que nunca terminan sucediendo."
+      },
+      "low": {
+        "blurb": "Tiendes a mantenerte calmado y emocionalmente estable, incluso bajo presión real.",
+        "strength": "Mantienes la cabeza fría en momentos que alterarían a la mayoría de la gente.",
+        "growth": "La baja urgencia puede hacer que riesgos reales se subestimen."
+      }
+    }
+  }
+}

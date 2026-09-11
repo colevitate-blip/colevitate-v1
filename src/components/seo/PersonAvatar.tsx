@@ -39,7 +39,7 @@ export function PersonAvatar({ person, size = 36 }: { person: FamousPersonConten
           src={person.photo!.url}
           alt={person.name}
           fill
-          sizes={`${size}px`}
+          unoptimized
           className="object-cover"
           onError={() => setErrored(true)}
         />
@@ -53,7 +53,7 @@ export function PersonAvatar({ person, size = 36 }: { person: FamousPersonConten
 }
 
 /** Same fallback behavior as PersonAvatar, but full-bleed for a rectangular tile (e.g. the portrait-wall layout) instead of a fixed circular crop. */
-export function PersonPortrait({ person, sizes, className }: { person: FamousPersonContent; sizes: string; className?: string }) {
+export function PersonPortrait({ person, className }: { person: FamousPersonContent; className?: string }) {
   const [errored, setErrored] = useState(false);
   const showPhoto = person.photo && !errored;
 
@@ -62,7 +62,7 @@ export function PersonPortrait({ person, sizes, className }: { person: FamousPer
       src={person.photo!.url}
       alt={person.name}
       fill
-      sizes={sizes}
+      unoptimized
       className={className}
       onError={() => setErrored(true)}
     />

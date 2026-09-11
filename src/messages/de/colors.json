@@ -1,0 +1,68 @@
+{
+  "types": {
+    "red": {
+      "name": "Rot — Der Antreiber",
+      "tagline": "Mutig · Entschlossen · Ergebnisorientiert",
+      "description": "Rote werden von Handlung und Ergebnissen angetrieben. Du triffst schnell Entscheidungen, überwindest Hindernisse lieber direkt als sie zu umgehen, und fühlst dich am lebendigsten, wenn du ein Ziel voranbringst.",
+      "strengths": [
+        "Trifft unter Druck schnelle, selbstbewusste Entscheidungen",
+        "Treibt Projekte voran und lässt den Schwung nie ins Stocken geraten",
+        "Übernimmt ohne zu zögern die Führung, wenn die Situation es verlangt",
+        "Bleibt auf Ergebnisse fokussiert, statt sich im Prozess zu verlieren"
+      ],
+      "growth": [
+        "Kann bei langsameren Prozessen schroff oder ungeduldig wirken",
+        "Kann Beiträge überrollen, bevor er sie vollständig gehört hat",
+        "Sich für Details Zeit zu nehmen, kann sich wie Zeitverschwendung anfühlen, selbst wenn es keine ist"
+      ]
+    },
+    "blue": {
+      "name": "Blau — Der Analytiker",
+      "tagline": "Präzise · Bedacht · Verlässlich",
+      "description": "Blaue werden von Genauigkeit und Verständnis angetrieben. Du nimmst dir lieber die Zeit, etwas richtig zu machen, statt vorschnell zu einer oberflächlichen Antwort zu kommen, und Menschen vertrauen deinem Urteil, weil es gut durchdacht ist.",
+      "strengths": [
+        "Erkennt Fehler und Lücken, die schneller agierende Menschen übersehen",
+        "Bringt sorgfältiges, gut begründetes Urteilsvermögen in Entscheidungen ein",
+        "Liefert durchgehend hochwertige, verlässliche Arbeit",
+        "Bleibt ruhig und objektiv, wenn andere emotional reagieren"
+      ],
+      "growth": [
+        "Kann eine Entscheidung durch Überanalyse über den nützlichen Zeitpunkt hinaus verzögern",
+        "Kann zurückhaltend oder emotional schwer einzuschätzen wirken",
+        "Hohe persönliche Ansprüche können zu starr auf andere angewendet werden"
+      ]
+    },
+    "green": {
+      "name": "Grün — Der Unterstützer",
+      "tagline": "Warmherzig · Geduldig · Beständig",
+      "description": "Grüne werden von Verbindung und Stabilität angetrieben. Du schaffst die ruhige, verlässliche Präsenz, die ein Team oder eine Beziehung braucht, und es ist dir wirklich wichtig, wie sich deine Entscheidungen auf die Menschen um dich herum auswirken.",
+      "strengths": [
+        "Baut Vertrauen und Loyalität durch beständige, echte Fürsorge auf",
+        "Hält Gruppen in angespannten Momenten ruhig und kooperativ",
+        "Hört gut zu und gibt Menschen das Gefühl, wirklich gehört zu werden",
+        "Bietet beständige Unterstützung, auf die sich andere verlässlich stützen können"
+      ],
+      "growth": [
+        "Konfliktvermeidung kann echte Probleme zu lange ungelöst lassen",
+        "Kann die Bedürfnisse anderer zu oft über die eigenen stellen",
+        "Kann sich gegen Veränderung sträuben, selbst wenn sie eindeutig helfen würde"
+      ]
+    },
+    "yellow": {
+      "name": "Gelb — Der Inspirator",
+      "tagline": "Energiegeladen · Gesellig · Optimistisch",
+      "description": "Gelbe werden von Möglichkeiten und Verbindung angetrieben. Du bringst Begeisterung in einen Raum, gibst Menschen ein gutes Gefühl für das, was vor ihnen liegt, und blühst bei Abwechslung, Spontaneität und neuen Erfahrungen auf.",
+      "strengths": [
+        "Bringt Energie und Motivation zu den Menschen im Umfeld",
+        "Baut schnell und aufrichtig Vertrauen zu neuen Menschen auf",
+        "Erkennt spannende Möglichkeiten, die andere im Moment übersehen",
+        "Passt sich leicht an und hält die Stimmung auch bei Veränderungen hoch"
+      ],
+      "growth": [
+        "Die Umsetzung kann hinter der Begeisterung für eine neue Idee zurückbleiben",
+        "Kann in den Details einer langen, wenig glanzvollen Aufgabe den Fokus verlieren",
+        "Begeisterung muss in ernsteren Momenten manchmal gebremst werden, um richtig anzukommen"
+      ]
+    }
+  }
+}

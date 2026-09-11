@@ -14,7 +14,12 @@
     "typesLink": "Types",
     "learnLink": "Learn",
     "methodologyLink": "Methodology",
-    "menuLabel": "Menu"
+    "menuLabel": "Menu",
+    "closeMenuLabel": "Close menu"
+  },
+  "axisAgreement": {
+    "showWhy": "Why this score?",
+    "hideWhy": "Hide why"
   },
   "landing": {
     "eyebrow": "Four lenses. About three minutes each.",

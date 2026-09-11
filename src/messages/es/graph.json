@@ -1,0 +1,145 @@
+{
+  "ringLabels": { "1": "Espectros", "2": "Rasgos", "3": "Respuestas" },
+  "kindTags": {
+    "axis": "Espectro — una escala central de personalidad",
+    "trait": "Rasgo",
+    "question": "Tu respuesta"
+  },
+  "archetypeTag": {
+    "you": "Tu arquetipo"
+  },
+  "traits": {
+    "EI": {
+      "label": "Extraversión/Introversión",
+      "description": "Si obtienes energía al relacionarte con el mundo exterior (Extraversión) o al pasar tiempo a solas con tus propios pensamientos (Introversión)."
+    },
+    "SN": {
+      "label": "Sensación/Intuición",
+      "description": "Si confías en el detalle concreto y presente (Sensación) o en los patrones y las posibilidades (Intuición)."
+    },
+    "TF": {
+      "label": "Pensamiento/Sentimiento",
+      "description": "Si tus decisiones se apoyan en la coherencia lógica (Pensamiento) o en el impacto y los valores (Sentimiento)."
+    },
+    "JP": {
+      "label": "Juicio/Percepción",
+      "description": "Si prefieres las cosas resueltas y planificadas (Juicio) o abiertas y flexibles (Percepción)."
+    },
+    "openness": {
+      "label": "Apertura",
+      "description": "Cuánto te atraen las ideas nuevas y el pensamiento poco convencional frente a lo práctico y lo familiar."
+    },
+    "conscientiousness": {
+      "label": "Responsabilidad",
+      "description": "Cuán organizado, disciplinado y orientado a metas sueles ser."
+    },
+    "extraversion": {
+      "label": "Extraversión",
+      "description": "Cuánto te energiza la interacción social y la estimulación, frente a cuánto te agota."
+    },
+    "agreeableness": {
+      "label": "Amabilidad",
+      "description": "Cuánto priorizas la cooperación y los sentimientos de los demás frente a tu propia agenda."
+    },
+    "neuroticism": {
+      "label": "Neuroticismo",
+      "description": "Con cuánta facilidad experimentas estrés, preocupación o volatilidad emocional."
+    },
+    "generator": {
+      "label": "Generador",
+      "description": "Un tipo de Diseño Humano hecho para responder a lo que se presenta, generando energía al involucrarse con lo que te apasiona."
+    },
+    "manifesting-generator": {
+      "label": "Generador Manifestante",
+      "description": "Un tipo de Diseño Humano que combina la energía de respuesta de un Generador con el instinto de iniciar de un Manifestador."
+    },
+    "manifestor": {
+      "label": "Manifestador",
+      "description": "Un tipo de Diseño Humano hecho para iniciar — actúas primero e informas a los demás, en lugar de esperar para responder."
+    },
+    "projector": {
+      "label": "Proyector",
+      "description": "Un tipo de Diseño Humano hecho para guiar y ver los sistemas con claridad, que funciona mejor cuando se le invita en lugar de forzar las cosas."
+    },
+    "reflector": {
+      "label": "Reflector",
+      "description": "Un tipo de Diseño Humano poco común que refleja la salud de las personas y el entorno que lo rodean."
+    },
+    "red": {
+      "label": "Rojo",
+      "description": "Una energía de tipo de color centrada en el impulso, la urgencia y hacer que las cosas se logren ahora."
+    },
+    "blue": {
+      "label": "Azul",
+      "description": "Una energía de tipo de color centrada en la precisión, la estructura y hacer las cosas correctamente."
+    },
+    "green": {
+      "label": "Verde",
+      "description": "Una energía de tipo de color centrada en la armonía, el apoyo y las relaciones estables."
+    },
+    "yellow": {
+      "label": "Amarillo",
+      "description": "Una energía de tipo de color centrada en el optimismo, la espontaneidad y conectar con la gente."
+    }
+  },
+  "bigFiveText": {
+    "openness": {
+      "high": {
+        "you": "Te atraen las ideas nuevas, el pensamiento poco convencional y explorar lo desconocido."
+      },
+      "mid": {
+        "you": "Te sientes igual de cómodo con lo familiar y con lo no probado, sin una inclinación fuerte hacia ninguno de los dos."
+      },
+      "low": {
+        "you": "Te inclinas hacia lo práctico y lo familiar por encima de lo abstracto o no probado."
+      }
+    },
+    "conscientiousness": {
+      "high": {
+        "you": "Tiendes a ser organizado y orientado a metas, y sueles cumplir una vez que te comprometes."
+      },
+      "mid": {
+        "you": "Equilibras la estructura y la espontaneidad de forma bastante pareja."
+      },
+      "low": {
+        "you": "Prefieres la flexibilidad sobre los planes rígidos, y te adaptas sobre la marcha."
+      }
+    },
+    "extraversion": {
+      "high": {
+        "you": "La interacción social y la estimulación te energizan de verdad."
+      },
+      "mid": {
+        "you": "Te sientes cómodo tanto rodeado de gente como a solas, según el momento."
+      },
+      "low": {
+        "you": "El tiempo a solas te recarga de forma más fiable que la estimulación social."
+      }
+    },
+    "agreeableness": {
+      "high": {
+        "you": "Priorizas la cooperación y cómo afecta una decisión a los demás."
+      },
+      "mid": {
+        "you": "Sopesas tu propia lectura de las cosas y los sentimientos de los demás de forma bastante pareja."
+      },
+      "low": {
+        "you": "Priorizas tu propia lectura de una situación por encima de gestionar cómo afecta a los demás."
+      }
+    },
+    "neuroticism": {
+      "high": {
+        "you": "El estrés y los cambios emocionales se registran en ti de forma fuerte y rápida."
+      },
+      "mid": {
+        "you": "Sientes el estrés como cualquiera, sin que domine tu forma de actuar."
+      },
+      "low": {
+        "you": "Te mantienes estable bajo presión de forma más fiable que la mayoría."
+      }
+    }
+  },
+  "mbtiLean": {
+    "you": "Te inclinas hacia {pole} — un {confidence}% en esa dirección según tus respuestas."
+  }
+}

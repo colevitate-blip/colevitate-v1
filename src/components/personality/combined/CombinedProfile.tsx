@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
+import { useTranslations, useLocale } from "next-intl";
 import { useTheme } from "next-themes";
 import { Link } from "@/i18n/navigation";
 import {
@@ -63,6 +64,8 @@ export function CombinedProfile({
   progress?: ProgressMap;
   recordHistory?: boolean;
 }) {
+  const t = useTranslations();
+  const locale = useLocale();
   const shareCardRef = useRef<HTMLDivElement>(null);
   const pdfDocRef = useRef<HTMLDivElement>(null);
   const [isExporting, setIsExporting] = useState(false);
@@ -71,7 +74,7 @@ export function CombinedProfile({
   const { user, profileMeta } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
-  const careerSuggestions = getCareerSuggestions(profile.axes);
+  const careerSuggestions = getCareerSuggestions(profile.axes, t);
   const [history, setHistory] = useState<CombinedSnapshot[]>([]);
   // Only set once sharing is newly enabled from this page — otherwise the
   // slug/public state is read straight from profileMeta (context), not mirrored into state.
@@ -154,7 +157,7 @@ export function CombinedProfile({
 
       if (typeof navigator !== "undefined" && navigator.canShare?.({ files: [file] })) {
         try {
-          await navigator.share({ files: [file], title: "My Personality Studio profile" });
+          await navigator.share({ files: [file], title: t("combined.ui.shareTitle") });
         } catch {
           // user dismissed the share sheet — nothing to do
         }
@@ -225,7 +228,7 @@ export function CombinedProfile({
       setCreatedInvite({ url, relationshipLabel: relationshipFramingFor(relationshipType).label.toLowerCase() });
     } catch (err) {
       setPickingRelationship(false);
-      setInviteError(err instanceof Error ? err.message : "Something went wrong creating the invite. Try again.");
+      setInviteError(err instanceof Error ? err.message : t("combined.ui.inviteErrorFallback"));
     } finally {
       setIsEnablingCompare(false);
     }
@@ -260,7 +263,7 @@ export function CombinedProfile({
           className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
           <ChevronLeft className="size-4" />
-          Overview
+          {t("combined.ui.overview")}
         </Link>
         <div className="flex flex-wrap items-center gap-2">
           {recordHistory ? (
@@ -279,7 +282,7 @@ export function CombinedProfile({
                 ) : (
                   <Link2 className="size-4" />
                 )}
-                {linkCopied ? "Link copied" : "Export as link"}
+                {linkCopied ? t("combined.ui.linkCopied") : t("combined.ui.exportAsLink")}
               </Button>
               <div className="relative">
                 <Button
@@ -296,15 +299,14 @@ export function CombinedProfile({
                   ) : (
                     <GitCompareArrows className="size-4" />
                   )}
-                  {createdInvite ? "Invite created" : "Compare with someone"}
+                  {createdInvite ? t("combined.ui.inviteCreated") : t("combined.ui.compareWithSomeone")}
                 </Button>
                 {pickingRelationship ? (
                   <div className="absolute right-0 top-full z-10 mt-2 flex w-64 flex-col gap-1 rounded-xl border bg-card p-2 shadow-lg">
                     <p className="px-1.5 pb-2 text-xs text-muted-foreground">
-                      We&apos;ll create a private link to send them. Once they finish their own assessments and
-                      accept, you can both unlock a compatibility report.
+                      {t("combined.ui.compareExplainer")}
                     </p>
-                    <p className="px-1.5 pb-1 text-xs font-medium text-foreground">Who are you comparing with?</p>
+                    <p className="px-1.5 pb-1 text-xs font-medium text-foreground">{t("combined.ui.whoComparing")}</p>
                     {RELATIONSHIP_TYPE_ORDER.map((type) => (
                       <button
                         key={type}
@@ -331,7 +333,7 @@ export function CombinedProfile({
                 ) : (
                   <FileDown className="size-4" />
                 )}
-                Export as PDF
+                {t("combined.ui.exportAsPdf")}
               </Button>
             </>
           ) : null}
@@ -341,15 +343,15 @@ export function CombinedProfile({
             ) : (
               <Share2 className="size-4" />
             )}
-            Save / Share
+            {t("combined.ui.saveShare")}
           </Button>
         </div>
       </div>
 
       {inviteError ? (
         <div className="mb-8 flex items-center justify-between gap-3 rounded-2xl border border-destructive/20 bg-destructive/5 p-4 text-sm text-destructive print:hidden">
-          <p>Couldn&apos;t create the invite: {inviteError}</p>
-          <Button variant="ghost" size="sm" onClick={() => setInviteError(null)} className="rounded-full shrink-0" aria-label="Dismiss">
+          <p>{t("combined.ui.inviteErrorPrefix", { error: inviteError })}</p>
+          <Button variant="ghost" size="sm" onClick={() => setInviteError(null)} className="rounded-full shrink-0" aria-label={t("combined.ui.dismiss")}>
             <X className="size-4" />
           </Button>
         </div>
@@ -359,13 +361,12 @@ export function CombinedProfile({
         <div className="mb-8 flex flex-col gap-3 rounded-2xl border bg-muted/40 p-4 print:hidden sm:flex-row sm:items-center sm:justify-between">
           <div className="flex-1">
             <p className="text-sm font-medium">
-              Invite link copied — send it to the {createdInvite.relationshipLabel} you want to compare with.
+              {t("combined.ui.inviteLinkCopied", { relationshipLabel: createdInvite.relationshipLabel })}
             </p>
             <p className="mt-1 text-xs text-muted-foreground">
-              Once they finish their own assessments and accept, you&apos;ll both be able to unlock a compatibility
-              report. Track it anytime under{" "}
+              {t("combined.ui.inviteFollowUp")}{" "}
               <Link href="/pair" className="underline underline-offset-2 hover:text-foreground">
-                Comparisons
+                {t("combined.ui.comparisonsLink")}
               </Link>
               .
             </p>
@@ -374,14 +375,14 @@ export function CombinedProfile({
           <div className="flex shrink-0 items-center gap-2 self-end sm:self-center">
             <Button variant="outline" size="sm" onClick={handleRecopyInviteLink} className="rounded-full">
               {inviteLinkRecopied ? <Check className="size-4" /> : <Copy className="size-4" />}
-              {inviteLinkRecopied ? "Copied" : "Copy again"}
+              {inviteLinkRecopied ? t("combined.ui.copied") : t("combined.ui.copyAgain")}
             </Button>
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setCreatedInvite(null)}
               className="rounded-full"
-              aria-label="Dismiss"
+              aria-label={t("combined.ui.dismiss")}
             >
               <X className="size-4" />
             </Button>
@@ -411,7 +412,7 @@ export function CombinedProfile({
           </div>
           <div>
             <Badge variant="outline" className="mb-2 rounded-full">
-              Combined Profile
+              {t("combined.ui.combinedProfileBadge")}
             </Badge>
             {profile.archetype ? (
               <>
@@ -426,7 +427,7 @@ export function CombinedProfile({
                 {(() => {
                   const archetypeKey = getArchetypeKey(profile.axes);
                   return archetypeKey ? (
-                    <DailyTypeInsight archetypeKey={archetypeKey} archetypeName={profile.archetype.name} />
+                    <DailyTypeInsight archetypeKey={archetypeKey} archetypeName={profile.archetype.name} locale={locale} />
                   ) : null;
                 })()}
               </>
@@ -451,17 +452,22 @@ export function CombinedProfile({
       </div>
 
       <div className="mt-8 rounded-3xl border bg-card p-6 shadow-[0_18px_40px_-16px_var(--elevation-shadow-sm)]">
-        <div className="mb-1 flex items-center gap-2">
-          <div className="flex size-8 items-center justify-center rounded-full bg-muted">
-            <SlidersHorizontal className="size-4" />
+        <div className="mb-1 flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <div className="flex size-8 items-center justify-center rounded-full bg-muted">
+              <SlidersHorizontal className="size-4" />
+            </div>
+            <h2 className="font-semibold">{t("combined.ui.whereLensesAgree")}</h2>
           </div>
-          <h2 className="font-semibold">Where Your Lenses Agree</h2>
+          <Link
+            href="/methodology"
+            className="text-xs text-muted-foreground underline underline-offset-2 hover:text-foreground"
+          >
+            {t("combined.ui.howThisIsCalculated")}
+          </Link>
         </div>
         <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
-          On some things, all your lenses land in nearly the same place — that&apos;s signal. On
-          others they pull in different directions, and that&apos;s usually not a contradiction,
-          it&apos;s just you being a full person depending on context. Here&apos;s what&apos;s
-          actually behind the headline above.
+          {t("combined.ui.lensesAgreeIntro")}
         </p>
         <div className="space-y-7">
           {profile.axes.map((axis) => (
@@ -478,17 +484,16 @@ export function CombinedProfile({
             <div className="flex size-8 items-center justify-center rounded-full bg-muted">
               <History className="size-4" />
             </div>
-            <h2 className="font-semibold">How You&apos;ve Moved</h2>
+            <h2 className="font-semibold">{t("combined.ui.howYouveMoved")}</h2>
           </div>
           {history.length < 2 ? (
             <p className="text-sm leading-relaxed text-muted-foreground">
-              This is you, today. Retake any lens in a few months and we&apos;ll show you exactly
-              what moved — and what didn&apos;t.
+              {t("combined.ui.firstSnapshot")}
             </p>
           ) : (
             <>
               <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
-                How each axis has moved across your {history.length} completions, oldest to newest.
+                {t("combined.ui.movedAcross", { count: history.length })}
               </p>
               <div className="space-y-7">
                 {profile.axes.map((axis) => (
@@ -505,11 +510,11 @@ export function CombinedProfile({
           <div className="flex size-8 items-center justify-center rounded-full bg-muted">
             <Target className="size-4" />
           </div>
-          <h2 className="font-semibold">Where to Lean In</h2>
+          <h2 className="font-semibold">{t("combined.ui.whereToLeanIn")}</h2>
         </div>
         <div className="space-y-4">
           {profile.axes.map((axis) => {
-            const prompt = getAxisGrowthPrompt(axis);
+            const prompt = getAxisGrowthPrompt(axis, t);
             if (!prompt) return null;
             return (
               <div key={axis.id}>
@@ -525,16 +530,15 @@ export function CombinedProfile({
 
       <div className="mt-8 flex flex-col items-start gap-3 rounded-3xl border bg-muted/20 p-6 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h2 className="font-semibold">Want more than this page shows?</h2>
+          <h2 className="font-semibold">{t("combined.ui.wantMore")}</h2>
           <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-            The Deep Dive Report expands career fit, relationship patterns, and growth edges into a longer,
-            AI-assisted read grounded in your own scores.
+            {t("combined.ui.deepDiveExplainer")}
           </p>
         </div>
         <Button asChild variant="outline" className="shrink-0 gap-2 rounded-full">
           <Link href="/deep-dive">
             <Lock className="size-4" />
-            Unlock Deep Dive
+            {t("combined.ui.unlockDeepDive")}
           </Link>
         </Button>
       </div>
@@ -545,10 +549,10 @@ export function CombinedProfile({
             <div className="flex size-8 items-center justify-center rounded-full bg-muted">
               <Briefcase className="size-4" />
             </div>
-            <h2 className="font-semibold">Where This Might Fit</h2>
+            <h2 className="font-semibold">{t("combined.ui.whereThisMightFit")}</h2>
           </div>
           <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
-            Roles and work styles that tend to suit {profile.archetype?.name ?? "your combination of traits"}.
+            {t("combined.ui.roleFitIntro", { name: profile.archetype?.name ?? t("combined.ui.roleFitFallback") })}
           </p>
           <ul className="space-y-2.5">
             {careerSuggestions.map((s) => (
@@ -567,7 +571,7 @@ export function CombinedProfile({
             <div className="flex size-8 items-center justify-center rounded-full bg-muted">
               <TrendingUp className="size-4" />
             </div>
-            <h2 className="font-semibold">Strengths</h2>
+            <h2 className="font-semibold">{t("combined.ui.strengths")}</h2>
           </div>
           <ul className="space-y-2.5">
             {profile.strengths.map((s) => (
@@ -584,7 +588,7 @@ export function CombinedProfile({
             <div className="flex size-8 items-center justify-center rounded-full bg-muted">
               <Leaf className="size-4" />
             </div>
-            <h2 className="font-semibold">Growth areas</h2>
+            <h2 className="font-semibold">{t("combined.ui.growthAreas")}</h2>
           </div>
           <ul className="space-y-2.5">
             {profile.growth.map((g) => (
@@ -599,7 +603,7 @@ export function CombinedProfile({
 
       <Separator className="my-8" />
 
-      <h2 className="mb-4 text-lg font-semibold">Your Four Lenses</h2>
+      <h2 className="mb-4 text-lg font-semibold">{t("combined.ui.yourFourLenses")}</h2>
       <div className="grid gap-4 sm:grid-cols-2">
         {profile.threads.map((t) => {
           const accent = accentForFramework(t.id, results);
@@ -622,15 +626,14 @@ export function CombinedProfile({
       </div>
 
       <p className="mt-8 text-xs leading-relaxed text-muted-foreground">
-        This is our synthesis of your four results, not a lab measurement — built to help you see
-        the pattern, not to grade you on it.
+        {t("combined.ui.disclaimer")}
       </p>
 
       <div className="mt-8 flex justify-center print:hidden">
         <Button asChild variant="secondary" size="default" className="rounded-full gap-1.5 px-5">
           <Link href="/">
             <ChevronLeft className="size-4" />
-            Overview
+            {t("combined.ui.overview")}
           </Link>
         </Button>
       </div>
@@ -642,7 +645,7 @@ export function CombinedProfile({
           results={results}
           theme={resolvedTheme === "light" ? "light" : "dark"}
         />
-        <PdfDocument ref={pdfDocRef} profile={profile} results={results} careerSuggestions={careerSuggestions} />
+        <PdfDocument ref={pdfDocRef} profile={profile} results={results} careerSuggestions={careerSuggestions} locale={locale} />
       </div>
     </div>
   );

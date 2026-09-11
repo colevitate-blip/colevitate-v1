@@ -1,8 +1,20 @@
 import { NextResponse } from "next/server";
+import { getTranslations } from "next-intl/server";
 import { createServiceRoleClient } from "@/lib/supabase/serviceRole";
 import { getArchetypeByKey } from "@/components/personality/combined/archetypeMatrix";
+import { routing } from "@/i18n/routing";
 
-const SYSTEM_INSTRUCTION = `You are Colevitate's editorial personality-content writer. Given an archetype name and description, write one short, concrete, practical sentence (max ~220 characters) about how someone with that archetype might approach an ordinary, everyday moment today — a meeting, a weekend plan, a disagreement, a to-do list, vary it — grounded in the archetype's actual traits. Specific and useful, not generic or astrology-vague. No hedging language, no second-person warnings — just the observation itself, as one plain sentence with no surrounding quotes.`;
+const LANGUAGE_NAME: Record<string, string> = {
+  en: "English",
+  de: "German",
+  es: "Spanish",
+  fr: "French",
+  zh: "Simplified Chinese",
+};
+
+function systemInstructionFor(languageName: string): string {
+  return `You are Colevitate's editorial personality-content writer. Given an archetype name and description, write one short, concrete, practical sentence (max ~220 characters) about how someone with that archetype might approach an ordinary, everyday moment today — a meeting, a weekend plan, a disagreement, a to-do list, vary it — grounded in the archetype's actual traits. Specific and useful, not generic or astrology-vague. No hedging language, no second-person warnings — just the observation itself, as one plain sentence with no surrounding quotes. Respond entirely in ${languageName}, using natural, idiomatic phrasing for that language — not a literal translation.`;
+}
 
 function todayUtc(): string {
   return new Date().toISOString().slice(0, 10);
@@ -11,12 +23,19 @@ function todayUtc(): string {
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const key = url.searchParams.get("key") ?? "";
-  const archetype = getArchetypeByKey(key);
+  const requestedLocale = url.searchParams.get("locale") ?? routing.defaultLocale;
+  const locale = (routing.locales as readonly string[]).includes(requestedLocale) ? requestedLocale : routing.defaultLocale;
+
+  const t = await getTranslations({ locale });
+  const archetype = getArchetypeByKey(key, t);
   if (!archetype) {
     return NextResponse.json({ error: "Unknown archetype." }, { status: 400 });
   }
 
   const date = todayUtc();
+  // Cache key includes the locale (no schema migration needed — archetype_key
+  // is a free-text column) so each language gets its own cached sentence.
+  const cacheKey = `${locale}:${key}`;
 
   // Client construction throws synchronously if SUPABASE_SERVICE_ROLE_KEY
   // isn't configured — treated the same as a cache miss (supabase stays
@@ -28,7 +47,7 @@ export async function GET(request: Request) {
     const { data: cached } = await supabase
       .from("daily_type_content")
       .select("content")
-      .eq("archetype_key", key)
+      .eq("archetype_key", cacheKey)
       .eq("content_date", date)
       .maybeSingle();
 
@@ -55,7 +74,7 @@ export async function GET(request: Request) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          system_instruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
+          system_instruction: { parts: [{ text: systemInstructionFor(LANGUAGE_NAME[locale] ?? "English") }] },
           contents: [{ parts: [{ text: `Archetype: "${archetype.name}" — ${archetype.description}` }] }],
           generationConfig: { temperature: 0.8 },
         }),
@@ -73,7 +92,7 @@ export async function GET(request: Request) {
     try {
       supabase
         ?.from("daily_type_content")
-        .upsert({ archetype_key: key, content_date: date, content })
+        .upsert({ archetype_key: cacheKey, content_date: date, content })
         .then(({ error }) => {
           if (error) console.error("Failed to cache daily type content:", error.message);
         });

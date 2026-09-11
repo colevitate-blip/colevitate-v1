@@ -14,7 +14,12 @@
     "typesLink": "Types",
     "learnLink": "Apprendre",
     "methodologyLink": "Méthodologie",
-    "menuLabel": "Menu"
+    "menuLabel": "Menu",
+    "closeMenuLabel": "Fermer le menu"
+  },
+  "axisAgreement": {
+    "showWhy": "Pourquoi ce score ?",
+    "hideWhy": "Masquer l'explication"
   },
   "landing": {
     "eyebrow": "Quatre regards. Environ trois minutes chacun.",

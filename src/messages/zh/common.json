@@ -14,7 +14,12 @@
     "typesLink": "类型",
     "learnLink": "百科",
     "methodologyLink": "方法论",
-    "menuLabel": "菜单"
+    "menuLabel": "菜单",
+    "closeMenuLabel": "关闭菜单"
+  },
+  "axisAgreement": {
+    "showWhy": "为什么是这个分数?",
+    "hideWhy": "隐藏说明"
   },
   "landing": {
     "eyebrow": "四种视角，每种约三分钟",

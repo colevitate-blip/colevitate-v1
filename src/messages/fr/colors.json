@@ -1,0 +1,68 @@
+{
+  "types": {
+    "red": {
+      "name": "Rouge — Le Meneur",
+      "tagline": "Audacieux · Décisif · Orienté résultats",
+      "description": "Les Rouges sont motivés par l'action et les résultats. Vous prenez des décisions rapidement, traversez les obstacles plutôt que de les contourner, et vous vous sentez le plus vivant lorsque vous faites avancer un objectif.",
+      "strengths": [
+        "Prend des décisions rapides et assurées sous pression",
+        "Fait avancer les projets et refuse de laisser l'élan retomber",
+        "À l'aise pour prendre les commandes quand la situation l'exige",
+        "Reste concentré sur les résultats plutôt que de se perdre dans le processus"
+      ],
+      "growth": [
+        "Peut sembler brusque ou impatient face à des processus plus lents",
+        "Peut balayer un avis avant de l'avoir pleinement écouté",
+        "Ralentir pour les détails peut sembler une perte de temps, même quand ce n'en est pas une"
+      ]
+    },
+    "blue": {
+      "name": "Bleu — L'Analyste",
+      "tagline": "Précis · Réfléchi · Fiable",
+      "description": "Les Bleus sont motivés par la précision et la compréhension. Vous préférez prendre le temps de bien faire les choses plutôt que de vous précipiter vers une réponse superficielle, et on fait confiance à votre jugement parce qu'il est mûrement réfléchi.",
+      "strengths": [
+        "Repère les erreurs et les lacunes que des personnes plus rapides ne voient pas",
+        "Apporte aux décisions un jugement prudent et bien argumenté",
+        "Livre un travail constamment fiable et de haute qualité",
+        "Reste calme et objectif quand les autres réagissent avec émotion"
+      ],
+      "growth": [
+        "Peut trop analyser et retarder une décision au-delà du raisonnable",
+        "Peut paraître réservé ou difficile à cerner émotionnellement",
+        "Des exigences personnelles élevées peuvent être appliquées de façon trop rigide aux autres"
+      ]
+    },
+    "green": {
+      "name": "Vert — Le Soutien",
+      "tagline": "Chaleureux · Patient · Stable",
+      "description": "Les Verts sont motivés par le lien et la stabilité. Vous incarnez la présence calme et fiable dont une équipe ou une relation a besoin, et vous vous souciez sincèrement de l'effet de vos décisions sur les gens qui vous entourent.",
+      "strengths": [
+        "Construit la confiance et la loyauté par une attention constante et sincère",
+        "Maintient les groupes calmes et coopératifs dans les moments tendus",
+        "Écoute bien et fait en sorte que les gens se sentent vraiment entendus",
+        "Offre un soutien stable sur lequel les autres peuvent réellement s'appuyer"
+      ],
+      "growth": [
+        "L'évitement des conflits peut laisser de vrais problèmes non résolus trop longtemps",
+        "Peut faire passer les besoins des autres avant les siens trop souvent",
+        "Peut résister au changement même quand il serait clairement bénéfique"
+      ]
+    },
+    "yellow": {
+      "name": "Jaune — L'Inspirateur",
+      "tagline": "Énergique · Sociable · Optimiste",
+      "description": "Les Jaunes sont motivés par la possibilité et le lien avec les autres. Vous apportez de l'enthousiasme dans une pièce, donnez aux gens confiance en ce qui les attend, et vous vous épanouissez dans la variété, la spontanéité et les expériences nouvelles.",
+      "strengths": [
+        "Dynamise et motive les gens autour de vous",
+        "Crée rapidement et sincèrement des liens avec de nouvelles personnes",
+        "Voit des possibilités enthousiasmantes que les autres ne perçoivent pas sur le moment",
+        "S'adapte facilement et maintient le moral élevé pendant le changement"
+      ],
+      "growth": [
+        "Le suivi peut être en retard par rapport à l'enthousiasme d'une nouvelle idée",
+        "Peut perdre sa concentration dans les détails d'une tâche longue et peu gratifiante",
+        "L'enthousiasme peut avoir besoin d'être tempéré pour bien passer dans des moments plus sérieux"
+      ]
+    }
+  }
+}

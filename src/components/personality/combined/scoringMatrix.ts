@@ -4,7 +4,6 @@ import type {
   ColorId,
   Dichotomy,
   HumanDesignType,
-  MbtiLetter,
   PersonalityResults,
 } from "@/lib/personality/types";
 
@@ -20,8 +19,12 @@ import type {
 // imports from this module keep working unchanged.
 export type { AxisId };
 
+/** Minimal shape of a next-intl translator — satisfied by both useTranslations() and the resolved value of getTranslations(). */
+export type Translator = (key: string, values?: Record<string, string | number>) => string;
+
 export interface AxisDefinition {
   id: AxisId;
+  /** Static English fallback — untranslated consumers (team insights, discovery snapshot hydration) still read these directly. AxisScore.label/leftPole/rightPole (below) carry the translated versions instead; prefer those wherever a translator is available. */
   label: string;
   leftPole: string;
   rightPole: string;
@@ -121,28 +124,11 @@ function colorSignal(axis: AxisId, result: NonNullable<PersonalityResults["color
 // discarded once an assessment completes), so these trace back to the
 // same computed units the signal functions above consume.
 
-function signalPhrase(signal: number, axis: AxisDefinition): string {
+function signalPhrase(signal: number, axis: AxisDefinition, t: Translator): string {
   const rounded = Math.round(Math.abs(signal));
-  return `${rounded} toward ${signal >= 0 ? axis.rightPole : axis.leftPole}`;
+  const pole = t(`scoring.axes.${axis.id}.${signal >= 0 ? "rightPole" : "leftPole"}`);
+  return t("scoring.signalPhrase", { amount: rounded, pole });
 }
-
-const DICHOTOMY_NAMES: Record<Dichotomy, string> = {
-  EI: "Extraversion/Introversion",
-  SN: "Sensing/Intuition",
-  TF: "Thinking/Feeling",
-  JP: "Judging/Perceiving",
-};
-
-const POLE_NAMES: Record<MbtiLetter, string> = {
-  E: "Extraversion",
-  I: "Introversion",
-  S: "Sensing",
-  N: "Intuition",
-  T: "Thinking",
-  F: "Feeling",
-  J: "Judging",
-  P: "Perceiving",
-};
 
 const AXIS_DICHOTOMY: Record<AxisId, Dichotomy> = {
   energy: "EI",
@@ -151,53 +137,55 @@ const AXIS_DICHOTOMY: Record<AxisId, Dichotomy> = {
   novelty: "SN",
 };
 
-function explainMbti(axis: AxisDefinition, result: NonNullable<PersonalityResults["mbti"]>): string {
+function explainMbti(axis: AxisDefinition, result: NonNullable<PersonalityResults["mbti"]>, t: Translator): string {
   const dichotomy = AXIS_DICHOTOMY[axis.id];
   const { pole, confidence } = result.scores[dichotomy];
   const signal = mbtiSignal(axis.id, result);
-  return `Your ${DICHOTOMY_NAMES[dichotomy]} score leans ${POLE_NAMES[pole]} (${confidence}% confidence) — that's ${signalPhrase(signal, axis)}.`;
+  return t("scoring.explain.mbti", {
+    dichotomy: t(`scoring.labels.dichotomies.${dichotomy}`),
+    pole: t(`scoring.labels.mbtiPoles.${pole}`),
+    confidence,
+    signal: signalPhrase(signal, axis, t),
+  });
 }
 
-const AXIS_BIG_FIVE_TRAIT: Record<AxisId, { key: keyof NonNullable<PersonalityResults["bigfive"]>["scores"]; label: string }> = {
-  energy: { key: "extraversion", label: "Extraversion" },
-  structure: { key: "conscientiousness", label: "Conscientiousness" },
-  people: { key: "agreeableness", label: "Agreeableness" },
-  novelty: { key: "openness", label: "Openness" },
+const AXIS_BIG_FIVE_TRAIT: Record<AxisId, { key: keyof NonNullable<PersonalityResults["bigfive"]>["scores"] }> = {
+  energy: { key: "extraversion" },
+  structure: { key: "conscientiousness" },
+  people: { key: "agreeableness" },
+  novelty: { key: "openness" },
 };
 
-function explainBigFive(axis: AxisDefinition, result: NonNullable<PersonalityResults["bigfive"]>): string {
+function explainBigFive(axis: AxisDefinition, result: NonNullable<PersonalityResults["bigfive"]>, t: Translator): string {
   const trait = AXIS_BIG_FIVE_TRAIT[axis.id];
   const score = result.scores[trait.key];
   const signal = bigFiveSignal(axis.id, result);
-  return `Your ${trait.label} score is ${Math.round(score)}/100 — that's ${signalPhrase(signal, axis)}.`;
+  return t("scoring.explain.bigfive", {
+    trait: t(`scoring.labels.bigFiveTraits.${trait.key}`),
+    score: Math.round(score),
+    signal: signalPhrase(signal, axis, t),
+  });
 }
-
-const HD_TYPE_NAMES: Record<HumanDesignType, string> = {
-  generator: "Generator",
-  "manifesting-generator": "Manifesting Generator",
-  manifestor: "Manifestor",
-  projector: "Projector",
-  reflector: "Reflector",
-};
 
 function explainHumanDesign(
   axis: AxisDefinition,
-  result: NonNullable<PersonalityResults["humandesign"]>
+  result: NonNullable<PersonalityResults["humandesign"]>,
+  t: Translator
 ): string {
   const signal = humanDesignSignal(axis.id, result);
-  return `As a ${HD_TYPE_NAMES[result.type]}, Human Design's energy-type mapping contributes ${signalPhrase(signal, axis)} — that comes from the type itself, not a specific trait score.`;
+  return t("scoring.explain.humandesign", {
+    hdType: t(`scoring.labels.hdTypes.${result.type}`),
+    signal: signalPhrase(signal, axis, t),
+  });
 }
 
-const COLOR_NAMES: Record<ColorId, string> = {
-  red: "Red",
-  blue: "Blue",
-  green: "Green",
-  yellow: "Yellow",
-};
-
-function explainColors(axis: AxisDefinition, result: NonNullable<PersonalityResults["colors"]>): string {
+function explainColors(axis: AxisDefinition, result: NonNullable<PersonalityResults["colors"]>, t: Translator): string {
   const signal = colorSignal(axis.id, result);
-  return `Your dominant color is ${COLOR_NAMES[result.dominant]} (75% weight) and secondary is ${COLOR_NAMES[result.secondary]} (25% weight) — blended, that's ${signalPhrase(signal, axis)}.`;
+  return t("scoring.explain.colors", {
+    dominant: t(`scoring.labels.colors.${result.dominant}`),
+    secondary: t(`scoring.labels.colors.${result.secondary}`),
+    signal: signalPhrase(signal, axis, t),
+  });
 }
 
 export interface AxisContribution {
@@ -214,6 +202,7 @@ export interface AxisScore {
   leftPole: string;
   rightPole: string;
   score: number; // -100 (leftPole) .. 100 (rightPole)
+  tierIndex: number; // stable 0-4 key — use this to look up tier content, never tierLabel
   tierLabel: string;
   sentence: string;
   contributions: AxisContribution[];
@@ -225,34 +214,34 @@ export interface AxisScore {
 // weighted-average blend) — the same inputs computeAxisScore combines,
 // surfaced individually so the UI can show where frameworks agree or
 // disagree with each other.
-function computeAxisContributions(axis: AxisDefinition, results: PersonalityResults): AxisContribution[] {
+function computeAxisContributions(axis: AxisDefinition, results: PersonalityResults, t: Translator): AxisContribution[] {
   const contributions: AxisContribution[] = [];
   if (results.mbti) {
     contributions.push({
       framework: "mbti",
       signal: mbtiSignal(axis.id, results.mbti),
-      detail: explainMbti(axis, results.mbti),
+      detail: explainMbti(axis, results.mbti, t),
     });
   }
   if (results.bigfive) {
     contributions.push({
       framework: "bigfive",
       signal: bigFiveSignal(axis.id, results.bigfive),
-      detail: explainBigFive(axis, results.bigfive),
+      detail: explainBigFive(axis, results.bigfive, t),
     });
   }
   if (results.humandesign) {
     contributions.push({
       framework: "humandesign",
       signal: humanDesignSignal(axis.id, results.humandesign),
-      detail: explainHumanDesign(axis, results.humandesign),
+      detail: explainHumanDesign(axis, results.humandesign, t),
     });
   }
   if (results.colors) {
     contributions.push({
       framework: "colors",
       signal: colorSignal(axis.id, results.colors),
-      detail: explainColors(axis, results.colors),
+      detail: explainColors(axis, results.colors, t),
     });
   }
   return contributions;
@@ -289,19 +278,19 @@ function computeAxisScore(axis: AxisDefinition, results: PersonalityResults): nu
 // cutoffs instead of a hand-typed, driftable copy of them.
 export const AGREEMENT_SPREAD_THRESHOLDS = { agree: 40, mixed: 90 };
 
-function computeAgreement(contributions: AxisContribution[]): { agreement: AxisAgreement; agreementLabel: string } {
+function computeAgreement(contributions: AxisContribution[], t: Translator): { agreement: AxisAgreement; agreementLabel: string } {
   if (contributions.length < 2) {
-    return { agreement: "agree", agreementLabel: "Only one framework weighs in here." };
+    return { agreement: "agree", agreementLabel: t("scoring.agreement.onlyOne") };
   }
   const signals = contributions.map((c) => c.signal);
   const spread = Math.max(...signals) - Math.min(...signals);
   if (spread < AGREEMENT_SPREAD_THRESHOLDS.agree) {
-    return { agreement: "agree", agreementLabel: "Your frameworks agree here." };
+    return { agreement: "agree", agreementLabel: t("scoring.agreement.agree") };
   }
   if (spread < AGREEMENT_SPREAD_THRESHOLDS.mixed) {
-    return { agreement: "mixed", agreementLabel: "Your frameworks mostly agree, with some nuance." };
+    return { agreement: "mixed", agreementLabel: t("scoring.agreement.mixed") };
   }
-  return { agreement: "disagree", agreementLabel: "Your frameworks disagree here." };
+  return { agreement: "disagree", agreementLabel: t("scoring.agreement.disagree") };
 }
 
 // Who a tier's sentence (and the other hand-written explanation copy in
@@ -315,248 +304,58 @@ function computeAgreement(contributions: AxisContribution[]): { agreement: AxisA
 // people (see PersonalityGraphCard's `subject` prop).
 export type Subject = "you" | "he" | "she";
 
-export interface PronounSet {
-  subj: string; // he / she / you
-  Subj: string; // He / She / You
-  poss: string; // his / her / your
-  Poss: string; // His / Her / Your
-  obj: string; // him / her / you
-  isAre: string; // is / is / are
-  contractIs: string; // he's / she's / you're
-  ContractIs: string; // He's / She's / You're
-  Would: string; // He'd / She'd / You'd
-}
-
-const PRONOUNS: Record<Subject, PronounSet> = {
-  you: { subj: "you", Subj: "You", poss: "your", Poss: "Your", obj: "you", isAre: "are", contractIs: "you're", ContractIs: "You're", Would: "You'd" },
-  he: { subj: "he", Subj: "He", poss: "his", Poss: "His", obj: "him", isAre: "is", contractIs: "he's", ContractIs: "He's", Would: "He'd" },
-  she: { subj: "she", Subj: "She", poss: "her", Poss: "Her", obj: "her", isAre: "is", contractIs: "she's", ContractIs: "She's", Would: "She'd" },
+// Upper bound (inclusive) of each of the 4 axes' 5 tiers, Infinity for the
+// last — index into this array is the stable key for scoring.tiers.<axisId>
+// content (tierLabel/sentence/sentenceThird), since the label text itself
+// can no longer be used as a lookup key once it's translated.
+const TIER_MAX: Record<AxisId, number[]> = {
+  energy: [-60, -25, 25, 60, Infinity],
+  structure: [-60, -25, 25, 60, Infinity],
+  people: [-60, -25, 25, 60, Infinity],
+  novelty: [-60, -25, 25, 60, Infinity],
 };
 
-export function pronounsFor(subject: Subject): PronounSet {
-  return PRONOUNS[subject];
+function tierIndexFor(axisId: AxisId, score: number): number {
+  const maxes = TIER_MAX[axisId];
+  const index = maxes.findIndex((max) => score <= max);
+  return index === -1 ? maxes.length - 1 : index;
 }
-
-interface Tier {
-  max: number; // upper bound of this tier (inclusive), Infinity for the last
-  tierLabel: string;
-  /** Always the "you" copy — every existing caller of tier.sentence()/computeScoringMatrix keeps reading this, unchanged. */
-  sentence: (axis: AxisDefinition) => string;
-  /** Same sentence, addressed to a third party — only used by axisSentenceFor below, for the personality graph's famous-person view. */
-  sentenceThird: (p: PronounSet) => string;
-}
-
-const TIERS: Record<AxisId, Tier[]> = {
-  energy: [
-    {
-      max: -60,
-      tierLabel: "Strongly inward",
-      sentence: () =>
-        "Across your results, energy consistently runs inward — you do your best thinking alone or in very small groups, and recover by stepping out of the noise, not into it.",
-      sentenceThird: (p) =>
-        `Across ${p.poss} results, energy consistently runs inward — ${p.subj} does ${p.poss} best thinking alone or in very small groups, and recovers by stepping out of the noise, not into it.`,
-    },
-    {
-      max: -25,
-      tierLabel: "Leans inward",
-      sentence: () =>
-        "Your energy leans inward more often than not — you can perform outwardly when needed, but quiet, low-stimulation time is where you actually recharge.",
-      sentenceThird: (p) =>
-        `${p.Poss} energy leans inward more often than not — ${p.subj} can perform outwardly when needed, but quiet, low-stimulation time is where ${p.subj} actually recharges.`,
-    },
-    {
-      max: 25,
-      tierLabel: "Situational",
-      sentence: () =>
-        "Your energy reads as genuinely situational — outward and engaged in the right context, inward and conserving in others, rather than fixed either way.",
-      sentenceThird: (p) =>
-        `${p.Poss} energy reads as genuinely situational — outward and engaged in the right context, inward and conserving in others, rather than fixed either way.`,
-    },
-    {
-      max: 60,
-      tierLabel: "Leans outward",
-      sentence: () =>
-        "Your energy leans outward more often than not — people and momentum tend to add to your tank rather than drain it.",
-      sentenceThird: (p) =>
-        `${p.Poss} energy leans outward more often than not — people and momentum tend to add to ${p.poss} tank rather than drain it.`,
-    },
-    {
-      max: Infinity,
-      tierLabel: "Strongly outward",
-      sentence: () =>
-        "Across your results, energy consistently runs outward — you're genuinely recharged by people and momentum, not just tolerant of them.",
-      sentenceThird: (p) =>
-        `Across ${p.poss} results, energy consistently runs outward — ${p.contractIs} genuinely recharged by people and momentum, not just tolerant of them.`,
-    },
-  ],
-  structure: [
-    {
-      max: -60,
-      tierLabel: "Strongly emergent",
-      sentence: () =>
-        "You operate almost entirely in the moment — plans are loose scaffolding at best, and you do your best work responding to what's actually in front of you.",
-      sentenceThird: (p) =>
-        `${p.Subj} operates almost entirely in the moment — plans are loose scaffolding at best, and ${p.subj} does ${p.poss} best work responding to what's actually in front of ${p.obj}.`,
-    },
-    {
-      max: -25,
-      tierLabel: "Leans emergent",
-      sentence: () =>
-        "You lean toward staying flexible and responsive, following the moment more often than a plan drawn up in advance.",
-      sentenceThird: (p) =>
-        `${p.Subj} leans toward staying flexible and responsive, following the moment more often than a plan drawn up in advance.`,
-    },
-    {
-      max: 25,
-      tierLabel: "Balanced",
-      sentence: () =>
-        "You move between planning ahead and staying open to the moment, picking whichever the situation actually calls for.",
-      sentenceThird: (p) =>
-        `${p.Subj} moves between planning ahead and staying open to the moment, picking whichever the situation actually calls for.`,
-    },
-    {
-      max: 60,
-      tierLabel: "Leans planned",
-      sentence: () =>
-        "You lean toward planning things out — you're capable of improvising, but you do your best work with some structure already in place.",
-      sentenceThird: (p) =>
-        `${p.Subj} leans toward planning things out — ${p.contractIs} capable of improvising, but ${p.subj} does ${p.poss} best work with some structure already in place.`,
-    },
-    {
-      max: Infinity,
-      tierLabel: "Strongly planned",
-      sentence: () =>
-        "Structure is a consistent thread across your results — you plan ahead, follow through, and feel most capable when the shape of things is already clear.",
-      sentenceThird: (p) =>
-        `Structure is a consistent thread across ${p.poss} results — ${p.subj} plans ahead, follows through, and feels most capable when the shape of things is already clear.`,
-    },
-  ],
-  people: [
-    {
-      max: -60,
-      tierLabel: "Strongly task-focused",
-      sentence: () =>
-        "Across your results, you consistently prioritize the work itself over managing how people feel about it — clarity and results come first.",
-      sentenceThird: (p) =>
-        `Across ${p.poss} results, ${p.subj} consistently prioritizes the work itself over managing how people feel about it — clarity and results come first.`,
-    },
-    {
-      max: -25,
-      tierLabel: "Leans task-focused",
-      sentence: () =>
-        "You lean toward prioritizing the task at hand, though you're not indifferent to the people involved — just not led by it.",
-      sentenceThird: (p) =>
-        `${p.Subj} leans toward prioritizing the task at hand, though ${p.contractIs} not indifferent to the people involved — just not led by it.`,
-    },
-    {
-      max: 25,
-      tierLabel: "Balanced",
-      sentence: () =>
-        "You balance people and task fairly evenly — neither consistently overrides the other in how you operate.",
-      sentenceThird: (p) =>
-        `${p.Subj} balances people and task fairly evenly — neither consistently overrides the other in how ${p.subj} operates.`,
-    },
-    {
-      max: 60,
-      tierLabel: "Leans people-focused",
-      sentence: () =>
-        "You lean toward prioritizing the people in the room — decisions tend to get filtered through how they'll land on others.",
-      sentenceThird: (p) =>
-        `${p.Subj} leans toward prioritizing the people in the room — decisions tend to get filtered through how they'll land on others.`,
-    },
-    {
-      max: Infinity,
-      tierLabel: "Strongly people-focused",
-      sentence: () =>
-        "Across your results, people consistently come first — you read the room, protect relationships, and let that shape almost every call you make.",
-      sentenceThird: (p) =>
-        `Across ${p.poss} results, people consistently come first — ${p.subj} reads the room, protects relationships, and lets that shape almost every call ${p.subj} makes.`,
-    },
-  ],
-  novelty: [
-    {
-      max: -60,
-      tierLabel: "Strongly grounded",
-      sentence: () =>
-        "You consistently favor the proven and concrete over the untested — new ideas earn trust by demonstrating they work, not by being new.",
-      sentenceThird: (p) =>
-        `${p.Subj} consistently favors the proven and concrete over the untested — new ideas earn trust by demonstrating they work, not by being new.`,
-    },
-    {
-      max: -25,
-      tierLabel: "Leans grounded",
-      sentence: () =>
-        "You lean toward the practical and familiar, though you're not closed to new ideas once they've shown some substance.",
-      sentenceThird: (p) =>
-        `${p.Subj} leans toward the practical and familiar, though ${p.contractIs} not closed to new ideas once they've shown some substance.`,
-    },
-    {
-      max: 25,
-      tierLabel: "Balanced",
-      sentence: () =>
-        "You move between the familiar and the experimental depending on the stakes, rather than defaulting to either.",
-      sentenceThird: (p) =>
-        `${p.Subj} moves between the familiar and the experimental depending on the stakes, rather than defaulting to either.`,
-    },
-    {
-      max: 60,
-      tierLabel: "Leans exploratory",
-      sentence: () =>
-        "You lean toward the new and untested — novelty tends to pull your attention more than routine does.",
-      sentenceThird: (p) =>
-        `${p.Subj} leans toward the new and untested — novelty tends to pull ${p.poss} attention more than routine does.`,
-    },
-    {
-      max: Infinity,
-      tierLabel: "Strongly exploratory",
-      sentence: () =>
-        "Across your results, you're consistently drawn to the unfamiliar — new ideas, new angles, and new possibilities are where your energy naturally goes.",
-      sentenceThird: (p) =>
-        `Across ${p.poss} results, ${p.contractIs} consistently drawn to the unfamiliar — new ideas, new angles, and new possibilities are where ${p.poss} energy naturally goes.`,
-    },
-  ],
-};
 
 /**
  * The tier sentence for one axis, addressed to whichever `subject` the
  * caller needs — "you" just returns the axis's own canonical sentence
- * (already computed by computeScoringMatrix), while "he"/"she" re-derives
- * the matching tier by its label and renders the third-person copy above.
- * Only the personality graph calls this with a non-"you" subject (see
+ * (already computed by computeScoringMatrix), while "he"/"she" looks up the
+ * matching tier's third-person copy by its stable index. Only the
+ * personality graph calls this with a non-"you" subject (see
  * PersonalityGraphCard); every other consumer of AxisScore.sentence is
  * unaffected.
  */
-export function axisSentenceFor(axisId: AxisId, tierLabel: string, subject: Subject, selfSentence: string): string {
+export function axisSentenceFor(axisId: AxisId, tierIndex: number, subject: Subject, selfSentence: string, t: Translator): string {
   if (subject === "you") return selfSentence;
-  const tier = TIERS[axisId]?.find((t) => t.tierLabel === tierLabel);
-  return tier ? tier.sentenceThird(pronounsFor(subject)) : selfSentence;
-}
-
-function tierFor(axis: AxisDefinition, score: number): Tier {
-  const tiers = TIERS[axis.id];
-  return tiers.find((t) => score <= t.max) ?? tiers[tiers.length - 1];
+  return t(`scoring.tiers.${axisId}.${tierIndex}.sentenceThird.${subject}`);
 }
 
 // Computes the full axis matrix for whichever frameworks are completed.
 // Returns only axes that had at least one contributing framework (always
 // all four in practice, since the combined profile requires 2+ completed
 // assessments and every framework contributes to every axis).
-export function computeScoringMatrix(results: PersonalityResults): AxisScore[] {
+export function computeScoringMatrix(results: PersonalityResults, t: Translator): AxisScore[] {
   const out: AxisScore[] = [];
   for (const axis of AXES) {
     const score = computeAxisScore(axis, results);
     if (score === null) continue;
-    const tier = tierFor(axis, score);
-    const contributions = computeAxisContributions(axis, results);
-    const { agreement, agreementLabel } = computeAgreement(contributions);
+    const tierIndex = tierIndexFor(axis.id, score);
+    const contributions = computeAxisContributions(axis, results, t);
+    const { agreement, agreementLabel } = computeAgreement(contributions, t);
     out.push({
       id: axis.id,
-      label: axis.label,
-      leftPole: axis.leftPole,
-      rightPole: axis.rightPole,
+      label: t(`scoring.axes.${axis.id}.label`),
+      leftPole: t(`scoring.axes.${axis.id}.leftPole`),
+      rightPole: t(`scoring.axes.${axis.id}.rightPole`),
       score,
-      tierLabel: tier.tierLabel,
-      sentence: tier.sentence(axis),
+      tierIndex,
+      tierLabel: t(`scoring.tiers.${axis.id}.${tierIndex}.tierLabel`),
+      sentence: t(`scoring.tiers.${axis.id}.${tierIndex}.sentence`),
       contributions,
       agreement,
       agreementLabel,

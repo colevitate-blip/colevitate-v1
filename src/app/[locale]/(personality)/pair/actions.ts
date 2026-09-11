@@ -1,5 +1,6 @@
 "use server";
 
+import { getTranslations, getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { generateCombinedProfile } from "@/components/personality/combined/generateCombinedProfile";
 import { computeScoringMatrix, type AxisScore } from "@/components/personality/combined/scoringMatrix";
@@ -43,12 +44,14 @@ export async function createPairingInvite(relationshipType: RelationshipType) {
     .maybeSingle();
 
   const results = (profile?.results as PersonalityResults) || {};
-  const combinedProfile = generateCombinedProfile(results);
+  const t = await getTranslations();
+  const locale = await getLocale();
+  const combinedProfile = generateCombinedProfile(results, t, locale);
   if (!combinedProfile) {
     throw new Error("Complete at least 2 assessments before inviting someone to compare");
   }
 
-  const axes = toAxisSnapshot(computeScoringMatrix(results));
+  const axes = toAxisSnapshot(computeScoringMatrix(results, t));
   const displayName = profile?.display_name || user.user_metadata?.full_name || null;
 
   let pairing: { id: string; invite_code: string } | null = null;
@@ -93,12 +96,14 @@ export async function acceptPairingInvite(code: string, shareLevel: ShareLevel) 
     .maybeSingle();
 
   const results = (profile?.results as PersonalityResults) || {};
-  const combinedProfile = generateCombinedProfile(results);
+  const t = await getTranslations();
+  const locale = await getLocale();
+  const combinedProfile = generateCombinedProfile(results, t, locale);
   if (!combinedProfile) {
     throw new Error("Complete at least 2 assessments before comparing");
   }
 
-  const axes = toAxisSnapshot(computeScoringMatrix(results));
+  const axes = toAxisSnapshot(computeScoringMatrix(results, t));
   const displayName = profile?.display_name || user.user_metadata?.full_name || null;
 
   // Security-definer RPC — the only path that can ever set invitee_id/

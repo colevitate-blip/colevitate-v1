@@ -1,0 +1,95 @@
+{
+  "ui": {
+    "overview": "Aperçu",
+    "combinedProfileBadge": "Profil Combiné",
+    "shareTitle": "Mon profil Personality Studio",
+    "inviteErrorFallback": "Une erreur est survenue lors de la création de l'invitation. Réessayez.",
+    "linkCopied": "Lien copié",
+    "exportAsLink": "Exporter en lien",
+    "inviteCreated": "Invitation créée",
+    "compareWithSomeone": "Comparer avec quelqu'un",
+    "compareExplainer": "Nous créerons un lien privé à leur envoyer. Une fois qu'ils auront terminé leurs propres évaluations et accepté, vous pourrez tous les deux débloquer un rapport de compatibilité.",
+    "whoComparing": "Avec qui comparez-vous ?",
+    "exportAsPdf": "Exporter en PDF",
+    "saveShare": "Enregistrer / Partager",
+    "inviteErrorPrefix": "Impossible de créer l'invitation : {error}",
+    "dismiss": "Ignorer",
+    "inviteLinkCopied": "Lien d'invitation copié — envoyez-le à la personne ({relationshipLabel}) avec qui vous voulez comparer.",
+    "inviteFollowUp": "Une fois qu'ils auront terminé leurs propres évaluations et accepté, vous pourrez tous les deux débloquer un rapport de compatibilité. Retrouvez-le à tout moment dans",
+    "comparisonsLink": "Comparaisons",
+    "copyAgain": "Copier à nouveau",
+    "copied": "Copié",
+    "whereLensesAgree": "Là où vos regards se rejoignent",
+    "howThisIsCalculated": "Comment ce calcul fonctionne",
+    "lensesAgreeIntro": "Sur certains points, tous vos regards convergent presque au même endroit — c'est un signal fort. Sur d'autres, ils tirent dans des directions différentes, et ce n'est généralement pas une contradiction, c'est simplement vous, une personne entière, selon le contexte. Voici ce qui se cache réellement derrière le titre ci-dessus.",
+    "howYouveMoved": "Comment Vous Avez Évolué",
+    "firstSnapshot": "Voici qui vous êtes, aujourd'hui. Refaites n'importe quel regard dans quelques mois et nous vous montrerons exactement ce qui a changé — et ce qui n'a pas changé.",
+    "movedAcross": "Comment chaque axe a évolué au fil de vos {count} évaluations complétées, de la plus ancienne à la plus récente.",
+    "whereToLeanIn": "Sur Quoi Vous Concentrer",
+    "wantMore": "Envie d'aller plus loin que cette page ?",
+    "deepDiveExplainer": "Le Rapport Approfondi développe l'adéquation professionnelle, les schémas relationnels et les axes de progression en une lecture plus longue, assistée par IA et ancrée dans vos propres scores.",
+    "unlockDeepDive": "Débloquer le Rapport Approfondi",
+    "whereThisMightFit": "Où Cela Pourrait Vous Correspondre",
+    "roleFitIntro": "Rôles et styles de travail qui ont tendance à convenir à {name}.",
+    "roleFitFallback": "votre combinaison de traits",
+    "strengths": "Forces",
+    "growthAreas": "Axes de progression",
+    "yourFourLenses": "Vos Quatre Regards",
+    "disclaimer": "Ceci est notre synthèse de vos quatre résultats, pas une mesure de laboratoire — conçue pour vous aider à voir le schéma d'ensemble, pas à vous noter dessus.",
+    "notReadyTitle": "Pas encore tout à fait prêt",
+    "notReadyBody": "Terminez au moins une évaluation pour commencer à construire votre profil combiné.",
+    "backToAssessments": "Retour aux évaluations",
+    "partial": {
+      "oneOfFourComplete": "1 évaluation sur 4 terminée",
+      "alreadyKnowTitle": "Voici ce que nous savons déjà de vous",
+      "alreadyKnowBody": "Le profil combiné complet entrelace les quatre modèles ensemble — mais votre résultat {label} raconte déjà une partie de l'histoire.",
+      "completeNext": "Terminez {label} ensuite pour commencer à voir où vos modèles se rejoignent — et où ils divergent.",
+      "continueWith": "Continuer avec {label}"
+    },
+    "dailyInsight": {
+      "todayFor": "Aujourd'hui, pour {name}"
+    },
+    "shareCard": {
+      "yourArchetype": "Votre Archétype",
+      "footer": "Personality Studio"
+    },
+    "graphCard": {
+      "title": "Comment Tout Se Connecte",
+      "groupBySpectrum": "Regrouper par spectre",
+      "recenter": "Recentrer",
+      "recenterAriaLabel": "Recentrer le graphique — réinitialiser le déplacement et le zoom sans déplacer les points",
+      "howToRead": "Comment lire ce graphique",
+      "legendIntroQuadrant": ", un par quadrant. Tout le reste se situe dans le spectre qu'il alimente.",
+      "legendIntroFramework": ", comme la mesure dans laquelle votre énergie pointe vers l'extérieur ou l'intérieur. Tout le reste se regroupe selon le modèle dont il provient.",
+      "legendIntroPart1": "Le grand point est votre archétype global. Les points moyens sont vos 4",
+      "spectrumsStrong": "spectres",
+      "legendIntroPart2": "— les échelles centrales par rapport auxquelles tout le reste est mesuré",
+      "legendSize": "Taille = degré de centralité dans votre profil",
+      "legendLines": "Lignes = ce qui alimente quoi",
+      "legendPosition": "Position = lequel de vos 4 spectres",
+      "legendHover": "Survolez un point pour voir les détails"
+    },
+    "pdf": {
+      "combinedProfileBadge": "Profil Combiné",
+      "whereLensesAgree": "Là où vos regards se rejoignent",
+      "whereToLeanIn": "Sur Quoi Vous Concentrer",
+      "whereThisMightFit": "Où Cela Pourrait Vous Correspondre",
+      "strengths": "Forces",
+      "growthAreas": "Axes de Progression",
+      "yourFourLenses": "Vos Quatre Regards",
+      "footer": "Ceci est notre synthèse de vos quatre résultats, pas une mesure de laboratoire — conçue pour vous aider à voir le schéma d'ensemble, pas à vous noter dessus. Généré par Colevitate le {date}."
+    }
+  },
+  "narrative": {
+    "subtitle": "Tissé à partir de {count} évaluations sur 4",
+    "sourcesLine": "Construit à partir de {count} regards sur 4 — {list}",
+    "opening": "Voici les contours de qui vous êtes : vous {clauses}.",
+    "openingClause": {
+      "mbti": "vous présentez comme {name} ({code})",
+      "bigfive": "portez le tempérament de {name} dans votre façon d'agir au quotidien",
+      "humandesign": "fonctionnez à l'énergie {name}, conçu pour {strategy}",
+      "colors": "menez avec l'énergie {name} dans votre façon d'être avec les autres"
+    },
+    "sharedGrowth": "Chez {labels}, le même axe de progression revient sans cesse : {theme}. Quand deux modèles indépendants pointent vers la même chose, c'est généralement là que se concentrer a le plus d'effet."
+  }
+}

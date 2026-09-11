@@ -48,6 +48,7 @@ export async function SiteHeader() {
           <ThemeToggle />
           <MobileNavMenu
             menuLabel={t("menuLabel")}
+            closeMenuLabel={t("closeMenuLabel")}
             discoverLabel={t("discoverLink")}
             peopleLabel={t("peopleLink")}
             typesLabel={t("typesLink")}

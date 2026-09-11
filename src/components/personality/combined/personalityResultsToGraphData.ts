@@ -7,6 +7,8 @@ import type {
 } from "@/lib/personality/types";
 import type { GraphData } from "@/components/graph/types";
 import type { CombinedProfile } from "./generateCombinedProfile";
+import type { Translator } from "./scoringMatrix";
+import { getArchetypeKey } from "./archetypeMatrix";
 import { MBTI_QUESTIONS } from "@/components/personality/mbti/questions";
 import { BIG_FIVE_QUESTIONS } from "@/components/personality/bigfive/questions";
 import { HD_QUESTIONS } from "@/components/personality/humandesign/questions";
@@ -47,6 +49,7 @@ interface AxisNode extends Record<string, unknown> {
   score: number;
   leftPole: string;
   rightPole: string;
+  tierIndex: number;
   tierLabel: string;
   sentence: string;
 }
@@ -56,6 +59,8 @@ interface ArchetypeNode extends Record<string, unknown> {
   kind: "archetype";
   label: string;
   description: string;
+  /** Stable 4-letter bucket key (e.g. "EMFX") — used to look up translated third-person copy, since the label itself is now display text, not a key. */
+  archetypeKey: string;
   /** Every framework that fed this archetype — lets the click-gradient blend all of them, not just one. */
   frameworks: AssessmentId[];
 }
@@ -88,48 +93,6 @@ const TRAIT_TO_AXIS: Record<TraitId, AxisId> = {
   yellow: "novelty",
 };
 
-const TRAIT_LABELS: Record<TraitId, string> = {
-  EI: "Extraversion/Introversion",
-  SN: "Sensing/Intuition",
-  TF: "Thinking/Feeling",
-  JP: "Judging/Perceiving",
-  openness: "Openness",
-  conscientiousness: "Conscientiousness",
-  extraversion: "Extraversion",
-  agreeableness: "Agreeableness",
-  neuroticism: "Neuroticism",
-  generator: "Generator",
-  "manifesting-generator": "Manifesting Generator",
-  manifestor: "Manifestor",
-  projector: "Projector",
-  reflector: "Reflector",
-  red: "Red",
-  blue: "Blue",
-  green: "Green",
-  yellow: "Yellow",
-};
-
-const TRAIT_DESCRIPTIONS: Record<TraitId, string> = {
-  EI: "Whether you draw energy from engaging with the outer world (Extraversion) or from time alone with your own thoughts (Introversion).",
-  SN: "Whether you trust concrete, present detail (Sensing) or patterns and possibilities (Intuition).",
-  TF: "Whether decisions lean on logical consistency (Thinking) or on impact and values (Feeling).",
-  JP: "Whether you prefer things settled and planned (Judging) or open and flexible (Perceiving).",
-  openness: "How drawn you are to new ideas and unconventional thinking versus the practical and familiar.",
-  conscientiousness: "How organized, disciplined, and goal-directed you tend to be.",
-  extraversion: "How much social engagement and stimulation energize you, versus drain you.",
-  agreeableness: "How much you prioritize cooperation and others' feelings versus your own agenda.",
-  neuroticism: "How easily you experience stress, worry, or emotional volatility.",
-  generator: "A Human Design type built to respond to what shows up, generating energy by engaging with what lights you up.",
-  "manifesting-generator": "A Human Design type combining a Generator's response-driven energy with a Manifestor's instinct to initiate.",
-  manifestor: "A Human Design type built to initiate — you act first and inform others, rather than waiting to respond.",
-  projector: "A Human Design type built to guide and see systems clearly, working best when invited rather than pushing.",
-  reflector: "A rare Human Design type that reflects the health of the people and environment around them.",
-  red: "A color-type energy centered on drive, urgency, and getting things done now.",
-  blue: "A color-type energy centered on precision, structure, and doing things correctly.",
-  green: "A color-type energy centered on harmony, support, and steady relationships.",
-  yellow: "A color-type energy centered on optimism, spontaneity, and connecting with people.",
-};
-
 const KIND_ORDER: Record<NodeType["kind"], number> = {
   question: 0,
   trait: 1,
@@ -143,7 +106,8 @@ const BIG_FIVE_TRAITS: TraitId[] = ["openness", "conscientiousness", "extraversi
 export function personalityResultsToGraphData(
   progress: ProgressMap,
   results: PersonalityResults,
-  combinedProfile: CombinedProfile
+  combinedProfile: CombinedProfile,
+  t: Translator
 ): GraphData {
   const nodes: NodeType[] = [];
   const links: Array<{ source: string | number; target: string | number }> = [];
@@ -164,8 +128,8 @@ export function personalityResultsToGraphData(
     nodes.push({
       id,
       kind: "trait",
-      label: TRAIT_LABELS[id],
-      description: TRAIT_DESCRIPTIONS[id],
+      label: t(`graph.traits.${id}.label`),
+      description: t(`graph.traits.${id}.description`),
       framework,
       axisId: TRAIT_TO_AXIS[id],
       ...personalization,
@@ -271,6 +235,7 @@ export function personalityResultsToGraphData(
       score: axis.score,
       leftPole: axis.leftPole,
       rightPole: axis.rightPole,
+      tierIndex: axis.tierIndex,
       tierLabel: axis.tierLabel,
       sentence: axis.sentence,
     };
@@ -296,11 +261,13 @@ export function personalityResultsToGraphData(
   // built from the 4 spectrums, not from which frameworks happen to be
   // completed, so that's what it connects to.
   if (combinedProfile.archetype) {
+    const archetypeKey = getArchetypeKey(combinedProfile.axes) ?? "";
     const archetypeNode: ArchetypeNode = {
       id: "archetype",
       kind: "archetype",
       label: combinedProfile.archetype.name,
       description: combinedProfile.archetype.description,
+      archetypeKey,
       frameworks: combinedProfile.threads.map((t) => t.id),
     };
     nodes.push(archetypeNode);

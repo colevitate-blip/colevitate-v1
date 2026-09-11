@@ -1,0 +1,138 @@
+{
+  "axisPrompts": {
+    "energy": [
+      "Plane bewusst Zeit für dich allein ein, bevor du erschöpft bist, statt dich erst zurückzuziehen, wenn soziale Kontakte dich schon ausgelaugt haben.",
+      "Blocke dir vor einer anstrengenden sozialen Phase auf beiden Seiten einen kurzen Puffer ruhiger Zeit — wenn du dein Erholungsfenster schützt, bleibt dein Einsatz nach außen tragfähig.",
+      "Achte darauf, welche Situationen dich wirklich auslaugen und welche dir Energie geben, und triff deine Verpflichtungen bewusst danach, statt aus reiner Gewohnheit.",
+      "Baue gelegentlich Zeit allein ein, auch wenn du glaubst, sie nicht zu brauchen — nach außen gerichtete Energie kann Erschöpfung verdecken, bis sie dich unerwartet einholt.",
+      "Übe dich in kleinen Dosen darin, Stille oder Alleinsein auszuhalten — das ist ein Muskel, den es sich zu trainieren lohnt, auch wenn er nicht dein natürlicher Ort ist."
+    ],
+    "structure": [
+      "Verankere nur einen Teil deines Tages in einer festen Routine — eine einzige beständige Gewohnheit gibt deinem spontanen Stil etwas, wovon er sich abstoßen kann, ohne dich einzuengen.",
+      "Wähle eine wiederkehrende Verpflichtung pro Woche und behandle sie als nicht verhandelbar — eine kleine Dosis Struktur summiert sich, ohne eine komplette Umstellung deiner Planung zu verlangen.",
+      "Erkenne, welche Situationen einen Plan brauchen und welche Improvisation, und triff diese Entscheidung bewusst im Voraus, statt sie einfach geschehen zu lassen.",
+      "Lasse bewusst einen Block unverplanter Zeit in deiner Woche — übe dich darin, das Unbehagen auszuhalten, es nicht durchgeplant zu haben.",
+      "Wenn ein Plan scheitert, behandle das als Information statt als Misserfolg — mach es dir zur Gewohnheit, mittendrin anzupassen, statt komplett neu zu planen."
+    ],
+    "people": [
+      "Bevor du hartes Feedback gibst oder eine Entscheidung mitteilst, halte kurz inne und sprich aus, wie sie bei der anderen Person ankommen könnte — nicht um die Entscheidung zu ändern, sondern nur, um es zu sehen.",
+      "Stell bei deiner nächsten Meinungsverschiedenheit zuerst eine ehrliche Frage danach, was für die andere Person auf dem Spiel steht, bevor du deine Position darlegst.",
+      "Bemerke, wann du zwischen Aufgaben-Modus und Menschen-Modus wechselst, und entscheide bewusst, welcher Modus ein bestimmter Moment wirklich verlangt.",
+      "Übe dich darin, diese Woche eine Entscheidung rein danach zu treffen, was am effektivsten ist — auch wenn das nicht die beliebteste Wahl im Raum ist.",
+      "Setze diese Woche eine Grenze, bei der die Aufgabe wirklich Vorrang haben muss — achte darauf, wie es sich anfühlt, diese Linie zu halten."
+    ],
+    "novelty": [
+      "Probiere diese Woche bewusst eine kleine, unbekannte Sache aus — mit wenig auf dem Spiel, nur um den Muskel des Neuen zu trainieren.",
+      "Gib einer neuen Idee eine echte Chance, bevor du sie verwirfst — ein kurzer Testlauf, keine volle Verpflichtung, reicht schon aus, um sie wirklich zu prüfen.",
+      "Bemerke, ob du aus reiner Gewohnheit oder aus echtem Urteilsvermögen zum Vertrauten greifst, und überprüfe diese Wahl gelegentlich.",
+      "Bevor du der nächsten neuen Idee hinterherjagst, bring eine bereits begonnene zu Ende — Neues ist wertvoller, wenn es mit Durchhaltevermögen gepaart ist.",
+      "Wähle eine aktuelle Idee aus und verpflichte dich, sie über den spannenden Teil hinaus zu Ende zu bringen — übe dich darin, dranzubleiben, wenn der Reiz des Neuen nachlässt."
+    ]
+  },
+  "careerSuggestions": {
+    "IMTG": [
+      "Selbstständige oder spezialisierte Tätigkeiten, bei denen die Arbeit für sich spricht",
+      "Handwerkliche Berufe — Schreinerei, Präzisionstechnik, technisches Schreiben",
+      "Vertiefte Fachlaufbahnen statt Führungsverantwortung",
+      "Qualitätssicherung oder präzisionsorientierte technische Arbeit"
+    ],
+    "IMTX": [
+      "Forschungs- und Entwicklungs- oder Prototyping-Rollen mit Raum zum Experimentieren",
+      "Softwareentwicklung im Alleingang oder unabhängige Projekte",
+      "Angewandte Forschung",
+      "Produkttüftelei oder Hardware-Hacking-Rollen"
+    ],
+    "IMFG": [
+      "Beratung, Coaching oder Eins-zu-eins-Unterstützung",
+      "Fallmanagement",
+      "Gemeinde- oder seelsorgerische Arbeit",
+      "Customer-Success-Rollen, die auf ruhigem, beständigem Vertrauen aufbauen"
+    ],
+    "IMFX": [
+      "Reisejournalismus oder Dokumentararbeit",
+      "Nutzerforschung oder ethnografische Forschung",
+      "Freiberufliche kreative Arbeit mit menschenzentrierten Themen",
+      "Kleine, persönliche Gemeinschaftsarbeit"
+    ],
+    "IPTG": [
+      "Systemarchitektur oder Infrastruktur-Engineering",
+      "Versicherungsmathematik oder Finanzanalyse",
+      "Technische Projektplanung",
+      "Prozess- oder Qualitätsengineering"
+    ],
+    "IPTX": [
+      "Forschungs- und Entwicklungs-Engineering mit formaler Strenge",
+      "Produktarchitektur für neue Kategorien",
+      "Wissenschaftliche Forschung mit strukturierter Methodik",
+      "Erfinderische Arbeit mit Blick auf Patente"
+    ],
+    "IPFG": [
+      "Gesundheitsberufe mit gleichbleibendem Arbeitsaufkommen",
+      "Operative Rollen zur Unterstützung eines stabilen Teams",
+      "Verwaltungsrollen in einer sinngetriebenen Organisation",
+      "Koordination von Familien- oder Altenpflege"
+    ],
+    "IPFX": [
+      "Strategische Planung für menschenzentrierte Organisationen (Non-Profits, Bildung)",
+      "Langfristige HR- oder Organisationsentwicklungsarbeit",
+      "Lehrplanentwicklung",
+      "Zukunfts- oder Foresight-Forschung"
+    ],
+    "EMTG": [
+      "Einsatz vor Ort oder praktische Projektumsetzung",
+      "Vertriebsrollen mit schnellem Feedback",
+      "Krisen- oder Notfalleinsatzarbeit",
+      "Praktische Handwerksberufe mit Kundenkontakt"
+    ],
+    "EMTX": [
+      "Startup-Gründung oder Rollen in der Frühphase",
+      "Wachstums- oder experimentgetriebenes Marketing",
+      "Geschäftsentwicklung in neuen Märkten",
+      "Scouting oder explorativer Vertrieb"
+    ],
+    "EMFG": [
+      "Community-Management",
+      "Veranstaltungsmoderation oder Führung im Gastgewerbe",
+      "Team-Moderation",
+      "Führung im direkten Kundenkontakt"
+    ],
+    "EMFX": [
+      "Marken- oder kreatives Marketing",
+      "Improvisationsgetriebene Bühnenkunst oder Unterhaltung",
+      "Partnerschafts- und netzwerklastige Rollen",
+      "Live-Event-Produktion"
+    ],
+    "EPTG": [
+      "Betriebsmanagement",
+      "Programm- oder Projektmanagement",
+      "Logistikführung",
+      "Bau- oder Fertigungsmanagement"
+    ],
+    "EPTX": [
+      "Produktstrategie für neue Unternehmungen",
+      "Unternehmensberatung",
+      "Unternehmensstrategie in aufstrebenden Branchen",
+      "Leitung von Innovationsteams"
+    ],
+    "EPFG": [
+      "Gastgewerbe oder Account-Management",
+      "Büro- oder People-Operations-Leitung",
+      "Client-Success-Leitung",
+      "Koordination von Non-Profit-Programmen"
+    ],
+    "EPFX": [
+      "Geschäftsführung in einer wachstumsstarken Organisation",
+      "Öffentlichkeitswirksame Organisationsführung",
+      "Leitung großangelegter Veranstaltungen oder Kampagnen",
+      "Führung im Aufbau von Bewegungen oder in der Interessenvertretung"
+    ]
+  },
+  "themes": {
+    "conflict": "notwendige Konflikte zu vermeiden",
+    "perfectionism": "sich von Perfektionismus ausbremsen zu lassen",
+    "followThrough": "Durchhaltevermögen bei den unglamourösen Teilen eines Plans",
+    "personalizesFeedback": "Feedback persönlicher zu nehmen, als es gemeint war",
+    "overcommitment": "sich für die Bedürfnisse anderer zu sehr zu verausgaben",
+    "energyManagement": "Energiemanagement"
+  }
+}

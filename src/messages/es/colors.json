@@ -1,0 +1,68 @@
+{
+  "types": {
+    "red": {
+      "name": "Rojo — El Impulsor",
+      "tagline": "Audaz · Decidido · Orientado a Resultados",
+      "description": "Los Rojos se motivan por la acción y los resultados. Tomas decisiones rápido, atraviesas los obstáculos en lugar de rodearlos, y te sientes más vivo cuando estás haciendo avanzar una meta.",
+      "strengths": [
+        "Toma decisiones rápidas y seguras bajo presión",
+        "Impulsa los proyectos hacia adelante y se niega a dejar que el impulso se estanque",
+        "Se siente cómodo tomando el mando cuando la situación lo exige",
+        "Se mantiene enfocado en los resultados en vez de perderse en el proceso"
+      ],
+      "growth": [
+        "Puede parecer brusco o impaciente con procesos más lentos",
+        "Puede pasar por encima de los aportes de otros antes de escucharlos por completo",
+        "Bajar el ritmo por los detalles puede sentirse como tiempo perdido, aunque no lo sea"
+      ]
+    },
+    "blue": {
+      "name": "Azul — El Analista",
+      "tagline": "Preciso · Reflexivo · Confiable",
+      "description": "Los Azules se motivan por la precisión y la comprensión. Prefieres tomarte el tiempo necesario para hacer algo bien antes que apresurarte a una respuesta superficial, y la gente confía en tu juicio porque está cuidadosamente pensado.",
+      "strengths": [
+        "Detecta errores y vacíos que a las personas más rápidas se les escapan",
+        "Aporta un juicio cuidadoso y bien razonado a las decisiones",
+        "Entrega un trabajo consistentemente confiable y de alta calidad",
+        "Se mantiene calmado y objetivo cuando otros reaccionan emocionalmente"
+      ],
+      "growth": [
+        "Puede sobreanalizar y retrasar una decisión más allá del punto en que sigue siendo útil",
+        "Puede parecer reservado o difícil de leer emocionalmente",
+        "Sus altos estándares personales pueden aplicarse de forma demasiado rígida a los demás"
+      ]
+    },
+    "green": {
+      "name": "Verde — El Sostén",
+      "tagline": "Cálido · Paciente · Constante",
+      "description": "Los Verdes se motivan por la conexión y la estabilidad. Creas la presencia calmada y confiable que un equipo o una relación necesita, y te importa genuinamente cómo tus decisiones afectan a las personas que te rodean.",
+      "strengths": [
+        "Genera confianza y lealtad mediante un cuidado constante y genuino",
+        "Mantiene a los grupos calmados y cooperativos en momentos de tensión",
+        "Escucha bien y hace que la gente se sienta realmente escuchada",
+        "Ofrece un apoyo constante en el que otros pueden confiar"
+      ],
+      "growth": [
+        "Evitar el conflicto puede dejar problemas reales sin resolver durante demasiado tiempo",
+        "Puede poner las necesidades de otros por delante de las propias con demasiada frecuencia",
+        "Puede resistirse al cambio incluso cuando claramente ayudaría"
+      ]
+    },
+    "yellow": {
+      "name": "Amarillo — El Inspirador",
+      "tagline": "Enérgico · Sociable · Optimista",
+      "description": "Los Amarillos se motivan por la posibilidad y la conexión. Aportas entusiasmo a una sala, haces que la gente se sienta bien respecto a lo que viene, y floreces con la variedad, la espontaneidad y las experiencias nuevas.",
+      "strengths": [
+        "Energiza y motiva a la gente que te rodea",
+        "Genera cercanía con gente nueva rápida y genuinamente",
+        "Ve posibilidades emocionantes que a otros se les escapan en el momento",
+        "Se adapta con facilidad y mantiene alta la moral durante el cambio"
+      ],
+      "growth": [
+        "El seguimiento puede quedar rezagado frente al entusiasmo de una idea nueva",
+        "Puede perder el enfoque en los detalles de una tarea larga y poco atractiva",
+        "El entusiasmo puede necesitar moderarse para encajar en momentos más serios"
+      ]
+    }
+  }
+}

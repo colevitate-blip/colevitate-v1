@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowLeft, Sparkles } from "lucide-react";
+import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { usePersonality } from "@/lib/personality/context";
@@ -13,6 +14,8 @@ import { generateCombinedProfile } from "@/components/personality/combined/gener
 export default function CombinedProfilePage() {
   const { mounted, results, completedIds, progress } = usePersonality();
   const { user, authLoading } = useAuth();
+  const t = useTranslations();
+  const locale = useLocale();
 
   if (!mounted) return null;
 
@@ -22,14 +25,14 @@ export default function CombinedProfilePage() {
         <div className="flex size-14 items-center justify-center rounded-2xl bg-muted">
           <Sparkles className="size-6 text-muted-foreground" />
         </div>
-        <h1 className="mt-6 text-2xl font-semibold tracking-tight">Not quite ready yet</h1>
+        <h1 className="mt-6 text-2xl font-semibold tracking-tight">{t("combined.ui.notReadyTitle")}</h1>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-          Complete at least one assessment to start building your combined profile.
+          {t("combined.ui.notReadyBody")}
         </p>
         <Button asChild className="mt-6 rounded-full">
           <Link href="/">
             <ArrowLeft className="size-4" />
-            Back to assessments
+            {t("combined.ui.backToAssessments")}
           </Link>
         </Button>
       </div>
@@ -47,7 +50,7 @@ export default function CombinedProfilePage() {
     );
   }
 
-  const profile = generateCombinedProfile(results);
+  const profile = generateCombinedProfile(results, t, locale);
   if (!profile) return null;
 
   return (

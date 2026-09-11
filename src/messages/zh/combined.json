@@ -1,0 +1,95 @@
+{
+  "ui": {
+    "overview": "总览",
+    "combinedProfileBadge": "综合档案",
+    "shareTitle": "我的 Personality Studio 档案",
+    "inviteErrorFallback": "创建邀请时出了点问题,请再试一次。",
+    "linkCopied": "链接已复制",
+    "exportAsLink": "导出为链接",
+    "inviteCreated": "邀请已创建",
+    "compareWithSomeone": "与他人对比",
+    "compareExplainer": "我们会生成一个私密链接,方便你发送给对方。等对方完成自己的测评并接受邀请后,你们就都可以解锁一份契合度报告。",
+    "whoComparing": "你想和谁对比?",
+    "exportAsPdf": "导出为 PDF",
+    "saveShare": "保存 / 分享",
+    "inviteErrorPrefix": "无法创建邀请:{error}",
+    "dismiss": "关闭",
+    "inviteLinkCopied": "邀请链接已复制——把它发给你想要对比的{relationshipLabel}。",
+    "inviteFollowUp": "等对方完成自己的测评并接受邀请后,你们就都可以解锁一份契合度报告。如果之后想查看进度,可以随时前往",
+    "comparisonsLink": "对比记录",
+    "copyAgain": "再次复制",
+    "copied": "已复制",
+    "whereLensesAgree": "你的四种视角在哪里达成一致",
+    "howThisIsCalculated": "这是如何计算的",
+    "lensesAgreeIntro": "在某些方面,你的所有视角几乎都指向同一个地方——这是一个值得关注的信号。在另一些方面,它们则各自指向不同的方向,这通常并不是自相矛盾,只是说明你是一个完整的人,会因情境而有所不同。以下是上面这个结论背后真正的依据。",
+    "howYouveMoved": "你的变化轨迹",
+    "firstSnapshot": "这是今天的你。几个月后重新做任意一项测评,我们会准确告诉你哪些发生了变化,哪些没有。",
+    "movedAcross": "在你完成的{count}次测评中,每个维度是如何变化的——从最早到最近。",
+    "whereToLeanIn": "值得投入精力的地方",
+    "wantMore": "想了解比这个页面更多的内容吗?",
+    "deepDiveExplainer": "深度报告会基于你自己的分数,借助 AI 的辅助,把职业契合度、关系模式与成长空间展开成一篇更详尽的解读。",
+    "unlockDeepDive": "解锁深度报告",
+    "whereThisMightFit": "可能适合你的方向",
+    "roleFitIntro": "适合{name}的角色与工作风格。",
+    "roleFitFallback": "你的特质组合",
+    "strengths": "优势",
+    "growthAreas": "成长方向",
+    "yourFourLenses": "你的四种视角",
+    "disclaimer": "这是我们对你四项结果的综合解读,而不是实验室测量——目的是帮你看清规律,而不是给你打分。",
+    "notReadyTitle": "还没准备好",
+    "notReadyBody": "至少完成一项测评,才能开始生成你的综合档案。",
+    "backToAssessments": "返回测评列表",
+    "partial": {
+      "oneOfFourComplete": "4项中已完成1项",
+      "alreadyKnowTitle": "这是我们目前已经了解到的关于你的信息",
+      "alreadyKnowBody": "完整的综合档案会把四种模型编织在一起——不过你的{label}结果已经说明了一部分。",
+      "completeNext": "接下来完成{label},就能开始看到你的各个模型在哪些方面一致,又在哪些方面有分歧。",
+      "continueWith": "继续完成{label}"
+    },
+    "dailyInsight": {
+      "todayFor": "今天,写给{name}"
+    },
+    "shareCard": {
+      "yourArchetype": "你的类型",
+      "footer": "Personality Studio"
+    },
+    "graphCard": {
+      "title": "这一切如何相互关联",
+      "groupBySpectrum": "按维度分组",
+      "recenter": "重新居中",
+      "recenterAriaLabel": "重新让图表居中——重置平移与缩放,但不移动任何点的位置",
+      "howToRead": "如何解读这张图",
+      "legendIntroQuadrant": ",每个象限对应一个。其余的点都归入它所对应的维度。",
+      "legendIntroFramework": ",比如你的能量在多大程度上倾向外向而非内向。其余的点则按照来源模型聚类。",
+      "legendIntroPart1": "大圆点代表你的整体原型。中等大小的圆点是你的4个",
+      "spectrumsStrong": "维度",
+      "legendIntroPart2": "——所有其他数值都是以这些维度为基准衡量的",
+      "legendSize": "大小 = 在你的档案中有多核心",
+      "legendLines": "连线 = 哪些维度之间存在关联",
+      "legendPosition": "位置 = 属于你4个维度中的哪一个",
+      "legendHover": "将鼠标悬停在任意圆点上查看详情"
+    },
+    "pdf": {
+      "combinedProfileBadge": "综合档案",
+      "whereLensesAgree": "你的四种视角在哪里达成一致",
+      "whereToLeanIn": "值得投入精力的地方",
+      "whereThisMightFit": "可能适合你的方向",
+      "strengths": "优势",
+      "growthAreas": "成长方向",
+      "yourFourLenses": "你的四种视角",
+      "footer": "这是我们对你四项结果的综合解读,而不是实验室测量——目的是帮你看清规律,而不是给你打分。由 Colevitate 生成于{date}。"
+    }
+  },
+  "narrative": {
+    "subtitle": "由4项测评中的{count}项编织而成",
+    "sourcesLine": "基于4种视角中的{count}种构建而成——{list}",
+    "opening": "这就是你的样子:你{clauses}。",
+    "openingClause": {
+      "mbti": "表现为{name}({code})",
+      "bigfive": "在日常行为中带着{name}的气质",
+      "humandesign": "以{name}的能量运转,天生适合{strategy}",
+      "colors": "在与他人相处时,以{name}的能量为主导"
+    },
+    "sharedGrowth": "在{labels}中,同一个成长课题反复出现:{theme}。当两个独立的模型都指向同一件事时,这通常就是最值得优先关注的地方。"
+  }
+}

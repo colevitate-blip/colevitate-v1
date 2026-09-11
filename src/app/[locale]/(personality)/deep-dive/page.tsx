@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
+import { getTranslations, getLocale } from "next-intl/server";
 import { Briefcase, Heart, TrendingUp } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { createServiceRoleClient } from "@/lib/supabase/serviceRole";
@@ -46,7 +47,9 @@ export default async function DeepDivePage() {
 
   const { data: profileRow } = await supabase.from("profiles").select("results").eq("id", user.id).maybeSingle();
   const results = (profileRow?.results as PersonalityResults) || {};
-  const profile = generateCombinedProfile(results);
+  const t = await getTranslations();
+  const locale = await getLocale();
+  const profile = generateCombinedProfile(results, t, locale);
 
   const { data: purchase } = await supabase
     .from("deep_dive_purchases")

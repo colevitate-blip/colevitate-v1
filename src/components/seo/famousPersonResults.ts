@@ -14,6 +14,7 @@
 
 import type { BigFiveResult, ColorId, ColorResult, Dichotomy, MbtiLetter, MbtiResult, PersonalityResults } from "@/lib/personality/types";
 import { generateCombinedProfile, type CombinedProfile } from "@/components/personality/combined/generateCombinedProfile";
+import type { Translator } from "@/components/personality/combined/scoringMatrix";
 import type { FamousPersonTyping } from "@/lib/seo/famousPeopleContent";
 
 /** The only shape these derivations need — satisfied by both a roster FamousPersonContent and an ad-hoc AI-audit result (same typings shape, see audit-person/route.ts). */
@@ -65,6 +66,6 @@ export function deriveFamousPersonResults(content: TypingsSource): PersonalityRe
   return results;
 }
 
-export function deriveFamousPersonProfile(content: TypingsSource): CombinedProfile | null {
-  return generateCombinedProfile(deriveFamousPersonResults(content));
+export function deriveFamousPersonProfile(content: TypingsSource, t: Translator, locale: string): CombinedProfile | null {
+  return generateCombinedProfile(deriveFamousPersonResults(content), t, locale);
 }

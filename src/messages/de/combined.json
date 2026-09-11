@@ -1,0 +1,95 @@
+{
+  "ui": {
+    "overview": "Übersicht",
+    "combinedProfileBadge": "Kombiniertes Profil",
+    "shareTitle": "Mein Personality Studio-Profil",
+    "inviteErrorFallback": "Beim Erstellen der Einladung ist etwas schiefgelaufen. Versuch es noch einmal.",
+    "linkCopied": "Link kopiert",
+    "exportAsLink": "Als Link exportieren",
+    "inviteCreated": "Einladung erstellt",
+    "compareWithSomeone": "Mit jemandem vergleichen",
+    "compareExplainer": "Wir erstellen einen privaten Link, den du ihnen schicken kannst. Sobald sie ihre eigenen Tests abgeschlossen und angenommen haben, könnt ihr beide einen Kompatibilitätsbericht freischalten.",
+    "whoComparing": "Mit wem vergleichst du dich?",
+    "exportAsPdf": "Als PDF exportieren",
+    "saveShare": "Speichern / Teilen",
+    "inviteErrorPrefix": "Die Einladung konnte nicht erstellt werden: {error}",
+    "dismiss": "Schließen",
+    "inviteLinkCopied": "Einladungslink kopiert — schick ihn an die Person ({relationshipLabel}), mit der du dich vergleichen möchtest.",
+    "inviteFollowUp": "Sobald sie ihre eigenen Tests abgeschlossen und angenommen haben, könnt ihr beide einen Kompatibilitätsbericht freischalten. Du findest ihn jederzeit unter",
+    "comparisonsLink": "Vergleiche",
+    "copyAgain": "Erneut kopieren",
+    "copied": "Kopiert",
+    "whereLensesAgree": "Wo sich deine Perspektiven einig sind",
+    "howThisIsCalculated": "Wie das berechnet wird",
+    "lensesAgreeIntro": "Bei manchen Dingen landen alle deine Perspektiven fast am selben Punkt — das ist ein Signal. Bei anderen ziehen sie in unterschiedliche Richtungen, und das ist meist kein Widerspruch, sondern einfach du als vollständiger Mensch, je nach Kontext. Hier siehst du, was tatsächlich hinter der Überschrift oben steckt.",
+    "howYouveMoved": "Wie du dich verändert hast",
+    "firstSnapshot": "Das bist du, heute. Wiederhole in ein paar Monaten eine beliebige Perspektive, und wir zeigen dir genau, was sich verändert hat — und was nicht.",
+    "movedAcross": "Wie sich jede Achse über deine {count} abgeschlossenen Tests hinweg verändert hat, von der ältesten bis zur neuesten.",
+    "whereToLeanIn": "Wo du ansetzen kannst",
+    "wantMore": "Willst du mehr, als diese Seite zeigt?",
+    "deepDiveExplainer": "Der Deep-Dive-Bericht erweitert Karrierepassung, Beziehungsmuster und Entwicklungsfelder zu einer längeren, KI-gestützten Auswertung auf Basis deiner eigenen Werte.",
+    "unlockDeepDive": "Deep Dive freischalten",
+    "whereThisMightFit": "Wo das passen könnte",
+    "roleFitIntro": "Rollen und Arbeitsstile, die zu {name} passen.",
+    "roleFitFallback": "deiner Merkmalskombination",
+    "strengths": "Stärken",
+    "growthAreas": "Entwicklungsfelder",
+    "yourFourLenses": "Deine vier Perspektiven",
+    "disclaimer": "Das ist unsere Zusammenfassung deiner vier Ergebnisse, keine Labormessung — gedacht, damit du das Muster erkennst, nicht, um dich danach zu bewerten.",
+    "notReadyTitle": "Noch nicht ganz bereit",
+    "notReadyBody": "Schließe mindestens einen Test ab, um mit deinem kombinierten Profil zu beginnen.",
+    "backToAssessments": "Zurück zu den Tests",
+    "partial": {
+      "oneOfFourComplete": "1 von 4 abgeschlossen",
+      "alreadyKnowTitle": "Das wissen wir schon über dich",
+      "alreadyKnowBody": "Das vollständige kombinierte Profil verwebt alle vier Modelle miteinander — aber dein {label}-Ergebnis erzählt schon einen Teil der Geschichte.",
+      "completeNext": "Schließe als Nächstes {label} ab, um zu sehen, wo sich deine Modelle einig sind — und wo nicht.",
+      "continueWith": "Weiter mit {label}"
+    },
+    "dailyInsight": {
+      "todayFor": "Heute, für {name}"
+    },
+    "shareCard": {
+      "yourArchetype": "Dein Archetyp",
+      "footer": "Personality Studio"
+    },
+    "graphCard": {
+      "title": "Wie alles zusammenhängt",
+      "groupBySpectrum": "Nach Spektrum gruppieren",
+      "recenter": "Zentrieren",
+      "recenterAriaLabel": "Grafik zentrieren — Verschiebung und Zoom zurücksetzen, ohne die Punkte zu bewegen",
+      "howToRead": "So liest du das",
+      "legendIntroQuadrant": ", eines pro Quadrant. Alles andere liegt in dem Spektrum, zu dem es beiträgt.",
+      "legendIntroFramework": ", etwa wie stark deine Energie nach außen oder innen zeigt. Alles andere gruppiert sich danach, aus welchem Modell es stammt.",
+      "legendIntroPart1": "Der große Punkt ist dein Gesamtarchetyp. Die mittleren Punkte sind deine 4",
+      "spectrumsStrong": "Spektren",
+      "legendIntroPart2": "— die Kernskalen, an denen alles andere gemessen wird",
+      "legendSize": "Größe = wie zentral für dein Profil",
+      "legendLines": "Linien = was in was einfließt",
+      "legendPosition": "Position = welches deiner 4 Spektren",
+      "legendHover": "Fahre über einen Punkt für Details"
+    },
+    "pdf": {
+      "combinedProfileBadge": "Kombiniertes Profil",
+      "whereLensesAgree": "Wo sich deine Perspektiven einig sind",
+      "whereToLeanIn": "Wo du ansetzen kannst",
+      "whereThisMightFit": "Wo das passen könnte",
+      "strengths": "Stärken",
+      "growthAreas": "Entwicklungsfelder",
+      "yourFourLenses": "Deine vier Perspektiven",
+      "footer": "Das ist unsere Zusammenfassung deiner vier Ergebnisse, keine Labormessung — gedacht, damit du das Muster erkennst, nicht, um dich danach zu bewerten. Erstellt von Colevitate am {date}."
+    }
+  },
+  "narrative": {
+    "subtitle": "Gewoben aus {count} von 4 Tests",
+    "sourcesLine": "Erstellt aus {count} von 4 Perspektiven — {list}",
+    "opening": "So sieht deine Form aus: du {clauses}.",
+    "openingClause": {
+      "mbti": "trittst als {name} ({code}) auf",
+      "bigfive": "trägst das Temperament von {name} in deinem Alltagsverhalten",
+      "humandesign": "läufst auf {name}-Energie, gebaut, um {strategy}",
+      "colors": "gehst mit {name}-Energie voran, wenn es um den Umgang mit anderen Menschen geht"
+    },
+    "sharedGrowth": "Über {labels} hinweg taucht immer wieder derselbe Entwicklungspunkt auf: {theme}. Wenn zwei unabhängige Modelle auf dasselbe hindeuten, ist das meist der Punkt mit der größten Hebelwirkung."
+  }
+}

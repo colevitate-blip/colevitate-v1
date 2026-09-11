@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
+import { useTranslations, useLocale, NextIntlClientProvider } from "next-intl";
 import type { Simulation } from "d3-force";
 import { GraphView, type GraphViewHandle } from "@/components/graph/GraphView";
 import { GraphControls } from "@/components/graph/GraphControls";
@@ -14,6 +15,32 @@ import {
 } from "@/components/personality/combined/graphAppearance";
 import type { PersonalityResults, ProgressMap } from "@/lib/personality/types";
 import type { LabelMode } from "@/components/graph/types";
+import enCommon from "@/messages/en/common.json";
+import enCombined from "@/messages/en/combined.json";
+import enScoring from "@/messages/en/scoring.json";
+import enGrowth from "@/messages/en/growth.json";
+import enArchetypes from "@/messages/en/archetypes.json";
+import enMbti from "@/messages/en/mbti.json";
+import enBigfive from "@/messages/en/bigfive.json";
+import enHumandesign from "@/messages/en/humandesign.json";
+import enColors from "@/messages/en/colors.json";
+import enGraph from "@/messages/en/graph.json";
+
+// This route lives outside the `[locale]` segment (no NextIntlClientProvider
+// from the locale layout), so it supplies its own English-only messages —
+// dev/QA harness only, never localized for real users.
+const DEV_MESSAGES = {
+  ...enCommon,
+  combined: enCombined,
+  scoring: enScoring,
+  growth: enGrowth,
+  archetypes: enArchetypes,
+  mbti: enMbti,
+  bigfive: enBigfive,
+  humandesign: enHumandesign,
+  colors: enColors,
+  graph: enGraph,
+};
 
 // Mock data for demo
 const MOCK_PROGRESS: ProgressMap = {
@@ -96,16 +123,26 @@ const MOCK_RESULTS: PersonalityResults = {
 };
 
 export default function PersonalityGraphDemo() {
+  return (
+    <NextIntlClientProvider locale="en" timeZone="UTC" messages={DEV_MESSAGES}>
+      <PersonalityGraphDemoInner />
+    </NextIntlClientProvider>
+  );
+}
+
+function PersonalityGraphDemoInner() {
   const [showNames, setShowNames] = useState(false);
   const [spacingMode, setSpacingMode] = useState<"cozy" | "roomy">("roomy");
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [simulation, setSimulation] = useState<Simulation<any, any> | null>(null);
   const graphRef = useRef<GraphViewHandle>(null);
 
-  const combinedProfile = useMemo(() => generateCombinedProfile(MOCK_RESULTS), []);
+  const t = useTranslations();
+  const locale = useLocale();
+  const combinedProfile = useMemo(() => generateCombinedProfile(MOCK_RESULTS, t, locale), [t, locale]);
   const graphData = useMemo(
-    () => (combinedProfile ? personalityResultsToGraphData(MOCK_PROGRESS, MOCK_RESULTS, combinedProfile) : null),
-    [combinedProfile]
+    () => (combinedProfile ? personalityResultsToGraphData(MOCK_PROGRESS, MOCK_RESULTS, combinedProfile, t) : null),
+    [combinedProfile, t]
   );
 
   // Show words → all labels, hide → key landmarks only (still not "off",

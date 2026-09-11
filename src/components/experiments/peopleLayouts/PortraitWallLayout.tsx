@@ -23,7 +23,6 @@ export function PortraitWallLayout() {
                 >
                   <PersonPortrait
                     person={person}
-                    sizes="(min-width: 768px) 16vw, 33vw"
                     className="object-cover transition-transform duration-200 group-hover:scale-105"
                   />
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-2 pt-8">

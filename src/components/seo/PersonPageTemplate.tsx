@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { getTranslations, getLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -12,9 +13,11 @@ import { deriveFamousPersonResults, deriveFamousPersonProfile } from "./famousPe
 import { FamousPersonInsights } from "./FamousPersonInsights";
 import { pickComparisonSuggestions } from "@/lib/seo/personComparisonSuggestions";
 
-export function PersonPageTemplate({ content }: { content: FamousPersonContent }) {
+export async function PersonPageTemplate({ content }: { content: FamousPersonContent }) {
   const primaryFramework = content.typings[0]?.framework ?? "mbti";
-  const profile = deriveFamousPersonProfile(content);
+  const t = await getTranslations();
+  const locale = await getLocale();
+  const profile = deriveFamousPersonProfile(content, t, locale);
   const results = deriveFamousPersonResults(content);
   const suggestions = pickComparisonSuggestions(content, FAMOUS_PEOPLE);
 
@@ -33,7 +36,7 @@ export function PersonPageTemplate({ content }: { content: FamousPersonContent }
               src={content.photo.url}
               alt={content.name}
               fill
-              sizes="(min-width: 640px) 320px, 80vw"
+              unoptimized
               className="object-cover"
             />
           </div>

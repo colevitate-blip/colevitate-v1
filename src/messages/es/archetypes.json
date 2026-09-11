@@ -1,0 +1,66 @@
+{
+  "IMTG": {
+    "name": "El Artesano Silencioso",
+    "description": "Trabajas mejor a solas, en el momento, en cosas que puedes medir con tu propio estándar y no con el de nadie más."
+  },
+  "IMTX": {
+    "name": "El Inventor Independiente",
+    "description": "Persigues ideas a tu manera, y eres más feliz improvisando tu camino a través de algo nuevo sin público."
+  },
+  "IMFG": {
+    "name": "El Confidente Constante",
+    "description": "La gente confía en ti precisamente porque eres discreto y constante — presente para ellos sin necesitar el protagonismo."
+  },
+  "IMFX": {
+    "name": "El Errante Sereno",
+    "description": "Te acercas a personas e ideas nuevas a tu propio ritmo tranquilo, más curioso que inquieto."
+  },
+  "IPTG": {
+    "name": "El Arquitecto Preciso",
+    "description": "Construyes las cosas con cuidado y en soledad, confiando más en un plan bien hecho que en la improvisación o en la opinión de otros."
+  },
+  "IPTX": {
+    "name": "El Innovador Metódico",
+    "description": "Das vida a ideas nuevas mediante la disciplina, no la espontaneidad — la estructura es lo que te permite llegar a un lugar genuinamente nuevo."
+  },
+  "IPFG": {
+    "name": "El Cuidador Devoto",
+    "description": "Estás presente de forma fiable para las personas cercanas a ti, prefiriendo rutinas confiables por encima de los grandes gestos."
+  },
+  "IPFX": {
+    "name": "El Visionario Reflexivo",
+    "description": "Planificas en silencio para personas e ideas que aún no existen, pensando hacia adelante más de lo que hablas de ello."
+  },
+  "EMTG": {
+    "name": "El Hacedor Audaz",
+    "description": "Prefieres actuar sobre algo real ahora mismo antes que planificarlo o discutirlo — el impulso es tu forma de pensar."
+  },
+  "EMTX": {
+    "name": "El Pionero Inquieto",
+    "description": "Te atrae lo más nuevo y lo más vivo, moviéndote rápido y resolviendo el plan después."
+  },
+  "EMFG": {
+    "name": "El Conector Realista",
+    "description": "Reúnes a la gente en torno a lo real e inmediato, energizado por los demás sin necesitar un guion."
+  },
+  "EMFX": {
+    "name": "El Catalizador Espontáneo",
+    "description": "Enciendes la energía de una sala y persigues lo nuevo casi al mismo tiempo, casi nunca de la misma manera dos veces."
+  },
+  "EPTG": {
+    "name": "El Organizador Decidido",
+    "description": "Conviertes los planes en resultados con pura fuerza de avance, y te sientes más cómodo cuando hay una estructura clara contra la cual empujar."
+  },
+  "EPTX": {
+    "name": "El Pionero Estratégico",
+    "description": "Persigues direcciones nuevas y audaces, pero las respaldas con una planificación real, tratando la visión y la estructura como aliadas, no como opuestos."
+  },
+  "EPFG": {
+    "name": "El Anfitrión Confiable",
+    "description": "Mantienes a la gente y los planes funcionando sin fricciones al mismo tiempo, de una forma confiable que le facilita la vida a todos los demás."
+  },
+  "EPFX": {
+    "name": "El Líder Inspirador",
+    "description": "Reúnes a la gente en torno a grandes ideas nuevas y de verdad organizas el seguimiento, a partes iguales visionario y planificador."
+  }
+}

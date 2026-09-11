@@ -1,4 +1,5 @@
 import { forwardRef } from "react";
+import { useTranslations } from "next-intl";
 import type { AssessmentId, ColorId, PersonalityResults } from "@/lib/personality/types";
 import type { CombinedProfile as CombinedProfileData } from "./generateCombinedProfile";
 
@@ -59,6 +60,7 @@ export const ShareCard = forwardRef<
   HTMLDivElement,
   { profile: CombinedProfileData; results: PersonalityResults; theme?: "light" | "dark" }
 >(function ShareCard({ profile, results, theme = "dark" }, ref) {
+  const t = useTranslations("combined.ui.shareCard");
   const palette = CARD_PALETTE[theme];
   return (
     <div
@@ -105,7 +107,7 @@ export const ShareCard = forwardRef<
         {profile.archetype ? (
           <>
             <div style={{ fontSize: 15, fontWeight: 600, letterSpacing: 2, color: palette.muted, textTransform: "uppercase" }}>
-              Your Archetype
+              {t("yourArchetype")}
             </div>
             <div style={{ fontSize: 56, fontWeight: 700, lineHeight: 1.15, marginTop: 12, letterSpacing: -1 }}>
               {profile.archetype.name}
@@ -149,7 +151,7 @@ export const ShareCard = forwardRef<
           );
         })}
 
-        <div style={{ marginTop: 20, fontSize: 15, color: palette.muted }}>Personality Studio</div>
+        <div style={{ marginTop: 20, fontSize: 15, color: palette.muted }}>{t("footer")}</div>
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ import { ASSESSMENT_CATALOG, ASSESSMENT_ORDER } from "@/lib/personality/catalog"
 import { ASSESSMENT_THEME } from "@/lib/personality/theme";
 import { FRAMEWORK_URL_SLUGS } from "@/lib/seo/typeContent";
 import { AXES, AGREEMENT_SPREAD_THRESHOLDS } from "@/components/personality/combined/scoringMatrix";
-import { ARCHETYPES } from "@/components/personality/combined/archetypeMatrix";
+import { ARCHETYPE_KEYS } from "@/components/personality/combined/archetypeMatrix";
 import { COMPATIBILITY_BUCKET_THRESHOLDS } from "@/components/personality/combined/computeCompatibility";
 import {
   MATCH_GAUGE_WEIGHTS,
@@ -41,6 +41,8 @@ const FRAMEWORK_WEIGHT_KEYS = ["mbti", "bigfive", "humandesign", "colors"] as co
 export default async function MethodologyPage({ params }: { params: Promise<Params> }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "methodology" });
+  const tScoring = await getTranslations({ locale, namespace: "scoring" });
+  const tArchetypes = await getTranslations({ locale, namespace: "archetypes" });
   const path = "/methodology";
 
   return (
@@ -124,9 +126,9 @@ export default async function MethodologyPage({ params }: { params: Promise<Para
               {AXES.map((axis) => (
                 <tr key={axis.id} className="border-b last:border-b-0">
                   <td className="px-3 py-2 font-medium">
-                    {axis.label}
+                    {tScoring(`axes.${axis.id}.label`)}
                     <span className="block text-xs font-normal text-muted-foreground">
-                      {axis.leftPole} ↔ {axis.rightPole}
+                      {tScoring(`axes.${axis.id}.leftPole`)} ↔ {tScoring(`axes.${axis.id}.rightPole`)}
                     </span>
                   </td>
                   {FRAMEWORK_WEIGHT_KEYS.map((key) => (
@@ -156,15 +158,15 @@ export default async function MethodologyPage({ params }: { params: Promise<Para
         <p className="text-sm leading-relaxed text-muted-foreground">{t("archetypes.intro")}</p>
         <p className="mt-2 text-xs text-muted-foreground">{t("archetypes.tableNote")}</p>
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
-          {Object.entries(ARCHETYPES).map(([key, archetype]) => (
+          {ARCHETYPE_KEYS.map((key) => (
             <div key={key} className="rounded-2xl border bg-card p-3.5">
               <div className="flex items-center gap-2">
                 <Badge variant="outline" className="rounded-full font-mono text-[10px]">
                   {key}
                 </Badge>
-                <h3 className="text-sm font-semibold">{archetype.name}</h3>
+                <h3 className="text-sm font-semibold">{tArchetypes(`${key}.name`)}</h3>
               </div>
-              <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{archetype.description}</p>
+              <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{tArchetypes(`${key}.description`)}</p>
             </div>
           ))}
         </div>
@@ -203,7 +205,7 @@ export default async function MethodologyPage({ params }: { params: Promise<Para
             <tbody>
               {AXES.map((axis) => (
                 <tr key={axis.id} className="border-b last:border-b-0">
-                  <td className="px-3 py-2 font-medium">{axis.label}</td>
+                  <td className="px-3 py-2 font-medium">{tScoring(`axes.${axis.id}.label`)}</td>
                   {RELATIONSHIP_TYPE_ORDER.map((type) => (
                     <td key={type} className="px-3 py-2 text-muted-foreground">
                       {Math.round(MATCH_GAUGE_WEIGHTS[type][axis.id] * 100)}%
@@ -223,7 +225,7 @@ export default async function MethodologyPage({ params }: { params: Promise<Para
             return (
               <li key={type} className="flex items-center justify-between gap-3 text-xs">
                 <span className="font-medium text-foreground">{relationshipFramingFor(type).label}</span>
-                <span className="text-muted-foreground">{definingAxis?.label}</span>
+                <span className="text-muted-foreground">{definingAxis ? tScoring(`axes.${definingAxis.id}.label`) : ""}</span>
               </li>
             );
           })}
