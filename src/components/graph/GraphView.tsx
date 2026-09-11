@@ -141,7 +141,7 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
   ref
 ) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [hoveredNodeId, setHoveredNodeId] = useState<string | number | null>(null);
+  const [, setHoveredNodeId] = useState<string | number | null>(null);
   const hoveredNodeIdRef = useRef<string | number | null>(null);
   const simulationRef = useRef<Simulation<SimNode, SimLink> | null>(null);
   const nodesRef = useRef<SimNode[]>([]);
@@ -879,6 +879,30 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, getNodeRadius, getNodeRing, getNodeCluster, getNodeQuadrant, getNodeQuadrantPull]);
 
+  const hitTestNode = (x: number, y: number): string | number | null => {
+    for (const node of nodesRef.current) {
+      if (isNodeHidden(node)) continue;
+      const dx = (node.x || 0) - x;
+      const dy = (node.y || 0) - y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < getNodeRadius(node) + 5) {
+        return node.id;
+      }
+    }
+    return null;
+  };
+
+  const setHoveredNode = (hovered: string | number | null, e: { clientX: number; clientY: number }) => {
+    if (hovered === hoveredNodeIdRef.current) return;
+    hoveredNodeIdRef.current = hovered;
+    setHoveredNodeId(hovered);
+    redraw();
+    if (onNodeHover) {
+      const node = hovered != null ? nodesRef.current.find((n) => n.id === hovered) : null;
+      onNodeHover((node as GraphNode | undefined) ?? null, hovered != null ? { x: e.clientX, y: e.clientY } : null);
+    }
+  };
+
   const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -903,57 +927,38 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
       return;
     }
 
-    let hovered: string | number | null = null;
-    for (const node of nodesRef.current) {
-      if (isNodeHidden(node)) continue;
-      const dx = (node.x || 0) - x;
-      const dy = (node.y || 0) - y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < getNodeRadius(node) + 5) {
-        hovered = node.id;
-        break;
-      }
-    }
-
-    if (hovered !== hoveredNodeIdRef.current) {
-      hoveredNodeIdRef.current = hovered;
-      setHoveredNodeId(hovered);
-      redraw();
-      if (onNodeHover) {
-        const node = hovered != null ? nodesRef.current.find((n) => n.id === hovered) : null;
-        onNodeHover((node as GraphNode | undefined) ?? null, hovered != null ? { x: e.clientX, y: e.clientY } : null);
-      }
-    }
+    setHoveredNode(hitTestNode(x, y), e);
   };
 
   const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    clickStartRef.current = { x: e.clientX, y: e.clientY, nodeId: hoveredNodeId };
+    const rect = canvasRef.current?.getBoundingClientRect();
+    const x = rect ? (e.clientX - rect.left) / zoomRef.current - panRef.current.x : 0;
+    const y = rect ? (e.clientY - rect.top) / zoomRef.current - panRef.current.y : 0;
+    // A touch tap never fires a preceding mousemove the way a mouse does, so
+    // hit-testing here (instead of trusting whatever hoveredNodeId a mouse
+    // hover last left behind) is what makes tapping a node work at all on a
+    // real touchscreen — both for drag-start and for the tooltip synced
+    // below, which would otherwise only ever activate on desktop hover.
+    const targetNodeId = rect ? hitTestNode(x, y) : null;
 
-    if (hoveredNodeId === null) {
+    clickStartRef.current = { x: e.clientX, y: e.clientY, nodeId: targetNodeId };
+    setHoveredNode(targetNodeId, e);
+
+    if (targetNodeId === null) {
       // Start panning
-      const rect = canvasRef.current?.getBoundingClientRect();
       if (rect) {
-        draggingRef.current = {
-          nodeId: "_pan",
-          offsetX: (e.clientX - rect.left) / zoomRef.current - panRef.current.x,
-          offsetY: (e.clientY - rect.top) / zoomRef.current - panRef.current.y,
-        };
+        draggingRef.current = { nodeId: "_pan", offsetX: x, offsetY: y };
       }
       return;
     }
 
-    const node = nodesRef.current.find((n) => n.id === hoveredNodeId);
+    const node = nodesRef.current.find((n) => n.id === targetNodeId);
     if (node) {
-      const rect = canvasRef.current?.getBoundingClientRect();
-      if (rect) {
-        const canvasX = (e.clientX - rect.left) / zoomRef.current - panRef.current.x;
-        const canvasY = (e.clientY - rect.top) / zoomRef.current - panRef.current.y;
-        draggingRef.current = {
-          nodeId: hoveredNodeId,
-          offsetX: canvasX - (node.x || 0),
-          offsetY: canvasY - (node.y || 0),
-        };
-      }
+      draggingRef.current = {
+        nodeId: targetNodeId,
+        offsetX: x - (node.x || 0),
+        offsetY: y - (node.y || 0),
+      };
     }
   };
 
