@@ -167,18 +167,35 @@
 }
 
 /* Page-change view transition: a horizontal push, applied by
-   src/components/nav/PageTransition.tsx. Direction-aware (via
-   useNavigationDirection) so it reads as a real navigation stack instead of
-   a single fixed motion: going forward — including out of the burger menu,
-   whose own panel slides out the same way (MobileNavMenu.tsx) — pushes the
-   old page out left and the new one in from the right, like advancing a
-   filmstrip; going back (browser back button) reverses both, so returning
-   doesn't just play the forward motion backwards. translateX(±100%) is
-   relative to each snapshot's own box (the full page), so this needs no
-   viewport math. The overlay would otherwise swallow clicks mid-animation,
-   so let them pass through to the live page. */
+   src/components/nav/PageTransition.tsx via each route group's
+   template.tsx. Direction-aware (via `transitionTypes` on individual
+   <Link>s — see PageTransition.tsx) so it reads as a real navigation stack
+   instead of a single fixed motion: going forward — including out of the
+   burger menu, whose own panel slides out the same way (MobileNavMenu.tsx)
+   — pushes the old page out left and the new one in from the right, like
+   advancing a filmstrip; a link tagged nav-back reverses both. translateX
+   (±100%) is relative to each snapshot's own box (the full page), so this
+   needs no viewport math. The overlay would otherwise swallow clicks
+   mid-animation, so let them pass through to the live page. */
 ::view-transition {
   pointer-events: none;
+}
+
+/* Only the route content above is meant to move. Everything else on the
+   page — the sticky header, the footer — sits outside that wrapper, so it
+   falls into the browser's implicit "root" capture instead, which gets a
+   crossfade animation by default. Two pages are rarely the same height, so
+   the old and new root snapshots put the footer at two different Y
+   positions and briefly show both — the "flicker for an animation that
+   isn't happening" this fixes. Killing the crossfade lets the new root
+   snapshot (painted on top) cover the old one instantly instead of
+   dissolving through it. mix-blend-mode reset alongside: Chrome's UA sheet
+   sets plus-lighter on the new snapshot to make that crossfade blend
+   correctly, which just overbrightens colors once the animation is gone. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }
 
 ::view-transition-old(.page-exit-forward) {
