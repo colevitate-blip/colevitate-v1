@@ -25,7 +25,6 @@ import { Link } from "@/i18n/navigation";
 import { ColevitateMark } from "@/components/brand/Logo";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { useAuth } from "@/lib/supabase/AuthProvider";
-import { signOut } from "@/app/auth/actions";
 
 /** sm:hidden hamburger menu — the inline pill row (rendered separately in the layout)
  * takes over at sm: and up, where there's room for full labels without a menu. Icons are
@@ -83,7 +82,7 @@ export function MobileNavMenu({
   const close = () => setState("closing");
 
   const t = useTranslations("chrome");
-  const { user, authLoading, profileMeta } = useAuth();
+  const { user, authLoading, profileMeta, signOut } = useAuth();
   const pathname = usePathname();
   const displayName = profileMeta?.displayName || user?.email?.split("@")[0] || "Account";
   const avatarUrl = profileMeta?.avatarUrl;
@@ -190,53 +189,16 @@ export function MobileNavMenu({
                     there are, landing in the thumb's natural reach zone
                     instead of requiring a stretch to the top of the screen.
                     Always rendered (not gated on accountItems/languageLabel
-                    like the two blocks inside it) because the sign-in/sign-out
-                    row below is relevant on every call site — SiteHeader's
-                    menu has no account shortcuts or language switcher but
-                    still needs somewhere to put auth now that AuthStatus
-                    hides it below sm. */}
+                    like the blocks inside it) because the sign-in/sign-out
+                    row is relevant on every call site — SiteHeader's menu
+                    has no account shortcuts or language switcher but still
+                    needs somewhere to put auth now that AuthStatus hides it
+                    below sm. Auth comes last, under Language, rather than
+                    up top: it's account-management, same tier as the
+                    dashboard/settings shortcuts above it, not a primary nav
+                    action that deserves the prime spot right under the main
+                    list. */}
                 <div className="shrink-0 border-t p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
-                  {!authLoading ? (
-                    <div className="mb-1">
-                      {user ? (
-                        <div className="flex items-center gap-2 rounded-xl px-3 py-2">
-                          <div className="flex min-w-0 flex-1 items-center gap-2 text-sm text-muted-foreground">
-                            {avatarUrl ? (
-                              <img
-                                src={avatarUrl}
-                                alt={displayName}
-                                className="size-8 shrink-0 rounded-full bg-muted object-cover"
-                              />
-                            ) : (
-                              <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-muted">
-                                <User className="size-4" />
-                              </span>
-                            )}
-                            <span className="truncate font-medium text-foreground">{displayName}</span>
-                          </div>
-                          <form action={signOut}>
-                            <button
-                              type="submit"
-                              onClick={close}
-                              className="flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
-                            >
-                              <LogOut className="size-3.5" />
-                              {t("signOut")}
-                            </button>
-                          </form>
-                        </div>
-                      ) : (
-                        <NextLink
-                          href={`/login?next=${encodeURIComponent(pathname)}`}
-                          onClick={close}
-                          className="flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[var(--spatial-glow)] to-[var(--spatial-glow-2)] px-3 py-3 text-sm font-semibold text-[#05070f] shadow-[0_10px_24px_-8px_var(--hero-glow-1)]"
-                        >
-                          <LogIn className="size-4" />
-                          {t("signIn")}
-                        </NextLink>
-                      )}
-                    </div>
-                  ) : null}
                   {accountItems.length > 0 ? (
                     <nav className="flex flex-col gap-1">
                       {accountItems.map((item) => (
@@ -259,6 +221,48 @@ export function MobileNavMenu({
                     <div className="mt-1 flex items-center justify-between gap-3 rounded-xl px-3 py-2">
                       <span className="text-sm font-medium text-muted-foreground">{languageLabel}</span>
                       <LanguageSwitcher />
+                    </div>
+                  ) : null}
+                  {!authLoading ? (
+                    <div className="mt-1">
+                      {user ? (
+                        <div className="flex items-center gap-2 rounded-xl px-3 py-2">
+                          <div className="flex min-w-0 flex-1 items-center gap-2 text-sm text-muted-foreground">
+                            {avatarUrl ? (
+                              <img
+                                src={avatarUrl}
+                                alt={displayName}
+                                className="size-8 shrink-0 rounded-full bg-muted object-cover"
+                              />
+                            ) : (
+                              <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-muted">
+                                <User className="size-4" />
+                              </span>
+                            )}
+                            <span className="truncate font-medium text-foreground">{displayName}</span>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              close();
+                              signOut();
+                            }}
+                            className="flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
+                          >
+                            <LogOut className="size-3.5" />
+                            {t("signOut")}
+                          </button>
+                        </div>
+                      ) : (
+                        <NextLink
+                          href={`/login?next=${encodeURIComponent(pathname)}`}
+                          onClick={close}
+                          className="flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[var(--spatial-glow)] to-[var(--spatial-glow-2)] px-3 py-3 text-sm font-semibold text-[#05070f] shadow-[0_10px_24px_-8px_var(--hero-glow-1)]"
+                        >
+                          <LogIn className="size-4" />
+                          {t("signIn")}
+                        </NextLink>
+                      )}
                     </div>
                   ) : null}
                 </div>

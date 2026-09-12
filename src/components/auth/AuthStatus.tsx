@@ -7,10 +7,9 @@ import { GitCompareArrows, LayoutDashboard, LogIn, LogOut, Settings, User, Users
 import { Link as I18nLink } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/supabase/AuthProvider";
-import { signOut } from "@/app/auth/actions";
 
 export function AuthStatus({ compact = false }: { compact?: boolean } = {}) {
-  const { user, authLoading, profileMeta } = useAuth();
+  const { user, authLoading, profileMeta, signOut } = useAuth();
   const t = useTranslations("chrome");
   // next/navigation's usePathname (not @/i18n/navigation's, which strips the
   // locale segment) — this feeds `next=` below, and /login isn't part of
@@ -96,12 +95,10 @@ export function AuthStatus({ compact = false }: { compact?: boolean } = {}) {
           </Button>
         </div>
       ) : null}
-      <form action={signOut}>
-        <Button type="submit" variant="ghost" size="sm" className="rounded-full gap-1.5">
-          <LogOut className="size-3.5" />
-          {t("signOut")}
-        </Button>
-      </form>
+      <Button type="button" variant="ghost" size="sm" className="rounded-full gap-1.5" onClick={signOut}>
+        <LogOut className="size-3.5" />
+        {t("signOut")}
+      </Button>
     </div>
   );
 }

@@ -224,7 +224,6 @@ export function SignInCard({ next }: { next?: string }) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  autoFocus
                 />
                 <Input
                   type="password"
@@ -280,7 +279,6 @@ export function SignInCard({ next }: { next?: string }) {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                autoFocus
               />
               <Button type="submit" variant="outline" size="sm" className="gap-1.5" disabled={emailLoading}>
                 {emailLoading ? (

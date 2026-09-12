@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Link } from "@/i18n/navigation";
-import { ASSESSMENT_CATALOG, ASSESSMENT_ORDER } from "@/lib/personality/catalog";
+import { ASSESSMENT_ORDER } from "@/lib/personality/catalog";
 import { getAllCodesForFramework, getTypeContent, FRAMEWORK_URL_SLUGS } from "@/lib/seo/typeContent";
 import { COMBINATIONS } from "@/lib/seo/combinationContent";
+import { FRAMEWORK_CONTENT } from "@/lib/seo/frameworkContent";
+import { FrameworkTypesCard } from "@/components/seo/FrameworkTypesCard";
 
 export const metadata: Metadata = {
   title: "Personality Types & Combinations | Colevitate",
@@ -25,31 +27,39 @@ export default async function TypesIndexPage({ params }: { params: Promise<{ loc
         to find your own.
       </p>
 
-      {ASSESSMENT_ORDER.map((framework) => {
-        const catalog = ASSESSMENT_CATALOG[framework];
-        const urlSlug = FRAMEWORK_URL_SLUGS[framework];
-        const codes = getAllCodesForFramework(framework);
-        return (
-          <section key={framework} className="mt-10">
-            <h2 className="text-lg font-semibold tracking-tight">{catalog.label}</h2>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {codes.map((code) => {
-                const content = getTypeContent(urlSlug, code.toLowerCase(), locale);
-                if (!content) return null;
-                return (
-                  <Link
-                    key={code}
-                    href={`/types/${urlSlug}/${content.slug}`}
-                    className="rounded-full border px-3 py-1.5 text-sm font-medium transition-colors hover:bg-muted/50"
-                  >
-                    {content.name}
-                  </Link>
-                );
-              })}
-            </div>
-          </section>
-        );
-      })}
+      {/* One card per framework instead of a bare heading over a flat pill
+          wrap — MBTI (16 types) and Big Five (10 trait levels) dumped
+          straight into the page read as an overwhelming wall on mobile, with
+          nothing telling a visitor what they're even looking at. The card
+          leads with what the framework is and links to its full /learn
+          explanation before showing any sub-types, and FrameworkTypesCard
+          collapses the pill list past a handful so the ones that don't need
+          it (Human Design, Colors) render exactly as before. */}
+      <div className="mt-10 grid gap-4 sm:grid-cols-2">
+        {ASSESSMENT_ORDER.map((framework) => {
+          const content = FRAMEWORK_CONTENT[framework];
+          const urlSlug = FRAMEWORK_URL_SLUGS[framework];
+          const codes = getAllCodesForFramework(framework);
+          const pills = codes
+            .map((code) => {
+              const typeContent = getTypeContent(urlSlug, code.toLowerCase(), locale);
+              if (!typeContent) return null;
+              return { href: `/types/${urlSlug}/${typeContent.slug}`, label: typeContent.name };
+            })
+            .filter((pill) => pill !== null);
+
+          return (
+            <FrameworkTypesCard
+              key={framework}
+              tagline={content.tagline}
+              label={content.label}
+              intro={content.intro}
+              learnHref={`/learn/${content.slug}`}
+              pills={pills}
+            />
+          );
+        })}
+      </div>
 
       {COMBINATIONS.length > 0 ? (
         <section className="mt-10">

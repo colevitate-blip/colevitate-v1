@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import type { User } from "@supabase/supabase-js";
+import { useRouter } from "@/i18n/navigation";
 import { createClient } from "./client";
 import { loadRemoteProfileMeta, type ProfileMeta } from "@/lib/personality/storage";
 
@@ -10,6 +11,15 @@ interface AuthContextValue {
   /** True until the initial session check resolves. */
   authLoading: boolean;
   profileMeta: ProfileMeta | null;
+  /**
+   * Signs out on the same browser Supabase client AuthProvider itself
+   * listens to (below), so onAuthStateChange picks it up and user/profileMeta
+   * clear immediately — the previous approach posted to a server action that
+   * only signed out the server's own client, leaving this client's session
+   * (and anything reading useAuth(), like the account row in the mobile
+   * menu) stuck showing the signed-in state until a full reload.
+   */
+  signOut: () => Promise<void>;
 }
 
 const AuthContext = React.createContext<AuthContextValue | null>(null);
@@ -18,6 +28,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = React.useState<User | null>(null);
   const [authLoading, setAuthLoading] = React.useState(true);
   const [profileMeta, setProfileMeta] = React.useState<ProfileMeta | null>(null);
+  const router = useRouter();
 
   React.useEffect(() => {
     const supabase = createClient();
@@ -59,9 +70,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => subscription.unsubscribe();
   }, []);
 
+  const signOut = React.useCallback(async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    router.push("/");
+  }, [router]);
+
   const value = React.useMemo(
-    () => ({ user, authLoading, profileMeta }),
-    [user, authLoading, profileMeta]
+    () => ({ user, authLoading, profileMeta, signOut }),
+    [user, authLoading, profileMeta, signOut]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
