@@ -136,10 +136,25 @@ export async function deleteAccount() {
   redirect(await localizedPath("/"));
 }
 
-export async function setApproachable(on: boolean, scope: ApproachableScope, intents: ApproachIntent[] | null) {
+export interface ApproachabilityPersonalDetails {
+  age: number | null;
+  locationCountry: string | null;
+  locationRegion: string | null;
+}
+
+export async function setApproachable(
+  on: boolean,
+  scope: ApproachableScope,
+  intents: ApproachIntent[] | null,
+  personalDetails: ApproachabilityPersonalDetails
+) {
   const supabase = await createClient();
   const { data } = await supabase.auth.getUser();
   if (!data.user) throw new Error("Not authenticated");
+
+  if (personalDetails.age !== null && (personalDetails.age < 18 || personalDetails.age > 120)) {
+    throw new Error("Enter an age between 18 and 120");
+  }
 
   if (!on || scope === "paused") {
     const { error } = await supabase.rpc("set_approachable", {
@@ -153,6 +168,9 @@ export async function setApproachable(on: boolean, scope: ApproachableScope, int
       p_humandesign_badge: null,
       p_colors_badge: null,
       p_bigfive_badge: null,
+      p_age: personalDetails.age,
+      p_location_country: personalDetails.locationCountry,
+      p_location_region: personalDetails.locationRegion,
     });
     if (error) throw new Error(error.message);
     return;
@@ -186,6 +204,9 @@ export async function setApproachable(on: boolean, scope: ApproachableScope, int
     p_humandesign_badge: badges.humandesign,
     p_colors_badge: badges.colors,
     p_bigfive_badge: badges.bigfive,
+    p_age: personalDetails.age,
+    p_location_country: personalDetails.locationCountry,
+    p_location_region: personalDetails.locationRegion,
   });
   if (error) throw new Error(error.message);
 }

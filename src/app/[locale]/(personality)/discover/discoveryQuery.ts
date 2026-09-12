@@ -30,6 +30,9 @@ interface SnapshotRow {
   humandesign_badge: string | null;
   colors_badge: string | null;
   bigfive_badge: string | null;
+  age: number | null;
+  location_country: string | null;
+  location_region: string | null;
   updated_at: string;
 }
 
@@ -130,15 +133,23 @@ export async function fetchDiscoverPage(
     viewerName: string;
     intentFilter: ApproachIntent | null;
     cursor: DiscoverCursor | null;
+    /** Reciprocity gate: a viewer who hasn't shared their own age/location
+     * doesn't see a candidate's either (see 0014_discover_age_location.sql).
+     * Read from profiles, not approachable_snapshots — browsing Discover
+     * never required the viewer to be approachable themselves. */
+    viewerHasAge: boolean;
+    viewerHasLocation: boolean;
   }
 ): Promise<DiscoverPageResult> {
-  const { viewerId, viewerAxes, viewerName, intentFilter, cursor } = opts;
+  const { viewerId, viewerAxes, viewerName, intentFilter, cursor, viewerHasAge, viewerHasLocation } = opts;
 
   const excludedIds = await fetchViewerExclusions(supabase, viewerId);
 
   let query = supabase
     .from("approachable_snapshots")
-    .select("user_id, anon_label, axes, archetype_name, mbti_badge, humandesign_badge, colors_badge, bigfive_badge, updated_at")
+    .select(
+      "user_id, anon_label, axes, archetype_name, mbti_badge, humandesign_badge, colors_badge, bigfive_badge, age, location_country, location_region, updated_at"
+    )
     .neq("user_id", viewerId)
     .order("updated_at", { ascending: false })
     .limit(POOL_CAP);
@@ -204,6 +215,11 @@ export async function fetchDiscoverPage(
     commonGround,
     compatibilityScore,
     contrast,
+    age: viewerHasAge ? row.age : null,
+    ageHiddenByViewer: !viewerHasAge,
+    locationCountry: viewerHasLocation ? row.location_country : null,
+    locationRegion: viewerHasLocation ? row.location_region : null,
+    locationHiddenByViewer: !viewerHasLocation,
     alreadySent: alreadySent.has(row.user_id),
   }));
 

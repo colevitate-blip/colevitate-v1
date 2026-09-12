@@ -17,7 +17,9 @@ export default async function SettingsPage() {
 
   const { data: profileData } = await supabase
     .from("profiles")
-    .select("display_name, avatar_url, is_public, share_slug, approachable, approachable_scope, approachable_intents")
+    .select(
+      "display_name, avatar_url, is_public, share_slug, approachable, approachable_scope, approachable_intents, age, location_country, location_region"
+    )
     .eq("id", user.id)
     .maybeSingle();
 
@@ -42,6 +44,9 @@ export default async function SettingsPage() {
     scope: (profileData?.approachable_scope as ApproachableScope) || "paused",
     intents: (profileData?.approachable_intents as ApproachIntent[] | null) || null,
     anonLabel: snapshotData?.anon_label || null,
+    age: profileData?.age ?? null,
+    locationCountry: profileData?.location_country || null,
+    locationRegion: profileData?.location_region || null,
   };
 
   return (

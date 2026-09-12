@@ -34,7 +34,11 @@ export default async function DiscoverPage({
     redirect(await loginRedirectTarget("/discover"));
   }
 
-  const { data: profile } = await supabase.from("profiles").select("results").eq("id", user.id).maybeSingle();
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("results, age, location_country")
+    .eq("id", user.id)
+    .maybeSingle();
 
   const results = (profile?.results as PersonalityResults) || {};
   const combinedProfile = generateCombinedProfile(results, tRoot, locale);
@@ -49,6 +53,8 @@ export default async function DiscoverPage({
     viewerName: "You",
     intentFilter,
     cursor: null,
+    viewerHasAge: profile?.age != null,
+    viewerHasLocation: profile?.location_country != null,
   });
 
   return (

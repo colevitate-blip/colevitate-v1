@@ -6,6 +6,7 @@ import { SlimProfileCard } from "@/components/discovery/SlimProfileCard";
 import { ApproachComposeDialog } from "@/components/discovery/ApproachComposeDialog";
 import { SafetyActions, SkipAction } from "@/components/discovery/SafetyActions";
 import { FrameworkBadges } from "@/components/discovery/FrameworkBadges";
+import { DiscoverPersonalDetails } from "@/components/discovery/DiscoverPersonalDetails";
 
 export interface DiscoverCardData {
   userId: string;
@@ -22,6 +23,13 @@ export interface DiscoverCardData {
   humandesignBadge: string | null;
   colorsBadge: string | null;
   bigfiveBadge: string | null;
+  /** Null either because this person hasn't shared it, or because the viewer hasn't shared their own (see ageHiddenByViewer) — both optional, surfaced only through the Discovery opt-in settings, never asked at signup. */
+  age: number | null;
+  /** True when age is null specifically because the viewer hasn't shared their own yet (reciprocity) — distinct from this person simply not having shared theirs. */
+  ageHiddenByViewer: boolean;
+  locationCountry: string | null;
+  locationRegion: string | null;
+  locationHiddenByViewer: boolean;
   alreadySent: boolean;
 }
 
@@ -50,6 +58,14 @@ export function DiscoverCard({
           {t("browse.compatibilityLabel", { percent: profile.compatibilityScore })}
         </p>
       )}
+
+      <DiscoverPersonalDetails
+        age={profile.age}
+        ageHiddenByViewer={profile.ageHiddenByViewer}
+        locationCountry={profile.locationCountry}
+        locationRegion={profile.locationRegion}
+        locationHiddenByViewer={profile.locationHiddenByViewer}
+      />
 
       <FrameworkBadges
         mbtiBadge={profile.mbtiBadge}

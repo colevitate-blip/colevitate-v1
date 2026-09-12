@@ -106,7 +106,11 @@ export async function unskipUser(userId: string) {
 export async function loadMoreDiscoverCards(cursor: string, intent: ApproachIntent | null): Promise<DiscoverPageResult> {
   const { supabase, user } = await requireUser();
 
-  const { data: profile } = await supabase.from("profiles").select("results").eq("id", user.id).maybeSingle();
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("results, age, location_country")
+    .eq("id", user.id)
+    .maybeSingle();
 
   const results = (profile?.results as PersonalityResults) || {};
   const t = await getTranslations();
@@ -121,6 +125,8 @@ export async function loadMoreDiscoverCards(cursor: string, intent: ApproachInte
     viewerName: "You",
     intentFilter: intent,
     cursor: decodeDiscoverCursor(cursor),
+    viewerHasAge: profile?.age != null,
+    viewerHasLocation: profile?.location_country != null,
   });
 }
 

@@ -6,12 +6,14 @@ import { Loader2 } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
+import { Input } from "@/components/ui/input";
 import { usePersonality } from "@/lib/personality/context";
 import { generateCombinedProfile } from "@/components/personality/combined/generateCombinedProfile";
 import { setApproachable } from "@/app/[locale]/(personality)/settings/actions";
 import { computeFrameworkBadges } from "@/lib/discovery/frameworkBadges";
 import { SlimProfileCard } from "@/components/discovery/SlimProfileCard";
 import { FrameworkBadges } from "@/components/discovery/FrameworkBadges";
+import { DiscoverPersonalDetails } from "@/components/discovery/DiscoverPersonalDetails";
 import { APPROACH_INTENTS, type ApproachIntent, type ApproachableScope } from "@/components/discovery/discoveryTypes";
 
 export interface ApproachabilityMeta {
@@ -20,6 +22,10 @@ export interface ApproachabilityMeta {
   intents: ApproachIntent[] | null;
   /** The pseudonym strangers actually see (never the real name) — null until the user has turned approachable on at least once. */
   anonLabel: string | null;
+  /** Optional, asked only here (never at signup) — see 0014_discover_age_location.sql. Both independently gate whether this user sees other people's same field on Discover (reciprocity). */
+  age: number | null;
+  locationCountry: string | null;
+  locationRegion: string | null;
 }
 
 export function ApproachabilitySettingsForm({ initialMeta }: { initialMeta: ApproachabilityMeta }) {
@@ -33,6 +39,9 @@ export function ApproachabilitySettingsForm({ initialMeta }: { initialMeta: Appr
     initialMeta.scope === "paused" ? "everyone" : initialMeta.scope
   );
   const [intents, setIntents] = useState<Set<ApproachIntent>>(new Set(initialMeta.intents || []));
+  const [age, setAge] = useState(initialMeta.age !== null ? String(initialMeta.age) : "");
+  const [locationCountry, setLocationCountry] = useState(initialMeta.locationCountry || "");
+  const [locationRegion, setLocationRegion] = useState(initialMeta.locationRegion || "");
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -51,20 +60,32 @@ export function ApproachabilitySettingsForm({ initialMeta }: { initialMeta: Appr
     setSaved(false);
   }, []);
 
+  const trimmedAge = age.trim();
+  const parsedAge = trimmedAge ? Number(trimmedAge) : null;
+  const ageInvalid = trimmedAge !== "" && (!Number.isInteger(parsedAge) || parsedAge! < 18 || parsedAge! > 120);
+
   const handleSave = useCallback(async () => {
+    if (ageInvalid) {
+      setError(t("ageInvalid"));
+      return;
+    }
     setSaving(true);
     setError(null);
     setSaved(false);
     try {
       const effectiveScope: ApproachableScope = on ? scope : "paused";
-      await setApproachable(on, effectiveScope, effectiveScope === "intents" ? Array.from(intents) : null);
+      await setApproachable(on, effectiveScope, effectiveScope === "intents" ? Array.from(intents) : null, {
+        age: parsedAge,
+        locationCountry: locationCountry.trim() || null,
+        locationRegion: locationRegion.trim() || null,
+      });
       setSaved(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : t("error"));
     } finally {
       setSaving(false);
     }
-  }, [on, scope, intents, t]);
+  }, [on, scope, intents, ageInvalid, parsedAge, locationCountry, locationRegion, t]);
 
   return (
     <div className="space-y-4 rounded-2xl border bg-card p-6">
@@ -129,6 +150,55 @@ export function ApproachabilitySettingsForm({ initialMeta }: { initialMeta: Appr
         </div>
       )}
 
+      {/* Independent of the on/off toggle above — both fields save either
+          way, matching 0014_discover_age_location.sql: they're scoped to
+          this Discovery opt-in flow, not gated behind actually turning
+          Discover on. */}
+      <div className="space-y-3 border-t pt-4">
+        <p className="text-sm font-medium">{t("personalDetailsLabel")}</p>
+        <p className="text-xs text-muted-foreground">{t("personalDetailsExplainer")}</p>
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+          <div>
+            <label className="mb-1 block text-xs text-muted-foreground">{t("ageLabel")}</label>
+            <Input
+              type="number"
+              min={18}
+              max={120}
+              inputMode="numeric"
+              placeholder={t("agePlaceholder")}
+              value={age}
+              onChange={(e) => {
+                setAge(e.target.value);
+                setSaved(false);
+              }}
+            />
+          </div>
+          <div>
+            <label className="mb-1 block text-xs text-muted-foreground">{t("locationCountryLabel")}</label>
+            <Input
+              placeholder={t("locationCountryPlaceholder")}
+              value={locationCountry}
+              onChange={(e) => {
+                setLocationCountry(e.target.value);
+                setSaved(false);
+              }}
+            />
+          </div>
+          <div>
+            <label className="mb-1 block text-xs text-muted-foreground">{t("locationRegionLabel")}</label>
+            <Input
+              placeholder={t("locationRegionPlaceholder")}
+              value={locationRegion}
+              onChange={(e) => {
+                setLocationRegion(e.target.value);
+                setSaved(false);
+              }}
+            />
+          </div>
+        </div>
+        {ageInvalid && <p className="text-xs text-destructive">{t("ageInvalid")}</p>}
+      </div>
+
       {on && hasEnoughAssessments && combinedProfile && (
         <div className="border-t pt-4">
           <p className="mb-2 text-xs font-medium text-muted-foreground">{t("previewTitle")}</p>
@@ -140,6 +210,16 @@ export function ApproachabilitySettingsForm({ initialMeta }: { initialMeta: Appr
             avatarUrl={null}
             archetypeName={combinedProfile.archetype?.name ?? null}
           >
+            {/* Shown as if the viewing stranger has also shared their own age/location
+                (reciprocity — 0014_discover_age_location.sql) — whether they actually
+                have depends on them, not you, so this reflects your side only. */}
+            <DiscoverPersonalDetails
+              age={parsedAge}
+              ageHiddenByViewer={false}
+              locationCountry={locationCountry.trim() || null}
+              locationRegion={locationRegion.trim() || null}
+              locationHiddenByViewer={false}
+            />
             <FrameworkBadges
               mbtiBadge={badges.mbti}
               humandesignBadge={badges.humandesign}
