@@ -1,66 +1,130 @@
 {
   "IMTG": {
     "name": "El Artesano Silencioso",
-    "description": "Trabajas mejor a solas, en el momento, en cosas que puedes medir con tu propio estándar y no con el de nadie más."
+    "description": "Trabajas mejor a solas, en el momento, en cosas que puedes medir con tu propio estándar y no con el de nadie más.",
+    "descriptionThird": {
+      "he": "Trabaja mejor a solas, en el momento, en cosas que puede medir con su propio estándar y no con el de nadie más.",
+      "she": "Trabaja mejor a solas, en el momento, en cosas que puede medir con su propio estándar y no con el de nadie más."
+    }
   },
   "IMTX": {
     "name": "El Inventor Independiente",
-    "description": "Persigues ideas a tu manera, y eres más feliz improvisando tu camino a través de algo nuevo sin público."
+    "description": "Persigues ideas a tu manera, y eres más feliz improvisando tu camino a través de algo nuevo sin público.",
+    "descriptionThird": {
+      "he": "Persigue ideas a su manera, y es más feliz improvisando su camino a través de algo nuevo sin público.",
+      "she": "Persigue ideas a su manera, y es más feliz improvisando su camino a través de algo nuevo sin público."
+    }
   },
   "IMFG": {
     "name": "El Confidente Constante",
-    "description": "La gente confía en ti precisamente porque eres discreto y constante — presente para ellos sin necesitar el protagonismo."
+    "description": "La gente confía en ti precisamente porque eres discreto y constante — presente para ellos sin necesitar el protagonismo.",
+    "descriptionThird": {
+      "he": "La gente confía en él precisamente porque es discreto y constante — presente para ellos sin necesitar el protagonismo.",
+      "she": "La gente confía en ella precisamente porque es discreta y constante — presente para ellos sin necesitar el protagonismo."
+    }
   },
   "IMFX": {
     "name": "El Errante Sereno",
-    "description": "Te acercas a personas e ideas nuevas a tu propio ritmo tranquilo, más curioso que inquieto."
+    "description": "Te acercas a personas e ideas nuevas a tu propio ritmo tranquilo, más curioso que inquieto.",
+    "descriptionThird": {
+      "he": "Se acerca a personas e ideas nuevas a su propio ritmo tranquilo, más curioso que inquieto.",
+      "she": "Se acerca a personas e ideas nuevas a su propio ritmo tranquilo, más curiosa que inquieta."
+    }
   },
   "IPTG": {
     "name": "El Arquitecto Preciso",
-    "description": "Construyes las cosas con cuidado y en soledad, confiando más en un plan bien hecho que en la improvisación o en la opinión de otros."
+    "description": "Construyes las cosas con cuidado y en soledad, confiando más en un plan bien hecho que en la improvisación o en la opinión de otros.",
+    "descriptionThird": {
+      "he": "Construye las cosas con cuidado y en soledad, confiando más en un plan bien hecho que en la improvisación o en la opinión de otros.",
+      "she": "Construye las cosas con cuidado y en soledad, confiando más en un plan bien hecho que en la improvisación o en la opinión de otros."
+    }
   },
   "IPTX": {
     "name": "El Innovador Metódico",
-    "description": "Das vida a ideas nuevas mediante la disciplina, no la espontaneidad — la estructura es lo que te permite llegar a un lugar genuinamente nuevo."
+    "description": "Das vida a ideas nuevas mediante la disciplina, no la espontaneidad — la estructura es lo que te permite llegar a un lugar genuinamente nuevo.",
+    "descriptionThird": {
+      "he": "Da vida a ideas nuevas mediante la disciplina, no la espontaneidad — la estructura es lo que le permite llegar a un lugar genuinamente nuevo.",
+      "she": "Da vida a ideas nuevas mediante la disciplina, no la espontaneidad — la estructura es lo que le permite llegar a un lugar genuinamente nuevo."
+    }
   },
   "IPFG": {
     "name": "El Cuidador Devoto",
-    "description": "Estás presente de forma fiable para las personas cercanas a ti, prefiriendo rutinas confiables por encima de los grandes gestos."
+    "description": "Estás presente de forma fiable para las personas cercanas a ti, prefiriendo rutinas confiables por encima de los grandes gestos.",
+    "descriptionThird": {
+      "he": "Está presente de forma fiable para las personas cercanas a él, prefiriendo rutinas confiables por encima de los grandes gestos.",
+      "she": "Está presente de forma fiable para las personas cercanas a ella, prefiriendo rutinas confiables por encima de los grandes gestos."
+    }
   },
   "IPFX": {
     "name": "El Visionario Reflexivo",
-    "description": "Planificas en silencio para personas e ideas que aún no existen, pensando hacia adelante más de lo que hablas de ello."
+    "description": "Planificas en silencio para personas e ideas que aún no existen, pensando hacia adelante más de lo que hablas de ello.",
+    "descriptionThird": {
+      "he": "Planifica en silencio para personas e ideas que aún no existen, pensando hacia adelante más de lo que habla de ello.",
+      "she": "Planifica en silencio para personas e ideas que aún no existen, pensando hacia adelante más de lo que habla de ello."
+    }
   },
   "EMTG": {
     "name": "El Hacedor Audaz",
-    "description": "Prefieres actuar sobre algo real ahora mismo antes que planificarlo o discutirlo — el impulso es tu forma de pensar."
+    "description": "Prefieres actuar sobre algo real ahora mismo antes que planificarlo o discutirlo — el impulso es tu forma de pensar.",
+    "descriptionThird": {
+      "he": "Prefiere actuar sobre algo real ahora mismo antes que planificarlo o discutirlo — el impulso es su forma de pensar.",
+      "she": "Prefiere actuar sobre algo real ahora mismo antes que planificarlo o discutirlo — el impulso es su forma de pensar."
+    }
   },
   "EMTX": {
     "name": "El Pionero Inquieto",
-    "description": "Te atrae lo más nuevo y lo más vivo, moviéndote rápido y resolviendo el plan después."
+    "description": "Te atrae lo más nuevo y lo más vivo, moviéndote rápido y resolviendo el plan después.",
+    "descriptionThird": {
+      "he": "Le atrae a él lo más nuevo y lo más vivo, moviéndose rápido y resolviendo el plan después.",
+      "she": "Le atrae a ella lo más nuevo y lo más vivo, moviéndose rápido y resolviendo el plan después."
+    }
   },
   "EMFG": {
     "name": "El Conector Realista",
-    "description": "Reúnes a la gente en torno a lo real e inmediato, energizado por los demás sin necesitar un guion."
+    "description": "Reúnes a la gente en torno a lo real e inmediato, energizado por los demás sin necesitar un guion.",
+    "descriptionThird": {
+      "he": "Reúne a la gente en torno a lo real e inmediato, energizado por los demás sin necesitar un guion.",
+      "she": "Reúne a la gente en torno a lo real e inmediato, energizada por los demás sin necesitar un guion."
+    }
   },
   "EMFX": {
     "name": "El Catalizador Espontáneo",
-    "description": "Enciendes la energía de una sala y persigues lo nuevo casi al mismo tiempo, casi nunca de la misma manera dos veces."
+    "description": "Enciendes la energía de una sala y persigues lo nuevo casi al mismo tiempo, casi nunca de la misma manera dos veces.",
+    "descriptionThird": {
+      "he": "Enciende la energía de una sala y persigue lo nuevo casi al mismo tiempo, casi nunca de la misma manera dos veces.",
+      "she": "Enciende la energía de una sala y persigue lo nuevo casi al mismo tiempo, casi nunca de la misma manera dos veces."
+    }
   },
   "EPTG": {
     "name": "El Organizador Decidido",
-    "description": "Conviertes los planes en resultados con pura fuerza de avance, y te sientes más cómodo cuando hay una estructura clara contra la cual empujar."
+    "description": "Conviertes los planes en resultados con pura fuerza de avance, y te sientes más cómodo cuando hay una estructura clara contra la cual empujar.",
+    "descriptionThird": {
+      "he": "Convierte los planes en resultados con pura fuerza de avance, y se siente más cómodo cuando hay una estructura clara contra la cual empujar.",
+      "she": "Convierte los planes en resultados con pura fuerza de avance, y se siente más cómoda cuando hay una estructura clara contra la cual empujar."
+    }
   },
   "EPTX": {
     "name": "El Pionero Estratégico",
-    "description": "Persigues direcciones nuevas y audaces, pero las respaldas con una planificación real, tratando la visión y la estructura como aliadas, no como opuestos."
+    "description": "Persigues direcciones nuevas y audaces, pero las respaldas con una planificación real, tratando la visión y la estructura como aliadas, no como opuestos.",
+    "descriptionThird": {
+      "he": "Persigue direcciones nuevas y audaces, pero las respalda con una planificación real, tratando la visión y la estructura como aliadas, no como opuestos.",
+      "she": "Persigue direcciones nuevas y audaces, pero las respalda con una planificación real, tratando la visión y la estructura como aliadas, no como opuestos."
+    }
   },
   "EPFG": {
     "name": "El Anfitrión Confiable",
-    "description": "Mantienes a la gente y los planes funcionando sin fricciones al mismo tiempo, de una forma confiable que le facilita la vida a todos los demás."
+    "description": "Mantienes a la gente y los planes funcionando sin fricciones al mismo tiempo, de una forma confiable que le facilita la vida a todos los demás.",
+    "descriptionThird": {
+      "he": "Mantiene a la gente y los planes funcionando sin fricciones al mismo tiempo, de una forma confiable que le facilita la vida a todos los demás.",
+      "she": "Mantiene a la gente y los planes funcionando sin fricciones al mismo tiempo, de una forma confiable que le facilita la vida a todos los demás."
+    }
   },
   "EPFX": {
     "name": "El Líder Inspirador",
-    "description": "Reúnes a la gente en torno a grandes ideas nuevas y de verdad organizas el seguimiento, a partes iguales visionario y planificador."
+    "description": "Reúnes a la gente en torno a grandes ideas nuevas y de verdad organizas el seguimiento, a partes iguales visionario y planificador.",
+    "descriptionThird": {
+      "he": "Reúne a la gente en torno a grandes ideas nuevas y de verdad organiza el seguimiento, a partes iguales visionario y planificador.",
+      "she": "Reúne a la gente en torno a grandes ideas nuevas y de verdad organiza el seguimiento, a partes iguales visionaria y planificadora."
+    }
   }
 }

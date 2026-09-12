@@ -50,7 +50,19 @@ async function loadMessages(locale: string) {
 // override doesn't define — this is how a locale that only has partial
 // translations (e.g. during the phased rollout, or for namespaces outside
 // phase 1 scope) still falls back to English instead of throwing/missing text.
+// Arrays merge by index (not wholesale replacement): a translated array whose
+// items are missing a field a newer English item added (e.g. a tier gaining a
+// sentenceThird key) still falls back to the English value for that field,
+// instead of silently losing it just because the array itself was overridden.
 function deepMerge(base: unknown, overrides: unknown): unknown {
+  if (Array.isArray(base) && Array.isArray(overrides)) {
+    const length = Math.max(base.length, overrides.length);
+    const result: unknown[] = [];
+    for (let i = 0; i < length; i++) {
+      result[i] = i in overrides ? deepMerge(base[i], overrides[i]) : base[i];
+    }
+    return result;
+  }
   if (
     typeof base === "object" &&
     base !== null &&

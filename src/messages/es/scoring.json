@@ -9,89 +9,169 @@
     "energy": [
       {
         "tierLabel": "Marcadamente interior",
-        "sentence": "En todos tus resultados, la energía se orienta sistemáticamente hacia dentro — piensas mejor a solas o en grupos muy pequeños, y te recuperas alejándote del ruido, no metiéndote en él."
+        "sentence": "En todos tus resultados, la energía se orienta sistemáticamente hacia dentro — piensas mejor a solas o en grupos muy pequeños, y te recuperas alejándote del ruido, no metiéndote en él.",
+        "sentenceThird": {
+          "he": "En todos los resultados de él, la energía se orienta sistemáticamente hacia dentro — piensa mejor a solas o en grupos muy pequeños, y se recupera alejándose del ruido, no metiéndose en él.",
+          "she": "En todos los resultados de ella, la energía se orienta sistemáticamente hacia dentro — piensa mejor a solas o en grupos muy pequeños, y se recupera alejándose del ruido, no metiéndose en él."
+        }
       },
       {
         "tierLabel": "Tiende hacia lo interior",
-        "sentence": "Tu energía tiende hacia dentro más veces de las que no — puedes desenvolverte hacia afuera cuando hace falta, pero el tiempo tranquilo y de baja estimulación es donde realmente te recargas."
+        "sentence": "Tu energía tiende hacia dentro más veces de las que no — puedes desenvolverte hacia afuera cuando hace falta, pero el tiempo tranquilo y de baja estimulación es donde realmente te recargas.",
+        "sentenceThird": {
+          "he": "Su energía tiende hacia dentro más veces de las que no — él puede desenvolverse hacia afuera cuando hace falta, pero el tiempo tranquilo y de baja estimulación es donde realmente se recarga.",
+          "she": "Su energía tiende hacia dentro más veces de las que no — ella puede desenvolverse hacia afuera cuando hace falta, pero el tiempo tranquilo y de baja estimulación es donde realmente se recarga."
+        }
       },
       {
         "tierLabel": "Situacional",
-        "sentence": "Tu energía se lee como genuinamente situacional — hacia afuera y comprometida en el contexto adecuado, hacia dentro y conservadora en otros, en lugar de ser fija en un sentido u otro."
+        "sentence": "Tu energía se lee como genuinamente situacional — hacia afuera y comprometida en el contexto adecuado, hacia dentro y conservadora en otros, en lugar de ser fija en un sentido u otro.",
+        "sentenceThird": {
+          "he": "Su energía se lee como genuinamente situacional — hacia afuera y comprometida en el contexto adecuado, hacia dentro y conservadora en otros, en lugar de ser fija en un sentido u otro.",
+          "she": "Su energía se lee como genuinamente situacional — hacia afuera y comprometida en el contexto adecuado, hacia dentro y conservadora en otros, en lugar de ser fija en un sentido u otro."
+        }
       },
       {
         "tierLabel": "Tiende hacia lo exterior",
-        "sentence": "Tu energía tiende hacia afuera más veces de las que no — la gente y el impulso suelen sumar a tu tanque de energía en vez de vaciarlo."
+        "sentence": "Tu energía tiende hacia afuera más veces de las que no — la gente y el impulso suelen sumar a tu tanque de energía en vez de vaciarlo.",
+        "sentenceThird": {
+          "he": "Su energía tiende hacia afuera más veces de las que no — la gente y el impulso suelen sumar a su tanque de energía en vez de vaciarlo.",
+          "she": "Su energía tiende hacia afuera más veces de las que no — la gente y el impulso suelen sumar a su tanque de energía en vez de vaciarlo."
+        }
       },
       {
         "tierLabel": "Marcadamente exterior",
-        "sentence": "En todos tus resultados, la energía se orienta sistemáticamente hacia afuera — la gente y el impulso realmente te recargan, no solo los toleras."
+        "sentence": "En todos tus resultados, la energía se orienta sistemáticamente hacia afuera — la gente y el impulso realmente te recargan, no solo los toleras.",
+        "sentenceThird": {
+          "he": "En todos los resultados de él, la energía se orienta sistemáticamente hacia afuera — la gente y el impulso realmente lo recargan, no solo los tolera.",
+          "she": "En todos los resultados de ella, la energía se orienta sistemáticamente hacia afuera — la gente y el impulso realmente la recargan, no solo los tolera."
+        }
       }
     ],
     "structure": [
       {
         "tierLabel": "Marcadamente emergente",
-        "sentence": "Operas casi por completo en el momento — los planes son, en el mejor de los casos, un andamiaje flexible, y tu mejor trabajo surge al responder a lo que de verdad tienes delante."
+        "sentence": "Operas casi por completo en el momento — los planes son, en el mejor de los casos, un andamiaje flexible, y tu mejor trabajo surge al responder a lo que de verdad tienes delante.",
+        "sentenceThird": {
+          "he": "Él opera casi por completo en el momento — los planes son, en el mejor de los casos, un andamiaje flexible, y su mejor trabajo surge al responder a lo que de verdad tiene delante.",
+          "she": "Ella opera casi por completo en el momento — los planes son, en el mejor de los casos, un andamiaje flexible, y su mejor trabajo surge al responder a lo que de verdad tiene delante."
+        }
       },
       {
         "tierLabel": "Tiende hacia lo emergente",
-        "sentence": "Tiendes a mantenerte flexible y receptivo, siguiendo el momento más a menudo que un plan trazado de antemano."
+        "sentence": "Tiendes a mantenerte flexible y receptivo, siguiendo el momento más a menudo que un plan trazado de antemano.",
+        "sentenceThird": {
+          "he": "Tiende a mantenerse flexible y receptivo, siguiendo el momento más a menudo que un plan trazado de antemano.",
+          "she": "Tiende a mantenerse flexible y receptiva, siguiendo el momento más a menudo que un plan trazado de antemano."
+        }
       },
       {
         "tierLabel": "Equilibrado",
-        "sentence": "Te mueves entre planificar con anticipación y mantenerte abierto al momento, eligiendo lo que la situación realmente pide."
+        "sentence": "Te mueves entre planificar con anticipación y mantenerte abierto al momento, eligiendo lo que la situación realmente pide.",
+        "sentenceThird": {
+          "he": "Se mueve entre planificar con anticipación y mantenerse abierto al momento, eligiendo lo que la situación realmente pide.",
+          "she": "Se mueve entre planificar con anticipación y mantenerse abierta al momento, eligiendo lo que la situación realmente pide."
+        }
       },
       {
         "tierLabel": "Tiende hacia lo planificado",
-        "sentence": "Tiendes a planificar las cosas — eres capaz de improvisar, pero tu mejor trabajo surge cuando ya hay algo de estructura en su sitio."
+        "sentence": "Tiendes a planificar las cosas — eres capaz de improvisar, pero tu mejor trabajo surge cuando ya hay algo de estructura en su sitio.",
+        "sentenceThird": {
+          "he": "Tiende a planificar las cosas — es capaz de improvisar, pero su mejor trabajo surge cuando ya hay algo de estructura en su sitio.",
+          "she": "Tiende a planificar las cosas — es capaz de improvisar, pero su mejor trabajo surge cuando ya hay algo de estructura en su sitio."
+        }
       },
       {
         "tierLabel": "Marcadamente planificado",
-        "sentence": "La estructura es un hilo constante en todos tus resultados — planificas con anticipación, cumples lo que empiezas, y te sientes más capaz cuando la forma de las cosas ya está clara."
+        "sentence": "La estructura es un hilo constante en todos tus resultados — planificas con anticipación, cumples lo que empiezas, y te sientes más capaz cuando la forma de las cosas ya está clara.",
+        "sentenceThird": {
+          "he": "La estructura es un hilo constante en todos sus resultados — planifica con anticipación, cumple lo que empieza, y se siente más capaz cuando la forma de las cosas ya está clara.",
+          "she": "La estructura es un hilo constante en todos sus resultados — planifica con anticipación, cumple lo que empieza, y se siente más capaz cuando la forma de las cosas ya está clara."
+        }
       }
     ],
     "people": [
       {
         "tierLabel": "Marcadamente centrado en la tarea",
-        "sentence": "En todos tus resultados, priorizas sistemáticamente el trabajo en sí por encima de cómo se sienta la gente al respecto — la claridad y los resultados van primero."
+        "sentence": "En todos tus resultados, priorizas sistemáticamente el trabajo en sí por encima de cómo se sienta la gente al respecto — la claridad y los resultados van primero.",
+        "sentenceThird": {
+          "he": "En todos sus resultados, prioriza sistemáticamente el trabajo en sí por encima de cómo se sienta la gente al respecto — la claridad y los resultados van primero.",
+          "she": "En todos sus resultados, prioriza sistemáticamente el trabajo en sí por encima de cómo se sienta la gente al respecto — la claridad y los resultados van primero."
+        }
       },
       {
         "tierLabel": "Tiende a centrarse en la tarea",
-        "sentence": "Tiendes a priorizar la tarea que tienes entre manos, aunque no eres indiferente a las personas involucradas — simplemente no te dejas guiar por eso."
+        "sentence": "Tiendes a priorizar la tarea que tienes entre manos, aunque no eres indiferente a las personas involucradas — simplemente no te dejas guiar por eso.",
+        "sentenceThird": {
+          "he": "Tiende a priorizar la tarea que tiene entre manos, aunque no es indiferente a las personas involucradas — simplemente no se deja guiar por eso.",
+          "she": "Tiende a priorizar la tarea que tiene entre manos, aunque no es indiferente a las personas involucradas — simplemente no se deja guiar por eso."
+        }
       },
       {
         "tierLabel": "Equilibrado",
-        "sentence": "Equilibras a las personas y la tarea de forma bastante pareja — ninguna de las dos predomina de forma constante en cómo actúas."
+        "sentence": "Equilibras a las personas y la tarea de forma bastante pareja — ninguna de las dos predomina de forma constante en cómo actúas.",
+        "sentenceThird": {
+          "he": "Equilibra a las personas y la tarea de forma bastante pareja — ninguna de las dos predomina de forma constante en cómo actúa.",
+          "she": "Equilibra a las personas y la tarea de forma bastante pareja — ninguna de las dos predomina de forma constante en cómo actúa."
+        }
       },
       {
         "tierLabel": "Tiende a centrarse en las personas",
-        "sentence": "Tiendes a priorizar a las personas presentes — las decisiones suelen filtrarse por cómo van a afectar a los demás."
+        "sentence": "Tiendes a priorizar a las personas presentes — las decisiones suelen filtrarse por cómo van a afectar a los demás.",
+        "sentenceThird": {
+          "he": "Tiende a priorizar a las personas presentes — las decisiones suelen filtrarse por cómo van a afectar a los demás.",
+          "she": "Tiende a priorizar a las personas presentes — las decisiones suelen filtrarse por cómo van a afectar a los demás."
+        }
       },
       {
         "tierLabel": "Marcadamente centrado en las personas",
-        "sentence": "En todos tus resultados, las personas van primero de forma constante — lees el ambiente, proteges las relaciones, y dejas que eso determine casi cada decisión que tomas."
+        "sentence": "En todos tus resultados, las personas van primero de forma constante — lees el ambiente, proteges las relaciones, y dejas que eso determine casi cada decisión que tomas.",
+        "sentenceThird": {
+          "he": "En todos sus resultados, las personas van primero de forma constante — lee el ambiente, protege las relaciones, y deja que eso determine casi cada decisión que toma.",
+          "she": "En todos sus resultados, las personas van primero de forma constante — lee el ambiente, protege las relaciones, y deja que eso determine casi cada decisión que toma."
+        }
       }
     ],
     "novelty": [
       {
         "tierLabel": "Marcadamente realista",
-        "sentence": "Favoreces sistemáticamente lo comprobado y concreto por encima de lo no probado — las ideas nuevas se ganan tu confianza demostrando que funcionan, no por el simple hecho de ser nuevas."
+        "sentence": "Favoreces sistemáticamente lo comprobado y concreto por encima de lo no probado — las ideas nuevas se ganan tu confianza demostrando que funcionan, no por el simple hecho de ser nuevas.",
+        "sentenceThird": {
+          "he": "Favorece sistemáticamente lo comprobado y concreto por encima de lo no probado — las ideas nuevas se ganan su confianza demostrando que funcionan, no por el simple hecho de ser nuevas.",
+          "she": "Favorece sistemáticamente lo comprobado y concreto por encima de lo no probado — las ideas nuevas se ganan su confianza demostrando que funcionan, no por el simple hecho de ser nuevas."
+        }
       },
       {
         "tierLabel": "Tiende a lo realista",
-        "sentence": "Tiendes hacia lo práctico y lo familiar, aunque no estás cerrado a ideas nuevas una vez que han mostrado algo de sustancia."
+        "sentence": "Tiendes hacia lo práctico y lo familiar, aunque no estás cerrado a ideas nuevas una vez que han mostrado algo de sustancia.",
+        "sentenceThird": {
+          "he": "Tiende hacia lo práctico y lo familiar, aunque no está cerrado a ideas nuevas una vez que han mostrado algo de sustancia.",
+          "she": "Tiende hacia lo práctico y lo familiar, aunque no está cerrada a ideas nuevas una vez que han mostrado algo de sustancia."
+        }
       },
       {
         "tierLabel": "Equilibrado",
-        "sentence": "Te mueves entre lo familiar y lo experimental según lo que esté en juego, en lugar de inclinarte por defecto hacia uno de los dos."
+        "sentence": "Te mueves entre lo familiar y lo experimental según lo que esté en juego, en lugar de inclinarte por defecto hacia uno de los dos.",
+        "sentenceThird": {
+          "he": "Se mueve entre lo familiar y lo experimental según lo que esté en juego, en lugar de inclinarse por defecto hacia uno de los dos.",
+          "she": "Se mueve entre lo familiar y lo experimental según lo que esté en juego, en lugar de inclinarse por defecto hacia uno de los dos."
+        }
       },
       {
         "tierLabel": "Tiende a lo explorador",
-        "sentence": "Tiendes hacia lo nuevo y lo no probado — la novedad suele captar tu atención más que la rutina."
+        "sentence": "Tiendes hacia lo nuevo y lo no probado — la novedad suele captar tu atención más que la rutina.",
+        "sentenceThird": {
+          "he": "Tiende hacia lo nuevo y lo no probado — la novedad suele captar su atención más que la rutina.",
+          "she": "Tiende hacia lo nuevo y lo no probado — la novedad suele captar su atención más que la rutina."
+        }
       },
       {
         "tierLabel": "Marcadamente explorador",
-        "sentence": "En todos tus resultados, te sientes atraído sistemáticamente por lo desconocido — las ideas nuevas, los ángulos nuevos y las posibilidades nuevas son donde tu energía va de forma natural."
+        "sentence": "En todos tus resultados, te sientes atraído sistemáticamente por lo desconocido — las ideas nuevas, los ángulos nuevos y las posibilidades nuevas son donde tu energía va de forma natural.",
+        "sentenceThird": {
+          "he": "En todos sus resultados, se siente atraído sistemáticamente por lo desconocido — las ideas nuevas, los ángulos nuevos y las posibilidades nuevas son donde su energía va de forma natural.",
+          "she": "En todos sus resultados, se siente atraída sistemáticamente por lo desconocido — las ideas nuevas, los ángulos nuevos y las posibilidades nuevas son donde su energía va de forma natural."
+        }
       }
     ]
   },

@@ -9,89 +9,169 @@
     "energy": [
       {
         "tierLabel": "Fortement intérieur",
-        "sentence": "Dans l'ensemble de vos résultats, votre énergie est constamment tournée vers l'intérieur — vous réfléchissez le mieux seul ou en tout petit comité, et vous récupérez en vous éloignant du bruit, pas en vous y plongeant."
+        "sentence": "Dans l'ensemble de vos résultats, votre énergie est constamment tournée vers l'intérieur — vous réfléchissez le mieux seul ou en tout petit comité, et vous récupérez en vous éloignant du bruit, pas en vous y plongeant.",
+        "sentenceThird": {
+          "he": "Dans l'ensemble de ses résultats, son énergie est constamment tournée vers l'intérieur — il réfléchit le mieux seul ou en tout petit comité, et il récupère en s'éloignant du bruit, pas en s'y plongeant.",
+          "she": "Dans l'ensemble de ses résultats, son énergie est constamment tournée vers l'intérieur — elle réfléchit le mieux seule ou en tout petit comité, et elle récupère en s'éloignant du bruit, pas en s'y plongeant."
+        }
       },
       {
         "tierLabel": "Penche vers l'intérieur",
-        "sentence": "Votre énergie penche vers l'intérieur plus souvent qu'autrement — vous pouvez vous montrer extraverti quand il le faut, mais c'est dans le calme et la faible stimulation que vous rechargez réellement vos batteries."
+        "sentence": "Votre énergie penche vers l'intérieur plus souvent qu'autrement — vous pouvez vous montrer extraverti quand il le faut, mais c'est dans le calme et la faible stimulation que vous rechargez réellement vos batteries.",
+        "sentenceThird": {
+          "he": "Son énergie penche vers l'intérieur plus souvent qu'autrement — il peut se montrer extraverti quand il le faut, mais c'est dans le calme et la faible stimulation qu'il recharge réellement ses batteries.",
+          "she": "Son énergie penche vers l'intérieur plus souvent qu'autrement — elle peut se montrer extravertie quand il le faut, mais c'est dans le calme et la faible stimulation qu'elle recharge réellement ses batteries."
+        }
       },
       {
         "tierLabel": "Situationnel",
-        "sentence": "Votre énergie se révèle vraiment situationnelle — extravertie et engagée dans le bon contexte, intérieure et économe dans d'autres, plutôt que figée dans un sens ou l'autre."
+        "sentence": "Votre énergie se révèle vraiment situationnelle — extravertie et engagée dans le bon contexte, intérieure et économe dans d'autres, plutôt que figée dans un sens ou l'autre.",
+        "sentenceThird": {
+          "he": "Son énergie se révèle vraiment situationnelle — extravertie et engagée dans le bon contexte, intérieure et économe dans d'autres, plutôt que figée dans un sens ou l'autre.",
+          "she": "Son énergie se révèle vraiment situationnelle — extravertie et engagée dans le bon contexte, intérieure et économe dans d'autres, plutôt que figée dans un sens ou l'autre."
+        }
       },
       {
         "tierLabel": "Penche vers l'extérieur",
-        "sentence": "Votre énergie penche vers l'extérieur plus souvent qu'autrement — les gens et l'élan collectif ont tendance à remplir votre réservoir plutôt qu'à le vider."
+        "sentence": "Votre énergie penche vers l'extérieur plus souvent qu'autrement — les gens et l'élan collectif ont tendance à remplir votre réservoir plutôt qu'à le vider.",
+        "sentenceThird": {
+          "he": "Son énergie penche vers l'extérieur plus souvent qu'autrement — les gens et l'élan collectif ont tendance à remplir son réservoir plutôt qu'à le vider.",
+          "she": "Son énergie penche vers l'extérieur plus souvent qu'autrement — les gens et l'élan collectif ont tendance à remplir son réservoir plutôt qu'à le vider."
+        }
       },
       {
         "tierLabel": "Fortement extérieur",
-        "sentence": "Dans l'ensemble de vos résultats, votre énergie est constamment tournée vers l'extérieur — vous êtes véritablement rechargé par les gens et l'élan collectif, pas simplement tolérant à leur égard."
+        "sentence": "Dans l'ensemble de vos résultats, votre énergie est constamment tournée vers l'extérieur — vous êtes véritablement rechargé par les gens et l'élan collectif, pas simplement tolérant à leur égard.",
+        "sentenceThird": {
+          "he": "Dans l'ensemble de ses résultats, son énergie est constamment tournée vers l'extérieur — il est véritablement rechargé par les gens et l'élan collectif, pas simplement tolérant à leur égard.",
+          "she": "Dans l'ensemble de ses résultats, son énergie est constamment tournée vers l'extérieur — elle est véritablement rechargée par les gens et l'élan collectif, pas simplement tolérante à leur égard."
+        }
       }
     ],
     "structure": [
       {
         "tierLabel": "Fortement émergent",
-        "sentence": "Vous fonctionnez presque entièrement dans l'instant — les plans ne sont au mieux qu'une ossature souple, et vous donnez le meilleur de vous-même en répondant à ce qui se trouve réellement devant vous."
+        "sentence": "Vous fonctionnez presque entièrement dans l'instant — les plans ne sont au mieux qu'une ossature souple, et vous donnez le meilleur de vous-même en répondant à ce qui se trouve réellement devant vous.",
+        "sentenceThird": {
+          "he": "Il fonctionne presque entièrement dans l'instant — les plans ne sont au mieux qu'une ossature souple, et il donne le meilleur de lui-même en répondant à ce qui se trouve réellement devant lui.",
+          "she": "Elle fonctionne presque entièrement dans l'instant — les plans ne sont au mieux qu'une ossature souple, et elle donne le meilleur d'elle-même en répondant à ce qui se trouve réellement devant elle."
+        }
       },
       {
         "tierLabel": "Penche vers l'émergent",
-        "sentence": "Vous avez tendance à rester flexible et réactif, suivant l'instant plus souvent qu'un plan établi à l'avance."
+        "sentence": "Vous avez tendance à rester flexible et réactif, suivant l'instant plus souvent qu'un plan établi à l'avance.",
+        "sentenceThird": {
+          "he": "Il a tendance à rester flexible et réactif, suivant l'instant plus souvent qu'un plan établi à l'avance.",
+          "she": "Elle a tendance à rester flexible et réactive, suivant l'instant plus souvent qu'un plan établi à l'avance."
+        }
       },
       {
         "tierLabel": "Équilibré",
-        "sentence": "Vous alternez entre planifier à l'avance et rester ouvert à l'instant présent, choisissant ce que la situation exige réellement."
+        "sentence": "Vous alternez entre planifier à l'avance et rester ouvert à l'instant présent, choisissant ce que la situation exige réellement.",
+        "sentenceThird": {
+          "he": "Il alterne entre planifier à l'avance et rester ouvert à l'instant présent, choisissant ce que la situation exige réellement.",
+          "she": "Elle alterne entre planifier à l'avance et rester ouverte à l'instant présent, choisissant ce que la situation exige réellement."
+        }
       },
       {
         "tierLabel": "Penche vers le planifié",
-        "sentence": "Vous avez tendance à tout planifier — vous êtes capable d'improviser, mais vous donnez le meilleur de vous-même quand une certaine structure est déjà en place."
+        "sentence": "Vous avez tendance à tout planifier — vous êtes capable d'improviser, mais vous donnez le meilleur de vous-même quand une certaine structure est déjà en place.",
+        "sentenceThird": {
+          "he": "Il a tendance à tout planifier — il est capable d'improviser, mais il donne le meilleur de lui-même quand une certaine structure est déjà en place.",
+          "she": "Elle a tendance à tout planifier — elle est capable d'improviser, mais elle donne le meilleur d'elle-même quand une certaine structure est déjà en place."
+        }
       },
       {
         "tierLabel": "Fortement planifié",
-        "sentence": "La structure est un fil conducteur constant dans vos résultats — vous planifiez à l'avance, vous allez jusqu'au bout, et vous vous sentez le plus compétent quand les contours des choses sont déjà clairs."
+        "sentence": "La structure est un fil conducteur constant dans vos résultats — vous planifiez à l'avance, vous allez jusqu'au bout, et vous vous sentez le plus compétent quand les contours des choses sont déjà clairs.",
+        "sentenceThird": {
+          "he": "La structure est un fil conducteur constant dans ses résultats — il planifie à l'avance, va jusqu'au bout, et se sent le plus compétent quand les contours des choses sont déjà clairs.",
+          "she": "La structure est un fil conducteur constant dans ses résultats — elle planifie à l'avance, va jusqu'au bout, et se sent le plus compétente quand les contours des choses sont déjà clairs."
+        }
       }
     ],
     "people": [
       {
         "tierLabel": "Fortement orienté tâche",
-        "sentence": "Dans l'ensemble de vos résultats, vous privilégiez constamment le travail lui-même plutôt que la gestion du ressenti des autres à son sujet — la clarté et les résultats passent en premier."
+        "sentence": "Dans l'ensemble de vos résultats, vous privilégiez constamment le travail lui-même plutôt que la gestion du ressenti des autres à son sujet — la clarté et les résultats passent en premier.",
+        "sentenceThird": {
+          "he": "Dans l'ensemble de ses résultats, il privilégie constamment le travail lui-même plutôt que la gestion du ressenti des autres à son sujet — la clarté et les résultats passent en premier.",
+          "she": "Dans l'ensemble de ses résultats, elle privilégie constamment le travail lui-même plutôt que la gestion du ressenti des autres à son sujet — la clarté et les résultats passent en premier."
+        }
       },
       {
         "tierLabel": "Penche vers l'orientation tâche",
-        "sentence": "Vous avez tendance à privilégier la tâche à accomplir, sans pour autant être indifférent aux personnes impliquées — simplement, ce n'est pas ce qui vous guide."
+        "sentence": "Vous avez tendance à privilégier la tâche à accomplir, sans pour autant être indifférent aux personnes impliquées — simplement, ce n'est pas ce qui vous guide.",
+        "sentenceThird": {
+          "he": "Il a tendance à privilégier la tâche à accomplir, sans pour autant être indifférent aux personnes impliquées — simplement, ce n'est pas ce qui le guide.",
+          "she": "Elle a tendance à privilégier la tâche à accomplir, sans pour autant être indifférente aux personnes impliquées — simplement, ce n'est pas ce qui la guide."
+        }
       },
       {
         "tierLabel": "Équilibré",
-        "sentence": "Vous équilibrez assez également les personnes et la tâche — ni l'une ni l'autre ne prend systématiquement le dessus dans votre façon de fonctionner."
+        "sentence": "Vous équilibrez assez également les personnes et la tâche — ni l'une ni l'autre ne prend systématiquement le dessus dans votre façon de fonctionner.",
+        "sentenceThird": {
+          "he": "Il équilibre assez également les personnes et la tâche — ni l'une ni l'autre ne prend systématiquement le dessus dans sa façon de fonctionner.",
+          "she": "Elle équilibre assez également les personnes et la tâche — ni l'une ni l'autre ne prend systématiquement le dessus dans sa façon de fonctionner."
+        }
       },
       {
         "tierLabel": "Penche vers l'orientation relationnelle",
-        "sentence": "Vous avez tendance à privilégier les personnes présentes — vos décisions ont tendance à passer par le filtre de leur impact sur les autres."
+        "sentence": "Vous avez tendance à privilégier les personnes présentes — vos décisions ont tendance à passer par le filtre de leur impact sur les autres.",
+        "sentenceThird": {
+          "he": "Il a tendance à privilégier les personnes présentes — ses décisions ont tendance à passer par le filtre de leur impact sur les autres.",
+          "she": "Elle a tendance à privilégier les personnes présentes — ses décisions ont tendance à passer par le filtre de leur impact sur les autres."
+        }
       },
       {
         "tierLabel": "Fortement orienté relations",
-        "sentence": "Dans l'ensemble de vos résultats, les personnes passent constamment en premier — vous lisez l'ambiance, protégez les relations, et cela façonne presque chacune de vos décisions."
+        "sentence": "Dans l'ensemble de vos résultats, les personnes passent constamment en premier — vous lisez l'ambiance, protégez les relations, et cela façonne presque chacune de vos décisions.",
+        "sentenceThird": {
+          "he": "Dans l'ensemble de ses résultats, les personnes passent constamment en premier — il lit l'ambiance, protège les relations, et cela façonne presque chacune de ses décisions.",
+          "she": "Dans l'ensemble de ses résultats, les personnes passent constamment en premier — elle lit l'ambiance, protège les relations, et cela façonne presque chacune de ses décisions."
+        }
       }
     ],
     "novelty": [
       {
         "tierLabel": "Fortement ancré",
-        "sentence": "Vous privilégiez constamment ce qui est éprouvé et concret plutôt que ce qui n'a pas fait ses preuves — les nouvelles idées gagnent votre confiance en démontrant qu'elles fonctionnent, pas en étant nouvelles."
+        "sentence": "Vous privilégiez constamment ce qui est éprouvé et concret plutôt que ce qui n'a pas fait ses preuves — les nouvelles idées gagnent votre confiance en démontrant qu'elles fonctionnent, pas en étant nouvelles.",
+        "sentenceThird": {
+          "he": "Il privilégie constamment ce qui est éprouvé et concret plutôt que ce qui n'a pas fait ses preuves — les nouvelles idées gagnent sa confiance en démontrant qu'elles fonctionnent, pas en étant nouvelles.",
+          "she": "Elle privilégie constamment ce qui est éprouvé et concret plutôt que ce qui n'a pas fait ses preuves — les nouvelles idées gagnent sa confiance en démontrant qu'elles fonctionnent, pas en étant nouvelles."
+        }
       },
       {
         "tierLabel": "Penche vers l'ancré",
-        "sentence": "Vous avez tendance à privilégier le pratique et le familier, sans pour autant être fermé aux nouvelles idées une fois qu'elles ont fait preuve d'un peu de substance."
+        "sentence": "Vous avez tendance à privilégier le pratique et le familier, sans pour autant être fermé aux nouvelles idées une fois qu'elles ont fait preuve d'un peu de substance.",
+        "sentenceThird": {
+          "he": "Il a tendance à privilégier le pratique et le familier, sans pour autant être fermé aux nouvelles idées une fois qu'elles ont fait preuve d'un peu de substance.",
+          "she": "Elle a tendance à privilégier le pratique et le familier, sans pour autant être fermée aux nouvelles idées une fois qu'elles ont fait preuve d'un peu de substance."
+        }
       },
       {
         "tierLabel": "Équilibré",
-        "sentence": "Vous naviguez entre le familier et l'expérimental selon les enjeux, plutôt que de pencher par défaut vers l'un ou l'autre."
+        "sentence": "Vous naviguez entre le familier et l'expérimental selon les enjeux, plutôt que de pencher par défaut vers l'un ou l'autre.",
+        "sentenceThird": {
+          "he": "Il navigue entre le familier et l'expérimental selon les enjeux, plutôt que de pencher par défaut vers l'un ou l'autre.",
+          "she": "Elle navigue entre le familier et l'expérimental selon les enjeux, plutôt que de pencher par défaut vers l'un ou l'autre."
+        }
       },
       {
         "tierLabel": "Penche vers l'exploratoire",
-        "sentence": "Vous avez tendance à privilégier le nouveau et l'inédit — la nouveauté attire davantage votre attention que la routine."
+        "sentence": "Vous avez tendance à privilégier le nouveau et l'inédit — la nouveauté attire davantage votre attention que la routine.",
+        "sentenceThird": {
+          "he": "Il a tendance à privilégier le nouveau et l'inédit — la nouveauté attire davantage son attention que la routine.",
+          "she": "Elle a tendance à privilégier le nouveau et l'inédit — la nouveauté attire davantage son attention que la routine."
+        }
       },
       {
         "tierLabel": "Fortement exploratoire",
-        "sentence": "Dans l'ensemble de vos résultats, vous êtes constamment attiré par l'inconnu — les nouvelles idées, les nouveaux angles et les nouvelles possibilités sont là où votre énergie se porte naturellement."
+        "sentence": "Dans l'ensemble de vos résultats, vous êtes constamment attiré par l'inconnu — les nouvelles idées, les nouveaux angles et les nouvelles possibilités sont là où votre énergie se porte naturellement.",
+        "sentenceThird": {
+          "he": "Dans l'ensemble de ses résultats, il est constamment attiré par l'inconnu — les nouvelles idées, les nouveaux angles et les nouvelles possibilités sont là où son énergie se porte naturellement.",
+          "she": "Dans l'ensemble de ses résultats, elle est constamment attirée par l'inconnu — les nouvelles idées, les nouveaux angles et les nouvelles possibilités sont là où son énergie se porte naturellement."
+        }
       }
     ]
   },

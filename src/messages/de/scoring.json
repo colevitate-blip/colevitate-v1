@@ -9,89 +9,169 @@
     "energy": [
       {
         "tierLabel": "Stark innengerichtet",
-        "sentence": "In all deinen Ergebnissen zeigt sich deine Energie durchgehend nach innen gerichtet — du denkst am besten allein oder in ganz kleinen Gruppen und erholst dich, indem du dich aus dem Trubel zurückziehst, nicht hinein."
+        "sentence": "In all deinen Ergebnissen zeigt sich deine Energie durchgehend nach innen gerichtet — du denkst am besten allein oder in ganz kleinen Gruppen und erholst dich, indem du dich aus dem Trubel zurückziehst, nicht hinein.",
+        "sentenceThird": {
+          "he": "In all seinen Ergebnissen zeigt sich seine Energie durchgehend nach innen gerichtet — er denkt am besten allein oder in ganz kleinen Gruppen und erholt sich, indem er sich aus dem Trubel zurückzieht, nicht hinein.",
+          "she": "In all ihren Ergebnissen zeigt sich ihre Energie durchgehend nach innen gerichtet — sie denkt am besten allein oder in ganz kleinen Gruppen und erholt sich, indem sie sich aus dem Trubel zurückzieht, nicht hinein."
+        }
       },
       {
         "tierLabel": "Tendiert nach innen",
-        "sentence": "Deine Energie tendiert meistens nach innen — du kannst bei Bedarf nach außen auftreten, aber wirklich auftankst du in ruhiger, reizarmer Zeit."
+        "sentence": "Deine Energie tendiert meistens nach innen — du kannst bei Bedarf nach außen auftreten, aber wirklich auftankst du in ruhiger, reizarmer Zeit.",
+        "sentenceThird": {
+          "he": "Seine Energie tendiert meistens nach innen — er kann bei Bedarf nach außen auftreten, tankt aber wirklich in ruhiger, reizarmer Zeit auf.",
+          "she": "Ihre Energie tendiert meistens nach innen — sie kann bei Bedarf nach außen auftreten, tankt aber wirklich in ruhiger, reizarmer Zeit auf."
+        }
       },
       {
         "tierLabel": "Situationsabhängig",
-        "sentence": "Deine Energie zeigt sich wirklich situationsabhängig — im richtigen Kontext nach außen gerichtet und engagiert, in anderen Situationen nach innen gerichtet und schonend, statt fest auf eine Richtung festgelegt."
+        "sentence": "Deine Energie zeigt sich wirklich situationsabhängig — im richtigen Kontext nach außen gerichtet und engagiert, in anderen Situationen nach innen gerichtet und schonend, statt fest auf eine Richtung festgelegt.",
+        "sentenceThird": {
+          "he": "Seine Energie zeigt sich wirklich situationsabhängig — im richtigen Kontext nach außen gerichtet und engagiert, in anderen Situationen nach innen gerichtet und schonend, statt fest auf eine Richtung festgelegt.",
+          "she": "Ihre Energie zeigt sich wirklich situationsabhängig — im richtigen Kontext nach außen gerichtet und engagiert, in anderen Situationen nach innen gerichtet und schonend, statt fest auf eine Richtung festgelegt."
+        }
       },
       {
         "tierLabel": "Tendiert nach außen",
-        "sentence": "Deine Energie tendiert meistens nach außen — Menschen und Schwung füllen deinen Tank eher auf, als dass sie ihn leeren."
+        "sentence": "Deine Energie tendiert meistens nach außen — Menschen und Schwung füllen deinen Tank eher auf, als dass sie ihn leeren.",
+        "sentenceThird": {
+          "he": "Seine Energie tendiert meistens nach außen — Menschen und Schwung füllen seinen Tank eher auf, als dass sie ihn leeren.",
+          "she": "Ihre Energie tendiert meistens nach außen — Menschen und Schwung füllen ihren Tank eher auf, als dass sie ihn leeren."
+        }
       },
       {
         "tierLabel": "Stark außengerichtet",
-        "sentence": "In all deinen Ergebnissen zeigt sich deine Energie durchgehend nach außen gerichtet — Menschen und Schwung laden dich wirklich auf, du erträgst sie nicht bloß."
+        "sentence": "In all deinen Ergebnissen zeigt sich deine Energie durchgehend nach außen gerichtet — Menschen und Schwung laden dich wirklich auf, du erträgst sie nicht bloß.",
+        "sentenceThird": {
+          "he": "In all seinen Ergebnissen zeigt sich seine Energie durchgehend nach außen gerichtet — Menschen und Schwung laden ihn wirklich auf, er erträgt sie nicht bloß.",
+          "she": "In all ihren Ergebnissen zeigt sich ihre Energie durchgehend nach außen gerichtet — Menschen und Schwung laden sie wirklich auf, sie erträgt sie nicht bloß."
+        }
       }
     ],
     "structure": [
       {
         "tierLabel": "Stark spontan",
-        "sentence": "Du agierst fast ausschließlich im Moment — Pläne sind bestenfalls ein loses Gerüst, und deine beste Arbeit entsteht, wenn du auf das reagierst, was gerade wirklich vor dir liegt."
+        "sentence": "Du agierst fast ausschließlich im Moment — Pläne sind bestenfalls ein loses Gerüst, und deine beste Arbeit entsteht, wenn du auf das reagierst, was gerade wirklich vor dir liegt.",
+        "sentenceThird": {
+          "he": "Er agiert fast ausschließlich im Moment — Pläne sind bestenfalls ein loses Gerüst, und seine beste Arbeit entsteht, wenn er auf das reagiert, was gerade wirklich vor ihm liegt.",
+          "she": "Sie agiert fast ausschließlich im Moment — Pläne sind bestenfalls ein loses Gerüst, und ihre beste Arbeit entsteht, wenn sie auf das reagiert, was gerade wirklich vor ihr liegt."
+        }
       },
       {
         "tierLabel": "Tendiert spontan",
-        "sentence": "Du neigst dazu, flexibel und reaktionsfähig zu bleiben, und folgst öfter dem Moment als einem im Voraus erstellten Plan."
+        "sentence": "Du neigst dazu, flexibel und reaktionsfähig zu bleiben, und folgst öfter dem Moment als einem im Voraus erstellten Plan.",
+        "sentenceThird": {
+          "he": "Er neigt dazu, flexibel und reaktionsfähig zu bleiben, und folgt öfter dem Moment als einem im Voraus erstellten Plan.",
+          "she": "Sie neigt dazu, flexibel und reaktionsfähig zu bleiben, und folgt öfter dem Moment als einem im Voraus erstellten Plan."
+        }
       },
       {
         "tierLabel": "Ausgeglichen",
-        "sentence": "Du bewegst dich zwischen Vorausplanung und Offenheit für den Moment und wählst jeweils, was die Situation wirklich verlangt."
+        "sentence": "Du bewegst dich zwischen Vorausplanung und Offenheit für den Moment und wählst jeweils, was die Situation wirklich verlangt.",
+        "sentenceThird": {
+          "he": "Er bewegt sich zwischen Vorausplanung und Offenheit für den Moment und wählt jeweils, was die Situation wirklich verlangt.",
+          "she": "Sie bewegt sich zwischen Vorausplanung und Offenheit für den Moment und wählt jeweils, was die Situation wirklich verlangt."
+        }
       },
       {
         "tierLabel": "Tendiert geplant",
-        "sentence": "Du neigst dazu, Dinge im Voraus zu planen — du kannst improvisieren, aber deine beste Arbeit entsteht, wenn schon etwas Struktur vorhanden ist."
+        "sentence": "Du neigst dazu, Dinge im Voraus zu planen — du kannst improvisieren, aber deine beste Arbeit entsteht, wenn schon etwas Struktur vorhanden ist.",
+        "sentenceThird": {
+          "he": "Er neigt dazu, Dinge im Voraus zu planen — er kann improvisieren, aber seine beste Arbeit entsteht, wenn schon etwas Struktur vorhanden ist.",
+          "she": "Sie neigt dazu, Dinge im Voraus zu planen — sie kann improvisieren, aber ihre beste Arbeit entsteht, wenn schon etwas Struktur vorhanden ist."
+        }
       },
       {
         "tierLabel": "Stark geplant",
-        "sentence": "Struktur zieht sich als roter Faden durch all deine Ergebnisse — du planst voraus, bleibst dran und fühlst dich am fähigsten, wenn die Form der Dinge schon klar ist."
+        "sentence": "Struktur zieht sich als roter Faden durch all deine Ergebnisse — du planst voraus, bleibst dran und fühlst dich am fähigsten, wenn die Form der Dinge schon klar ist.",
+        "sentenceThird": {
+          "he": "Struktur zieht sich als roter Faden durch all seine Ergebnisse — er plant voraus, bleibt dran und fühlt sich am fähigsten, wenn die Form der Dinge schon klar ist.",
+          "she": "Struktur zieht sich als roter Faden durch all ihre Ergebnisse — sie plant voraus, bleibt dran und fühlt sich am fähigsten, wenn die Form der Dinge schon klar ist."
+        }
       }
     ],
     "people": [
       {
         "tierLabel": "Stark aufgabenorientiert",
-        "sentence": "In all deinen Ergebnissen stellst du durchgehend die Arbeit selbst über die Frage, wie sich Menschen dabei fühlen — Klarheit und Ergebnisse stehen an erster Stelle."
+        "sentence": "In all deinen Ergebnissen stellst du durchgehend die Arbeit selbst über die Frage, wie sich Menschen dabei fühlen — Klarheit und Ergebnisse stehen an erster Stelle.",
+        "sentenceThird": {
+          "he": "In all seinen Ergebnissen stellt er durchgehend die Arbeit selbst über die Frage, wie sich Menschen dabei fühlen — Klarheit und Ergebnisse stehen an erster Stelle.",
+          "she": "In all ihren Ergebnissen stellt sie durchgehend die Arbeit selbst über die Frage, wie sich Menschen dabei fühlen — Klarheit und Ergebnisse stehen an erster Stelle."
+        }
       },
       {
         "tierLabel": "Tendiert aufgabenorientiert",
-        "sentence": "Du neigst dazu, die anstehende Aufgabe zu priorisieren, auch wenn dir die beteiligten Menschen nicht gleichgültig sind — sie leiten dich nur nicht."
+        "sentence": "Du neigst dazu, die anstehende Aufgabe zu priorisieren, auch wenn dir die beteiligten Menschen nicht gleichgültig sind — sie leiten dich nur nicht.",
+        "sentenceThird": {
+          "he": "Er neigt dazu, die anstehende Aufgabe zu priorisieren, auch wenn ihm die beteiligten Menschen nicht gleichgültig sind — sie leiten ihn nur nicht.",
+          "she": "Sie neigt dazu, die anstehende Aufgabe zu priorisieren, auch wenn ihr die beteiligten Menschen nicht gleichgültig sind — sie leiten sie nur nicht."
+        }
       },
       {
         "tierLabel": "Ausgeglichen",
-        "sentence": "Du balancierst Menschen und Aufgabe recht gleichmäßig aus — keines von beidem setzt sich in deinem Handeln durchgehend gegen das andere durch."
+        "sentence": "Du balancierst Menschen und Aufgabe recht gleichmäßig aus — keines von beidem setzt sich in deinem Handeln durchgehend gegen das andere durch.",
+        "sentenceThird": {
+          "he": "Er balanciert Menschen und Aufgabe recht gleichmäßig aus — keines von beidem setzt sich in seinem Handeln durchgehend gegen das andere durch.",
+          "she": "Sie balanciert Menschen und Aufgabe recht gleichmäßig aus — keines von beidem setzt sich in ihrem Handeln durchgehend gegen das andere durch."
+        }
       },
       {
         "tierLabel": "Tendiert menschenorientiert",
-        "sentence": "Du neigst dazu, die Menschen im Raum zu priorisieren — Entscheidungen werden meist danach gefiltert, wie sie bei anderen ankommen."
+        "sentence": "Du neigst dazu, die Menschen im Raum zu priorisieren — Entscheidungen werden meist danach gefiltert, wie sie bei anderen ankommen.",
+        "sentenceThird": {
+          "he": "Er neigt dazu, die Menschen im Raum zu priorisieren — Entscheidungen werden meist danach gefiltert, wie sie bei anderen ankommen.",
+          "she": "Sie neigt dazu, die Menschen im Raum zu priorisieren — Entscheidungen werden meist danach gefiltert, wie sie bei anderen ankommen."
+        }
       },
       {
         "tierLabel": "Stark menschenorientiert",
-        "sentence": "In all deinen Ergebnissen stehen Menschen durchgehend an erster Stelle — du liest die Stimmung im Raum, schützt Beziehungen und lässt das fast jede deiner Entscheidungen prägen."
+        "sentence": "In all deinen Ergebnissen stehen Menschen durchgehend an erster Stelle — du liest die Stimmung im Raum, schützt Beziehungen und lässt das fast jede deiner Entscheidungen prägen.",
+        "sentenceThird": {
+          "he": "In all seinen Ergebnissen stehen Menschen durchgehend an erster Stelle — er liest die Stimmung im Raum, schützt Beziehungen und lässt das fast jede seiner Entscheidungen prägen.",
+          "she": "In all ihren Ergebnissen stehen Menschen durchgehend an erster Stelle — sie liest die Stimmung im Raum, schützt Beziehungen und lässt das fast jede ihrer Entscheidungen prägen."
+        }
       }
     ],
     "novelty": [
       {
         "tierLabel": "Stark bodenständig",
-        "sentence": "Du bevorzugst durchgehend das Bewährte und Konkrete gegenüber dem Ungetesteten — neue Ideen gewinnen dein Vertrauen dadurch, dass sie funktionieren, nicht dadurch, dass sie neu sind."
+        "sentence": "Du bevorzugst durchgehend das Bewährte und Konkrete gegenüber dem Ungetesteten — neue Ideen gewinnen dein Vertrauen dadurch, dass sie funktionieren, nicht dadurch, dass sie neu sind.",
+        "sentenceThird": {
+          "he": "Er bevorzugt durchgehend das Bewährte und Konkrete gegenüber dem Ungetesteten — neue Ideen gewinnen sein Vertrauen dadurch, dass sie funktionieren, nicht dadurch, dass sie neu sind.",
+          "she": "Sie bevorzugt durchgehend das Bewährte und Konkrete gegenüber dem Ungetesteten — neue Ideen gewinnen ihr Vertrauen dadurch, dass sie funktionieren, nicht dadurch, dass sie neu sind."
+        }
       },
       {
         "tierLabel": "Tendiert bodenständig",
-        "sentence": "Du neigst zum Praktischen und Vertrauten, bist aber nicht verschlossen gegenüber neuen Ideen, sobald sie etwas Substanz gezeigt haben."
+        "sentence": "Du neigst zum Praktischen und Vertrauten, bist aber nicht verschlossen gegenüber neuen Ideen, sobald sie etwas Substanz gezeigt haben.",
+        "sentenceThird": {
+          "he": "Er neigt zum Praktischen und Vertrauten, ist aber nicht verschlossen gegenüber neuen Ideen, sobald sie etwas Substanz gezeigt haben.",
+          "she": "Sie neigt zum Praktischen und Vertrauten, ist aber nicht verschlossen gegenüber neuen Ideen, sobald sie etwas Substanz gezeigt haben."
+        }
       },
       {
         "tierLabel": "Ausgeglichen",
-        "sentence": "Du bewegst dich je nach Tragweite zwischen dem Vertrauten und dem Experimentellen, statt standardmäßig zu einer Seite zu tendieren."
+        "sentence": "Du bewegst dich je nach Tragweite zwischen dem Vertrauten und dem Experimentellen, statt standardmäßig zu einer Seite zu tendieren.",
+        "sentenceThird": {
+          "he": "Er bewegt sich je nach Tragweite zwischen dem Vertrauten und dem Experimentellen, statt standardmäßig zu einer Seite zu tendieren.",
+          "she": "Sie bewegt sich je nach Tragweite zwischen dem Vertrauten und dem Experimentellen, statt standardmäßig zu einer Seite zu tendieren."
+        }
       },
       {
         "tierLabel": "Tendiert explorativ",
-        "sentence": "Du neigst zum Neuen und Ungetesteten — Neuheit zieht deine Aufmerksamkeit stärker an als Routine."
+        "sentence": "Du neigst zum Neuen und Ungetesteten — Neuheit zieht deine Aufmerksamkeit stärker an als Routine.",
+        "sentenceThird": {
+          "he": "Er neigt zum Neuen und Ungetesteten — Neuheit zieht seine Aufmerksamkeit stärker an als Routine.",
+          "she": "Sie neigt zum Neuen und Ungetesteten — Neuheit zieht ihre Aufmerksamkeit stärker an als Routine."
+        }
       },
       {
         "tierLabel": "Stark explorativ",
-        "sentence": "In all deinen Ergebnissen fühlst du dich durchgehend zum Unbekannten hingezogen — neue Ideen, neue Blickwinkel und neue Möglichkeiten sind es, wohin deine Energie ganz natürlich fließt."
+        "sentence": "In all deinen Ergebnissen fühlst du dich durchgehend zum Unbekannten hingezogen — neue Ideen, neue Blickwinkel und neue Möglichkeiten sind es, wohin deine Energie ganz natürlich fließt.",
+        "sentenceThird": {
+          "he": "In all seinen Ergebnissen fühlt er sich durchgehend zum Unbekannten hingezogen — neue Ideen, neue Blickwinkel und neue Möglichkeiten sind es, wohin seine Energie ganz natürlich fließt.",
+          "she": "In all ihren Ergebnissen fühlt sie sich durchgehend zum Unbekannten hingezogen — neue Ideen, neue Blickwinkel und neue Möglichkeiten sind es, wohin ihre Energie ganz natürlich fließt."
+        }
       }
     ]
   },

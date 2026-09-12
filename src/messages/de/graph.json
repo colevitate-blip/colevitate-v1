@@ -6,16 +6,26 @@
     "question": "Deine Antwort"
   },
   "archetypeTag": {
-    "you": "Dein Archetyp"
+    "you": "Dein Archetyp",
+    "he": "Sein Archetyp",
+    "she": "Ihr Archetyp"
   },
   "traits": {
     "EI": {
       "label": "Extraversion/Introversion",
-      "description": "Ob du Energie aus der Auseinandersetzung mit der Außenwelt (Extraversion) oder aus der Zeit allein mit deinen eigenen Gedanken (Introversion) ziehst."
+      "description": "Ob du Energie aus der Auseinandersetzung mit der Außenwelt (Extraversion) oder aus der Zeit allein mit deinen eigenen Gedanken (Introversion) ziehst.",
+      "descriptionThird": {
+        "he": "Ob er Energie aus der Auseinandersetzung mit der Außenwelt (Extraversion) oder aus der Zeit allein mit seinen eigenen Gedanken (Introversion) zieht.",
+        "she": "Ob sie Energie aus der Auseinandersetzung mit der Außenwelt (Extraversion) oder aus der Zeit allein mit ihren eigenen Gedanken (Introversion) zieht."
+      }
     },
     "SN": {
       "label": "Empfindung/Intuition",
-      "description": "Ob du eher konkreten, gegenwärtigen Details (Empfindung) oder Mustern und Möglichkeiten (Intuition) vertraust."
+      "description": "Ob du eher konkreten, gegenwärtigen Details (Empfindung) oder Mustern und Möglichkeiten (Intuition) vertraust.",
+      "descriptionThird": {
+        "he": "Ob er eher konkreten, gegenwärtigen Details (Empfindung) oder Mustern und Möglichkeiten (Intuition) vertraut.",
+        "she": "Ob sie eher konkreten, gegenwärtigen Details (Empfindung) oder Mustern und Möglichkeiten (Intuition) vertraut."
+      }
     },
     "TF": {
       "label": "Denken/Fühlen",
@@ -23,31 +33,59 @@
     },
     "JP": {
       "label": "Urteilen/Wahrnehmen",
-      "description": "Ob du Dinge lieber geklärt und geplant (Urteilen) oder offen und flexibel (Wahrnehmen) magst."
+      "description": "Ob du Dinge lieber geklärt und geplant (Urteilen) oder offen und flexibel (Wahrnehmen) magst.",
+      "descriptionThird": {
+        "he": "Ob er Dinge lieber geklärt und geplant (Urteilen) oder offen und flexibel (Wahrnehmen) mag.",
+        "she": "Ob sie Dinge lieber geklärt und geplant (Urteilen) oder offen und flexibel (Wahrnehmen) mag."
+      }
     },
     "openness": {
       "label": "Offenheit",
-      "description": "Wie sehr dich neue Ideen und unkonventionelles Denken anziehen, im Vergleich zum Praktischen und Vertrauten."
+      "description": "Wie sehr dich neue Ideen und unkonventionelles Denken anziehen, im Vergleich zum Praktischen und Vertrauten.",
+      "descriptionThird": {
+        "he": "Wie sehr ihn neue Ideen und unkonventionelles Denken anziehen, im Vergleich zum Praktischen und Vertrauten.",
+        "she": "Wie sehr sie neue Ideen und unkonventionelles Denken anziehen, im Vergleich zum Praktischen und Vertrauten."
+      }
     },
     "conscientiousness": {
       "label": "Gewissenhaftigkeit",
-      "description": "Wie organisiert, diszipliniert und zielgerichtet du tendenziell bist."
+      "description": "Wie organisiert, diszipliniert und zielgerichtet du tendenziell bist.",
+      "descriptionThird": {
+        "he": "Wie organisiert, diszipliniert und zielgerichtet er tendenziell ist.",
+        "she": "Wie organisiert, diszipliniert und zielgerichtet sie tendenziell ist."
+      }
     },
     "extraversion": {
       "label": "Extraversion",
-      "description": "Wie sehr soziales Engagement und Reize dich aufladen statt zu erschöpfen."
+      "description": "Wie sehr soziales Engagement und Reize dich aufladen statt zu erschöpfen.",
+      "descriptionThird": {
+        "he": "Wie sehr soziales Engagement und Reize ihn aufladen statt zu erschöpfen.",
+        "she": "Wie sehr soziales Engagement und Reize sie aufladen statt zu erschöpfen."
+      }
     },
     "agreeableness": {
       "label": "Verträglichkeit",
-      "description": "Wie sehr du Kooperation und die Gefühle anderer über deine eigene Agenda stellst."
+      "description": "Wie sehr du Kooperation und die Gefühle anderer über deine eigene Agenda stellst.",
+      "descriptionThird": {
+        "he": "Wie sehr er Kooperation und die Gefühle anderer über seine eigene Agenda stellt.",
+        "she": "Wie sehr sie Kooperation und die Gefühle anderer über ihre eigene Agenda stellt."
+      }
     },
     "neuroticism": {
       "label": "Neurotizismus",
-      "description": "Wie leicht du Stress, Sorgen oder emotionale Schwankungen erlebst."
+      "description": "Wie leicht du Stress, Sorgen oder emotionale Schwankungen erlebst.",
+      "descriptionThird": {
+        "he": "Wie leicht er Stress, Sorgen oder emotionale Schwankungen erlebt.",
+        "she": "Wie leicht sie Stress, Sorgen oder emotionale Schwankungen erlebt."
+      }
     },
     "generator": {
       "label": "Generator",
-      "description": "Ein Human-Design-Typ, der darauf ausgelegt ist, auf das zu reagieren, was sich zeigt, und Energie daraus zieht, sich mit dem zu beschäftigen, was dich begeistert."
+      "description": "Ein Human-Design-Typ, der darauf ausgelegt ist, auf das zu reagieren, was sich zeigt, und Energie daraus zieht, sich mit dem zu beschäftigen, was dich begeistert.",
+      "descriptionThird": {
+        "he": "Ein Human-Design-Typ, der darauf ausgelegt ist, auf das zu reagieren, was sich zeigt, und Energie daraus zieht, sich mit dem zu beschäftigen, was ihn begeistert.",
+        "she": "Ein Human-Design-Typ, der darauf ausgelegt ist, auf das zu reagieren, was sich zeigt, und Energie daraus zieht, sich mit dem zu beschäftigen, was sie begeistert."
+      }
     },
     "manifesting-generator": {
       "label": "Manifestierender Generator",
@@ -55,7 +93,11 @@
     },
     "manifestor": {
       "label": "Manifestor",
-      "description": "Ein Human-Design-Typ, der darauf ausgelegt ist, den ersten Schritt zu machen — du handelst zuerst und informierst andere, statt abzuwarten, um zu reagieren."
+      "description": "Ein Human-Design-Typ, der darauf ausgelegt ist, den ersten Schritt zu machen — du handelst zuerst und informierst andere, statt abzuwarten, um zu reagieren.",
+      "descriptionThird": {
+        "he": "Ein Human-Design-Typ, der darauf ausgelegt ist, den ersten Schritt zu machen — er handelt zuerst und informiert andere, statt abzuwarten, um zu reagieren.",
+        "she": "Ein Human-Design-Typ, der darauf ausgelegt ist, den ersten Schritt zu machen — sie handelt zuerst und informiert andere, statt abzuwarten, um zu reagieren."
+      }
     },
     "projector": {
       "label": "Projektor",
@@ -84,32 +126,94 @@
   },
   "bigFiveText": {
     "openness": {
-      "high": { "you": "Dich ziehen neue Ideen, unkonventionelles Denken und das Erkunden des Unbekannten an." },
-      "mid": { "you": "Du fühlst dich mit dem Vertrauten und dem Ungetesteten etwa gleich wohl, ohne starken Zug in eine Richtung." },
-      "low": { "you": "Du tendierst zum Praktischen und Vertrauten statt zum Abstrakten oder Ungetesteten." }
+      "high": {
+        "you": "Dich ziehen neue Ideen, unkonventionelles Denken und das Erkunden des Unbekannten an.",
+        "he": "Neue Ideen, unkonventionelles Denken und das Erkunden des Unbekannten ziehen ihn an.",
+        "she": "Neue Ideen, unkonventionelles Denken und das Erkunden des Unbekannten ziehen sie an."
+      },
+      "mid": {
+        "you": "Du fühlst dich mit dem Vertrauten und dem Ungetesteten etwa gleich wohl, ohne starken Zug in eine Richtung.",
+        "he": "Er fühlt sich mit dem Vertrauten und dem Ungetesteten etwa gleich wohl, ohne starken Zug in eine Richtung.",
+        "she": "Sie fühlt sich mit dem Vertrauten und dem Ungetesteten etwa gleich wohl, ohne starken Zug in eine Richtung."
+      },
+      "low": {
+        "you": "Du tendierst zum Praktischen und Vertrauten statt zum Abstrakten oder Ungetesteten.",
+        "he": "Er tendiert zum Praktischen und Vertrauten statt zum Abstrakten oder Ungetesteten.",
+        "she": "Sie tendiert zum Praktischen und Vertrauten statt zum Abstrakten oder Ungetesteten."
+      }
     },
     "conscientiousness": {
-      "high": { "you": "Du bist eher organisiert und zielgerichtet und bleibst meist dran, sobald du dich festgelegt hast." },
-      "mid": { "you": "Du balancierst Struktur und Spontaneität ungefähr gleich aus." },
-      "low": { "you": "Du bevorzugst Flexibilität gegenüber starren Plänen und passt dich unterwegs an." }
+      "high": {
+        "you": "Du bist eher organisiert und zielgerichtet und bleibst meist dran, sobald du dich festgelegt hast.",
+        "he": "Er ist eher organisiert und zielgerichtet und bleibt meist dran, sobald er sich festgelegt hat.",
+        "she": "Sie ist eher organisiert und zielgerichtet und bleibt meist dran, sobald sie sich festgelegt hat."
+      },
+      "mid": {
+        "you": "Du balancierst Struktur und Spontaneität ungefähr gleich aus.",
+        "he": "Er balanciert Struktur und Spontaneität ungefähr gleich aus.",
+        "she": "Sie balanciert Struktur und Spontaneität ungefähr gleich aus."
+      },
+      "low": {
+        "you": "Du bevorzugst Flexibilität gegenüber starren Plänen und passt dich unterwegs an.",
+        "he": "Er bevorzugt Flexibilität gegenüber starren Plänen und passt sich unterwegs an.",
+        "she": "Sie bevorzugt Flexibilität gegenüber starren Plänen und passt sich unterwegs an."
+      }
     },
     "extraversion": {
-      "high": { "you": "Soziales Engagement und Reize laden dich wirklich auf." },
-      "mid": { "you": "Du fühlst dich sowohl unter Menschen als auch allein wohl, je nach Moment." },
-      "low": { "you": "Zeit allein lädt dich verlässlicher auf als soziale Reize." }
+      "high": {
+        "you": "Soziales Engagement und Reize laden dich wirklich auf.",
+        "he": "Soziales Engagement und Reize laden ihn wirklich auf.",
+        "she": "Soziales Engagement und Reize laden sie wirklich auf."
+      },
+      "mid": {
+        "you": "Du fühlst dich sowohl unter Menschen als auch allein wohl, je nach Moment.",
+        "he": "Er fühlt sich sowohl unter Menschen als auch allein wohl, je nach Moment.",
+        "she": "Sie fühlt sich sowohl unter Menschen als auch allein wohl, je nach Moment."
+      },
+      "low": {
+        "you": "Zeit allein lädt dich verlässlicher auf als soziale Reize.",
+        "he": "Zeit allein lädt ihn verlässlicher auf als soziale Reize.",
+        "she": "Zeit allein lädt sie verlässlicher auf als soziale Reize."
+      }
     },
     "agreeableness": {
-      "high": { "you": "Du legst Wert auf Kooperation und darauf, wie eine Entscheidung bei anderen ankommt." },
-      "mid": { "you": "Du gewichtest deine eigene Einschätzung und die Gefühle anderer etwa gleich." },
-      "low": { "you": "Du stellst deine eigene Einschätzung einer Situation über die Frage, wie sie bei anderen ankommt." }
+      "high": {
+        "you": "Du legst Wert auf Kooperation und darauf, wie eine Entscheidung bei anderen ankommt.",
+        "he": "Er legt Wert auf Kooperation und darauf, wie eine Entscheidung bei anderen ankommt.",
+        "she": "Sie legt Wert auf Kooperation und darauf, wie eine Entscheidung bei anderen ankommt."
+      },
+      "mid": {
+        "you": "Du gewichtest deine eigene Einschätzung und die Gefühle anderer etwa gleich.",
+        "he": "Er gewichtet seine eigene Einschätzung und die Gefühle anderer etwa gleich.",
+        "she": "Sie gewichtet ihre eigene Einschätzung und die Gefühle anderer etwa gleich."
+      },
+      "low": {
+        "you": "Du stellst deine eigene Einschätzung einer Situation über die Frage, wie sie bei anderen ankommt.",
+        "he": "Er stellt seine eigene Einschätzung einer Situation über die Frage, wie sie bei anderen ankommt.",
+        "she": "Sie stellt ihre eigene Einschätzung einer Situation über die Frage, wie sie bei anderen ankommt."
+      }
     },
     "neuroticism": {
-      "high": { "you": "Stress und emotionale Schwankungen schlagen bei dir stark und schnell an." },
-      "mid": { "you": "Du empfindest Stress wie jeder andere auch, ohne dass er dein Handeln dominiert." },
-      "low": { "you": "Du bleibst unter Druck verlässlicher gelassen als die meisten." }
+      "high": {
+        "you": "Stress und emotionale Schwankungen schlagen bei dir stark und schnell an.",
+        "he": "Stress und emotionale Schwankungen schlagen bei ihm stark und schnell an.",
+        "she": "Stress und emotionale Schwankungen schlagen bei ihr stark und schnell an."
+      },
+      "mid": {
+        "you": "Du empfindest Stress wie jeder andere auch, ohne dass er dein Handeln dominiert.",
+        "he": "Er empfindet Stress wie jeder andere auch, ohne dass er sein Handeln dominiert.",
+        "she": "Sie empfindet Stress wie jeder andere auch, ohne dass er ihr Handeln dominiert."
+      },
+      "low": {
+        "you": "Du bleibst unter Druck verlässlicher gelassen als die meisten.",
+        "he": "Er bleibt unter Druck verlässlicher gelassen als die meisten.",
+        "she": "Sie bleibt unter Druck verlässlicher gelassen als die meisten."
+      }
     }
   },
   "mbtiLean": {
-    "you": "Du tendierst zu {pole} — {confidence}% in diese Richtung, basierend auf deinen Antworten."
+    "you": "Du tendierst zu {pole} — {confidence}% in diese Richtung, basierend auf deinen Antworten.",
+    "he": "Er tendiert zu {pole} — {confidence}% in diese Richtung, basierend auf seinen Antworten.",
+    "she": "Sie tendiert zu {pole} — {confidence}% in diese Richtung, basierend auf ihren Antworten."
   }
 }

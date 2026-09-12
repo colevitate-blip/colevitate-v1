@@ -1,66 +1,130 @@
 {
   "IMTG": {
     "name": "L'Artisan Discret",
-    "description": "Vous donnez le meilleur de vous-même seul, dans l'instant, sur des projets que vous pouvez mesurer à votre propre exigence plutôt qu'à celle des autres."
+    "description": "Vous donnez le meilleur de vous-même seul, dans l'instant, sur des projets que vous pouvez mesurer à votre propre exigence plutôt qu'à celle des autres.",
+    "descriptionThird": {
+      "he": "Il donne le meilleur de lui-même seul, dans l'instant, sur des projets qu'il peut mesurer à sa propre exigence plutôt qu'à celle des autres.",
+      "she": "Elle donne le meilleur d'elle-même seule, dans l'instant, sur des projets qu'elle peut mesurer à sa propre exigence plutôt qu'à celle des autres."
+    }
   },
   "IMTX": {
     "name": "Le Bricoleur Indépendant",
-    "description": "Vous poursuivez vos idées à votre façon, plus heureux en improvisant à travers quelque chose de nouveau, sans public."
+    "description": "Vous poursuivez vos idées à votre façon, plus heureux en improvisant à travers quelque chose de nouveau, sans public.",
+    "descriptionThird": {
+      "he": "Il poursuit ses idées à sa façon, plus heureux en improvisant à travers quelque chose de nouveau, sans public.",
+      "she": "Elle poursuit ses idées à sa façon, plus heureuse en improvisant à travers quelque chose de nouveau, sans public."
+    }
   },
   "IMFG": {
     "name": "Le Confident Stable",
-    "description": "On vous fait confiance précisément parce que vous êtes discret et constant — présent pour les autres sans avoir besoin d'être sous les projecteurs."
+    "description": "On vous fait confiance précisément parce que vous êtes discret et constant — présent pour les autres sans avoir besoin d'être sous les projecteurs.",
+    "descriptionThird": {
+      "he": "On lui fait confiance précisément parce qu'il est discret et constant — présent pour les autres sans avoir besoin d'être sous les projecteurs.",
+      "she": "On lui fait confiance précisément parce qu'elle est discrète et constante — présente pour les autres sans avoir besoin d'être sous les projecteurs."
+    }
   },
   "IMFX": {
     "name": "Le Vagabond Paisible",
-    "description": "Vous dérivez vers de nouvelles personnes et de nouvelles idées à votre propre rythme tranquille, curieux plus qu'agité."
+    "description": "Vous dérivez vers de nouvelles personnes et de nouvelles idées à votre propre rythme tranquille, curieux plus qu'agité.",
+    "descriptionThird": {
+      "he": "Il dérive vers de nouvelles personnes et de nouvelles idées à son propre rythme tranquille, curieux plus qu'agité.",
+      "she": "Elle dérive vers de nouvelles personnes et de nouvelles idées à son propre rythme tranquille, curieuse plus qu'agitée."
+    }
   },
   "IPTG": {
     "name": "L'Architecte Précis",
-    "description": "Vous construisez les choses avec soin et en solitaire, faisant davantage confiance à un plan bien conçu qu'à l'improvisation ou aux avis extérieurs."
+    "description": "Vous construisez les choses avec soin et en solitaire, faisant davantage confiance à un plan bien conçu qu'à l'improvisation ou aux avis extérieurs.",
+    "descriptionThird": {
+      "he": "Il construit les choses avec soin et en solitaire, faisant davantage confiance à un plan bien conçu qu'à l'improvisation ou aux avis extérieurs.",
+      "she": "Elle construit les choses avec soin et en solitaire, faisant davantage confiance à un plan bien conçu qu'à l'improvisation ou aux avis extérieurs."
+    }
   },
   "IPTX": {
     "name": "L'Innovateur Méthodique",
-    "description": "Vous donnez vie à de nouvelles idées par la discipline, pas la spontanéité — c'est la structure qui vous permet d'aller réellement quelque part de nouveau."
+    "description": "Vous donnez vie à de nouvelles idées par la discipline, pas la spontanéité — c'est la structure qui vous permet d'aller réellement quelque part de nouveau.",
+    "descriptionThird": {
+      "he": "Il donne vie à de nouvelles idées par la discipline, pas la spontanéité — c'est la structure qui lui permet d'aller réellement quelque part de nouveau.",
+      "she": "Elle donne vie à de nouvelles idées par la discipline, pas la spontanéité — c'est la structure qui lui permet d'aller réellement quelque part de nouveau."
+    }
   },
   "IPFG": {
     "name": "L'Aidant Dévoué",
-    "description": "Vous êtes toujours là de façon fiable pour vos proches, préférant des habitudes sur lesquelles on peut compter aux grands gestes."
+    "description": "Vous êtes toujours là de façon fiable pour vos proches, préférant des habitudes sur lesquelles on peut compter aux grands gestes.",
+    "descriptionThird": {
+      "he": "Il est toujours là de façon fiable pour ses proches, préférant des habitudes sur lesquelles on peut compter aux grands gestes.",
+      "she": "Elle est toujours là de façon fiable pour ses proches, préférant des habitudes sur lesquelles on peut compter aux grands gestes."
+    }
   },
   "IPFX": {
     "name": "Le Visionnaire Réfléchi",
-    "description": "Vous préparez discrètement le terrain pour des personnes et des idées qui n'existent pas encore, pensant à l'avance plus que vous n'en parlez."
+    "description": "Vous préparez discrètement le terrain pour des personnes et des idées qui n'existent pas encore, pensant à l'avance plus que vous n'en parlez.",
+    "descriptionThird": {
+      "he": "Il prépare discrètement le terrain pour des personnes et des idées qui n'existent pas encore, pensant à l'avance plus qu'il n'en parle.",
+      "she": "Elle prépare discrètement le terrain pour des personnes et des idées qui n'existent pas encore, pensant à l'avance plus qu'elle n'en parle."
+    }
   },
   "EMTG": {
     "name": "Le Fonceur Audacieux",
-    "description": "Vous préférez agir sur quelque chose de concret maintenant plutôt que de le planifier ou d'en discuter — l'élan, c'est votre façon de penser."
+    "description": "Vous préférez agir sur quelque chose de concret maintenant plutôt que de le planifier ou d'en discuter — l'élan, c'est votre façon de penser.",
+    "descriptionThird": {
+      "he": "Il préfère agir sur quelque chose de concret maintenant plutôt que de le planifier ou d'en discuter — l'élan, c'est sa façon de penser.",
+      "she": "Elle préfère agir sur quelque chose de concret maintenant plutôt que de le planifier ou d'en discuter — l'élan, c'est sa façon de penser."
+    }
   },
   "EMTX": {
     "name": "Le Pionnier Impatient",
-    "description": "Vous êtes attiré par tout ce qui est le plus nouveau et le plus vivant, avançant vite et réglant les détails du plan plus tard."
+    "description": "Vous êtes attiré par tout ce qui est le plus nouveau et le plus vivant, avançant vite et réglant les détails du plan plus tard.",
+    "descriptionThird": {
+      "he": "Il est attiré par tout ce qui est le plus nouveau et le plus vivant, avançant vite et réglant les détails du plan plus tard.",
+      "she": "Elle est attirée par tout ce qui est le plus nouveau et le plus vivant, avançant vite et réglant les détails du plan plus tard."
+    }
   },
   "EMFG": {
     "name": "Le Rassembleur Ancré",
-    "description": "Vous rassemblez les gens autour de ce qui est concret et immédiat, stimulé par les autres sans avoir besoin d'un scénario préétabli."
+    "description": "Vous rassemblez les gens autour de ce qui est concret et immédiat, stimulé par les autres sans avoir besoin d'un scénario préétabli.",
+    "descriptionThird": {
+      "he": "Il rassemble les gens autour de ce qui est concret et immédiat, stimulé par les autres sans avoir besoin d'un scénario préétabli.",
+      "she": "Elle rassemble les gens autour de ce qui est concret et immédiat, stimulée par les autres sans avoir besoin d'un scénario préétabli."
+    }
   },
   "EMFX": {
     "name": "Le Catalyseur Spontané",
-    "description": "Vous insufflez de l'énergie dans une pièce et courez après la nouveauté dans le même élan, rarement de la même façon deux fois."
+    "description": "Vous insufflez de l'énergie dans une pièce et courez après la nouveauté dans le même élan, rarement de la même façon deux fois.",
+    "descriptionThird": {
+      "he": "Il insuffle de l'énergie dans une pièce et court après la nouveauté dans le même élan, rarement de la même façon deux fois.",
+      "she": "Elle insuffle de l'énergie dans une pièce et court après la nouveauté dans le même élan, rarement de la même façon deux fois."
+    }
   },
   "EPTG": {
     "name": "L'Organisateur Déterminé",
-    "description": "Vous transformez les plans en résultats par la seule force de l'avancée, plus à l'aise quand il existe une structure claire sur laquelle prendre appui."
+    "description": "Vous transformez les plans en résultats par la seule force de l'avancée, plus à l'aise quand il existe une structure claire sur laquelle prendre appui.",
+    "descriptionThird": {
+      "he": "Il transforme les plans en résultats par la seule force de l'avancée, plus à l'aise quand il existe une structure claire sur laquelle prendre appui.",
+      "she": "Elle transforme les plans en résultats par la seule force de l'avancée, plus à l'aise quand il existe une structure claire sur laquelle prendre appui."
+    }
   },
   "EPTX": {
     "name": "Le Précurseur Stratégique",
-    "description": "Vous poursuivez des orientations audacieuses et nouvelles, mais vous les soutenez par une véritable planification, traitant vision et structure comme des partenaires, non des opposés."
+    "description": "Vous poursuivez des orientations audacieuses et nouvelles, mais vous les soutenez par une véritable planification, traitant vision et structure comme des partenaires, non des opposés.",
+    "descriptionThird": {
+      "he": "Il poursuit des orientations audacieuses et nouvelles, mais il les soutient par une véritable planification, traitant vision et structure comme des partenaires, non des opposés.",
+      "she": "Elle poursuit des orientations audacieuses et nouvelles, mais elle les soutient par une véritable planification, traitant vision et structure comme des partenaires, non des opposés."
+    }
   },
   "EPFG": {
     "name": "L'Hôte Fiable",
-    "description": "Vous faites tourner à la fois les gens et les plans sans accroc, fiable d'une manière qui simplifie la vie de tout le monde."
+    "description": "Vous faites tourner à la fois les gens et les plans sans accroc, fiable d'une manière qui simplifie la vie de tout le monde.",
+    "descriptionThird": {
+      "he": "Il fait tourner à la fois les gens et les plans sans accroc, fiable d'une manière qui simplifie la vie de tout le monde.",
+      "she": "Elle fait tourner à la fois les gens et les plans sans accroc, fiable d'une manière qui simplifie la vie de tout le monde."
+    }
   },
   "EPFX": {
     "name": "Le Meneur Inspirant",
-    "description": "Vous rassemblez les gens autour de grandes idées nouvelles et organisez vraiment leur mise en œuvre, à parts égales visionnaire et organisateur."
+    "description": "Vous rassemblez les gens autour de grandes idées nouvelles et organisez vraiment leur mise en œuvre, à parts égales visionnaire et organisateur.",
+    "descriptionThird": {
+      "he": "Il rassemble les gens autour de grandes idées nouvelles et organise vraiment leur mise en œuvre, à parts égales visionnaire et organisateur.",
+      "she": "Elle rassemble les gens autour de grandes idées nouvelles et organise vraiment leur mise en œuvre, à parts égales visionnaire et organisatrice."
+    }
   }
 }

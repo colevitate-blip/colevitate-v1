@@ -6,16 +6,26 @@
     "question": "Votre réponse"
   },
   "archetypeTag": {
-    "you": "Votre archétype"
+    "you": "Votre archétype",
+    "he": "Son archétype à lui",
+    "she": "Son archétype à elle"
   },
   "traits": {
     "EI": {
       "label": "Extraversion/Introversion",
-      "description": "Que vous tiriez votre énergie de l'engagement avec le monde extérieur (Extraversion) ou du temps passé seul avec vos propres pensées (Introversion)."
+      "description": "Que vous tiriez votre énergie de l'engagement avec le monde extérieur (Extraversion) ou du temps passé seul avec vos propres pensées (Introversion).",
+      "descriptionThird": {
+        "he": "Qu'il tire son énergie de l'engagement avec le monde extérieur (Extraversion) ou du temps passé seul avec ses propres pensées (Introversion).",
+        "she": "Qu'elle tire son énergie de l'engagement avec le monde extérieur (Extraversion) ou du temps passé seule avec ses propres pensées (Introversion)."
+      }
     },
     "SN": {
       "label": "Sensation/Intuition",
-      "description": "Que vous fassiez confiance au détail concret et présent (Sensation) ou aux schémas et aux possibilités (Intuition)."
+      "description": "Que vous fassiez confiance au détail concret et présent (Sensation) ou aux schémas et aux possibilités (Intuition).",
+      "descriptionThird": {
+        "he": "Qu'il fasse confiance au détail concret et présent (Sensation) ou aux schémas et aux possibilités (Intuition).",
+        "she": "Qu'elle fasse confiance au détail concret et présent (Sensation) ou aux schémas et aux possibilités (Intuition)."
+      }
     },
     "TF": {
       "label": "Pensée/Sentiment",
@@ -23,31 +33,59 @@
     },
     "JP": {
       "label": "Jugement/Perception",
-      "description": "Que vous préfériez les choses réglées et planifiées (Jugement) ou ouvertes et flexibles (Perception)."
+      "description": "Que vous préfériez les choses réglées et planifiées (Jugement) ou ouvertes et flexibles (Perception).",
+      "descriptionThird": {
+        "he": "Qu'il préfère les choses réglées et planifiées (Jugement) ou ouvertes et flexibles (Perception).",
+        "she": "Qu'elle préfère les choses réglées et planifiées (Jugement) ou ouvertes et flexibles (Perception)."
+      }
     },
     "openness": {
       "label": "Ouverture",
-      "description": "À quel point vous êtes attiré par les idées nouvelles et la pensée non conventionnelle plutôt que par le pratique et le familier."
+      "description": "À quel point vous êtes attiré par les idées nouvelles et la pensée non conventionnelle plutôt que par le pratique et le familier.",
+      "descriptionThird": {
+        "he": "À quel point il est attiré par les idées nouvelles et la pensée non conventionnelle plutôt que par le pratique et le familier.",
+        "she": "À quel point elle est attirée par les idées nouvelles et la pensée non conventionnelle plutôt que par le pratique et le familier."
+      }
     },
     "conscientiousness": {
       "label": "Conscienciosité",
-      "description": "À quel point vous avez tendance à être organisé, discipliné et orienté vers vos objectifs."
+      "description": "À quel point vous avez tendance à être organisé, discipliné et orienté vers vos objectifs.",
+      "descriptionThird": {
+        "he": "À quel point il a tendance à être organisé, discipliné et orienté vers ses objectifs.",
+        "she": "À quel point elle a tendance à être organisée, disciplinée et orientée vers ses objectifs."
+      }
     },
     "extraversion": {
       "label": "Extraversion",
-      "description": "À quel point l'engagement social et la stimulation vous dynamisent, plutôt qu'ils ne vous épuisent."
+      "description": "À quel point l'engagement social et la stimulation vous dynamisent, plutôt qu'ils ne vous épuisent.",
+      "descriptionThird": {
+        "he": "À quel point l'engagement social et la stimulation le dynamisent, plutôt qu'ils ne l'épuisent.",
+        "she": "À quel point l'engagement social et la stimulation la dynamisent, plutôt qu'ils ne l'épuisent."
+      }
     },
     "agreeableness": {
       "label": "Agréabilité",
-      "description": "À quel point vous privilégiez la coopération et les sentiments des autres plutôt que votre propre priorité."
+      "description": "À quel point vous privilégiez la coopération et les sentiments des autres plutôt que votre propre priorité.",
+      "descriptionThird": {
+        "he": "À quel point il privilégie la coopération et les sentiments des autres plutôt que sa propre priorité.",
+        "she": "À quel point elle privilégie la coopération et les sentiments des autres plutôt que sa propre priorité."
+      }
     },
     "neuroticism": {
       "label": "Sensibilité Émotionnelle",
-      "description": "À quel point vous ressentez facilement le stress, l'inquiétude ou l'instabilité émotionnelle."
+      "description": "À quel point vous ressentez facilement le stress, l'inquiétude ou l'instabilité émotionnelle.",
+      "descriptionThird": {
+        "he": "À quel point il ressent facilement le stress, l'inquiétude ou l'instabilité émotionnelle.",
+        "she": "À quel point elle ressent facilement le stress, l'inquiétude ou l'instabilité émotionnelle."
+      }
     },
     "generator": {
       "label": "Générateur",
-      "description": "Un type de Human Design fait pour répondre à ce qui se présente, générant de l'énergie en s'engageant dans ce qui vous anime."
+      "description": "Un type de Human Design fait pour répondre à ce qui se présente, générant de l'énergie en s'engageant dans ce qui vous anime.",
+      "descriptionThird": {
+        "he": "Un type de Human Design fait pour répondre à ce qui se présente, générant de l'énergie en s'engageant dans ce qui l'anime.",
+        "she": "Un type de Human Design fait pour répondre à ce qui se présente, générant de l'énergie en s'engageant dans ce qui l'anime."
+      }
     },
     "manifesting-generator": {
       "label": "Générateur Manifesteur",
@@ -55,7 +93,11 @@
     },
     "manifestor": {
       "label": "Manifesteur",
-      "description": "Un type de Human Design fait pour initier — vous agissez d'abord et informez les autres, plutôt que d'attendre pour répondre."
+      "description": "Un type de Human Design fait pour initier — vous agissez d'abord et informez les autres, plutôt que d'attendre pour répondre.",
+      "descriptionThird": {
+        "he": "Un type de Human Design fait pour initier — il agit d'abord et informe les autres, plutôt que d'attendre pour répondre.",
+        "she": "Un type de Human Design fait pour initier — elle agit d'abord et informe les autres, plutôt que d'attendre pour répondre."
+      }
     },
     "projector": {
       "label": "Projecteur",
@@ -85,61 +127,93 @@
   "bigFiveText": {
     "openness": {
       "high": {
-        "you": "Vous êtes attiré par les idées nouvelles, la pensée non conventionnelle et l'exploration de l'inconnu."
+        "you": "Vous êtes attiré par les idées nouvelles, la pensée non conventionnelle et l'exploration de l'inconnu.",
+        "he": "Il est attiré par les idées nouvelles, la pensée non conventionnelle et l'exploration de l'inconnu.",
+        "she": "Elle est attirée par les idées nouvelles, la pensée non conventionnelle et l'exploration de l'inconnu."
       },
       "mid": {
-        "you": "Vous êtes à peu près aussi à l'aise avec le familier qu'avec l'inédit, sans forte préférence pour l'un ou l'autre."
+        "you": "Vous êtes à peu près aussi à l'aise avec le familier qu'avec l'inédit, sans forte préférence pour l'un ou l'autre.",
+        "he": "Il est à peu près aussi à l'aise avec le familier qu'avec l'inédit, sans forte préférence pour l'un ou l'autre.",
+        "she": "Elle est à peu près aussi à l'aise avec le familier qu'avec l'inédit, sans forte préférence pour l'un ou l'autre."
       },
       "low": {
-        "you": "Vous êtes attiré par le pratique et le familier plutôt que par l'abstrait ou l'inédit."
+        "you": "Vous êtes attiré par le pratique et le familier plutôt que par l'abstrait ou l'inédit.",
+        "he": "Il est attiré par le pratique et le familier plutôt que par l'abstrait ou l'inédit.",
+        "she": "Elle est attirée par le pratique et le familier plutôt que par l'abstrait ou l'inédit."
       }
     },
     "conscientiousness": {
       "high": {
-        "you": "Vous êtes plutôt organisé et orienté vers vos objectifs, et vous avez tendance à aller jusqu'au bout une fois engagé."
+        "you": "Vous êtes plutôt organisé et orienté vers vos objectifs, et vous avez tendance à aller jusqu'au bout une fois engagé.",
+        "he": "Il est plutôt organisé et orienté vers ses objectifs, et il a tendance à aller jusqu'au bout une fois engagé.",
+        "she": "Elle est plutôt organisée et orientée vers ses objectifs, et elle a tendance à aller jusqu'au bout une fois engagée."
       },
       "mid": {
-        "you": "Vous équilibrez la structure et la spontanéité de façon à peu près égale."
+        "you": "Vous équilibrez la structure et la spontanéité de façon à peu près égale.",
+        "he": "Il équilibre la structure et la spontanéité de façon à peu près égale.",
+        "she": "Elle équilibre la structure et la spontanéité de façon à peu près égale."
       },
       "low": {
-        "you": "Vous privilégiez la flexibilité aux plans rigides, et vous vous adaptez au fil de l'eau."
+        "you": "Vous privilégiez la flexibilité aux plans rigides, et vous vous adaptez au fil de l'eau.",
+        "he": "Il privilégie la flexibilité aux plans rigides, et il s'adapte au fil de l'eau.",
+        "she": "Elle privilégie la flexibilité aux plans rigides, et elle s'adapte au fil de l'eau."
       }
     },
     "extraversion": {
       "high": {
-        "you": "L'engagement social et la stimulation vous dynamisent réellement."
+        "you": "L'engagement social et la stimulation vous dynamisent réellement.",
+        "he": "L'engagement social et la stimulation le dynamisent réellement.",
+        "she": "L'engagement social et la stimulation la dynamisent réellement."
       },
       "mid": {
-        "you": "Vous êtes à l'aise aussi bien entouré que seul, selon le moment."
+        "you": "Vous êtes à l'aise aussi bien entouré que seul, selon le moment.",
+        "he": "Il est à l'aise aussi bien entouré que seul, selon le moment.",
+        "she": "Elle est à l'aise aussi bien entourée que seule, selon le moment."
       },
       "low": {
-        "you": "Le temps seul recharge vos batteries plus sûrement que la stimulation sociale."
+        "you": "Le temps seul recharge vos batteries plus sûrement que la stimulation sociale.",
+        "he": "Le temps seul recharge ses batteries plus sûrement que la stimulation sociale.",
+        "she": "Le temps seul recharge ses batteries plus sûrement que la stimulation sociale."
       }
     },
     "agreeableness": {
       "high": {
-        "you": "Vous privilégiez la coopération et l'impact d'une décision sur les autres."
+        "you": "Vous privilégiez la coopération et l'impact d'une décision sur les autres.",
+        "he": "Il privilégie la coopération et l'impact d'une décision sur les autres.",
+        "she": "Elle privilégie la coopération et l'impact d'une décision sur les autres."
       },
       "mid": {
-        "you": "Vous accordez à peu près le même poids à votre propre lecture des choses et aux sentiments des autres."
+        "you": "Vous accordez à peu près le même poids à votre propre lecture des choses et aux sentiments des autres.",
+        "he": "Il accorde à peu près le même poids à sa propre lecture des choses et aux sentiments des autres.",
+        "she": "Elle accorde à peu près le même poids à sa propre lecture des choses et aux sentiments des autres."
       },
       "low": {
-        "you": "Vous privilégiez votre propre lecture d'une situation plutôt que de gérer son impact sur les autres."
+        "you": "Vous privilégiez votre propre lecture d'une situation plutôt que de gérer son impact sur les autres.",
+        "he": "Il privilégie sa propre lecture d'une situation plutôt que de gérer son impact sur les autres.",
+        "she": "Elle privilégie sa propre lecture d'une situation plutôt que de gérer son impact sur les autres."
       }
     },
     "neuroticism": {
       "high": {
-        "you": "Le stress et les variations émotionnelles vous affectent fortement et rapidement."
+        "you": "Le stress et les variations émotionnelles vous affectent fortement et rapidement.",
+        "he": "Le stress et les variations émotionnelles l'affectent fortement et rapidement.",
+        "she": "Le stress et les variations émotionnelles l'affectent fortement et rapidement."
       },
       "mid": {
-        "you": "Vous ressentez le stress comme tout le monde, sans qu'il ne domine votre façon de fonctionner."
+        "you": "Vous ressentez le stress comme tout le monde, sans qu'il ne domine votre façon de fonctionner.",
+        "he": "Il ressent le stress comme tout le monde, sans qu'il ne domine sa façon de fonctionner.",
+        "she": "Elle ressent le stress comme tout le monde, sans qu'il ne domine sa façon de fonctionner."
       },
       "low": {
-        "you": "Vous restez plus stable sous pression que la plupart des gens."
+        "you": "Vous restez plus stable sous pression que la plupart des gens.",
+        "he": "Il reste plus stable sous pression que la plupart des gens.",
+        "she": "Elle reste plus stable sous pression que la plupart des gens."
       }
     }
   },
   "mbtiLean": {
-    "you": "Vous penchez vers {pole} — {confidence}% dans cette direction d'après vos réponses."
+    "you": "Vous penchez vers {pole} — {confidence}% dans cette direction d'après vos réponses.",
+    "he": "Il penche vers {pole} — {confidence}% dans cette direction d'après ses réponses.",
+    "she": "Elle penche vers {pole} — {confidence}% dans cette direction d'après ses réponses."
   }
 }

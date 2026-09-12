@@ -56,12 +56,26 @@ export async function PersonPageTemplate({ content }: { content: FamousPersonCon
 
       <p className="mt-6 text-base leading-relaxed text-foreground/90">{content.bio}</p>
 
-      <div className="mt-6 rounded-2xl border bg-muted/30 p-4 text-sm leading-relaxed text-muted-foreground">
-        <strong className="text-foreground">Editorial disclaimer:</strong> The typings below are Colevitate&apos;s
-        own speculative, editorial assessment based on {content.name}&apos;s public life, interviews, and biography —
-        not {content.name}&apos;s own quiz result, not a claim about their private life, and not a factual statement
-        about who they are.
-      </div>
+      <details className="mt-6 group rounded-2xl border bg-muted/30 p-4 text-sm leading-relaxed text-muted-foreground">
+        <summary className="cursor-pointer list-none font-medium text-foreground marker:content-none">
+          <span className="inline-flex items-center gap-1.5">
+            Editorial disclaimer
+            <svg
+              viewBox="0 0 20 20"
+              fill="none"
+              aria-hidden="true"
+              className="h-3.5 w-3.5 shrink-0 transition-transform duration-200 group-open:rotate-180"
+            >
+              <path d="M5 7.5 10 12.5 15 7.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </span>
+        </summary>
+        <p className="mt-2">
+          The typings below are Colevitate&apos;s own speculative, editorial assessment based on {content.name}&apos;s
+          public life, interviews, and biography — not {content.name}&apos;s own quiz result, not a claim about their
+          private life, and not a factual statement about who they are.
+        </p>
+      </details>
 
       <Section title="How we'd type them">
         <div className="space-y-5">

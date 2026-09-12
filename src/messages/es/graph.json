@@ -6,16 +6,26 @@
     "question": "Tu respuesta"
   },
   "archetypeTag": {
-    "you": "Tu arquetipo"
+    "you": "Tu arquetipo",
+    "he": "El arquetipo de él",
+    "she": "El arquetipo de ella"
   },
   "traits": {
     "EI": {
       "label": "Extraversión/Introversión",
-      "description": "Si obtienes energía al relacionarte con el mundo exterior (Extraversión) o al pasar tiempo a solas con tus propios pensamientos (Introversión)."
+      "description": "Si obtienes energía al relacionarte con el mundo exterior (Extraversión) o al pasar tiempo a solas con tus propios pensamientos (Introversión).",
+      "descriptionThird": {
+        "he": "Si él obtiene energía al relacionarse con el mundo exterior (Extraversión) o al pasar tiempo a solas con sus propios pensamientos (Introversión).",
+        "she": "Si ella obtiene energía al relacionarse con el mundo exterior (Extraversión) o al pasar tiempo a solas con sus propios pensamientos (Introversión)."
+      }
     },
     "SN": {
       "label": "Sensación/Intuición",
-      "description": "Si confías en el detalle concreto y presente (Sensación) o en los patrones y las posibilidades (Intuición)."
+      "description": "Si confías en el detalle concreto y presente (Sensación) o en los patrones y las posibilidades (Intuición).",
+      "descriptionThird": {
+        "he": "Si él confía en el detalle concreto y presente (Sensación) o en los patrones y las posibilidades (Intuición).",
+        "she": "Si ella confía en el detalle concreto y presente (Sensación) o en los patrones y las posibilidades (Intuición)."
+      }
     },
     "TF": {
       "label": "Pensamiento/Sentimiento",
@@ -23,31 +33,59 @@
     },
     "JP": {
       "label": "Juicio/Percepción",
-      "description": "Si prefieres las cosas resueltas y planificadas (Juicio) o abiertas y flexibles (Percepción)."
+      "description": "Si prefieres las cosas resueltas y planificadas (Juicio) o abiertas y flexibles (Percepción).",
+      "descriptionThird": {
+        "he": "Si él prefiere las cosas resueltas y planificadas (Juicio) o abiertas y flexibles (Percepción).",
+        "she": "Si ella prefiere las cosas resueltas y planificadas (Juicio) o abiertas y flexibles (Percepción)."
+      }
     },
     "openness": {
       "label": "Apertura",
-      "description": "Cuánto te atraen las ideas nuevas y el pensamiento poco convencional frente a lo práctico y lo familiar."
+      "description": "Cuánto te atraen las ideas nuevas y el pensamiento poco convencional frente a lo práctico y lo familiar.",
+      "descriptionThird": {
+        "he": "Cuánto le atraen a él las ideas nuevas y el pensamiento poco convencional frente a lo práctico y lo familiar.",
+        "she": "Cuánto le atraen a ella las ideas nuevas y el pensamiento poco convencional frente a lo práctico y lo familiar."
+      }
     },
     "conscientiousness": {
       "label": "Responsabilidad",
-      "description": "Cuán organizado, disciplinado y orientado a metas sueles ser."
+      "description": "Cuán organizado, disciplinado y orientado a metas sueles ser.",
+      "descriptionThird": {
+        "he": "Cuán organizado, disciplinado y orientado a metas suele ser él.",
+        "she": "Cuán organizada, disciplinada y orientada a metas suele ser ella."
+      }
     },
     "extraversion": {
       "label": "Extraversión",
-      "description": "Cuánto te energiza la interacción social y la estimulación, frente a cuánto te agota."
+      "description": "Cuánto te energiza la interacción social y la estimulación, frente a cuánto te agota.",
+      "descriptionThird": {
+        "he": "Cuánto le energiza a él la interacción social y la estimulación, frente a cuánto le agota.",
+        "she": "Cuánto le energiza a ella la interacción social y la estimulación, frente a cuánto le agota."
+      }
     },
     "agreeableness": {
       "label": "Amabilidad",
-      "description": "Cuánto priorizas la cooperación y los sentimientos de los demás frente a tu propia agenda."
+      "description": "Cuánto priorizas la cooperación y los sentimientos de los demás frente a tu propia agenda.",
+      "descriptionThird": {
+        "he": "Cuánto prioriza él la cooperación y los sentimientos de los demás frente a su propia agenda.",
+        "she": "Cuánto prioriza ella la cooperación y los sentimientos de los demás frente a su propia agenda."
+      }
     },
     "neuroticism": {
       "label": "Neuroticismo",
-      "description": "Con cuánta facilidad experimentas estrés, preocupación o volatilidad emocional."
+      "description": "Con cuánta facilidad experimentas estrés, preocupación o volatilidad emocional.",
+      "descriptionThird": {
+        "he": "Con cuánta facilidad experimenta él estrés, preocupación o volatilidad emocional.",
+        "she": "Con cuánta facilidad experimenta ella estrés, preocupación o volatilidad emocional."
+      }
     },
     "generator": {
       "label": "Generador",
-      "description": "Un tipo de Diseño Humano hecho para responder a lo que se presenta, generando energía al involucrarse con lo que te apasiona."
+      "description": "Un tipo de Diseño Humano hecho para responder a lo que se presenta, generando energía al involucrarse con lo que te apasiona.",
+      "descriptionThird": {
+        "he": "Un tipo de Diseño Humano hecho para responder a lo que se presenta, generando energía al involucrarse con lo que le apasiona a él.",
+        "she": "Un tipo de Diseño Humano hecho para responder a lo que se presenta, generando energía al involucrarse con lo que le apasiona a ella."
+      }
     },
     "manifesting-generator": {
       "label": "Generador Manifestante",
@@ -55,7 +93,11 @@
     },
     "manifestor": {
       "label": "Manifestador",
-      "description": "Un tipo de Diseño Humano hecho para iniciar — actúas primero e informas a los demás, en lugar de esperar para responder."
+      "description": "Un tipo de Diseño Humano hecho para iniciar — actúas primero e informas a los demás, en lugar de esperar para responder.",
+      "descriptionThird": {
+        "he": "Un tipo de Diseño Humano hecho para iniciar — él actúa primero e informa a los demás, en lugar de esperar para responder.",
+        "she": "Un tipo de Diseño Humano hecho para iniciar — ella actúa primero e informa a los demás, en lugar de esperar para responder."
+      }
     },
     "projector": {
       "label": "Proyector",
@@ -85,61 +127,93 @@
   "bigFiveText": {
     "openness": {
       "high": {
-        "you": "Te atraen las ideas nuevas, el pensamiento poco convencional y explorar lo desconocido."
+        "you": "Te atraen las ideas nuevas, el pensamiento poco convencional y explorar lo desconocido.",
+        "he": "Le atraen a él las ideas nuevas, el pensamiento poco convencional y explorar lo desconocido.",
+        "she": "Le atraen a ella las ideas nuevas, el pensamiento poco convencional y explorar lo desconocido."
       },
       "mid": {
-        "you": "Te sientes igual de cómodo con lo familiar y con lo no probado, sin una inclinación fuerte hacia ninguno de los dos."
+        "you": "Te sientes igual de cómodo con lo familiar y con lo no probado, sin una inclinación fuerte hacia ninguno de los dos.",
+        "he": "Se siente igual de cómodo con lo familiar y con lo no probado, sin una inclinación fuerte hacia ninguno de los dos.",
+        "she": "Se siente igual de cómoda con lo familiar y con lo no probado, sin una inclinación fuerte hacia ninguno de los dos."
       },
       "low": {
-        "you": "Te inclinas hacia lo práctico y lo familiar por encima de lo abstracto o no probado."
+        "you": "Te inclinas hacia lo práctico y lo familiar por encima de lo abstracto o no probado.",
+        "he": "Se inclina hacia lo práctico y lo familiar por encima de lo abstracto o no probado.",
+        "she": "Se inclina hacia lo práctico y lo familiar por encima de lo abstracto o no probado."
       }
     },
     "conscientiousness": {
       "high": {
-        "you": "Tiendes a ser organizado y orientado a metas, y sueles cumplir una vez que te comprometes."
+        "you": "Tiendes a ser organizado y orientado a metas, y sueles cumplir una vez que te comprometes.",
+        "he": "Tiende a ser organizado y orientado a metas, y suele cumplir una vez que se compromete.",
+        "she": "Tiende a ser organizada y orientada a metas, y suele cumplir una vez que se compromete."
       },
       "mid": {
-        "you": "Equilibras la estructura y la espontaneidad de forma bastante pareja."
+        "you": "Equilibras la estructura y la espontaneidad de forma bastante pareja.",
+        "he": "Equilibra la estructura y la espontaneidad de forma bastante pareja.",
+        "she": "Equilibra la estructura y la espontaneidad de forma bastante pareja."
       },
       "low": {
-        "you": "Prefieres la flexibilidad sobre los planes rígidos, y te adaptas sobre la marcha."
+        "you": "Prefieres la flexibilidad sobre los planes rígidos, y te adaptas sobre la marcha.",
+        "he": "Prefiere la flexibilidad sobre los planes rígidos, y se adapta sobre la marcha.",
+        "she": "Prefiere la flexibilidad sobre los planes rígidos, y se adapta sobre la marcha."
       }
     },
     "extraversion": {
       "high": {
-        "you": "La interacción social y la estimulación te energizan de verdad."
+        "you": "La interacción social y la estimulación te energizan de verdad.",
+        "he": "La interacción social y la estimulación energizan de verdad a él.",
+        "she": "La interacción social y la estimulación energizan de verdad a ella."
       },
       "mid": {
-        "you": "Te sientes cómodo tanto rodeado de gente como a solas, según el momento."
+        "you": "Te sientes cómodo tanto rodeado de gente como a solas, según el momento.",
+        "he": "Se siente cómodo tanto rodeado de gente como a solas, según el momento.",
+        "she": "Se siente cómoda tanto rodeada de gente como a solas, según el momento."
       },
       "low": {
-        "you": "El tiempo a solas te recarga de forma más fiable que la estimulación social."
+        "you": "El tiempo a solas te recarga de forma más fiable que la estimulación social.",
+        "he": "El tiempo a solas lo recarga a él de forma más fiable que la estimulación social.",
+        "she": "El tiempo a solas la recarga a ella de forma más fiable que la estimulación social."
       }
     },
     "agreeableness": {
       "high": {
-        "you": "Priorizas la cooperación y cómo afecta una decisión a los demás."
+        "you": "Priorizas la cooperación y cómo afecta una decisión a los demás.",
+        "he": "Prioriza la cooperación y cómo afecta una decisión a los demás.",
+        "she": "Prioriza la cooperación y cómo afecta una decisión a los demás."
       },
       "mid": {
-        "you": "Sopesas tu propia lectura de las cosas y los sentimientos de los demás de forma bastante pareja."
+        "you": "Sopesas tu propia lectura de las cosas y los sentimientos de los demás de forma bastante pareja.",
+        "he": "Sopesa su propia lectura de las cosas y los sentimientos de los demás de forma bastante pareja.",
+        "she": "Sopesa su propia lectura de las cosas y los sentimientos de los demás de forma bastante pareja."
       },
       "low": {
-        "you": "Priorizas tu propia lectura de una situación por encima de gestionar cómo afecta a los demás."
+        "you": "Priorizas tu propia lectura de una situación por encima de gestionar cómo afecta a los demás.",
+        "he": "Prioriza su propia lectura de una situación por encima de gestionar cómo afecta a los demás.",
+        "she": "Prioriza su propia lectura de una situación por encima de gestionar cómo afecta a los demás."
       }
     },
     "neuroticism": {
       "high": {
-        "you": "El estrés y los cambios emocionales se registran en ti de forma fuerte y rápida."
+        "you": "El estrés y los cambios emocionales se registran en ti de forma fuerte y rápida.",
+        "he": "El estrés y los cambios emocionales se registran en él de forma fuerte y rápida.",
+        "she": "El estrés y los cambios emocionales se registran en ella de forma fuerte y rápida."
       },
       "mid": {
-        "you": "Sientes el estrés como cualquiera, sin que domine tu forma de actuar."
+        "you": "Sientes el estrés como cualquiera, sin que domine tu forma de actuar.",
+        "he": "Siente el estrés como cualquiera, sin que domine su forma de actuar.",
+        "she": "Siente el estrés como cualquiera, sin que domine su forma de actuar."
       },
       "low": {
-        "you": "Te mantienes estable bajo presión de forma más fiable que la mayoría."
+        "you": "Te mantienes estable bajo presión de forma más fiable que la mayoría.",
+        "he": "Se mantiene estable bajo presión de forma más fiable que la mayoría.",
+        "she": "Se mantiene estable bajo presión de forma más fiable que la mayoría."
       }
     }
   },
   "mbtiLean": {
-    "you": "Te inclinas hacia {pole} — un {confidence}% en esa dirección según tus respuestas."
+    "you": "Te inclinas hacia {pole} — un {confidence}% en esa dirección según tus respuestas.",
+    "he": "Él se inclina hacia {pole} — un {confidence}% en esa dirección según sus respuestas.",
+    "she": "Ella se inclina hacia {pole} — un {confidence}% en esa dirección según sus respuestas."
   }
 }

@@ -1,66 +1,130 @@
 {
   "IMTG": {
     "name": "Der stille Handwerker",
-    "description": "Du arbeitest am besten allein, im Moment, an Dingen, die du nach deinem eigenen Maßstab bewerten kannst, statt nach dem eines anderen."
+    "description": "Du arbeitest am besten allein, im Moment, an Dingen, die du nach deinem eigenen Maßstab bewerten kannst, statt nach dem eines anderen.",
+    "descriptionThird": {
+      "he": "Er arbeitet am besten allein, im Moment, an Dingen, die er nach seinem eigenen Maßstab bewerten kann, statt nach dem eines anderen.",
+      "she": "Sie arbeitet am besten allein, im Moment, an Dingen, die sie nach ihrem eigenen Maßstab bewerten kann, statt nach dem eines anderen."
+    }
   },
   "IMTX": {
     "name": "Der unabhängige Tüftler",
-    "description": "Du verfolgst Ideen nach deinen eigenen Regeln und bist am glücklichsten, wenn du dich ohne Publikum improvisierend durch etwas Neues arbeitest."
+    "description": "Du verfolgst Ideen nach deinen eigenen Regeln und bist am glücklichsten, wenn du dich ohne Publikum improvisierend durch etwas Neues arbeitest.",
+    "descriptionThird": {
+      "he": "Er verfolgt Ideen nach seinen eigenen Regeln und ist am glücklichsten, wenn er sich ohne Publikum improvisierend durch etwas Neues arbeitet.",
+      "she": "Sie verfolgt Ideen nach ihren eigenen Regeln und ist am glücklichsten, wenn sie sich ohne Publikum improvisierend durch etwas Neues arbeitet."
+    }
   },
   "IMFG": {
     "name": "Der verlässliche Vertraute",
-    "description": "Menschen vertrauen dir gerade deshalb, weil du unaufgeregt und beständig bist — für sie da, ohne das Rampenlicht zu brauchen."
+    "description": "Menschen vertrauen dir gerade deshalb, weil du unaufgeregt und beständig bist — für sie da, ohne das Rampenlicht zu brauchen.",
+    "descriptionThird": {
+      "he": "Menschen vertrauen ihm gerade deshalb, weil er unaufgeregt und beständig ist — für sie da, ohne das Rampenlicht zu brauchen.",
+      "she": "Menschen vertrauen ihr gerade deshalb, weil sie unaufgeregt und beständig ist — für sie da, ohne das Rampenlicht zu brauchen."
+    }
   },
   "IMFX": {
     "name": "Der sanfte Wanderer",
-    "description": "Du bewegst dich in deinem eigenen ruhigen Tempo auf neue Menschen und neue Ideen zu — neugierig, nicht getrieben."
+    "description": "Du bewegst dich in deinem eigenen ruhigen Tempo auf neue Menschen und neue Ideen zu — neugierig, nicht getrieben.",
+    "descriptionThird": {
+      "he": "Er bewegt sich in seinem eigenen ruhigen Tempo auf neue Menschen und neue Ideen zu — neugierig, nicht getrieben.",
+      "she": "Sie bewegt sich in ihrem eigenen ruhigen Tempo auf neue Menschen und neue Ideen zu — neugierig, nicht getrieben."
+    }
   },
   "IPTG": {
     "name": "Der präzise Architekt",
-    "description": "Du baust Dinge sorgfältig und allein auf und vertraust einem gut durchdachten Plan mehr als Improvisation oder fremdem Input."
+    "description": "Du baust Dinge sorgfältig und allein auf und vertraust einem gut durchdachten Plan mehr als Improvisation oder fremdem Input.",
+    "descriptionThird": {
+      "he": "Er baut Dinge sorgfältig und allein auf und vertraut einem gut durchdachten Plan mehr als Improvisation oder fremdem Input.",
+      "she": "Sie baut Dinge sorgfältig und allein auf und vertraut einem gut durchdachten Plan mehr als Improvisation oder fremdem Input."
+    }
   },
   "IPTX": {
     "name": "Der methodische Neuerer",
-    "description": "Du bringst neue Ideen durch Disziplin zum Leben, nicht durch Spontaneität — Struktur ist es, was dich wirklich Neues erreichen lässt."
+    "description": "Du bringst neue Ideen durch Disziplin zum Leben, nicht durch Spontaneität — Struktur ist es, was dich wirklich Neues erreichen lässt.",
+    "descriptionThird": {
+      "he": "Er bringt neue Ideen durch Disziplin zum Leben, nicht durch Spontaneität — Struktur ist es, was ihn wirklich Neues erreichen lässt.",
+      "she": "Sie bringt neue Ideen durch Disziplin zum Leben, nicht durch Spontaneität — Struktur ist es, was sie wirklich Neues erreichen lässt."
+    }
   },
   "IPFG": {
     "name": "Der fürsorgliche Betreuer",
-    "description": "Du bist zuverlässig für die Menschen da, die dir nahestehen, und bevorzugst verlässliche Routinen gegenüber großen Gesten."
+    "description": "Du bist zuverlässig für die Menschen da, die dir nahestehen, und bevorzugst verlässliche Routinen gegenüber großen Gesten.",
+    "descriptionThird": {
+      "he": "Er ist zuverlässig für die Menschen da, die ihm nahestehen, und bevorzugt verlässliche Routinen gegenüber großen Gesten.",
+      "she": "Sie ist zuverlässig für die Menschen da, die ihr nahestehen, und bevorzugt verlässliche Routinen gegenüber großen Gesten."
+    }
   },
   "IPFX": {
     "name": "Der besonnene Visionär",
-    "description": "Du planst still für Menschen und Ideen, die es noch nicht gibt — du denkst weiter voraus, als du darüber sprichst."
+    "description": "Du planst still für Menschen und Ideen, die es noch nicht gibt — du denkst weiter voraus, als du darüber sprichst.",
+    "descriptionThird": {
+      "he": "Er plant still für Menschen und Ideen, die es noch nicht gibt — er denkt weiter voraus, als er darüber spricht.",
+      "she": "Sie plant still für Menschen und Ideen, die es noch nicht gibt — sie denkt weiter voraus, als sie darüber spricht."
+    }
   },
   "EMTG": {
     "name": "Der mutige Macher",
-    "description": "Du handelst lieber sofort an etwas Realem, statt es zu planen oder zu besprechen — Schwung ist deine Art zu denken."
+    "description": "Du handelst lieber sofort an etwas Realem, statt es zu planen oder zu besprechen — Schwung ist deine Art zu denken.",
+    "descriptionThird": {
+      "he": "Er handelt lieber sofort an etwas Realem, statt es zu planen oder zu besprechen — Schwung ist seine Art zu denken.",
+      "she": "Sie handelt lieber sofort an etwas Realem, statt es zu planen oder zu besprechen — Schwung ist ihre Art zu denken."
+    }
   },
   "EMTX": {
     "name": "Der rastlose Pionier",
-    "description": "Dich zieht es zu dem, was gerade am neuesten und lebendigsten ist — du bewegst dich schnell und findest den Plan später heraus."
+    "description": "Dich zieht es zu dem, was gerade am neuesten und lebendigsten ist — du bewegst dich schnell und findest den Plan später heraus.",
+    "descriptionThird": {
+      "he": "Ihn zieht es zu dem, was gerade am neuesten und lebendigsten ist — er bewegt sich schnell und findet den Plan später heraus.",
+      "she": "Sie zieht es zu dem, was gerade am neuesten und lebendigsten ist — sie bewegt sich schnell und findet den Plan später heraus."
+    }
   },
   "EMFG": {
     "name": "Der bodenständige Verbinder",
-    "description": "Du bringst Menschen rund um das zusammen, was real und unmittelbar ist, und schöpfst Energie aus anderen, ohne ein Skript zu brauchen."
+    "description": "Du bringst Menschen rund um das zusammen, was real und unmittelbar ist, und schöpfst Energie aus anderen, ohne ein Skript zu brauchen.",
+    "descriptionThird": {
+      "he": "Er bringt Menschen rund um das zusammen, was real und unmittelbar ist, und schöpft Energie aus anderen, ohne ein Skript zu brauchen.",
+      "she": "Sie bringt Menschen rund um das zusammen, was real und unmittelbar ist, und schöpft Energie aus anderen, ohne ein Skript zu brauchen."
+    }
   },
   "EMFX": {
     "name": "Der spontane Katalysator",
-    "description": "Du bringst Schwung in einen Raum und jagst im selben Atemzug dem Neuen hinterher — selten auf dieselbe Weise zweimal."
+    "description": "Du bringst Schwung in einen Raum und jagst im selben Atemzug dem Neuen hinterher — selten auf dieselbe Weise zweimal.",
+    "descriptionThird": {
+      "he": "Er bringt Schwung in einen Raum und jagt im selben Atemzug dem Neuen hinterher — selten auf dieselbe Weise zweimal.",
+      "she": "Sie bringt Schwung in einen Raum und jagt im selben Atemzug dem Neuen hinterher — selten auf dieselbe Weise zweimal."
+    }
   },
   "EPTG": {
     "name": "Der zielstrebige Organisator",
-    "description": "Du verwandelst Pläne durch schiere Vorwärtsbewegung in Ergebnisse und fühlst dich am wohlsten, wenn es eine klare Struktur gibt, gegen die du drücken kannst."
+    "description": "Du verwandelst Pläne durch schiere Vorwärtsbewegung in Ergebnisse und fühlst dich am wohlsten, wenn es eine klare Struktur gibt, gegen die du drücken kannst.",
+    "descriptionThird": {
+      "he": "Er verwandelt Pläne durch schiere Vorwärtsbewegung in Ergebnisse und fühlt sich am wohlsten, wenn es eine klare Struktur gibt, gegen die er drücken kann.",
+      "she": "Sie verwandelt Pläne durch schiere Vorwärtsbewegung in Ergebnisse und fühlt sich am wohlsten, wenn es eine klare Struktur gibt, gegen die sie drücken kann."
+    }
   },
   "EPTX": {
     "name": "Der strategische Wegbereiter",
-    "description": "Du verfolgst mutige neue Richtungen, untermauerst sie aber mit echter Planung — für dich sind Vision und Struktur Partner, keine Gegensätze."
+    "description": "Du verfolgst mutige neue Richtungen, untermauerst sie aber mit echter Planung — für dich sind Vision und Struktur Partner, keine Gegensätze.",
+    "descriptionThird": {
+      "he": "Er verfolgt mutige neue Richtungen, untermauert sie aber mit echter Planung — für ihn sind Vision und Struktur Partner, keine Gegensätze.",
+      "she": "Sie verfolgt mutige neue Richtungen, untermauert sie aber mit echter Planung — für sie sind Vision und Struktur Partner, keine Gegensätze."
+    }
   },
   "EPFG": {
     "name": "Der verlässliche Gastgeber",
-    "description": "Du hältst Menschen und Pläne gleichzeitig reibungslos am Laufen — so verlässlich, dass es allen anderen das Leben leichter macht."
+    "description": "Du hältst Menschen und Pläne gleichzeitig reibungslos am Laufen — so verlässlich, dass es allen anderen das Leben leichter macht.",
+    "descriptionThird": {
+      "he": "Er hält Menschen und Pläne gleichzeitig reibungslos am Laufen — so verlässlich, dass es allen anderen das Leben leichter macht.",
+      "she": "Sie hält Menschen und Pläne gleichzeitig reibungslos am Laufen — so verlässlich, dass es allen anderen das Leben leichter macht."
+    }
   },
   "EPFX": {
     "name": "Der inspirierende Anführer",
-    "description": "Du sammelst Menschen um große neue Ideen und organisierst die Umsetzung tatsächlich auch — zu gleichen Teilen Visionär und Planer."
+    "description": "Du sammelst Menschen um große neue Ideen und organisierst die Umsetzung tatsächlich auch — zu gleichen Teilen Visionär und Planer.",
+    "descriptionThird": {
+      "he": "Er sammelt Menschen um große neue Ideen und organisiert die Umsetzung tatsächlich auch — zu gleichen Teilen Visionär und Planer.",
+      "she": "Sie sammelt Menschen um große neue Ideen und organisiert die Umsetzung tatsächlich auch — zu gleichen Teilen Visionärin und Planerin."
+    }
   }
 }
