@@ -21,7 +21,10 @@ export function AuthStatus({ compact = false }: { compact?: boolean } = {}) {
 
   if (!user) {
     return (
-      <div className="flex items-center gap-2">
+      // Hidden below sm: MobileNavMenu carries the sign-in CTA there now, so
+      // this row (which has no sm:hidden of its own on the button) would
+      // otherwise double up with it next to the hamburger.
+      <div className="hidden items-center gap-2 sm:flex">
         <span className="hidden text-xs text-muted-foreground sm:inline">{t("guestNotice")}</span>
         <Button
           asChild
@@ -41,7 +44,10 @@ export function AuthStatus({ compact = false }: { compact?: boolean } = {}) {
   const avatarUrl = profileMeta?.avatarUrl;
 
   return (
-    <div className="flex items-center gap-2">
+    // Hidden below sm: MobileNavMenu now carries the account row (avatar/name
+    // + sign-out) and, on the personality-app header, the dashboard/pair/
+    // settings shortcuts below it too — see the comment on those further down.
+    <div className="hidden items-center gap-2 sm:flex">
       <div className="hidden items-center gap-2 text-xs text-muted-foreground sm:flex">
         {avatarUrl ? (
           <img

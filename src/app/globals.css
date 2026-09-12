@@ -166,30 +166,52 @@
   }
 }
 
-/* Page-change view transition: a slight crossfade + drift, applied by
-   src/components/nav/PageTransition.tsx. The overlay would otherwise
-   swallow clicks mid-animation, so let them pass through to the live page. */
+/* Page-change view transition: a horizontal push, applied by
+   src/components/nav/PageTransition.tsx. Direction-aware (via
+   useNavigationDirection) so it reads as a real navigation stack instead of
+   a single fixed motion: going forward — including out of the burger menu,
+   whose own panel slides out the same way (MobileNavMenu.tsx) — pushes the
+   old page out left and the new one in from the right, like advancing a
+   filmstrip; going back (browser back button) reverses both, so returning
+   doesn't just play the forward motion backwards. translateX(±100%) is
+   relative to each snapshot's own box (the full page), so this needs no
+   viewport math. The overlay would otherwise swallow clicks mid-animation,
+   so let them pass through to the live page. */
 ::view-transition {
   pointer-events: none;
 }
 
-::view-transition-old(.page-exit) {
-  animation: 140ms ease-in both page-fade-out;
+::view-transition-old(.page-exit-forward) {
+  animation: 320ms cubic-bezier(0.22, 1, 0.36, 1) both page-slide-out-left;
 }
-::view-transition-new(.page-enter) {
-  animation: 220ms ease-out both page-fade-in;
+::view-transition-new(.page-enter-forward) {
+  animation: 320ms cubic-bezier(0.22, 1, 0.36, 1) both page-slide-in-right;
+}
+::view-transition-old(.page-exit-back) {
+  animation: 320ms cubic-bezier(0.22, 1, 0.36, 1) both page-slide-out-right;
+}
+::view-transition-new(.page-enter-back) {
+  animation: 320ms cubic-bezier(0.22, 1, 0.36, 1) both page-slide-in-left;
 }
 
-@keyframes page-fade-out {
+@keyframes page-slide-out-left {
   to {
-    opacity: 0;
-    transform: translateY(-4px);
+    transform: translateX(-100%);
   }
 }
-@keyframes page-fade-in {
+@keyframes page-slide-in-right {
   from {
-    opacity: 0;
-    transform: translateY(6px);
+    transform: translateX(100%);
+  }
+}
+@keyframes page-slide-out-right {
+  to {
+    transform: translateX(100%);
+  }
+}
+@keyframes page-slide-in-left {
+  from {
+    transform: translateX(-100%);
   }
 }
 
