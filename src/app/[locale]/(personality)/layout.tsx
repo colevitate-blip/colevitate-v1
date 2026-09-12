@@ -11,7 +11,6 @@ import { AuthStatus } from "@/components/auth/AuthStatus";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { MobileNavMenu } from "@/components/nav/MobileNavMenu";
-import { PageTransition } from "@/components/nav/PageTransition";
 
 const NAV_LINK_CLASS =
   "flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground";
@@ -48,7 +47,13 @@ export default async function PersonalityLayout({ children }: { children: ReactN
                   reserve space for that growth. */}
               <div className="flex w-full flex-wrap items-center justify-between gap-2">
                 <AuthStatus />
-                <div className="flex flex-wrap items-center justify-end gap-2">
+                {/* ml-auto (on top of the parent's justify-between): AuthStatus is
+                    hidden below sm now (MobileNavMenu carries it there instead), so
+                    below sm this is the flex row's only visible child — without
+                    ml-auto, justify-between has nothing to space it against and it
+                    collapses to the start (left) instead of sitting in right-hand
+                    thumb reach next to the menu button. */}
+                <div className="ml-auto flex flex-wrap items-center justify-end gap-2">
                   <span
                     aria-hidden
                     className="hidden size-2 rounded-full bg-primary shadow-[0_0_12px_var(--primary)] sm:block"
@@ -110,7 +115,7 @@ export default async function PersonalityLayout({ children }: { children: ReactN
               </Link>
             </div>
           </header>
-          <PageTransition>{children}</PageTransition>
+          {children}
           <footer className="mx-auto mt-16 flex w-full max-w-6xl flex-col items-center gap-3 px-4 pb-10 text-center text-xs text-muted-foreground">
             <p>{t("footerTagline")}</p>
             <div className="flex gap-4">
