@@ -57,11 +57,13 @@ export function AuthStatus({ compact = false }: { compact?: boolean } = {}) {
         <span className="max-w-[120px] truncate">{displayName}</span>
       </div>
       {/* compact: used on the slim site-wide header (marketing/content pages) where
-          these in-app shortcuts would be redundant with the header's own nav links —
-          full set only shown on the personality-app header where they're the only
-          way to reach dashboard/pair/settings. */}
+          these in-app shortcuts would be redundant with the header's own nav links.
+          Hidden below sm even when !compact: the personality-app header now surfaces
+          the same three shortcuts inside its MobileNavMenu instead, so they aren't
+          the only way to reach dashboard/pair/settings on mobile anymore, and the
+          header's top bar doesn't need to carry an always-visible icon row. */}
       {!compact ? (
-        <>
+        <div className="hidden items-center gap-2 sm:flex">
           <Button asChild variant="ghost" size="sm" className="rounded-full gap-1.5">
             <I18nLink href="/combined">
               <LayoutDashboard className="size-3.5" />
@@ -86,7 +88,7 @@ export function AuthStatus({ compact = false }: { compact?: boolean } = {}) {
               <span className="sr-only">Settings</span>
             </I18nLink>
           </Button>
-        </>
+        </div>
       ) : null}
       <form action={signOut}>
         <Button type="submit" variant="ghost" size="sm" className="rounded-full gap-1.5">

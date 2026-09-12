@@ -16,9 +16,14 @@ const ALL = "all" as const;
 // sections was too much vertical scrolling on mobile, and the trigger's count
 // badge visually collided with the chevron. A chip filter (count baked into
 // each pill) plus a single flat, filtered list scans in one glance and has
-// nowhere for a number to get jumbled. Chips wrap rather than scroll
-// horizontally — most phone browsers hide the scrollbar at rest, so an
-// overflow row had no visible hint that more categories existed off-screen.
+// nowhere for a number to get jumbled.
+//
+// Chips scroll in a single row rather than wrap: variable-width pills
+// wrapping onto multiple lines bricked unevenly (a short "Athlete 8" next to
+// a long "Business & Innovation 9" never lines up cleanly). A bare overflow
+// row has the opposite problem — most phone browsers hide the scrollbar at
+// rest, so nothing hints that more categories exist off-screen — hence the
+// fade-out edge below.
 export function PeopleCategoryFilter({ categories }: { categories: CategoryGroup[] }) {
   const [selected, setSelected] = useState<FamousPersonCategory | typeof ALL>(ALL);
 
@@ -27,17 +32,28 @@ export function PeopleCategoryFilter({ categories }: { categories: CategoryGroup
 
   return (
     <div>
-      <div className="flex flex-wrap gap-2 pb-1">
-        <CategoryChip label="All" count={allPeople.length} active={selected === ALL} onClick={() => setSelected(ALL)} />
-        {categories.map(({ category, people }) => (
+      <div className="relative">
+        <div className="flex flex-nowrap gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <CategoryChip
-            key={category}
-            label={CATEGORY_LABEL[category]}
-            count={people.length}
-            active={selected === category}
-            onClick={() => setSelected(category)}
+            label="All"
+            count={allPeople.length}
+            active={selected === ALL}
+            onClick={() => setSelected(ALL)}
           />
-        ))}
+          {categories.map(({ category, people }) => (
+            <CategoryChip
+              key={category}
+              label={CATEGORY_LABEL[category]}
+              count={people.length}
+              active={selected === category}
+              onClick={() => setSelected(category)}
+            />
+          ))}
+        </div>
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-background to-transparent"
+        />
       </div>
 
       <div className="mt-4 divide-y rounded-2xl border">

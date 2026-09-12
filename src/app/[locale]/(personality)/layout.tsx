@@ -51,7 +51,7 @@ export default async function PersonalityLayout({ children }: { children: ReactN
                 <div className="flex flex-wrap items-center justify-end gap-2">
                   <span
                     aria-hidden
-                    className="size-2 rounded-full bg-primary shadow-[0_0_12px_var(--primary)]"
+                    className="hidden size-2 rounded-full bg-primary shadow-[0_0_12px_var(--primary)] sm:block"
                   />
                   {/* sm: and up — full-label pills, room for all three */}
                   <div className="hidden items-center gap-2 sm:flex">
@@ -76,10 +76,16 @@ export default async function PersonalityLayout({ children }: { children: ReactN
                       {t("teamsLink")}
                     </Link>
                   </div>
-                  <LanguageSwitcher />
+                  {/* Hidden below sm, same as the nav pills above — folded into
+                      MobileNavMenu's bottom section on mobile instead. */}
+                  <div className="hidden sm:block">
+                    <LanguageSwitcher />
+                  </div>
                   <ThemeToggle />
                   {/* Below sm: the three links above collapse into this menu instead of
-                      shrinking to unlabeled icons — that's what made "People" easy to miss. */}
+                      shrinking to unlabeled icons — that's what made "People" easy to miss.
+                      It also picks up the dashboard/comparisons/settings shortcuts and the
+                      language switcher, both hidden from the top bar below sm now. */}
                   <MobileNavMenu
                     menuLabel={t("menuLabel")}
                     closeMenuLabel={t("closeMenuLabel")}
@@ -88,6 +94,10 @@ export default async function PersonalityLayout({ children }: { children: ReactN
                     typesLabel={t("typesLink")}
                     learnLabel={t("learnLink")}
                     teamsLabel={t("teamsLink")}
+                    dashboardLabel={t("dashboardLink")}
+                    comparisonsLabel={t("comparisonsLink")}
+                    settingsLabel={t("settingsLink")}
+                    languageLabel={t("languageLabel")}
                   />
                 </div>
               </div>
