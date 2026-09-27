@@ -4,7 +4,22 @@ import { Section, BulletList } from "./Section";
 import { QuizCta } from "./QuizCta";
 import type { FrameworkContent } from "@/lib/seo/frameworkContent";
 
-export function FrameworkPageTemplate({ content }: { content: FrameworkContent }) {
+/**
+ * `typeLinks` are this framework's own type pages, listed on the explainer
+ * itself. Before /types merged into /learn this section was a single link out
+ * to the separate /types index, which made a reader who had just finished
+ * reading what (say) Big Five measures leave for a directory of all four
+ * frameworks to find the five trait pages sitting one level below the page
+ * they were already on. They now live at /learn/<framework>/<type>, so the
+ * explainer can just list them.
+ */
+export function FrameworkPageTemplate({
+  content,
+  typeLinks = [],
+}: {
+  content: FrameworkContent;
+  typeLinks?: { href: string; label: string }[];
+}) {
   return (
     <article className="mx-auto w-full max-w-2xl px-4 py-12 sm:py-16">
       <Link
@@ -56,14 +71,21 @@ export function FrameworkPageTemplate({ content }: { content: FrameworkContent }
         <BulletList items={content.keepInMind} />
       </Section>
 
-      <Section title={`Browse ${content.label} types`}>
-        <Link
-          href="/types"
-          className="inline-block text-sm font-medium text-primary underline underline-offset-2"
-        >
-          See every {content.label} result page →
-        </Link>
-      </Section>
+      {typeLinks.length > 0 ? (
+        <Section title={`Browse ${content.label} types`}>
+          <div className="flex flex-wrap gap-2">
+            {typeLinks.map((type) => (
+              <Link
+                key={type.href}
+                href={type.href}
+                className="rounded-full border px-3 py-1.5 text-sm font-medium transition-colors hover:bg-muted/50"
+              >
+                {type.label}
+              </Link>
+            ))}
+          </div>
+        </Section>
+      ) : null}
 
       <QuizCta href={`/${content.slug}`} label={`Take the ${content.label} quiz`} />
     </article>

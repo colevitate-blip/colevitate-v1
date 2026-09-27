@@ -11,10 +11,10 @@ import {
   Compass,
   GitCompareArrows,
   LayoutDashboard,
-  LayoutGrid,
   LogIn,
   LogOut,
   Menu,
+  MessagesSquare,
   Settings,
   Star,
   User,
@@ -45,8 +45,8 @@ export function MobileNavMenu({
   closeMenuLabel,
   discoverLabel,
   peopleLabel,
-  typesLabel,
   learnLabel,
+  understandLabel,
   teamsLabel,
   dashboardLabel,
   comparisonsLabel,
@@ -57,8 +57,8 @@ export function MobileNavMenu({
   closeMenuLabel: string;
   discoverLabel: string;
   peopleLabel: string;
-  typesLabel: string;
   learnLabel: string;
+  understandLabel: string;
   teamsLabel: string;
   /** Account shortcuts (dashboard/comparisons/settings) that used to live as
    * always-visible icon buttons in the personality-app header's top bar —
@@ -76,10 +76,24 @@ export function MobileNavMenu({
 }) {
   // "closing" keeps the panel mounted for one more frame so its slide-out-to-right
   // animation (mirroring the slide-in it opened with) actually gets to play — a
-  // plain boolean would unmount it the instant a link or the close button fires.
+  // plain boolean would unmount it the instant the close button fires.
   const [state, setState] = useState<"closed" | "open" | "closing">("closed");
   const mounted = state !== "closed";
+  // Dismiss-in-place (close button, backdrop tap): nothing else is moving, so
+  // the slide-out is the only motion on screen and worth playing.
   const close = () => setState("closing");
+  // Dismiss-by-navigating: unmount synchronously instead. This panel is
+  // portaled to document.body, i.e. *outside* the subtree PageTransition
+  // wraps, so it lands in the view transition's implicit "root" capture —
+  // painted underneath the page snapshot that covers the whole viewport.
+  // Its slide-out therefore renders nowhere: measured frame-by-frame, the
+  // panel was fully open at tap and completely gone by the transition's
+  // first painted frame, popping out of existence instead of sliding. It
+  // also held the body-scroll lock below across the navigation, so the new
+  // page mounted unscrollable for those 300ms. Unmounting now hands the
+  // motion off cleanly to the page push, which is the animation the user
+  // actually sees.
+  const closeForNavigation = () => setState("closed");
 
   const t = useTranslations("chrome");
   const { user, authLoading, profileMeta, signOut } = useAuth();
@@ -100,8 +114,8 @@ export function MobileNavMenu({
   const items = [
     { href: "/discover" as const, label: discoverLabel, icon: Compass },
     { href: "/people" as const, label: peopleLabel, icon: Star },
-    { href: "/types" as const, label: typesLabel, icon: LayoutGrid },
     { href: "/learn" as const, label: learnLabel, icon: BookOpen },
+    { href: "/understand" as const, label: understandLabel, icon: MessagesSquare },
     { href: "/teams" as const, label: teamsLabel, icon: Users },
   ];
 
@@ -135,12 +149,13 @@ export function MobileNavMenu({
                 aria-hidden
                 onClick={close}
               />
-              {/* Closing mirrors the opening slide-in — same distance, reverse
-                  direction — and runs at the page transition's own duration
-                  (globals.css, .page-exit-forward/.page-enter-forward) rather
-                  than the snappier open, so the drawer's retreat and the page
-                  push it hands off to read as one continuous motion instead
-                  of the drawer visibly finishing before the page moves. */}
+              {/* "closing" mirrors the opening slide-in — same distance, reverse
+                  direction — at the page transition's own duration (globals.css,
+                  .page-exit-forward/.page-enter-forward) so a dismiss reads as
+                  unhurried rather than snapped away. Only reachable from the
+                  close button and the backdrop; navigating unmounts straight to
+                  "closed" (see closeForNavigation) because a view transition
+                  hides this panel on its first frame anyway. */}
               <div
                 onAnimationEnd={() => {
                   if (state === "closing") setState("closed");
@@ -171,7 +186,7 @@ export function MobileNavMenu({
                     <Link
                       key={item.href}
                       href={item.href}
-                      onClick={close}
+                      onClick={closeForNavigation}
                       className="flex items-center gap-3 rounded-xl px-3 py-3 text-base font-medium text-foreground transition-colors hover:bg-muted"
                     >
                       <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
@@ -205,7 +220,7 @@ export function MobileNavMenu({
                         <Link
                           key={item.href}
                           href={item.href}
-                          onClick={close}
+                          onClick={closeForNavigation}
                           className="flex items-center gap-3 rounded-xl px-3 py-3 text-base font-medium text-foreground transition-colors hover:bg-muted"
                         >
                           <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
@@ -256,7 +271,7 @@ export function MobileNavMenu({
                       ) : (
                         <NextLink
                           href={`/login?next=${encodeURIComponent(pathname)}`}
-                          onClick={close}
+                          onClick={closeForNavigation}
                           className="flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[var(--spatial-glow)] to-[var(--spatial-glow-2)] px-3 py-3 text-sm font-semibold text-[#05070f] shadow-[0_10px_24px_-8px_var(--hero-glow-1)]"
                         >
                           <LogIn className="size-4" />

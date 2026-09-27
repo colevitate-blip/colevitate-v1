@@ -1,0 +1,885 @@
+{
+  "meta": {
+    "hub": {
+      "title": "Understand Each Other — Cultures, Men & Women, Work & Private Life | Colevitate",
+      "description": "Why the same sentence means different things across cultures, genders and settings — with guides and a decoder that suggests what the person opposite you most likely means."
+    },
+    "decoder": {
+      "title": "Message Decoder — What Did They Really Mean? | Colevitate",
+      "description": "Enter what someone said, who they are and how they said it. The decoder ranks the most likely meanings and tells you how to check."
+    }
+  },
+  "hub": {
+    "eyebrow": "Understand",
+    "title": "Same words, different meanings",
+    "intro": "\"Interesting\" can mean \"I love it\" or \"absolutely not\". \"I'm fine\" can mean fine. Most misunderstandings aren't bad intent — they're two people using different codes. This section maps those codes across cultures, between men and women, at work and at home, and gives you a decoder for the moment it happens.",
+    "decoderCard": {
+      "eyebrow": "Tool",
+      "title": "Message Decoder",
+      "body": "Type what they said. Add who they are and how it was said. Get the 2–3 most likely meanings, why, and one question that checks it.",
+      "cta": "Open the decoder"
+    },
+    "topicsHeading": "Guides",
+    "topics": {
+      "cultures": {
+        "title": "Cultures",
+        "blurb": "Seven dimensions that explain most cross-cultural misreads, and where 18 culture clusters tend to sit on them."
+      },
+      "men-women": {
+        "title": "Men & Women",
+        "blurb": "What research actually shows about gender and communication — and why the differences are smaller, and more about context, than the clichés."
+      },
+      "workplace": {
+        "title": "Workplace",
+        "blurb": "Feedback, meetings, deadlines, email and hierarchy: where teams misread each other and what to do about it."
+      },
+      "private": {
+        "title": "Private life",
+        "blurb": "Partners, family, friends and new acquaintances — especially across cultures and in mixed-gender relationships."
+      }
+    },
+    "principlesHeading": "How to use this",
+    "principles": [
+      "Tendencies, not verdicts. Every culture and gender pattern here describes an average. The person in front of you can be the exception — and often is.",
+      "The person beats the group. What you know about how someone individually communicates always outweighs where they're from or their gender. The decoder weights it that way.",
+      "Your own filter counts too. A misunderstanding needs two people. Knowing your own default reading is half the fix.",
+      "Check, don't assume. Every reading comes with a question you can ask. One good question beats any model."
+    ],
+    "dimensionsHeading": "The seven dimensions behind the matrix",
+    "dimensionsIntro": "Everything in this section — the guides and the decoder — runs on the same seven scales. They're adapted from Edward T. Hall's high/low-context model and Erin Meyer's Culture Map, plus emotional expressiveness."
+  },
+  "dimensions": {
+    "context": {
+      "label": "Context",
+      "left": "Explicit",
+      "right": "Implicit",
+      "description": "Is the message in the words (say what you mean) or around them (read between the lines)?"
+    },
+    "feedback": {
+      "label": "Negative feedback",
+      "left": "Direct",
+      "right": "Indirect",
+      "description": "Is criticism said plainly, or softened, wrapped and hinted?"
+    },
+    "confront": {
+      "label": "Disagreement",
+      "left": "Open debate",
+      "right": "Avoids conflict",
+      "description": "Is open disagreement healthy, or a threat to the relationship?"
+    },
+    "trust": {
+      "label": "Trust",
+      "left": "Task-based",
+      "right": "Relationship-based",
+      "description": "Is trust earned by reliable work, or by time spent together?"
+    },
+    "hierarchy": {
+      "label": "Hierarchy",
+      "left": "Egalitarian",
+      "right": "Hierarchical",
+      "description": "Can you contradict the boss openly, or does status shape what can be said?"
+    },
+    "time": {
+      "label": "Time",
+      "left": "Linear",
+      "right": "Flexible",
+      "description": "Is a plan or deadline a commitment, or a starting point?"
+    },
+    "expressive": {
+      "label": "Emotion",
+      "left": "Reserved",
+      "right": "Expressive",
+      "description": "Are feelings shown openly, or kept under the surface?"
+    }
+  },
+  "cultures": {
+    "de": "German-speaking (DE, AT, CH)",
+    "nl": "Dutch",
+    "nordic": "Nordic",
+    "uk": "British",
+    "us": "American (US)",
+    "anz": "Australian / NZ",
+    "fr": "French",
+    "southEu": "Southern European (IT, ES, PT, GR)",
+    "eastEu": "Eastern European / Russian",
+    "israel": "Israeli",
+    "turkey": "Turkish",
+    "arab": "Arab / Gulf",
+    "india": "Indian / South Asian",
+    "china": "Chinese",
+    "japan": "Japanese",
+    "korea": "Korean",
+    "latam": "Latin American",
+    "africa": "Sub-Saharan African (broad)"
+  },
+  "topicPage": {
+    "backToHub": "All of Understand",
+    "tryDecoder": "Try it in the decoder",
+    "otherGuides": "Other guides",
+    "matrixHeading": "The culture matrix",
+    "matrixIntro": "Where each cluster's typical workplace norm sits on the seven dimensions. Left of the center line = the left pole, right = the right pole.",
+    "matrixNote": "Approximate positions drawn from published cross-cultural research (Hall, Hofstede, Meyer, GLOBE). Clusters hide big internal differences — Bavaria isn't Berlin, Shanghai isn't Chengdu — and individuals vary far more than countries."
+  },
+  "topics": {
+    "cultures": {
+      "metaTitle": "Understanding Cultures — 7 Dimensions of Cross-Cultural Communication | Colevitate",
+      "metaDescription": "Why a Dutch colleague sounds rude and a Japanese one sounds vague: seven dimensions of communication and where 18 culture clusters tend to sit on them.",
+      "eyebrow": "Guide · Cultures",
+      "title": "Why culture changes what words mean",
+      "intro": "Every culture teaches its people a default code: how much to say out loud, how to criticize, when to disagree, how fast to trust. Inside that code, communication feels effortless. Across codes, well-meant sentences land wrong — the direct person sounds rude, the polite person sounds evasive, and both think the other one is the problem.",
+      "sections": [
+        {
+          "heading": "Explicit vs. implicit",
+          "body": "In low-context cultures (Germany, the Netherlands, the US, Scandinavia) good communication is precise and literal: if it matters, say it, and write it down. In high-context cultures (Japan, China, Korea, much of the Arab world, India) good communication is layered: the listener is expected to read tone, timing, who's in the room, and what wasn't said.",
+          "bullets": [
+            "Explicit listeners hearing implicit speakers: \"Why won't they just tell me?\"",
+            "Implicit listeners hearing explicit speakers: \"Why are they spelling out the obvious — do they think I'm slow?\"",
+            "Fix: explicit people ask more and read silence as information; implicit people add one plain sentence at the end: \"So my answer is no.\""
+          ]
+        },
+        {
+          "heading": "Criticism: direct vs. softened",
+          "body": "This scale doesn't always track the first one. Americans are very explicit but wrap criticism in praise. The French are fairly implicit but criticize bluntly. The British are famous for understatement: \"with the greatest respect\" and \"quite good\" rarely mean what a literal listener thinks.",
+          "bullets": [
+            "\"Not bad\" from a German is solid praise; from an American it's lukewarm.",
+            "\"Maybe consider…\" from a British or Japanese manager is often an instruction.",
+            "\"This is wrong\" from a Dutch colleague is usually about the work, not about you."
+          ]
+        },
+        {
+          "heading": "Disagreement and debate",
+          "body": "In France, Israel, Germany and the Netherlands, arguing an idea hard is a sign of engagement and respect; the relationship survives it. In Japan, China, Thailand or Indonesia, open disagreement — especially in front of others — damages face and relationships. Many cultures sit in between and disagree privately, not in the meeting.",
+          "bullets": [
+            "If they go quiet in the meeting, try a 1:1 afterwards.",
+            "If they challenge you hard, it probably isn't personal. Push back with arguments, not hurt."
+          ]
+        },
+        {
+          "heading": "Trust, hierarchy and time",
+          "body": "Task-based cultures build trust through reliable work; relationship-based cultures through meals, time and personal connection — doing business before the relationship exists feels cold. Hierarchical cultures route disagreement through status, so a junior's \"yes\" can mean \"I heard you\". And a deadline can be a promise (linear) or an intention (flexible).",
+          "bullets": [
+            "\"Yes\" from someone below you in a hierarchical norm: confirm what will actually happen, and by when.",
+            "Relationship-first cultures: invest in the dinner. It is the work.",
+            "Flexible-time cultures: agree on what \"urgent\" means explicitly."
+          ]
+        }
+      ]
+    },
+    "men-women": {
+      "metaTitle": "Men & Women — What Research Says About Gender and Communication | Colevitate",
+      "metaDescription": "Gender differences in communication are real but small, and mostly about context and how speech is received. What that means for work and relationships.",
+      "eyebrow": "Guide · Men & Women",
+      "title": "Men, women, and the gap that's smaller than you think",
+      "intro": "Pop psychology says men and women speak different languages. The research says something more useful: on most communication measures, men and women overlap far more than they differ (average effect sizes are typically small), and differences grow or shrink with the situation — status, role, culture and who's listening. The misunderstandings are real; the explanations are usually wrong.",
+      "sections": [
+        {
+          "heading": "What holds up",
+          "body": "A few average patterns show up repeatedly, all small and all heavily shaped by context:",
+          "bullets": [
+            "Women, on average, use somewhat more hedges and tentative language in some settings — but this largely disappears when they hold the higher-status role.",
+            "Women, on average, report and show more emotional expressiveness; men are more often socialized to under-express distress.",
+            "In couple conflict, a \"demand–withdraw\" loop is common: one partner pushes to talk, the other withdraws. It's more often the woman pushing and the man withdrawing — but it flips depending on whose issue is on the table.",
+            "Many cultures teach girls rapport-building and boys status-signalling in talk. How strongly depends a lot on the culture."
+          ]
+        },
+        {
+          "heading": "What doesn't hold up",
+          "body": "Women don't talk more than men overall (studies recording real speech find near-identical daily word counts). \"Mars and Venus\" style claims of fundamentally different languages are not supported. And no gender pattern tells you what one particular person means.",
+          "bullets": [
+            "Don't decode a person by their gender. Use it, at most, as a weak hint when you know nothing else."
+          ]
+        },
+        {
+          "heading": "At work: it's often about reception, not style",
+          "body": "One of the strongest findings isn't how women speak — it's how they're heard. Direct, assertive speech from women is more often judged as abrasive, so many women learn to soften. That means a softened suggestion from a female colleague is often a firm recommendation, not uncertainty.",
+          "bullets": [
+            "\"Just a thought — maybe we could…\" from a senior woman: treat it as a real recommendation.",
+            "Men who are told they're \"too blunt\" in mixed teams often aren't wrong on content — they may need to add context.",
+            "Meetings: interruptions and credit-taking still skew by gender. Name who said the idea first."
+          ]
+        },
+        {
+          "heading": "In relationships",
+          "body": "Most couple misunderstandings run through the same few sentences — \"I'm fine\", \"Do whatever you want\", silence — in both directions. \"I'm fine\" from a partner who clearly isn't is common across genders; what differs is more often whether someone wants to be asked (to talk it through) or to be left alone for a while.",
+          "bullets": [
+            "Ask the meta-question: \"Do you want to talk about it now, or later?\"",
+            "Withdrawing isn't always rejection — it can be a way to calm down. Agree on a time to come back.",
+            "Pushing to talk isn't always nagging — it's usually a bid for connection."
+          ]
+        }
+      ]
+    },
+    "workplace": {
+      "metaTitle": "Misunderstandings at Work — Feedback, Meetings, Hierarchy | Colevitate",
+      "metaDescription": "Where international and mixed teams misread each other at work — feedback, meetings, deadlines, email and hierarchy — and what to do about it.",
+      "eyebrow": "Guide · Workplace",
+      "title": "Where teams misread each other",
+      "intro": "At work the stakes of a misread are concrete: a missed deadline that everyone thought was agreed, feedback nobody noticed, a colleague who quietly checked out. Most of it comes down to a handful of recurring situations.",
+      "sections": [
+        {
+          "heading": "Feedback",
+          "body": "The same criticism can be a routine note or a career-ending signal, depending on the code. Upgraders (US, often UK) strengthen positive words and soften negatives; downgraders (Netherlands, Germany, Israel, France) do the opposite.",
+          "bullets": [
+            "Before giving feedback to someone from a different code, ask how they like to receive it.",
+            "When receiving it, ask for the one thing to change: \"If you could change one thing, what would it be?\"",
+            "In indirect cultures, give negative feedback 1:1, never in front of others."
+          ]
+        },
+        {
+          "heading": "Meetings and decisions",
+          "body": "Is a meeting the place to decide, or to rubber-stamp what was agreed beforehand in hallways? Is silence agreement? Is the boss's opinion the end of the debate or the start?",
+          "bullets": [
+            "End every meeting with: who does what by when — said out loud and written down.",
+            "Collect opinions before the most senior person speaks.",
+            "For quieter colleagues, ask for input in writing afterwards."
+          ]
+        },
+        {
+          "heading": "\"Yes\" and deadlines",
+          "body": "\"Yes\" can mean agreement, commitment, or just \"I heard you\". \"By Friday\" can be a promise or an aspiration. When the codes differ, both sides feel let down on Friday.",
+          "bullets": [
+            "Replace \"Can you do this?\" with \"What would you need to get this done by Friday?\"",
+            "Ask for a check-in halfway, not only at the deadline."
+          ]
+        },
+        {
+          "heading": "Email and chat",
+          "body": "Written messages strip tone, so everyone reads them through their own code. Short replies look curt to relationship-oriented readers; long, warm openings look like filler to task-oriented ones.",
+          "bullets": [
+            "If a message feels rude, reread it assuming a direct code. It usually reads fine.",
+            "If it matters emotionally, call instead of writing."
+          ]
+        }
+      ]
+    },
+    "private": {
+      "metaTitle": "Understanding Partners, Family and Friends Across Cultures | Colevitate",
+      "metaDescription": "Invitations, refusals, \"I'm fine\" and silence: how private-life messages get misread across cultures and between partners, and how to check.",
+      "eyebrow": "Guide · Private life",
+      "title": "Partners, family, friends",
+      "intro": "In private life the codes run deeper, because we learned them at the family table. An intercultural couple, a new friend from abroad, meeting in-laws — each brings two sets of unspoken rules about hospitality, affection, conflict and time.",
+      "sections": [
+        {
+          "heading": "Invitations and refusals",
+          "body": "\"Let's grab coffee sometime\" is a real plan in some places and a friendly goodbye in others. In many cultures (China, Iran, the Arab world, parts of South Asia) a first refusal of food or help is politeness, and you're expected to offer again.",
+          "bullets": [
+            "Turn vague invitations into concrete ones: \"How about Thursday?\" You'll learn quickly which kind it was.",
+            "Offer twice when hosting someone from a ritual-refusal culture. Accept the second offer when you're the guest."
+          ]
+        },
+        {
+          "heading": "Conflict at home",
+          "body": "Some families argue loudly and make up fast; others never raise their voice, and a cold dinner says everything. Neither is healthier by default, but mixing them without knowing is painful.",
+          "bullets": [
+            "Agree on what a raised voice means in your home.",
+            "Agree on a signal for \"I need a break, but I'm coming back\"."
+          ]
+        },
+        {
+          "heading": "Affection and care",
+          "body": "Care can be said (\"I love you\"), shown (cooking, fixing things), or given (time, gifts). Partners often express care in their family's code and miss it in the other's.",
+          "bullets": [
+            "Ask: \"When do you feel most cared for by me?\" The answer is often surprising."
+          ]
+        },
+        {
+          "heading": "Family and hierarchy",
+          "body": "In hierarchical family cultures, parents and elders shape big decisions, and \"I need to talk to my family\" is not an excuse. In egalitarian ones, that can sound like a lack of independence.",
+          "bullets": [
+            "Treat family consultation as part of the decision process, not a stalling tactic."
+          ]
+        }
+      ]
+    }
+  },
+  "decoder": {
+    "eyebrow": "Understand · Tool",
+    "title": "What did they really mean?",
+    "intro": "Tell the decoder what was said, who said it and how. It weighs culture, gender, setting and — if you know it — the person's own style, then ranks the most likely meanings. It's a starting point for a better question, not a verdict.",
+    "said": {
+      "title": "What did they say?",
+      "placeholder": "Type or paste it, e.g. \"That's an interesting idea.\"",
+      "detected": "Closest match",
+      "noMatch": "No close match — pick the one that fits best below.",
+      "orPick": "Or pick a typical phrase"
+    },
+    "groups": {
+      "yesNo": "Yes, no, maybe",
+      "feedback": "Feedback & praise",
+      "feelings": "Feelings",
+      "plans": "Plans & invitations"
+    },
+    "who": {
+      "title": "Who said it?",
+      "setting": "Setting",
+      "work": "Work",
+      "private": "Private",
+      "relation": "They are…",
+      "relations": {
+        "senior": "above me (boss)",
+        "peer": "a peer",
+        "junior": "below me (reports to me)",
+        "client": "a client / partner org",
+        "partner": "my partner",
+        "family": "family",
+        "friend": "a friend",
+        "newContact": "someone I just met"
+      },
+      "background": "Their cultural background",
+      "unknownBackground": "Not sure / mixed",
+      "gender": "Their gender",
+      "genders": {
+        "woman": "Woman",
+        "man": "Man",
+        "unspecified": "Leave out"
+      },
+      "genderNote": "Gender carries little weight here on purpose — the research shows small average differences.",
+      "style": {
+        "title": "How do they come across? (optional, weighs the most)",
+        "unknown": "?"
+      },
+      "axes": {
+        "energy": {
+          "left": "Reserved",
+          "right": "Outgoing"
+        },
+        "structure": {
+          "left": "Spontaneous",
+          "right": "Planner"
+        },
+        "people": {
+          "left": "Task-first",
+          "right": "People-first"
+        },
+        "novelty": {
+          "left": "Traditional",
+          "right": "Exploratory"
+        }
+      }
+    },
+    "how": {
+      "title": "How was it said?",
+      "cues": {
+        "public": "In front of others",
+        "written": "In writing",
+        "curt": "Short / curt",
+        "delayed": "After a long wait",
+        "repeated": "Not the first time",
+        "warm": "Warm / smiling"
+      }
+    },
+    "you": {
+      "title": "About you (for your own blind spot)",
+      "background": "Your cultural background",
+      "useProfile": "Use my Colevitate profile",
+      "profileHint": "Your combined profile is used to spot where your own reading may misfire.",
+      "noProfile": "Take a few quizzes to add your own style.",
+      "takeQuiz": "Start a quiz"
+    },
+    "result": {
+      "heading": "Most likely meanings",
+      "empty": "Type what they said or pick a phrase to see the readings.",
+      "confidence": {
+        "low": "Low confidence — add who they are and how it was said",
+        "medium": "Medium confidence",
+        "high": "Higher confidence"
+      },
+      "ask": "Ask to check",
+      "respond": "How to respond",
+      "why": "Why this reading leads",
+      "noDrivers": "Mostly the phrase itself — add more context for a sharper reading.",
+      "filterTitle": "Watch your own filter",
+      "filterBody": "In your own code, this would most likely mean: \"{own}\". Coming from them, \"{their}\" is more likely.",
+      "disclaimer": "Readings are probabilities based on average tendencies. Individuals differ — always check with the person."
+    },
+    "drivers": {
+      "source": {
+        "culture": "Their background",
+        "individual": "Their personal style",
+        "gender": "Small gender tendency"
+      },
+      "feature": {
+        "work": "Work setting",
+        "speakerSenior": "They're above you",
+        "speakerJunior": "They report to you",
+        "client": "Client relationship",
+        "partner": "Between partners",
+        "family": "Family",
+        "friend": "Friendship",
+        "newContact": "You've just met",
+        "public": "Said in front of others",
+        "written": "Written, not spoken",
+        "curt": "Short and curt",
+        "delayed": "Came after a long wait",
+        "repeated": "Not the first time",
+        "warm": "Said warmly",
+        "juniorDeference": "Deference to your role",
+        "woman": "Small gender tendency",
+        "man": "Small gender tendency",
+        "womanAtWork": "Women's direct speech is often judged harshly at work, so it gets softened"
+      }
+    },
+    "phrases": {
+      "yes": {
+        "label": "\"Yes.\" / \"Sure.\"",
+        "readings": {
+          "commit": {
+            "title": "Yes — agreed and committed",
+            "meaning": "They agree and intend to do it as discussed.",
+            "ask": "Great — what's your timeline on it?",
+            "respond": "Take it at face value, and confirm the deadline in writing."
+          },
+          "heard": {
+            "title": "\"I heard you\" — not necessarily agreement",
+            "meaning": "In hierarchical or high-context settings, \"yes\" often acknowledges the request without promising the result.",
+            "ask": "What would make this hard to get done by then?",
+            "respond": "Ask open questions 1:1 and agree on a halfway check-in."
+          },
+          "cantSayNo": {
+            "title": "Yes, but they can't really say no",
+            "meaning": "They want to help or keep the relationship, even though it may not be feasible.",
+            "ask": "If something had to move to make room for this, what would it be?",
+            "respond": "Make it safe to renegotiate: offer a real alternative they can pick."
+          }
+        }
+      },
+      "thinkAboutIt": {
+        "label": "\"I'll think about it.\"",
+        "readings": {
+          "seriously": {
+            "title": "They'll really consider it",
+            "meaning": "A genuine pause to weigh it; they will come back with an answer.",
+            "ask": "When would be a good time to check back?",
+            "respond": "Give them space and a concrete date to follow up."
+          },
+          "softNo": {
+            "title": "A polite no",
+            "meaning": "A way of declining without saying no.",
+            "ask": "Is there anything that would make this a clearer yes for you?",
+            "respond": "Don't push. Leave the door open and don't count on it."
+          },
+          "needsOthers": {
+            "title": "They need to check with someone",
+            "meaning": "The decision isn't theirs alone — a boss, partner or family has a say.",
+            "ask": "Who else should be part of this decision?",
+            "respond": "Offer material they can share, or to meet the others too."
+          }
+        }
+      },
+      "maybe": {
+        "label": "\"Maybe.\" / \"We'll see.\"",
+        "readings": {
+          "undecided": {
+            "title": "Open — really undecided",
+            "meaning": "They haven't decided yet and are open either way.",
+            "ask": "What would help you decide?",
+            "respond": "Share what they need to decide and set a date."
+          },
+          "politeNo": {
+            "title": "A softened no",
+            "meaning": "A face-saving way of saying no.",
+            "ask": "Would it be easier if we left it for now?",
+            "respond": "Offer an easy out; don't make them say no directly."
+          },
+          "lowPriority": {
+            "title": "Not a priority right now",
+            "meaning": "Not a no, but other things come first.",
+            "ask": "Is now a bad time — should I come back to this later?",
+            "respond": "Ask when it would fit, or make it easier to say yes."
+          }
+        }
+      },
+      "difficult": {
+        "label": "\"That might be difficult.\"",
+        "readings": {
+          "obstacle": {
+            "title": "A real obstacle to solve",
+            "meaning": "Literally a challenge — they want to work out how.",
+            "ask": "What's the hardest part?",
+            "respond": "Problem-solve together."
+          },
+          "no": {
+            "title": "It won't happen",
+            "meaning": "In many high-context codes this is the polite form of \"no\".",
+            "ask": "If you were in my position, what would you do instead?",
+            "respond": "Look for an alternative instead of pushing for a yes."
+          },
+          "resources": {
+            "title": "Possible — with more time or help",
+            "meaning": "They can do it if something changes: time, budget, people.",
+            "ask": "What would you need to make it work?",
+            "respond": "Negotiate the conditions, not the yes/no."
+          }
+        }
+      },
+      "youDecide": {
+        "label": "\"I don't mind — you decide.\"",
+        "readings": {
+          "open": {
+            "title": "They're really fine with anything",
+            "meaning": "No strong preference.",
+            "ask": "Great — any hard no's?",
+            "respond": "Decide, and mention it's easy to change."
+          },
+          "hints": {
+            "title": "They have a preference and hope you'll notice",
+            "meaning": "They'd rather you pick up on their hints than have to ask.",
+            "ask": "If you had to choose, which one would you pick?",
+            "respond": "Offer two concrete options and watch the reaction."
+          },
+          "deferring": {
+            "title": "They defer to you",
+            "meaning": "Out of respect for your role, age or position, they leave it to you.",
+            "ask": "I'd really like your opinion — which would you prefer?",
+            "respond": "Ask explicitly and privately; show that their view changes things."
+          }
+        }
+      },
+      "noNeed": {
+        "label": "\"No thanks, no need.\"",
+        "readings": {
+          "realNo": {
+            "title": "No means no",
+            "meaning": "They really don't need or want it.",
+            "ask": "",
+            "respond": "Accept it. Offering again can feel pushy."
+          },
+          "ritual": {
+            "title": "Polite refusal — offer again",
+            "meaning": "In many cultures you refuse the first offer out of politeness and expect a second.",
+            "ask": "Are you sure? I'd really like to.",
+            "respond": "Offer a second time, warmly. If still no, accept."
+          },
+          "uncomfortable": {
+            "title": "They don't feel comfortable accepting",
+            "meaning": "They'd like to, but don't want to owe you or feel exposed.",
+            "ask": "It's really no trouble — would it help?",
+            "respond": "Make it small and easy to accept, with no strings."
+          }
+        }
+      },
+      "interesting": {
+        "label": "\"That's interesting.\"",
+        "readings": {
+          "curious": {
+            "title": "Genuinely interested",
+            "meaning": "They find it worth exploring.",
+            "ask": "Which part interests you most?",
+            "respond": "Go deeper."
+          },
+          "politeNo": {
+            "title": "Polite disagreement",
+            "meaning": "They don't agree but won't say so directly.",
+            "ask": "What concerns would you have with it?",
+            "respond": "Invite criticism explicitly, 1:1 if others were present."
+          },
+          "needTime": {
+            "title": "They need time or more information",
+            "meaning": "Open, but not ready to judge.",
+            "ask": "What would you need to know to decide?",
+            "respond": "Send details and set a follow-up."
+          }
+        }
+      },
+      "notBad": {
+        "label": "\"Not bad.\" / \"Quite good.\"",
+        "readings": {
+          "praise": {
+            "title": "Real praise",
+            "meaning": "In understated codes this is a strong compliment.",
+            "ask": "",
+            "respond": "Take the compliment."
+          },
+          "lukewarm": {
+            "title": "Lukewarm",
+            "meaning": "In enthusiastic codes, anything below \"great\" means it's mediocre.",
+            "ask": "What would make it great?",
+            "respond": "Ask what's missing."
+          },
+          "needsWork": {
+            "title": "Softened criticism",
+            "meaning": "They see problems but are being kind.",
+            "ask": "If you could change one thing, what would it be?",
+            "respond": "Ask for the concrete improvement."
+          }
+        }
+      },
+      "suggestion": {
+        "label": "\"Just a thought — maybe you could…\"",
+        "readings": {
+          "optional": {
+            "title": "A real, optional idea",
+            "meaning": "Take it or leave it.",
+            "ask": "",
+            "respond": "Consider it; you're free to decide."
+          },
+          "instruction": {
+            "title": "A softened instruction",
+            "meaning": "A recommendation they expect you to follow.",
+            "ask": "Should I treat this as the way to go?",
+            "respond": "Act on it, or explain clearly why not."
+          },
+          "criticism": {
+            "title": "Criticism of what you did",
+            "meaning": "They think the current way is wrong.",
+            "ask": "Is something about the current approach not working for you?",
+            "respond": "Ask directly what the problem is."
+          }
+        }
+      },
+      "whyQuestion": {
+        "label": "\"Why did you do it that way?\"",
+        "readings": {
+          "curious": {
+            "title": "Plain curiosity",
+            "meaning": "They want to understand your reasoning.",
+            "ask": "",
+            "respond": "Explain your thinking."
+          },
+          "challenge": {
+            "title": "A challenge to debate",
+            "meaning": "In debate cultures, questioning is how ideas get tested — not an attack.",
+            "ask": "",
+            "respond": "Defend with arguments. It's not personal."
+          },
+          "reproach": {
+            "title": "A reproach",
+            "meaning": "They think it was wrong.",
+            "ask": "Would you have done it differently?",
+            "respond": "Acknowledge, ask what they expected, agree next steps."
+          }
+        }
+      },
+      "greatJob": {
+        "label": "\"Great job!\"",
+        "readings": {
+          "genuine": {
+            "title": "Real, strong praise",
+            "meaning": "From reserved communicators this is rare and means a lot.",
+            "ask": "",
+            "respond": "Enjoy it — and note what they valued."
+          },
+          "routine": {
+            "title": "Friendly routine",
+            "meaning": "Normal encouragement in expressive codes — nice, not exceptional.",
+            "ask": "What stood out to you?",
+            "respond": "Ask for specifics if you need a real assessment."
+          },
+          "setup": {
+            "title": "Warm-up before a \"but\"",
+            "meaning": "Positive first, criticism next.",
+            "ask": "Anything you'd improve?",
+            "respond": "Listen for the \"but\" — that's the message."
+          }
+        }
+      },
+      "blunt": {
+        "label": "\"This is wrong.\"",
+        "readings": {
+          "aboutWork": {
+            "title": "About the work, not you",
+            "meaning": "In direct codes, plain criticism is routine and respectful.",
+            "ask": "What should it look like?",
+            "respond": "Fix the content; don't read it as personal."
+          },
+          "serious": {
+            "title": "A serious problem",
+            "meaning": "From someone who normally softens, bluntness signals something big.",
+            "ask": "How serious is this for you?",
+            "respond": "Take it seriously and talk 1:1 soon."
+          },
+          "angry": {
+            "title": "They're frustrated or angry",
+            "meaning": "Emotional, not just factual.",
+            "ask": "It sounds like this really bothers you — what happened?",
+            "respond": "Address the feeling before the fact."
+          }
+        }
+      },
+      "fine": {
+        "label": "\"I'm fine.\" / \"It's fine.\"",
+        "readings": {
+          "reallyFine": {
+            "title": "Actually fine",
+            "meaning": "Nothing's wrong.",
+            "ask": "",
+            "respond": "Believe it."
+          },
+          "wantsAsked": {
+            "title": "Not fine — wants you to ask",
+            "meaning": "Something's wrong, and they'd like you to notice and ask again.",
+            "ask": "You don't seem fine — I'd like to hear it if you want to talk.",
+            "respond": "Ask once more, gently, and make time."
+          },
+          "dropIt": {
+            "title": "Not fine — wants to drop it for now",
+            "meaning": "Something's off, but they don't want to discuss it here or now.",
+            "ask": "Okay. Want to talk later?",
+            "respond": "Give space, and come back to it later."
+          }
+        }
+      },
+      "silence": {
+        "label": "Silence / no reply",
+        "readings": {
+          "thinking": {
+            "title": "Thinking it over",
+            "meaning": "In reserved codes silence is normal and respectful.",
+            "ask": "",
+            "respond": "Wait — don't fill the silence."
+          },
+          "disagreement": {
+            "title": "Silent disagreement or hurt",
+            "meaning": "They disagree or are upset but won't say so.",
+            "ask": "I have a feeling I missed something — did I?",
+            "respond": "Ask privately and low-pressure."
+          },
+          "busy": {
+            "title": "Just busy",
+            "meaning": "Nothing meant — it hasn't got to the top of their list.",
+            "ask": "",
+            "respond": "Send a friendly nudge after a reasonable wait."
+          }
+        }
+      },
+      "whatever": {
+        "label": "\"Do whatever you want.\"",
+        "readings": {
+          "freedom": {
+            "title": "Really your call",
+            "meaning": "They're happy for you to decide.",
+            "ask": "",
+            "respond": "Decide and thank them."
+          },
+          "frustrated": {
+            "title": "Frustrated — giving up",
+            "meaning": "They feel unheard and stopped arguing.",
+            "ask": "It sounds like I didn't really hear you — can we go back a step?",
+            "respond": "Stop, and ask what matters to them."
+          },
+          "testing": {
+            "title": "Testing if you'll consider them",
+            "meaning": "They want to see if you take their view into account.",
+            "ask": "What would you prefer? It matters to me.",
+            "respond": "Show that their view changes the decision."
+          }
+        }
+      },
+      "noProblem": {
+        "label": "\"No problem.\"",
+        "readings": {
+          "trulyFine": {
+            "title": "Really no problem",
+            "meaning": "Easy for them.",
+            "ask": "",
+            "respond": "Thank them and move on."
+          },
+          "effort": {
+            "title": "It took effort — noted",
+            "meaning": "In relationship codes, favors are remembered and reciprocity is expected.",
+            "ask": "",
+            "respond": "Thank them properly and return the favor."
+          },
+          "annoyed": {
+            "title": "Mildly annoyed",
+            "meaning": "It was a problem, but they won't say so.",
+            "ask": "Was that a bigger ask than I thought?",
+            "respond": "Acknowledge and ask less next time."
+          }
+        }
+      },
+      "sorry": {
+        "label": "\"Sorry…\"",
+        "readings": {
+          "ritual": {
+            "title": "Politeness ritual",
+            "meaning": "Social lubricant, not admitting fault.",
+            "ask": "",
+            "respond": "Don't read it as guilt."
+          },
+          "real": {
+            "title": "A real apology",
+            "meaning": "They take responsibility.",
+            "ask": "",
+            "respond": "Accept it and move on."
+          },
+          "soften": {
+            "title": "Softening a disagreement",
+            "meaning": "\"Sorry, but…\" — the real message comes after.",
+            "ask": "",
+            "respond": "Listen to what comes after \"but\"."
+          }
+        }
+      },
+      "coffeeSometime": {
+        "label": "\"Let's grab coffee sometime.\"",
+        "readings": {
+          "realInvite": {
+            "title": "A real invitation",
+            "meaning": "They'd like to meet.",
+            "ask": "How about next Thursday?",
+            "respond": "Suggest a concrete date."
+          },
+          "politeClosing": {
+            "title": "A friendly goodbye",
+            "meaning": "Warm, but not a plan.",
+            "ask": "",
+            "respond": "Reply warmly; don't be hurt if nothing follows."
+          },
+          "followUp": {
+            "title": "Interested — expects you to follow up",
+            "meaning": "They'd like it, and expect you to make it happen.",
+            "ask": "I'd like that — does next week work?",
+            "respond": "Follow up within a few days."
+          }
+        }
+      },
+      "busyThisWeek": {
+        "label": "\"I'm really busy this week.\"",
+        "readings": {
+          "literal": {
+            "title": "Really busy",
+            "meaning": "Bad timing, not a no.",
+            "ask": "When would be better?",
+            "respond": "Offer a later date."
+          },
+          "notInterested": {
+            "title": "Not interested",
+            "meaning": "A soft no, especially if repeated.",
+            "ask": "",
+            "respond": "Make one open offer and then leave it with them."
+          },
+          "notPriority": {
+            "title": "Not a priority",
+            "meaning": "Other things come first.",
+            "ask": "Is there a smaller version that would fit?",
+            "respond": "Shrink the ask or show why it matters."
+          }
+        }
+      },
+      "canWeTalk": {
+        "label": "\"Can we talk?\"",
+        "readings": {
+          "routine": {
+            "title": "Routine",
+            "meaning": "A normal check-in.",
+            "ask": "Sure — what's it about?",
+            "respond": "Relax and ask for the topic."
+          },
+          "problem": {
+            "title": "Something serious",
+            "meaning": "There's an issue.",
+            "ask": "Of course — anything I should prepare?",
+            "respond": "Make time soon; don't delay."
+          },
+          "repair": {
+            "title": "Wants to repair something",
+            "meaning": "They want to clear the air or reconnect.",
+            "ask": "Yes, I'd like that.",
+            "respond": "Listen first."
+          }
+        }
+      }
+    }
+  }
+}

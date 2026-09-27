@@ -6,9 +6,9 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { MobileNavMenu } from "@/components/nav/MobileNavMenu";
 
-const NAV_LINK_CLASS = "text-sm font-medium text-muted-foreground transition-colors hover:text-foreground";
+const NAV_LINK_CLASS = "whitespace-nowrap text-sm font-medium text-muted-foreground transition-colors hover:text-foreground";
 
-/** Slim single-row top nav for content/marketing pages (/people, /types,
+/** Slim single-row top nav for content/marketing pages (/people, /learn,
  * /for-teams, ...) that sit outside the (personality) route group and its
  * big hero-style header — those pages need real navigation too, just without
  * the tall centered brand block that only makes sense on the quiz pages. */
@@ -30,11 +30,11 @@ export async function SiteHeader() {
           <Link href="/people" className={NAV_LINK_CLASS}>
             {t("peopleLink")}
           </Link>
-          <Link href="/types" className={NAV_LINK_CLASS}>
-            {t("typesLink")}
-          </Link>
           <Link href="/learn" className={NAV_LINK_CLASS}>
             {t("learnLink")}
+          </Link>
+          <Link href="/understand" className={NAV_LINK_CLASS}>
+            {t("understandLink")}
           </Link>
           <Link href="/teams" className={NAV_LINK_CLASS}>
             {t("teamsLink")}
@@ -51,8 +51,8 @@ export async function SiteHeader() {
             closeMenuLabel={t("closeMenuLabel")}
             discoverLabel={t("discoverLink")}
             peopleLabel={t("peopleLink")}
-            typesLabel={t("typesLink")}
             learnLabel={t("learnLink")}
+            understandLabel={t("understandLink")}
             teamsLabel={t("teamsLink")}
           />
           <AuthStatus compact />

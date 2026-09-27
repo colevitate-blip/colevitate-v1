@@ -61,7 +61,7 @@ export function TypePageTemplate({
               ))}
             </ul>
             <Link
-              href={`/types/${content.frameworkUrlSlug}/${content.slug}/famous`}
+              href={`/learn/${content.frameworkUrlSlug}/${content.slug}/famous`}
               className="mt-3 inline-block text-sm font-medium text-primary underline underline-offset-2"
             >
               See all famous {content.name}
@@ -80,7 +80,7 @@ export function TypePageTemplate({
               {relatedCombinations.map((combo) => (
                 <Link
                   key={combo.slug}
-                  href={`/types/combinations/${combo.slug}`}
+                  href={`/learn/combinations/${combo.slug}`}
                   className="rounded-2xl border p-4 text-sm font-medium transition-colors hover:bg-muted/50"
                 >
                   {combo.headline}

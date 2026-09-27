@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
 
   const title = `${content.name} (${content.code}) — What It Means | Colevitate`;
   const description = content.description.length > 155 ? `${content.description.slice(0, 152)}...` : content.description;
-  const path = `/types/${content.frameworkUrlSlug}/${content.slug}`;
+  const path = `/learn/${content.frameworkUrlSlug}/${content.slug}`;
 
   return {
     title,
@@ -39,7 +39,7 @@ export default async function TypePage({ params }: { params: Promise<Params> }) 
   if (!content) notFound();
 
   const relatedCombinations = getCombinationsForType(content.framework, content.code, locale);
-  const path = `/types/${content.frameworkUrlSlug}/${content.slug}`;
+  const path = `/learn/${content.frameworkUrlSlug}/${content.slug}`;
 
   return (
     <>

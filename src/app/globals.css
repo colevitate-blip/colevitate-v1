@@ -181,17 +181,16 @@
   pointer-events: none;
 }
 
-/* Only the route content above is meant to move. Everything else on the
-   page — the sticky header, the footer — sits outside that wrapper, so it
-   falls into the browser's implicit "root" capture instead, which gets a
-   crossfade animation by default. Two pages are rarely the same height, so
-   the old and new root snapshots put the footer at two different Y
-   positions and briefly show both — the "flicker for an animation that
-   isn't happening" this fixes. Killing the crossfade lets the new root
-   snapshot (painted on top) cover the old one instantly instead of
-   dissolving through it. mix-blend-mode reset alongside: Chrome's UA sheet
-   sets plus-lighter on the new snapshot to make that crossfade blend
-   correctly, which just overbrightens colors once the animation is gone. */
+/* The wrapper now sits above both route groups' layouts, so header, footer
+   and content all move together inside the named snapshot and the implicit
+   "root" capture is left holding only the page background plus anything
+   portaled to document.body (the mobile nav drawer). Root still gets a
+   crossfade by default, which dissolves that leftover content through the
+   incoming frame for no reason. Killing it lets the new root snapshot
+   (painted on top) cover the old one instantly. mix-blend-mode reset
+   alongside: Chrome's UA sheet sets plus-lighter on the new snapshot to make
+   that crossfade blend correctly, which just overbrightens colors once the
+   animation is gone. */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;

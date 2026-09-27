@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
 
   const headline = famousHeadline(content);
   const description = `${people.length} well-known ${people.length === 1 ? "person" : "people"} Colevitate editorially types as ${content.name} — ${people.map((p) => p.name).join(", ")}.`;
-  const path = `/types/${content.frameworkUrlSlug}/${content.slug}/famous`;
+  const path = `/learn/${content.frameworkUrlSlug}/${content.slug}/famous`;
 
   return {
     title: `${headline} | Colevitate`,
@@ -68,7 +68,7 @@ export default async function FamousTypePage({ params }: { params: Promise<Param
   if (people.length === 0) notFound();
 
   const headline = famousHeadline(content);
-  const path = `/types/${content.frameworkUrlSlug}/${content.slug}/famous`;
+  const path = `/learn/${content.frameworkUrlSlug}/${content.slug}/famous`;
 
   return (
     <>

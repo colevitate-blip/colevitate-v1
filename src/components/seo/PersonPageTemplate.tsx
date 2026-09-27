@@ -91,7 +91,7 @@ export async function PersonPageTemplate({ content }: { content: FamousPersonCon
                   </Badge>
                   {typeContent ? (
                     <Link
-                      href={`/types/${frameworkUrlSlug}/${typeContent.slug}`}
+                      href={`/learn/${frameworkUrlSlug}/${typeContent.slug}`}
                       className="text-sm font-medium text-primary underline underline-offset-2"
                     >
                       {typeContent.name}

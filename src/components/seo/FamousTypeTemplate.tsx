@@ -15,7 +15,7 @@ export function FamousTypeTemplate({
   return (
     <main className="mx-auto w-full max-w-3xl px-4 py-12 sm:py-16">
       <p className="text-sm font-medium text-muted-foreground">
-        <Link href={`/types/${content.frameworkUrlSlug}/${content.slug}`} className="underline underline-offset-2">
+        <Link href={`/learn/${content.frameworkUrlSlug}/${content.slug}`} className="underline underline-offset-2">
           {content.frameworkLabel}
         </Link>{" "}
         · {content.name}

@@ -4,7 +4,7 @@ import NextLink from "next/link";
 import { getTranslations } from "next-intl/server";
 import { PersonalityProvider } from "@/lib/personality/context";
 import { Link } from "@/i18n/navigation";
-import { BookOpen, Compass, LayoutGrid, Star, Users } from "lucide-react";
+import { BookOpen, Compass, MessagesSquare, Star, Users } from "lucide-react";
 import { ColevitateMark } from "@/components/brand/Logo";
 import { AuthProvider } from "@/lib/supabase/AuthProvider";
 import { AuthStatus } from "@/components/auth/AuthStatus";
@@ -68,13 +68,13 @@ export default async function PersonalityLayout({ children }: { children: ReactN
                       <Star className="size-3.5" />
                       {t("peopleLink")}
                     </Link>
-                    <Link href="/types" className={NAV_LINK_CLASS}>
-                      <LayoutGrid className="size-3.5" />
-                      {t("typesLink")}
-                    </Link>
                     <Link href="/learn" className={NAV_LINK_CLASS}>
                       <BookOpen className="size-3.5" />
                       {t("learnLink")}
+                    </Link>
+                    <Link href="/understand" className={NAV_LINK_CLASS}>
+                      <MessagesSquare className="size-3.5" />
+                      {t("understandLink")}
                     </Link>
                     <Link href="/teams" className={NAV_LINK_CLASS}>
                       <Users className="size-3.5" />
@@ -96,8 +96,8 @@ export default async function PersonalityLayout({ children }: { children: ReactN
                     closeMenuLabel={t("closeMenuLabel")}
                     discoverLabel={t("discoverLink")}
                     peopleLabel={t("peopleLink")}
-                    typesLabel={t("typesLink")}
                     learnLabel={t("learnLink")}
+                    understandLabel={t("understandLink")}
                     teamsLabel={t("teamsLink")}
                     dashboardLabel={t("dashboardLink")}
                     comparisonsLabel={t("comparisonsLink")}

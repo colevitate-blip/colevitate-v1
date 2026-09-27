@@ -6,6 +6,7 @@ import { getAllTypePageParams, getTypeContent } from "@/lib/seo/typeContent";
 import { getAllCombinationSlugs } from "@/lib/seo/combinationContent";
 import { getAllFamousPeopleSlugs, getFamousPeopleByTyping } from "@/lib/seo/famousPeopleContent";
 import { FRAMEWORK_CONTENT, FRAMEWORK_ORDER } from "@/lib/seo/frameworkContent";
+import { UNDERSTAND_TOPICS } from "@/lib/understand/topics";
 
 // Builds one sitemap entry per locale for a given internal href, with
 // `alternates.languages` pointing at every other locale's URL for the same
@@ -23,15 +24,17 @@ function localizedEntries(href: string): MetadataRoute.Sitemap {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticPaths = ["/", "/types", "/people", "/for-teams", "/learn", "/methodology"];
+  const staticPaths = ["/", "/people", "/for-teams", "/learn", "/methodology"];
+
+  const understandPaths = ["/understand", "/understand/decoder", ...UNDERSTAND_TOPICS.map((topic) => `/understand/${topic}`)];
 
   const learnPaths = FRAMEWORK_ORDER.map((id) => `/learn/${FRAMEWORK_CONTENT[id].slug}`);
 
   const typePaths = getAllTypePageParams().map(
-    ({ frameworkUrlSlug, slug }) => `/types/${frameworkUrlSlug}/${slug}`
+    ({ frameworkUrlSlug, slug }) => `/learn/${frameworkUrlSlug}/${slug}`
   );
 
-  const combinationPaths = getAllCombinationSlugs().map((slug) => `/types/combinations/${slug}`);
+  const combinationPaths = getAllCombinationSlugs().map((slug) => `/learn/combinations/${slug}`);
 
   const peoplePaths = getAllFamousPeopleSlugs().map((slug) => `/people/${slug}`);
 
@@ -40,10 +43,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       const content = getTypeContent(frameworkUrlSlug, slug);
       return !!content && getFamousPeopleByTyping(content.framework, content.code).length > 0;
     })
-    .map(({ frameworkUrlSlug, slug }) => `/types/${frameworkUrlSlug}/${slug}/famous`);
+    .map(({ frameworkUrlSlug, slug }) => `/learn/${frameworkUrlSlug}/${slug}/famous`);
 
   return [
     ...staticPaths,
+    ...understandPaths,
     ...learnPaths,
     ...typePaths,
     ...combinationPaths,

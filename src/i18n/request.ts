@@ -16,6 +16,7 @@ async function loadMessages(locale: string) {
     colors,
     combined,
     graph,
+    understand,
   ] = await Promise.all([
     import(`../messages/${locale}/common.json`).then((m) => m.default),
     import(`../messages/${locale}/mbti.json`).then((m) => m.default),
@@ -29,6 +30,7 @@ async function loadMessages(locale: string) {
     import(`../messages/${locale}/colors.json`).then((m) => m.default),
     import(`../messages/${locale}/combined.json`).then((m) => m.default),
     import(`../messages/${locale}/graph.json`).then((m) => m.default),
+    import(`../messages/${locale}/understand.json`).then((m) => m.default),
   ]);
   return {
     ...common,
@@ -43,6 +45,7 @@ async function loadMessages(locale: string) {
     colors,
     combined,
     graph,
+    understand,
   };
 }
 

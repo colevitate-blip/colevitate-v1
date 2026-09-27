@@ -1,0 +1,885 @@
+{
+  "meta": {
+    "hub": {
+      "title": "Einander verstehen — Kulturen, Männer & Frauen, Beruf & Privatleben | Colevitate",
+      "description": "Warum derselbe Satz je nach Kultur, Geschlecht und Situation etwas anderes bedeutet — mit Leitfäden und einem Decoder, der vorschlägt, was dein Gegenüber am wahrscheinlichsten meint."
+    },
+    "decoder": {
+      "title": "Nachrichten-Decoder — Was meinte er oder sie wirklich? | Colevitate",
+      "description": "Gib ein, was gesagt wurde, wer es gesagt hat und wie. Der Decoder ordnet die wahrscheinlichsten Bedeutungen und zeigt dir, wie du nachfragen kannst."
+    }
+  },
+  "hub": {
+    "eyebrow": "Verstehen",
+    "title": "Gleiche Worte, andere Bedeutung",
+    "intro": "„Interessant“ kann „Das finde ich toll“ heißen oder „Auf keinen Fall“. „Mir geht’s gut“ kann tatsächlich gut heißen. Die meisten Missverständnisse entstehen nicht aus böser Absicht, sondern weil zwei Menschen unterschiedliche Codes benutzen. Dieser Bereich macht diese Codes sichtbar — zwischen Kulturen, zwischen Männern und Frauen, im Job und zu Hause — und gibt dir einen Decoder für den Moment, in dem es passiert.",
+    "decoderCard": {
+      "eyebrow": "Tool",
+      "title": "Nachrichten-Decoder",
+      "body": "Gib ein, was gesagt wurde. Ergänze, wer es war und wie es gesagt wurde. Du bekommst die 2–3 wahrscheinlichsten Bedeutungen, die Gründe dafür und eine Frage, mit der du es überprüfen kannst.",
+      "cta": "Decoder öffnen"
+    },
+    "topicsHeading": "Leitfäden",
+    "topics": {
+      "cultures": {
+        "title": "Kulturen",
+        "blurb": "Sieben Dimensionen, die die meisten interkulturellen Missverständnisse erklären — und wo 18 Kulturräume typischerweise darauf liegen."
+      },
+      "men-women": {
+        "title": "Männer & Frauen",
+        "blurb": "Was die Forschung über Geschlecht und Kommunikation wirklich zeigt — und warum die Unterschiede kleiner und stärker vom Kontext abhängig sind als die Klischees."
+      },
+      "workplace": {
+        "title": "Arbeitsplatz",
+        "blurb": "Feedback, Meetings, Deadlines, E-Mail und Hierarchie: wo sich Teams missverstehen und was dagegen hilft."
+      },
+      "private": {
+        "title": "Privatleben",
+        "blurb": "Partner, Familie, Freunde und neue Bekanntschaften — besonders über Kulturgrenzen und zwischen den Geschlechtern."
+      }
+    },
+    "principlesHeading": "So nutzt du das",
+    "principles": [
+      "Tendenzen, keine Urteile. Jedes Kultur- oder Geschlechtermuster hier beschreibt einen Durchschnitt. Die Person vor dir kann die Ausnahme sein — und ist es oft.",
+      "Die Person schlägt die Gruppe. Was du darüber weißt, wie jemand persönlich kommuniziert, wiegt immer schwerer als Herkunft oder Geschlecht. Der Decoder gewichtet genau so.",
+      "Dein eigener Filter zählt mit. Zu einem Missverständnis gehören zwei. Deine eigene Standard-Lesart zu kennen ist schon die halbe Lösung.",
+      "Nachfragen statt annehmen. Zu jeder Lesart gibt es eine Frage, die du stellen kannst. Eine gute Frage schlägt jedes Modell."
+    ],
+    "dimensionsHeading": "Die sieben Dimensionen hinter der Matrix",
+    "dimensionsIntro": "Alles in diesem Bereich — Leitfäden und Decoder — beruht auf denselben sieben Skalen. Sie sind angelehnt an Edward T. Halls High-/Low-Context-Modell und Erin Meyers Culture Map, ergänzt um emotionale Ausdrucksstärke."
+  },
+  "dimensions": {
+    "context": {
+      "label": "Kontext",
+      "left": "Explizit",
+      "right": "Implizit",
+      "description": "Steckt die Botschaft in den Worten (sag, was du meinst) oder drumherum (zwischen den Zeilen lesen)?"
+    },
+    "feedback": {
+      "label": "Kritik",
+      "left": "Direkt",
+      "right": "Indirekt",
+      "description": "Wird Kritik klar ausgesprochen oder abgemildert, verpackt und angedeutet?"
+    },
+    "confront": {
+      "label": "Widerspruch",
+      "left": "Offene Debatte",
+      "right": "Konfliktvermeidend",
+      "description": "Ist offener Widerspruch gesund oder eine Gefahr für die Beziehung?"
+    },
+    "trust": {
+      "label": "Vertrauen",
+      "left": "Aufgabenbasiert",
+      "right": "Beziehungsbasiert",
+      "description": "Entsteht Vertrauen durch verlässliche Arbeit oder durch gemeinsam verbrachte Zeit?"
+    },
+    "hierarchy": {
+      "label": "Hierarchie",
+      "left": "Egalitär",
+      "right": "Hierarchisch",
+      "description": "Darf man der Chefin offen widersprechen, oder bestimmt der Status, was gesagt werden kann?"
+    },
+    "time": {
+      "label": "Zeit",
+      "left": "Linear",
+      "right": "Flexibel",
+      "description": "Ist ein Plan oder eine Deadline eine Zusage oder ein Ausgangspunkt?"
+    },
+    "expressive": {
+      "label": "Emotion",
+      "left": "Zurückhaltend",
+      "right": "Expressiv",
+      "description": "Werden Gefühle offen gezeigt oder unter der Oberfläche gehalten?"
+    }
+  },
+  "cultures": {
+    "de": "Deutschsprachig (DE, AT, CH)",
+    "nl": "Niederländisch",
+    "nordic": "Skandinavisch / Nordisch",
+    "uk": "Britisch",
+    "us": "US-amerikanisch",
+    "anz": "Australisch / Neuseeländisch",
+    "fr": "Französisch",
+    "southEu": "Südeuropäisch (IT, ES, PT, GR)",
+    "eastEu": "Osteuropäisch / Russisch",
+    "israel": "Israelisch",
+    "turkey": "Türkisch",
+    "arab": "Arabisch / Golfstaaten",
+    "india": "Indisch / Südasiatisch",
+    "china": "Chinesisch",
+    "japan": "Japanisch",
+    "korea": "Koreanisch",
+    "latam": "Lateinamerikanisch",
+    "africa": "Subsahara-Afrika (grob)"
+  },
+  "topicPage": {
+    "backToHub": "Alles zu Verstehen",
+    "tryDecoder": "Im Decoder ausprobieren",
+    "otherGuides": "Weitere Leitfäden",
+    "matrixHeading": "Die Kultur-Matrix",
+    "matrixIntro": "Wo die typische Arbeitsnorm jedes Kulturraums auf den sieben Dimensionen liegt. Links der Mittellinie = linker Pol, rechts = rechter Pol.",
+    "matrixNote": "Ungefähre Positionen auf Basis veröffentlichter interkultureller Forschung (Hall, Hofstede, Meyer, GLOBE). Kulturräume verdecken große interne Unterschiede — Bayern ist nicht Berlin, Shanghai nicht Chengdu — und Einzelpersonen unterscheiden sich weit stärker als Länder."
+  },
+  "topics": {
+    "cultures": {
+      "metaTitle": "Kulturen verstehen — 7 Dimensionen interkultureller Kommunikation | Colevitate",
+      "metaDescription": "Warum der niederländische Kollege unhöflich und die japanische Kollegin vage wirkt: sieben Dimensionen der Kommunikation und wo 18 Kulturräume darauf liegen.",
+      "eyebrow": "Leitfaden · Kulturen",
+      "title": "Warum Kultur verändert, was Worte bedeuten",
+      "intro": "Jede Kultur bringt ihren Menschen einen Standard-Code bei: wie viel man ausspricht, wie man kritisiert, wann man widerspricht, wie schnell man vertraut. Innerhalb dieses Codes fühlt sich Kommunikation mühelos an. Zwischen den Codes kommen gut gemeinte Sätze falsch an — die direkte Person wirkt unhöflich, die höfliche ausweichend, und beide halten die andere für das Problem.",
+      "sections": [
+        {
+          "heading": "Explizit oder implizit",
+          "body": "In Low-Context-Kulturen (Deutschland, Niederlande, USA, Skandinavien) ist gute Kommunikation präzise und wörtlich: Wenn es wichtig ist, sag es — und schreib es auf. In High-Context-Kulturen (Japan, China, Korea, große Teile der arabischen Welt, Indien) ist gute Kommunikation vielschichtig: Vom Zuhörer wird erwartet, Tonfall, Timing, Anwesende und das Ungesagte mitzulesen.",
+          "bullets": [
+            "Explizite Zuhörer bei impliziten Sprechern: „Warum sagt er es mir nicht einfach?“",
+            "Implizite Zuhörer bei expliziten Sprechern: „Warum erklärt sie das Offensichtliche — hält sie mich für begriffsstutzig?“",
+            "Lösung: Explizite fragen mehr nach und lesen Schweigen als Information; Implizite fügen am Ende einen klaren Satz hinzu: „Meine Antwort ist also nein.“"
+          ]
+        },
+        {
+          "heading": "Kritik: direkt oder abgefedert",
+          "body": "Diese Skala verläuft nicht immer parallel zur ersten. US-Amerikaner sind sehr explizit, verpacken Kritik aber in Lob. Franzosen sind eher implizit, kritisieren aber unverblümt. Briten sind berühmt für Understatement: „with the greatest respect“ und „quite good“ bedeuten selten, was ein wörtlicher Zuhörer denkt.",
+          "bullets": [
+            "„Nicht schlecht“ von einem Deutschen ist ordentliches Lob; von einer Amerikanerin ist es lauwarm.",
+            "„Vielleicht könntest du überlegen …“ von einer britischen oder japanischen Führungskraft ist oft eine Anweisung.",
+            "„Das ist falsch“ vom niederländischen Kollegen betrifft meist die Arbeit, nicht dich."
+          ]
+        },
+        {
+          "heading": "Widerspruch und Debatte",
+          "body": "In Frankreich, Israel, Deutschland und den Niederlanden ist hartes Argumentieren ein Zeichen von Engagement und Respekt; die Beziehung hält das aus. In Japan, China, Thailand oder Indonesien schadet offener Widerspruch — besonders vor anderen — dem Gesicht und der Beziehung. Viele Kulturen liegen dazwischen und widersprechen unter vier Augen, nicht im Meeting.",
+          "bullets": [
+            "Wenn jemand im Meeting still wird: Such danach das Einzelgespräch.",
+            "Wenn dich jemand hart hinterfragt: Das ist vermutlich nicht persönlich. Antworte mit Argumenten, nicht mit Kränkung."
+          ]
+        },
+        {
+          "heading": "Vertrauen, Hierarchie und Zeit",
+          "body": "Aufgabenorientierte Kulturen bauen Vertrauen durch verlässliche Arbeit auf, beziehungsorientierte durch Essen, Zeit und persönliche Nähe — Geschäfte vor der Beziehung wirken dort kalt. Hierarchische Kulturen lenken Widerspruch über den Status, daher kann das „Ja“ einer Mitarbeiterin „Ich habe dich gehört“ bedeuten. Und eine Deadline kann ein Versprechen sein (linear) oder eine Absicht (flexibel).",
+          "bullets": [
+            "„Ja“ von jemandem unter dir in einer hierarchischen Norm: Klär, was konkret bis wann passiert.",
+            "Beziehungsorientierte Kulturen: Investier in das Abendessen. Es ist die Arbeit.",
+            "Flexible Zeitkulturen: Vereinbart ausdrücklich, was „dringend“ heißt."
+          ]
+        }
+      ]
+    },
+    "men-women": {
+      "metaTitle": "Männer & Frauen — Was die Forschung über Geschlecht und Kommunikation sagt | Colevitate",
+      "metaDescription": "Geschlechterunterschiede in der Kommunikation sind real, aber klein und hängen vor allem vom Kontext ab und davon, wie Gesagtes ankommt. Was das für Job und Beziehung bedeutet.",
+      "eyebrow": "Leitfaden · Männer & Frauen",
+      "title": "Männer, Frauen und die Lücke, die kleiner ist als gedacht",
+      "intro": "Populärpsychologie behauptet, Männer und Frauen sprächen verschiedene Sprachen. Die Forschung sagt etwas Nützlicheres: Bei den meisten Kommunikationsmerkmalen überlappen Männer und Frauen weit mehr, als sie sich unterscheiden (die durchschnittlichen Effekte sind meist klein), und Unterschiede wachsen oder schrumpfen mit der Situation — Status, Rolle, Kultur und wer zuhört. Die Missverständnisse sind echt; die Erklärungen meist falsch.",
+      "sections": [
+        {
+          "heading": "Was sich bestätigt",
+          "body": "Ein paar Durchschnittsmuster tauchen immer wieder auf — alle klein und alle stark vom Kontext geprägt:",
+          "bullets": [
+            "Frauen verwenden im Schnitt in manchen Situationen etwas mehr Abschwächungen und vorsichtige Formulierungen — das verschwindet aber weitgehend, wenn sie die ranghöhere Rolle haben.",
+            "Frauen berichten und zeigen im Schnitt mehr emotionale Ausdrucksstärke; Männer werden häufiger dazu erzogen, Belastung herunterzuspielen.",
+            "In Paarkonflikten ist eine „Fordern–Rückzug“-Schleife häufig: Eine Person drängt aufs Reden, die andere zieht sich zurück. Öfter drängt die Frau und der Mann zieht sich zurück — das kippt aber, je nachdem, wessen Thema auf dem Tisch liegt.",
+            "Viele Kulturen bringen Mädchen eher beziehungsstiftendes und Jungen eher statusbetontes Sprechen bei. Wie stark, hängt sehr von der Kultur ab."
+          ]
+        },
+        {
+          "heading": "Was sich nicht bestätigt",
+          "body": "Frauen reden insgesamt nicht mehr als Männer (Studien, die echte Gespräche aufzeichnen, finden fast identische tägliche Wortzahlen). Behauptungen im Stil von „Mars und Venus“ über grundlegend verschiedene Sprachen sind nicht belegt. Und kein Geschlechtermuster sagt dir, was eine bestimmte Person meint.",
+          "bullets": [
+            "Entschlüssle keinen Menschen über sein Geschlecht. Nutze es höchstens als schwachen Hinweis, wenn du sonst nichts weißt."
+          ]
+        },
+        {
+          "heading": "Im Job: oft eine Frage der Wahrnehmung, nicht des Stils",
+          "body": "Einer der stärksten Befunde betrifft nicht, wie Frauen sprechen, sondern wie sie gehört werden. Direkte, bestimmte Aussagen von Frauen werden häufiger als schroff bewertet, daher lernen viele Frauen, abzufedern. Ein abgemilderter Vorschlag einer Kollegin ist also oft eine klare Empfehlung — keine Unsicherheit.",
+          "bullets": [
+            "„Nur ein Gedanke — vielleicht könnten wir …“ von einer Frau in leitender Position: Behandle es als echte Empfehlung.",
+            "Männer, denen man in gemischten Teams sagt, sie seien „zu direkt“, liegen inhaltlich oft nicht falsch — sie brauchen vielleicht mehr Kontext.",
+            "Meetings: Unterbrechungen und das Einheimsen von Ideen sind noch immer ungleich verteilt. Nenn, wer die Idee zuerst hatte."
+          ]
+        },
+        {
+          "heading": "In Beziehungen",
+          "body": "Die meisten Missverständnisse in Paaren laufen über dieselben paar Sätze — „Mir geht’s gut“, „Mach doch, was du willst“, Schweigen — und zwar in beide Richtungen. „Mir geht’s gut“ von jemandem, dem es offensichtlich nicht gut geht, ist bei allen Geschlechtern verbreitet; der Unterschied liegt eher darin, ob die Person gefragt werden möchte (um zu reden) oder erst einmal Ruhe braucht.",
+          "bullets": [
+            "Stell die Meta-Frage: „Willst du jetzt darüber reden oder lieber später?“",
+            "Rückzug ist nicht immer Ablehnung — oft ist es ein Weg, sich zu beruhigen. Vereinbart, wann ihr darauf zurückkommt.",
+            "Aufs Reden drängen ist nicht immer Nörgeln — meist ist es ein Wunsch nach Verbindung."
+          ]
+        }
+      ]
+    },
+    "workplace": {
+      "metaTitle": "Missverständnisse im Job — Feedback, Meetings, Hierarchie | Colevitate",
+      "metaDescription": "Wo sich internationale und gemischte Teams im Job missverstehen — Feedback, Meetings, Deadlines, E-Mail und Hierarchie — und was hilft.",
+      "eyebrow": "Leitfaden · Arbeitsplatz",
+      "title": "Wo sich Teams missverstehen",
+      "intro": "Im Job haben Missverständnisse konkrete Folgen: eine verpasste Deadline, die alle für vereinbart hielten, Feedback, das niemand bemerkt hat, eine Kollegin, die innerlich gekündigt hat. Das meiste lässt sich auf eine Handvoll wiederkehrender Situationen zurückführen.",
+      "sections": [
+        {
+          "heading": "Feedback",
+          "body": "Dieselbe Kritik kann eine Routineanmerkung oder ein Alarmsignal sein — je nach Code. „Verstärker“ (USA, oft UK) steigern positive Worte und mildern negative ab; „Abschwächer“ (Niederlande, Deutschland, Israel, Frankreich) machen es umgekehrt.",
+          "bullets": [
+            "Bevor du jemandem mit anderem Code Feedback gibst: Frag, wie die Person es am liebsten bekommt.",
+            "Wenn du Feedback bekommst, frag nach dem einen Punkt: „Wenn du eine Sache ändern könntest, welche wäre es?“",
+            "In indirekten Kulturen negatives Feedback immer unter vier Augen geben, nie vor anderen."
+          ]
+        },
+        {
+          "heading": "Meetings und Entscheidungen",
+          "body": "Ist das Meeting der Ort der Entscheidung — oder wird dort nur abgesegnet, was vorher auf dem Flur vereinbart wurde? Bedeutet Schweigen Zustimmung? Beendet die Meinung der Chefin die Debatte oder eröffnet sie sie?",
+          "bullets": [
+            "Beende jedes Meeting mit: wer macht was bis wann — laut ausgesprochen und schriftlich festgehalten.",
+            "Hol Meinungen ein, bevor die ranghöchste Person spricht.",
+            "Bitte stillere Kolleginnen und Kollegen danach schriftlich um Input."
+          ]
+        },
+        {
+          "heading": "„Ja“ und Deadlines",
+          "body": "„Ja“ kann Zustimmung, Zusage oder nur „Ich habe dich gehört“ bedeuten. „Bis Freitag“ kann ein Versprechen oder ein Vorsatz sein. Wenn die Codes auseinandergehen, sind am Freitag beide enttäuscht.",
+          "bullets": [
+            "Ersetze „Kannst du das machen?“ durch „Was brauchst du, um das bis Freitag zu schaffen?“",
+            "Vereinbare einen Zwischenstand zur Halbzeit, nicht nur zur Deadline."
+          ]
+        },
+        {
+          "heading": "E-Mail und Chat",
+          "body": "Geschriebenes verliert den Tonfall, also liest es jede Person durch ihren eigenen Code. Kurze Antworten wirken auf beziehungsorientierte Leser schroff; lange, herzliche Einleitungen auf aufgabenorientierte wie Füllmaterial.",
+          "bullets": [
+            "Wenn eine Nachricht unhöflich wirkt: Lies sie noch einmal mit der Annahme eines direkten Codes. Meist liest sie sich dann normal.",
+            "Wenn es emotional wichtig ist: Ruf an, statt zu schreiben."
+          ]
+        }
+      ]
+    },
+    "private": {
+      "metaTitle": "Partner, Familie und Freunde über Kulturgrenzen hinweg verstehen | Colevitate",
+      "metaDescription": "Einladungen, Absagen, „Mir geht’s gut“ und Schweigen: wie private Botschaften zwischen Kulturen und in Partnerschaften falsch ankommen — und wie du nachfragst.",
+      "eyebrow": "Leitfaden · Privatleben",
+      "title": "Partner, Familie, Freunde",
+      "intro": "Im Privatleben sitzen die Codes tiefer, weil wir sie am Familientisch gelernt haben. Ein interkulturelles Paar, eine neue Freundin aus dem Ausland, das erste Treffen mit den Schwiegereltern — jedes Mal treffen zwei Sätze ungeschriebener Regeln über Gastfreundschaft, Zuneigung, Streit und Zeit aufeinander.",
+      "sections": [
+        {
+          "heading": "Einladungen und Absagen",
+          "body": "„Wir sollten mal einen Kaffee trinken gehen“ ist an manchen Orten ein echter Plan und an anderen eine freundliche Verabschiedung. In vielen Kulturen (China, Iran, arabische Welt, Teile Südasiens) lehnt man Essen oder Hilfe beim ersten Angebot aus Höflichkeit ab und erwartet, dass man erneut gefragt wird.",
+          "bullets": [
+            "Mach vage Einladungen konkret: „Wie wäre es mit Donnerstag?“ Dann merkst du schnell, welche Art es war.",
+            "Biete als Gastgeber Menschen aus Kulturen mit Höflichkeitsablehnung zweimal an. Als Gast: Nimm das zweite Angebot an."
+          ]
+        },
+        {
+          "heading": "Streit zu Hause",
+          "body": "Manche Familien streiten laut und versöhnen sich schnell; andere werden nie laut, und ein kühles Abendessen sagt alles. Keins davon ist per se gesünder, aber beides unwissentlich zu mischen tut weh.",
+          "bullets": [
+            "Klärt, was eine laute Stimme bei euch zu Hause bedeutet.",
+            "Vereinbart ein Signal für „Ich brauche eine Pause, aber ich komme zurück“."
+          ]
+        },
+        {
+          "heading": "Zuneigung und Fürsorge",
+          "body": "Fürsorge kann man sagen („Ich liebe dich“), zeigen (kochen, Dinge reparieren) oder schenken (Zeit, Geschenke). Partner drücken Fürsorge oft im Code ihrer Familie aus — und übersehen sie im Code des anderen.",
+          "bullets": [
+            "Frag: „Wann fühlst du dich von mir am meisten umsorgt?“ Die Antwort überrascht oft."
+          ]
+        },
+        {
+          "heading": "Familie und Hierarchie",
+          "body": "In hierarchischen Familienkulturen prägen Eltern und Ältere große Entscheidungen mit, und „Ich muss mit meiner Familie sprechen“ ist keine Ausrede. In egalitären Kulturen kann das nach fehlender Eigenständigkeit klingen.",
+          "bullets": [
+            "Sieh die Rücksprache mit der Familie als Teil des Entscheidungsprozesses, nicht als Hinhaltetaktik."
+          ]
+        }
+      ]
+    }
+  },
+  "decoder": {
+    "eyebrow": "Verstehen · Tool",
+    "title": "Was hat er oder sie wirklich gemeint?",
+    "intro": "Sag dem Decoder, was gesagt wurde, wer es gesagt hat und wie. Er gewichtet Kultur, Geschlecht, Situation und — wenn du sie kennst — den persönlichen Stil der Person und ordnet dann die wahrscheinlichsten Bedeutungen. Das ist ein Ausgangspunkt für eine bessere Frage, kein Urteil.",
+    "said": {
+      "title": "Was wurde gesagt?",
+      "placeholder": "Tippe oder füge es ein, z. B. „Interessante Idee.“",
+      "detected": "Beste Übereinstimmung",
+      "noMatch": "Keine klare Übereinstimmung — wähl unten die passendste aus.",
+      "orPick": "Oder wähl einen typischen Satz"
+    },
+    "groups": {
+      "yesNo": "Ja, nein, vielleicht",
+      "feedback": "Feedback & Lob",
+      "feelings": "Gefühle",
+      "plans": "Pläne & Einladungen"
+    },
+    "who": {
+      "title": "Wer hat es gesagt?",
+      "setting": "Situation",
+      "work": "Beruflich",
+      "private": "Privat",
+      "relation": "Die Person ist …",
+      "relations": {
+        "senior": "über mir (Chef/in)",
+        "peer": "auf Augenhöhe",
+        "junior": "unter mir (berichtet an mich)",
+        "client": "Kunde / Partnerfirma",
+        "partner": "mein/e Partner/in",
+        "family": "Familie",
+        "friend": "befreundet",
+        "newContact": "gerade kennengelernt"
+      },
+      "background": "Kultureller Hintergrund der Person",
+      "unknownBackground": "Unklar / gemischt",
+      "gender": "Geschlecht der Person",
+      "genders": {
+        "woman": "Frau",
+        "man": "Mann",
+        "unspecified": "Weglassen"
+      },
+      "genderNote": "Geschlecht hat hier bewusst wenig Gewicht — die Forschung zeigt nur kleine Durchschnittsunterschiede.",
+      "style": {
+        "title": "Wie wirkt die Person? (optional, zählt am meisten)",
+        "unknown": "?"
+      },
+      "axes": {
+        "energy": {
+          "left": "Zurückhaltend",
+          "right": "Offen"
+        },
+        "structure": {
+          "left": "Spontan",
+          "right": "Planend"
+        },
+        "people": {
+          "left": "Sache zuerst",
+          "right": "Mensch zuerst"
+        },
+        "novelty": {
+          "left": "Traditionell",
+          "right": "Neugierig"
+        }
+      }
+    },
+    "how": {
+      "title": "Wie wurde es gesagt?",
+      "cues": {
+        "public": "Vor anderen",
+        "written": "Schriftlich",
+        "curt": "Kurz / knapp",
+        "delayed": "Nach langem Warten",
+        "repeated": "Nicht zum ersten Mal",
+        "warm": "Herzlich / lächelnd"
+      }
+    },
+    "you": {
+      "title": "Über dich (für deinen blinden Fleck)",
+      "background": "Dein kultureller Hintergrund",
+      "useProfile": "Mein Colevitate-Profil verwenden",
+      "profileHint": "Dein kombiniertes Profil zeigt, wo deine eigene Lesart danebenliegen könnte.",
+      "noProfile": "Mach ein paar Quiz, um deinen eigenen Stil einzubeziehen.",
+      "takeQuiz": "Quiz starten"
+    },
+    "result": {
+      "heading": "Wahrscheinlichste Bedeutungen",
+      "empty": "Tippe ein, was gesagt wurde, oder wähl einen Satz, um die Lesarten zu sehen.",
+      "confidence": {
+        "low": "Geringe Sicherheit — ergänze, wer es war und wie es gesagt wurde",
+        "medium": "Mittlere Sicherheit",
+        "high": "Höhere Sicherheit"
+      },
+      "ask": "Zum Nachfragen",
+      "respond": "So reagierst du",
+      "why": "Warum diese Lesart vorne liegt",
+      "noDrivers": "Vor allem der Satz selbst — mit mehr Kontext wird die Lesart schärfer.",
+      "filterTitle": "Achtung, eigener Filter",
+      "filterBody": "In deinem eigenen Code würde das am ehesten bedeuten: „{own}“. Von dieser Person ist „{their}“ wahrscheinlicher.",
+      "disclaimer": "Die Lesarten sind Wahrscheinlichkeiten auf Basis durchschnittlicher Tendenzen. Menschen sind verschieden — frag immer bei der Person nach."
+    },
+    "drivers": {
+      "source": {
+        "culture": "Ihr Hintergrund",
+        "individual": "Ihr persönlicher Stil",
+        "gender": "Kleine Geschlechtertendenz"
+      },
+      "feature": {
+        "work": "Beruflicher Kontext",
+        "speakerSenior": "Die Person steht über dir",
+        "speakerJunior": "Die Person berichtet an dich",
+        "client": "Kundenbeziehung",
+        "partner": "Zwischen Partnern",
+        "family": "Familie",
+        "friend": "Freundschaft",
+        "newContact": "Ihr kennt euch gerade erst",
+        "public": "Vor anderen gesagt",
+        "written": "Geschrieben, nicht gesprochen",
+        "curt": "Kurz und knapp",
+        "delayed": "Kam nach langem Warten",
+        "repeated": "Nicht zum ersten Mal",
+        "warm": "Herzlich gesagt",
+        "juniorDeference": "Respekt vor deiner Rolle",
+        "woman": "Kleine Geschlechtertendenz",
+        "man": "Kleine Geschlechtertendenz",
+        "womanAtWork": "Direkte Aussagen von Frauen werden im Job oft härter bewertet, deshalb werden sie abgefedert"
+      }
+    },
+    "phrases": {
+      "yes": {
+        "label": "„Ja.“ / „Klar.“",
+        "readings": {
+          "commit": {
+            "title": "Ja — einverstanden und zugesagt",
+            "meaning": "Die Person stimmt zu und will es wie besprochen umsetzen.",
+            "ask": "Super — bis wann planst du das?",
+            "respond": "Nimm es wörtlich und halte die Deadline schriftlich fest."
+          },
+          "heard": {
+            "title": "„Ich habe dich gehört“ — nicht unbedingt Zustimmung",
+            "meaning": "In hierarchischen oder High-Context-Situationen bestätigt „Ja“ oft nur die Bitte, nicht das Ergebnis.",
+            "ask": "Was könnte es schwierig machen, das bis dahin zu schaffen?",
+            "respond": "Stell offene Fragen unter vier Augen und vereinbare einen Zwischenstand."
+          },
+          "cantSayNo": {
+            "title": "Ja, aber Nein-Sagen fällt schwer",
+            "meaning": "Die Person will helfen oder die Beziehung schützen, auch wenn es vielleicht nicht machbar ist.",
+            "ask": "Wenn dafür etwas anderes warten müsste — was wäre das?",
+            "respond": "Mach Nachverhandeln leicht: Biete eine echte Alternative an."
+          }
+        }
+      },
+      "thinkAboutIt": {
+        "label": "„Ich denke darüber nach.“",
+        "readings": {
+          "seriously": {
+            "title": "Wird ernsthaft geprüft",
+            "meaning": "Eine echte Bedenkzeit; die Person meldet sich mit einer Antwort.",
+            "ask": "Wann passt es, dass ich nochmal nachfrage?",
+            "respond": "Lass Raum und vereinbare einen konkreten Termin."
+          },
+          "softNo": {
+            "title": "Ein höfliches Nein",
+            "meaning": "Eine Art, abzulehnen, ohne Nein zu sagen.",
+            "ask": "Gibt es etwas, das es für dich zu einem klaren Ja machen würde?",
+            "respond": "Nicht drängen. Tür offen lassen, aber nicht damit rechnen."
+          },
+          "needsOthers": {
+            "title": "Muss erst mit jemandem sprechen",
+            "meaning": "Die Entscheidung liegt nicht allein bei der Person — Chef, Partner oder Familie reden mit.",
+            "ask": "Wer sollte bei dieser Entscheidung noch dabei sein?",
+            "respond": "Gib Material zum Weitergeben oder biete an, die anderen auch zu treffen."
+          }
+        }
+      },
+      "maybe": {
+        "label": "„Vielleicht.“ / „Mal sehen.“",
+        "readings": {
+          "undecided": {
+            "title": "Offen — wirklich unentschieden",
+            "meaning": "Noch nicht entschieden, in beide Richtungen offen.",
+            "ask": "Was würde dir bei der Entscheidung helfen?",
+            "respond": "Liefere, was fehlt, und setzt einen Termin."
+          },
+          "politeNo": {
+            "title": "Ein abgefedertes Nein",
+            "meaning": "Eine gesichtswahrende Art, Nein zu sagen.",
+            "ask": "Wäre es einfacher, wenn wir das erstmal ruhen lassen?",
+            "respond": "Biete einen leichten Ausweg an, ohne ein direktes Nein zu erzwingen."
+          },
+          "lowPriority": {
+            "title": "Gerade keine Priorität",
+            "meaning": "Kein Nein, aber anderes geht vor.",
+            "ask": "Ist es gerade ungünstig — soll ich später nochmal kommen?",
+            "respond": "Frag, wann es passt, oder mach das Ja leichter."
+          }
+        }
+      },
+      "difficult": {
+        "label": "„Das könnte schwierig werden.“",
+        "readings": {
+          "obstacle": {
+            "title": "Ein echtes Hindernis",
+            "meaning": "Wörtlich eine Herausforderung — die Person will eine Lösung finden.",
+            "ask": "Was ist der schwierigste Teil?",
+            "respond": "Gemeinsam lösen."
+          },
+          "no": {
+            "title": "Das wird nichts",
+            "meaning": "In vielen High-Context-Codes die höfliche Form von „Nein“.",
+            "ask": "Was würdest du an meiner Stelle stattdessen tun?",
+            "respond": "Such nach einer Alternative, statt auf ein Ja zu drängen."
+          },
+          "resources": {
+            "title": "Möglich — mit mehr Zeit oder Hilfe",
+            "meaning": "Machbar, wenn sich etwas ändert: Zeit, Budget, Leute.",
+            "ask": "Was bräuchtest du, damit es klappt?",
+            "respond": "Verhandle die Bedingungen, nicht das Ja oder Nein."
+          }
+        }
+      },
+      "youDecide": {
+        "label": "„Mir egal — entscheide du.“",
+        "readings": {
+          "open": {
+            "title": "Wirklich alles recht",
+            "meaning": "Keine starke Vorliebe.",
+            "ask": "Gut — gibt es ein klares No-Go?",
+            "respond": "Entscheide und sag, dass man es leicht ändern kann."
+          },
+          "hints": {
+            "title": "Hat eine Vorliebe und hofft, dass du sie bemerkst",
+            "meaning": "Die Person möchte lieber, dass du ihre Andeutungen verstehst, als fragen zu müssen.",
+            "ask": "Wenn du wählen müsstest — was würdest du nehmen?",
+            "respond": "Biete zwei konkrete Optionen an und achte auf die Reaktion."
+          },
+          "deferring": {
+            "title": "Überlässt es dir aus Respekt",
+            "meaning": "Aus Respekt vor deiner Rolle, deinem Alter oder deiner Position.",
+            "ask": "Deine Meinung ist mir wirklich wichtig — was wäre dir lieber?",
+            "respond": "Frag ausdrücklich und unter vier Augen; zeig, dass ihre Sicht etwas ändert."
+          }
+        }
+      },
+      "noNeed": {
+        "label": "„Nein danke, nicht nötig.“",
+        "readings": {
+          "realNo": {
+            "title": "Nein heißt nein",
+            "meaning": "Die Person braucht oder will es wirklich nicht.",
+            "ask": "",
+            "respond": "Akzeptier es. Nochmal anbieten kann aufdringlich wirken."
+          },
+          "ritual": {
+            "title": "Höfliche Ablehnung — biete nochmal an",
+            "meaning": "In vielen Kulturen lehnt man das erste Angebot aus Höflichkeit ab und erwartet ein zweites.",
+            "ask": "Bist du sicher? Ich mache das wirklich gern.",
+            "respond": "Biete ein zweites Mal herzlich an. Bleibt es beim Nein, akzeptier es."
+          },
+          "uncomfortable": {
+            "title": "Annehmen ist unangenehm",
+            "meaning": "Die Person würde gern, will aber nichts schuldig sein oder sich nicht bloßstellen.",
+            "ask": "Das macht mir wirklich keine Mühe — hilft es dir?",
+            "respond": "Mach es klein und leicht annehmbar, ohne Gegenleistung."
+          }
+        }
+      },
+      "interesting": {
+        "label": "„Interessant.“",
+        "readings": {
+          "curious": {
+            "title": "Wirklich interessiert",
+            "meaning": "Die Person findet es lohnend, weiterzudenken.",
+            "ask": "Welcher Teil interessiert dich am meisten?",
+            "respond": "Geh tiefer rein."
+          },
+          "politeNo": {
+            "title": "Höflicher Widerspruch",
+            "meaning": "Die Person ist nicht einverstanden, sagt es aber nicht direkt.",
+            "ask": "Welche Bedenken hättest du dabei?",
+            "respond": "Lade ausdrücklich zu Kritik ein — unter vier Augen, falls andere dabei waren."
+          },
+          "needTime": {
+            "title": "Braucht Zeit oder mehr Infos",
+            "meaning": "Offen, aber noch nicht bereit für ein Urteil.",
+            "ask": "Was müsstest du noch wissen, um zu entscheiden?",
+            "respond": "Schick Details und vereinbare ein Follow-up."
+          }
+        }
+      },
+      "notBad": {
+        "label": "„Nicht schlecht.“ / „Ganz gut.“",
+        "readings": {
+          "praise": {
+            "title": "Echtes Lob",
+            "meaning": "In zurückhaltenden Codes ist das ein starkes Kompliment.",
+            "ask": "",
+            "respond": "Nimm das Kompliment an."
+          },
+          "lukewarm": {
+            "title": "Lauwarm",
+            "meaning": "In begeisterten Codes heißt alles unter „großartig“: mittelmäßig.",
+            "ask": "Was würde es großartig machen?",
+            "respond": "Frag, was fehlt."
+          },
+          "needsWork": {
+            "title": "Abgefederte Kritik",
+            "meaning": "Die Person sieht Probleme, will aber freundlich sein.",
+            "ask": "Wenn du eine Sache ändern könntest, welche wäre es?",
+            "respond": "Frag nach der konkreten Verbesserung."
+          }
+        }
+      },
+      "suggestion": {
+        "label": "„Nur ein Gedanke — vielleicht könntest du …“",
+        "readings": {
+          "optional": {
+            "title": "Eine echte, optionale Idee",
+            "meaning": "Kannst du nehmen oder lassen.",
+            "ask": "",
+            "respond": "Überleg es dir; du entscheidest frei."
+          },
+          "instruction": {
+            "title": "Eine abgefederte Anweisung",
+            "meaning": "Eine Empfehlung, deren Umsetzung erwartet wird.",
+            "ask": "Soll ich das als die Richtung verstehen?",
+            "respond": "Setz es um oder erklär klar, warum nicht."
+          },
+          "criticism": {
+            "title": "Kritik an deinem Vorgehen",
+            "meaning": "Die Person hält den aktuellen Weg für falsch.",
+            "ask": "Funktioniert an meinem bisherigen Ansatz etwas nicht für dich?",
+            "respond": "Frag direkt nach dem Problem."
+          }
+        }
+      },
+      "whyQuestion": {
+        "label": "„Warum hast du das so gemacht?“",
+        "readings": {
+          "curious": {
+            "title": "Einfache Neugier",
+            "meaning": "Die Person will deine Überlegung verstehen.",
+            "ask": "",
+            "respond": "Erklär deinen Gedankengang."
+          },
+          "challenge": {
+            "title": "Einladung zur Debatte",
+            "meaning": "In Debattenkulturen werden Ideen durch Hinterfragen geprüft — kein Angriff.",
+            "ask": "",
+            "respond": "Argumentiere dagegen. Es ist nicht persönlich."
+          },
+          "reproach": {
+            "title": "Ein Vorwurf",
+            "meaning": "Die Person hält es für falsch.",
+            "ask": "Hättest du es anders gemacht?",
+            "respond": "Anerkennen, fragen, was erwartet war, nächste Schritte vereinbaren."
+          }
+        }
+      },
+      "greatJob": {
+        "label": "„Super gemacht!“",
+        "readings": {
+          "genuine": {
+            "title": "Echtes, starkes Lob",
+            "meaning": "Von zurückhaltenden Menschen selten und viel wert.",
+            "ask": "",
+            "respond": "Freu dich — und merk dir, was geschätzt wurde."
+          },
+          "routine": {
+            "title": "Freundliche Routine",
+            "meaning": "Normale Ermutigung in expressiven Codes — nett, aber nicht außergewöhnlich.",
+            "ask": "Was ist dir besonders aufgefallen?",
+            "respond": "Frag nach Details, wenn du eine echte Einschätzung brauchst."
+          },
+          "setup": {
+            "title": "Anlauf vor einem „Aber“",
+            "meaning": "Erst das Positive, dann die Kritik.",
+            "ask": "Gibt es etwas, das du verbessern würdest?",
+            "respond": "Achte auf das „Aber“ — das ist die Botschaft."
+          }
+        }
+      },
+      "blunt": {
+        "label": "„Das ist falsch.“",
+        "readings": {
+          "aboutWork": {
+            "title": "Es geht um die Sache, nicht um dich",
+            "meaning": "In direkten Codes ist klare Kritik normal und respektvoll.",
+            "ask": "Wie sollte es aussehen?",
+            "respond": "Korrigier den Inhalt; nimm es nicht persönlich."
+          },
+          "serious": {
+            "title": "Ein ernstes Problem",
+            "meaning": "Von jemandem, der sonst abfedert, signalisiert Direktheit etwas Großes.",
+            "ask": "Wie ernst ist das für dich?",
+            "respond": "Nimm es ernst und sprich bald unter vier Augen."
+          },
+          "angry": {
+            "title": "Frustriert oder wütend",
+            "meaning": "Emotional, nicht nur sachlich.",
+            "ask": "Das scheint dich wirklich zu ärgern — was ist passiert?",
+            "respond": "Erst auf das Gefühl eingehen, dann auf die Sache."
+          }
+        }
+      },
+      "fine": {
+        "label": "„Mir geht’s gut.“ / „Passt schon.“",
+        "readings": {
+          "reallyFine": {
+            "title": "Wirklich alles gut",
+            "meaning": "Nichts ist los.",
+            "ask": "",
+            "respond": "Glaub es."
+          },
+          "wantsAsked": {
+            "title": "Nicht gut — möchte gefragt werden",
+            "meaning": "Etwas stimmt nicht, und die Person möchte, dass du es bemerkst und nochmal fragst.",
+            "ask": "Du wirkst nicht so, als ginge es dir gut — ich höre gern zu, wenn du magst.",
+            "respond": "Frag noch einmal sanft nach und nimm dir Zeit."
+          },
+          "dropIt": {
+            "title": "Nicht gut — will es jetzt ruhen lassen",
+            "meaning": "Etwas ist los, aber nicht hier und nicht jetzt.",
+            "ask": "Okay. Wollen wir später reden?",
+            "respond": "Lass Raum und komm später darauf zurück."
+          }
+        }
+      },
+      "silence": {
+        "label": "Schweigen / keine Antwort",
+        "readings": {
+          "thinking": {
+            "title": "Denkt nach",
+            "meaning": "In zurückhaltenden Codes ist Schweigen normal und respektvoll.",
+            "ask": "",
+            "respond": "Warte — füll die Stille nicht."
+          },
+          "disagreement": {
+            "title": "Stiller Widerspruch oder Kränkung",
+            "meaning": "Die Person ist anderer Meinung oder verletzt, sagt es aber nicht.",
+            "ask": "Ich habe das Gefühl, ich habe etwas übersehen — stimmt das?",
+            "respond": "Frag unter vier Augen und ohne Druck."
+          },
+          "busy": {
+            "title": "Einfach viel zu tun",
+            "meaning": "Nichts Persönliches — es ist noch nicht oben auf der Liste.",
+            "ask": "",
+            "respond": "Nach angemessener Zeit freundlich erinnern."
+          }
+        }
+      },
+      "whatever": {
+        "label": "„Mach doch, was du willst.“",
+        "readings": {
+          "freedom": {
+            "title": "Wirklich deine Entscheidung",
+            "meaning": "Die Person überlässt es dir gern.",
+            "ask": "",
+            "respond": "Entscheide und bedank dich."
+          },
+          "frustrated": {
+            "title": "Frustriert — gibt auf",
+            "meaning": "Die Person fühlt sich nicht gehört und hat aufgehört zu argumentieren.",
+            "ask": "Klingt, als hätte ich dir nicht richtig zugehört — können wir nochmal einen Schritt zurück?",
+            "respond": "Stopp — frag, was ihr wichtig ist."
+          },
+          "testing": {
+            "title": "Prüft, ob du sie einbeziehst",
+            "meaning": "Die Person will sehen, ob du ihre Sicht berücksichtigst.",
+            "ask": "Was wäre dir lieber? Das ist mir wichtig.",
+            "respond": "Zeig, dass ihre Sicht die Entscheidung verändert."
+          }
+        }
+      },
+      "noProblem": {
+        "label": "„Kein Problem.“",
+        "readings": {
+          "trulyFine": {
+            "title": "Wirklich kein Problem",
+            "meaning": "War leicht für die Person.",
+            "ask": "",
+            "respond": "Bedank dich und mach weiter."
+          },
+          "effort": {
+            "title": "War Aufwand — wird vermerkt",
+            "meaning": "In beziehungsorientierten Codes merkt man sich Gefallen und erwartet Gegenseitigkeit.",
+            "ask": "",
+            "respond": "Bedank dich richtig und revanchier dich."
+          },
+          "annoyed": {
+            "title": "Leicht genervt",
+            "meaning": "Es war ein Problem, aber die Person sagt es nicht.",
+            "ask": "War das mehr verlangt, als ich dachte?",
+            "respond": "Erkenn es an und frag nächstes Mal weniger."
+          }
+        }
+      },
+      "sorry": {
+        "label": "„Sorry …“ / „Entschuldigung …“",
+        "readings": {
+          "ritual": {
+            "title": "Höflichkeitsritual",
+            "meaning": "Soziales Schmiermittel, kein Schuldeingeständnis.",
+            "ask": "",
+            "respond": "Lies es nicht als Schuld."
+          },
+          "real": {
+            "title": "Echte Entschuldigung",
+            "meaning": "Die Person übernimmt Verantwortung.",
+            "ask": "",
+            "respond": "Nimm sie an und schließ das Thema ab."
+          },
+          "soften": {
+            "title": "Abgefederter Widerspruch",
+            "meaning": "„Sorry, aber …“ — die eigentliche Botschaft kommt danach.",
+            "ask": "",
+            "respond": "Hör auf das, was nach dem „aber“ kommt."
+          }
+        }
+      },
+      "coffeeSometime": {
+        "label": "„Wir sollten mal einen Kaffee trinken.“",
+        "readings": {
+          "realInvite": {
+            "title": "Eine echte Einladung",
+            "meaning": "Die Person möchte sich treffen.",
+            "ask": "Wie wäre es mit nächstem Donnerstag?",
+            "respond": "Schlag einen konkreten Termin vor."
+          },
+          "politeClosing": {
+            "title": "Eine freundliche Verabschiedung",
+            "meaning": "Herzlich, aber kein Plan.",
+            "ask": "",
+            "respond": "Antworte freundlich; sei nicht gekränkt, wenn nichts folgt."
+          },
+          "followUp": {
+            "title": "Interessiert — erwartet, dass du dich meldest",
+            "meaning": "Die Person möchte es und erwartet, dass du es in die Hand nimmst.",
+            "ask": "Gern — passt dir nächste Woche?",
+            "respond": "Meld dich innerhalb weniger Tage."
+          }
+        }
+      },
+      "busyThisWeek": {
+        "label": "„Diese Woche ist echt stressig.“",
+        "readings": {
+          "literal": {
+            "title": "Wirklich viel los",
+            "meaning": "Schlechtes Timing, kein Nein.",
+            "ask": "Wann passt es besser?",
+            "respond": "Biete einen späteren Termin an."
+          },
+          "notInterested": {
+            "title": "Kein Interesse",
+            "meaning": "Ein sanftes Nein, besonders wenn es sich wiederholt.",
+            "ask": "",
+            "respond": "Mach ein offenes Angebot und überlass es dann der Person."
+          },
+          "notPriority": {
+            "title": "Keine Priorität",
+            "meaning": "Anderes geht vor.",
+            "ask": "Gäbe es eine kleinere Version, die passen würde?",
+            "respond": "Verklein die Bitte oder zeig, warum es wichtig ist."
+          }
+        }
+      },
+      "canWeTalk": {
+        "label": "„Können wir kurz reden?“",
+        "readings": {
+          "routine": {
+            "title": "Routine",
+            "meaning": "Ein normales Abstimmen.",
+            "ask": "Klar — worum geht’s?",
+            "respond": "Entspann dich und frag nach dem Thema."
+          },
+          "problem": {
+            "title": "Etwas Ernstes",
+            "meaning": "Es gibt ein Problem.",
+            "ask": "Natürlich — soll ich etwas vorbereiten?",
+            "respond": "Nimm dir bald Zeit; schieb es nicht auf."
+          },
+          "repair": {
+            "title": "Will etwas klären",
+            "meaning": "Die Person möchte die Luft reinigen oder wieder Nähe herstellen.",
+            "ask": "Ja, gern.",
+            "respond": "Hör zuerst zu."
+          }
+        }
+      }
+    }
+  }
+}

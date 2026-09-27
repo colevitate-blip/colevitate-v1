@@ -8,7 +8,7 @@ import type { CombinationPageContent } from "@/lib/seo/combinationContent";
 function TypeRefCard({ content }: { content: TypePageContent }) {
   return (
     <Link
-      href={`/types/${content.frameworkUrlSlug}/${content.slug}`}
+      href={`/learn/${content.frameworkUrlSlug}/${content.slug}`}
       className="rounded-2xl border p-4 transition-colors hover:bg-muted/50"
     >
       <Badge variant="outline" className="mb-2 rounded-full text-xs">

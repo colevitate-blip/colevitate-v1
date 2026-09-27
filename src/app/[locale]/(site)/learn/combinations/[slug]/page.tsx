@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   if (!content) return {};
 
   const description = content.summary.length > 155 ? `${content.summary.slice(0, 152)}...` : content.summary;
-  const path = `/types/combinations/${content.slug}`;
+  const path = `/learn/combinations/${content.slug}`;
 
   return {
     title: `${content.headline} | Colevitate`,
@@ -44,7 +44,7 @@ export default async function CombinationPage({ params }: { params: Promise<Para
         data={articleJsonLd({
           headline: content.headline,
           description: content.summary,
-          url: `/types/combinations/${content.slug}`,
+          url: `/learn/combinations/${content.slug}`,
         })}
       />
       <CombinationPageTemplate content={content} typeA={typeA} typeB={typeB} />

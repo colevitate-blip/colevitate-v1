@@ -2,23 +2,44 @@
 
 import type {} from "react/canary";
 import { ViewTransition } from "react";
+import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 
 /**
- * Pushes route content on navigation. Rendered from each route group's
- * template.tsx (not its layout.tsx): per the Next.js view-transitions guide,
- * enter/exit only fire when this wrapper itself remounts on every
- * navigation, and layouts persist across navigations by design — a template
- * is the file convention that's guaranteed a fresh key per navigation
- * instead, which is what actually lets the transition activate (verified
- * empirically: zero view-transition animations ever fired while this lived
- * in a layout, even with a hand-rolled `key={pathname}` on the element
- * itself — the remount has to happen at the framework's own template
- * boundary, one level up, not deeper inside a persisting subtree).
+ * Pushes route content on navigation.
  *
- * enter/exit are keyed by transition type (per that same guide's
- * "directional motion" pattern): untagged navigation — burger-menu links
- * included — falls through to the `default` entry and gets the forward
+ * Mounted from src/app/[locale]/template.tsx — one template above BOTH route
+ * groups, plus an explicit `key={pathname}`. Both halves are load-bearing,
+ * and each alone fails in the opposite direction (measured with
+ * document.getAnimations() sampled per rAF across a nav):
+ *
+ *   - One template per route group ((site)/template.tsx and
+ *     (personality)/template.tsx) animated same-group navs over ~22 frames
+ *     but produced ZERO view-transition animations across groups —
+ *     startViewTransition() was never called at all. Crossing groups tears
+ *     down one group's template and mounts the other's, so the two
+ *     ViewTransition elements sit at different tree positions and React
+ *     never forms an exit/enter pair. That hit exactly the burger-menu
+ *     links that leave the personality app for /people, /types and /learn:
+ *     the page hard-swapped instead of pushing.
+ *   - Hoisting to [locale]/template.tsx alone inverted the failure exactly:
+ *     cross-group navs animated, same-group navs got nothing, because Next
+ *     reuses a template whose own segment ([locale]) didn't change.
+ *
+ * `key={pathname}` on a wrapper the framework already keeps above the group
+ * boundary covers both: the key forces the remount Next declines to do for
+ * same-group navs, and the position survives the group change. All six
+ * navigations in the matrix now animate over ~21 frames.
+ *
+ * Because this sits above the group layouts, the header and footer are
+ * inside the moving snapshot and push along with the content — deliberate:
+ * the two groups have visually different chrome (tall floating card vs. slim
+ * bar), and anchoring it would swap one header for the other in a single
+ * frame, which is the pop this is meant to remove.
+ *
+ * enter/exit are keyed by transition type (per the Next.js view-transitions
+ * guide's "directional motion" pattern): untagged navigation — burger-menu
+ * links included — falls through to the `default` entry and gets the forward
  * push. A link that's conceptually a "back" action (a breadcrumb, an in-app
  * back button) can reverse it by passing `transitionTypes={["nav-back"]}`.
  * Real browser/swipe back can't be tagged this way — Next's router doesn't
@@ -27,8 +48,11 @@ import type { ReactNode } from "react";
  * browser behavior without view transitions.
  */
 export function PageTransition({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
+
   return (
     <ViewTransition
+      key={pathname}
       enter={{ "nav-back": "page-enter-back", default: "page-enter-forward" }}
       exit={{ "nav-back": "page-exit-back", default: "page-exit-forward" }}
       default="none"

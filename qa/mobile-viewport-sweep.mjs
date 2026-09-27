@@ -43,9 +43,9 @@ const DEVICE_PROFILES = [
   profile('iPhone 13', 'webkit'),    // 390px, real WebKit
 ];
 
-// One representative route per "shape" — e.g. every /types/mbti/<slug> page
+// One representative route per "shape" — e.g. every /learn/mbti/<slug> page
 // collapses to one, since a layout bug on that template shows up on all of
-// them. Short/static paths (locale root, /types, /people, ...) pass through
+// them. Short/static paths (locale root, /learn, /people, ...) pass through
 // untouched since they only have 0-2 segments.
 function shapeKey(pathname) {
   const segs = pathname.split('/').filter(Boolean);

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { FRAMEWORK_CONTENT, FRAMEWORK_ORDER, getFrameworkContent } from "@/lib/seo/frameworkContent";
+import { getAllCodesForFramework, getTypeContent } from "@/lib/seo/typeContent";
 import { FrameworkPageTemplate } from "@/components/seo/FrameworkPageTemplate";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { articleJsonLd, faqJsonLd } from "@/lib/seo/structuredData";
@@ -30,11 +31,22 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
 }
 
 export default async function FrameworkLearnPage({ params }: { params: Promise<Params> }) {
-  const { framework } = await params;
+  const { locale, framework } = await params;
   const content = getFrameworkContent(framework);
   if (!content) notFound();
 
   const path = `/learn/${content.slug}`;
+
+  // This framework's own type pages, which now sit directly below this one at
+  // /learn/<framework>/<type>. Same derivation the /learn hub uses for its
+  // pills, narrowed to the one framework being explained.
+  const typeLinks = getAllCodesForFramework(content.id)
+    .map((code) => {
+      const typeContent = getTypeContent(content.slug, code.toLowerCase(), locale);
+      if (!typeContent) return null;
+      return { href: `/learn/${content.slug}/${typeContent.slug}`, label: typeContent.name };
+    })
+    .filter((link) => link !== null);
 
   return (
     <>
@@ -51,7 +63,7 @@ export default async function FrameworkLearnPage({ params }: { params: Promise<P
           { question: `How scientifically valid is ${content.label}?`, answer: content.standing.detail },
         ])}
       />
-      <FrameworkPageTemplate content={content} />
+      <FrameworkPageTemplate content={content} typeLinks={typeLinks} />
     </>
   );
 }

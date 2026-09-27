@@ -16,17 +16,18 @@ function isPersonalityPath(pathname: string): boolean {
   const path = rest.join("/");
   // Allow dynamic user share paths under /u/*, team paths under /teams/*,
   // personal-circle paths under /circle/*, pairing invite/report paths
-  // under /pair/*, and the SEO type/combination/people pages under
-  // /types/* and /people/*
+  // under /pair/*, and the SEO framework/type/combination/people pages
+  // under /learn/* and /people/*, and the Understand hub under /understand/*
   if (
     rest[0] === "u" ||
     rest[0] === "teams" ||
     rest[0] === "circle" ||
     rest[0] === "pair" ||
-    rest[0] === "types" ||
+    rest[0] === "learn" ||
     rest[0] === "people" ||
     rest[0] === "for-teams" ||
-    rest[0] === "discover"
+    rest[0] === "discover" ||
+    rest[0] === "understand"
   )
     return true;
   return PERSONALITY_SLUGS.has(path);
